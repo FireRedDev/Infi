@@ -9,7 +9,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 /**
  *
- * @author H. Lackinger
+ * @author INFI-Projektgruppe
  */
 public class HttpServer_JavaSE {
 

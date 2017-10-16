@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  *
- * @author H. Lackinger
+ * @author INFI-Projektgruppe
  */
 public class Repository {
     
