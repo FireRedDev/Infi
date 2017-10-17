@@ -1,0 +1,4 @@
+@font-face { font-family: meine-schrift;
+             src: url('/assets/Dunant-Light.otf') }
+
+body { font-family: meine-schrift }
