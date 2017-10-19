@@ -1,13 +1,15 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-	<h1>
-      Monat
-	</h1>
+    <div class="col-md-4">
+        <h1>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h1>
+    </div>
 
 	<mwl-calendar-month-view
-		[viewDate]="viewDate"
-		[events]="events"
-    [locale]="locale">
+      [viewDate]="viewDate"
+      [events]="events"
+      [locale]="locale"
+      [weekStartsOn]="weekStartsOn"
+      [weekendDays]="weekendDays">
 	</mwl-calendar-month-view>
 </div>
 <!--<h2>Here are some links to help you start: </h2>
