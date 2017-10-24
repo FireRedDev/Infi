@@ -1,0 +1,14 @@
+<div style="text-align:center">
+  <div class="col-md-4">
+    <h1>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h1>
+  </div>
+
+  <mwl-calendar-month-view
+    [viewDate]="viewDate"
+    [events]="events"
+    [locale]="locale"
+    [weekStartsOn]="weekStartsOn"
+    [weekendDays]="weekendDays">
+  </mwl-calendar-month-view>
+</div>
+<a routerLink="/">log out</a>
