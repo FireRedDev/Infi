@@ -2,3 +2,10 @@
              src: url('/assets/Dunant-Light.otf') }
 
 body { font-family: meine-schrift }
+
+.cal-day-cell.cal-today {
+  background-color: red !important; 
+}
+.cal-month-view .cal-header .cal-cell{
+    text-overflow: clip !important;
+}

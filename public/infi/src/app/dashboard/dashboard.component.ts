@@ -21,6 +21,12 @@ export class DashboardComponent implements OnInit {
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
   weekendDays: number[] = [DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
 
+  private _opened: boolean = false;
+
+  private _toggleSidebar() {
+    this._opened = !this._opened;
+  }
+  
   constructor(private user:UserService) { }
 
   ngOnInit() {

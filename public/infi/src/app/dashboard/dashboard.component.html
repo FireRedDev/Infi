@@ -1,8 +1,26 @@
 <div style="text-align:center">
+     <ng-sidebar-container>
+
+      <ng-sidebar [(opened)]="_opened"
+         mode="push"
+        autoCollapseWidth=500>
+        
+        <p>Sidebar contents</p>
+        <p>Sidebar contents</p>
+        <p>Sidebar contents</p>
+        <p>Sidebar contents</p>
+        <p>Sidebar contents</p>
+
+      </ng-sidebar>
+
+      <div ng-sidebar-content>
+        <button (click)="_toggleSidebar()">Toggle sidebar</button>
+      </div>
+
+    </ng-sidebar-container>
   <div class="col-md-4">
     <h1>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h1>
   </div>
-
   <mwl-calendar-month-view
     [viewDate]="viewDate"
     [events]="events"

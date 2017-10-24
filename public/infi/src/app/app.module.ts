@@ -13,6 +13,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
 import { UserService } from './user.service';
 import {AuthguardGuard} from "./authguard.guard";
+import { SidebarModule } from 'ng-sidebar';
 
 const appRoutes:Routes = [
   {
@@ -39,7 +40,8 @@ const appRoutes:Routes = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    CalendarModule.forRoot()
+    CalendarModule.forRoot(),
+    SidebarModule.forRoot()
   ],
   providers: [UserService, AuthguardGuard],
   bootstrap: [AppComponent]
