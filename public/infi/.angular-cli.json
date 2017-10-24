@@ -20,7 +20,7 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-		"D:/Dokumente/Schule/3 HTL/4/ITP/Projekt/Infi/public/infi/node_modules/angular-calendar/dist/css/angular-calendar.css"
+		"../node_modules/angular-calendar/dist/css/angular-calendar.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
