@@ -1,0 +1,89 @@
+<div style="text-align:center">
+    <ng-sidebar-container>
+
+        <ng-sidebar [(opened)]="_opened"
+        [mode]="_MODES[_modeNum]"
+        [keyClose]="_keyClose"
+        [position]="_POSITIONS[_positionNum]"
+        [dock]="_dock"
+        [dockedSize]="'50px'"
+        [autoCollapseHeight]="_autoCollapseHeight"
+        [autoCollapseWidth]="_autoCollapseWidth"
+        [closeOnClickOutside]="_closeOnClickOutside"
+        [closeOnClickBackdrop]="_closeOnClickBackdrop"
+        [showBackdrop]="_showBackdrop"
+        [animate]="_animate"
+        [trapFocus]="_trapFocus"
+        [autoFocus]="_autoFocus"
+        [sidebarClass]="'demo-sidebar'"
+        [ariaLabel]="'My sidebar'"
+        (onOpenStart)="_onOpenStart()"
+        (onOpened)="_onOpened()"
+        (onCloseStart)="_onCloseStart()"
+        (onClosed)="_onClosed()">
+
+            <p>Sidebar contents</p>
+            <button class="demo-control" (click)="_toggleOpened()">Close sidebar</button>
+            <p><a closeSidebar>This will close the sidebar too</a></p>
+            <hr>
+            <p>Throwup on your pillow.</p>
+            <p>Steal the warm chair right after you get up.</p>
+            <p>Use lap as chair hide head under blanket.</p>
+            <p>Walk on car leaving trail of paw prints on hood.</p>
+            <p>Steal the warm chair right after you get up.</p>
+
+        </ng-sidebar>
+
+    </ng-sidebar-container>
+    <div ng-sidebar-content>
+        <button (click)="_toggleOpened()" class="demo-header__toggle">Toggle sidebar</button>
+        <section class="dashboard-contents">
+        <div class="col-md-4">
+            <h1>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h1>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="btn-group">
+                    <div
+                        class="btn btn-outline-secondary"
+                        mwlCalendarPreviousView
+                        [view]="view"
+                        [(viewDate)]="viewDate"
+                        (viewDateChange)="activeDayIsOpen = false">
+                        Previous
+                </div>
+                <div
+                    class="btn btn-outline-secondary"
+                    mwlCalendarToday
+                    [(viewDate)]="viewDate">
+                    Today
+                </div>
+                <div
+                    class="btn btn-outline-secondary"
+                    mwlCalendarNextView
+                    [view]="view"
+                    [(viewDate)]="viewDate"
+                    (viewDateChange)="activeDayIsOpen = false">
+                    Next
+            </div>
+        </div>
+
+
+        </div>
+            <div class="col-md-4">
+                <h1>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h1>
+            </div>
+        </div>
+
+        <mwl-calendar-month-view
+            [viewDate]="viewDate"
+            [events]="events"
+            [locale]="locale"
+            [weekStartsOn]="weekStartsOn"
+            [weekendDays]="weekendDays">
+        </mwl-calendar-month-view>
+        </section>
+    </div>
+
+<a routerLink="/">log out</a>
+</div>
