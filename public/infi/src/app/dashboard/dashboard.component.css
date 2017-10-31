@@ -1,3 +1,70 @@
 ng-sidebar-container{
-    height: 10vh
+    min-height: 90vh
+}
+
+.loading {
+  padding: 1em;
+}
+
+dashboard {
+  height: 100%;
+  width: 100%;
+}
+
+.dashboard-header {
+  align-items: center;
+  background: red;
+  color: white;
+  display: flex;
+  padding: 1em;
+}
+
+.dashboard-header__toggle {
+  background: transparent;
+  border: 0.15rem solid white;
+  border-left: 0;
+  border-right: 0;
+  cursor: pointer;
+  font-size: 0;
+  height: 1.5rem;
+  margin-right: 1rem;
+  position: relative;
+  width: 2rem;
+}
+
+.dashboard-header__toggle::after {
+  background: white;
+  content: '';
+  height: 0.15rem;
+  left: 0;
+  margin-top: -0.075rem;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+
+.dashboard-sidebar {
+  background-color: #fff;
+  padding: 2em 1em;
+}
+.dashboard-sidebar.ng-sidebar--opened.ng-sidebar--over {
+  box-shadow: 0 0 2.5em rgba(85, 85, 85, 0.5);
+  background-color: white;
+}
+
+.dashboard-contents {
+  padding: 0 2em;
+}
+
+.dashboard-control {
+  background-color: grey;
+  border: 1px solid grey;
+  cursor: pointer;
+  margin-bottom: 0.5em;
+  padding: 0.5em 2em;
+  transition: background-color 0.15s;
+}
+.dashboard-control:hover {
+  background-color: grey;
+  color: white;
 }
