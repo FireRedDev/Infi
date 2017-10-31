@@ -1,14 +1,9 @@
 package service;
 
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
+import entities.Benutzer;
 import javax.ws.rs.*;
-
-import repository.Repository;
+import javax.ws.rs.core.MediaType;
+import repository.DatenbankRepository;
 
 /**
  *
@@ -17,7 +12,7 @@ import repository.Repository;
 @Path("service")
 public class Service {
 
-    Repository repo = Repository.getInstance();
+    private DatenbankRepository repo = new DatenbankRepository();
 
     // Nur zum Testen
     @GET
@@ -26,4 +21,22 @@ public class Service {
         return "INFI Jugendrotkreuz Server up and running..";
     }
 
+    @GET
+    @Path("init")
+    public String init() {
+        repo.init();
+        return "init";
+    }
+
+    /**
+     *
+     * @param user
+     * @return
+     */
+    @POST
+    @Path("login")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public boolean login(Benutzer user) {
+        return repo.login(user);
+    }
 }

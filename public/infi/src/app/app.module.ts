@@ -14,6 +14,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserService } from './user.service';
 import {AuthguardGuard} from "./authguard.guard";
 import { SidebarModule } from 'ng-sidebar';
+import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes:Routes = [
   {
@@ -36,6 +37,7 @@ const appRoutes:Routes = [
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
@@ -49,3 +51,5 @@ const appRoutes:Routes = [
 export class AppModule {}
 
 export class MyModule {}
+
+export class MyAppModule {}
