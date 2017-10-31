@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import {Md5} from 'ts-md5/dist/md5';
 import 'rxjs/add/operator/retry';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-login-form',
@@ -27,13 +28,15 @@ export class LoginFormComponent implements OnInit {
     var username = e.target.elements[0].value;
     var password = e.target.elements[1].value;
 
-    console.log(Md5.hashStr(password));
      // Make the HTTP request:
+     // Md5.hashStr(password)
      const body = {"username": username,"password":password};
+     console.log(body);
      this.http
        .post('http://localhost:8080/api/service/login', body)
        // See below - subscribe() is still necessary when using post().
        .subscribe(data => {
+         console.log(data);
         if(data["_body"]=="true") {
           this.user.setUserLoggedIn();
           this.router.navigate(['dashboard']);

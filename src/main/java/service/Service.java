@@ -12,7 +12,7 @@ import repository.DatenbankRepository;
 @Path("service")
 public class Service {
 
-    private DatenbankRepository repo = new DatenbankRepository();
+    private DatenbankRepository repo = DatenbankRepository.getInstance();
 
     // Nur zum Testen
     @GET
