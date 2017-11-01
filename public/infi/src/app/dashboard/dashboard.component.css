@@ -60,11 +60,95 @@ dashboard {
   background-color: grey;
   border: 1px solid grey;
   cursor: pointer;
-  margin-bottom: 0.5em;
-  padding: 0.5em 2em;
+  padding-right: 5%;
+  padding-top: 0%;
+  padding-bottom: 0%;
   transition: background-color 0.15s;
+  text-align: right;
+  font-size: 200%;
 }
 .dashboard-control:hover {
   background-color: grey;
   color: white;
+}
+
+.material-icons{
+  padding-bottom: 0%;
+  font-size: 90%;
+}
+
+.einfuegen{
+  padding-left: 5%;
+  padding-right: 30%;
+  font-size: 125%;
+}
+
+@import url('http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
+body {
+  background: #ee;
+  font-family: 'helvetica Neue';
+}
+.button {
+  width: 100%;
+  height: 50px;
+  background-color: red;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
+}
+.button:after, .button:before {
+  content: 'LOG OUT';
+  letter-spacing: 5px;
+  position: absolute;
+  width: 100%;
+  font-weight:bold;
+  font-size: 100%;
+  left: 50%;
+  top: 50%;
+  transition: all 0.3s;
+  transform: translate(-50%, -50%);
+}
+.button:hover:after {
+  top: -50%;
+}
+.button:before {
+  font-family: 'Ionicons';
+  content: '\f385';
+  font-size: 32px;
+  top: 190%;
+}
+.button:hover:before {
+  top: 50%;
+}
+
+#platzierung{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 20%;
+    margin-bottom: 0px;
+}
+
+#imagePlatzhalter{
+    background-color: lightgrey;
+    width: 100%;
+    height: 20%;
+}
+
+#hover:hover{
+    background-color: lightgrey;
+    transition: all ease 1.5s;
+}
+
+#hover{
+    color:black;
+    width: 100%;
+    height: 7%;
+    padding-top: 3%;
+    padding-bottom: 3%;
 }
