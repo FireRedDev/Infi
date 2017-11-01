@@ -1,0 +1,12 @@
+ {
+  "/angular": {
+     "target":  {
+       "host": "localhost",
+       "protocol": "http:",
+       "port": 4200
+     },
+     "secure": false,
+     "changeOrigin": true,
+     "logLevel": "info"
+   }
+ }
