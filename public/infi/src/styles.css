@@ -3,8 +3,12 @@
 
 body { font-family: meine-schrift }
 
+.dashboard-contents{
+  margin-top: 25px !important;
+}
+
 .cal-day-cell.cal-today {
-  background-color: red !important;
+  background-color: lightgray !important;
 }
 .cal-month-view .cal-header .cal-cell{
     text-overflow: clip !important;
@@ -15,3 +19,4 @@ aside{
 .ng-sidebar{
   background-color: white !important;
 }
+
