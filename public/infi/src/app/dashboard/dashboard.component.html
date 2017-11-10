@@ -1,35 +1,37 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel='stylesheet prefetch' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.5/angular-material.css'>
 <ng-sidebar-container>
-  <ng-sidebar
-    [(opened)]="_opened"
-    [mode]="_MODES[_modeNum]"
-    [keyClose]="_keyClose"
-    [position]="_POSITIONS[_positionNum]"
-    [dock]="_dock"
-    [dockedSize]="'50px'"
-    [autoCollapseHeight]="_autoCollapseHeight"
-    [autoCollapseWidth]="_autoCollapseWidth"
-    [closeOnClickOutside]="_closeOnClickOutside"
-    [closeOnClickBackdrop]="_closeOnClickBackdrop"
-    [showBackdrop]="_showBackdrop"
-    [animate]="_animate"
-    [trapFocus]="_trapFocus"
-    [autoFocus]="_autoFocus"
-    [sidebarClass]="'dashboard-sidebar'"
-    [ariaLabel]="'My sidebar'"
-    (onOpenStart)="_onOpenStart()"
-    (onOpened)="_onOpened()"
-    (onCloseStart)="_onCloseStart()"
-    (onClosed)="_onClosed()">
-    <p>Sidebar contents</p>
-    <button class="dashboard-control" (click)="_toggleOpened()">Close sidebar</button>
-    <p><a closeSidebar>This will close the sidebar too</a></p>
-    <hr>
-    <p>Throwup on your pillow.</p>
-    <p>Steal the warm chair right after you get up.</p>
-    <p>Use lap as chair hide head under blanket.</p>
-    <p>Walk on car leaving trail of paw prints on hood.</p>
-    <p>Steal the warm chair right after you get up.</p>
-  </ng-sidebar>
+    <ng-sidebar
+        [(opened)]="_opened"
+        [mode]="_MODES[_modeNum]"
+        [keyClose]="_keyClose"
+        [position]="_POSITIONS[_positionNum]"
+        [dock]="_dock"
+        [dockedSize]="'50px'"
+        [autoCollapseHeight]="_autoCollapseHeight"
+        [autoCollapseWidth]="_autoCollapseWidth"
+        [closeOnClickOutside]="_closeOnClickOutside"
+        [closeOnClickBackdrop]="_closeOnClickBackdrop"
+        [showBackdrop]="_showBackdrop"
+        [animate]="_animate"
+        [trapFocus]="_trapFocus"
+        [autoFocus]="_autoFocus"
+        [sidebarClass]="'dashboard-sidebar'"
+        [ariaLabel]="'My sidebar'"
+        (onOpenStart)="_onOpenStart()"
+        (onOpened)="_onOpened()"
+        (onCloseStart)="_onCloseStart()"s
+        (onClosed)="_onClosed()">
+
+        <div class="dashboard-control" (click)="_toggleOpened()"> X</div>
+        <div id="imagePlatzhalter"></div><br>
+        <p class="einfuegen"><b> Antonia Kriegner </b></p><hr>
+        <div href="#" id="hover"><p class="einfuegen"><i class="material-icons">home</i> Startseite</p></div>
+        <div href="#" id="hover" (click)="view = 'month'" [class.active]="view === 'month'"><p class="einfuegen"><i class="material-icons">date_range</i> Monatsansicht</p></div>
+        <div href="#" id="hover" (click)="view = 'week'" [class.active]="view === 'week'"><p class="einfuegen"><i class="material-icons">line_style</i> Wochenansicht</p></div>
+           
+        <a routerLink="/"><div id="platzierung"><div class="button"></div></div></a>
+    </ng-sidebar>
   <div ng-sidebar-content>
     <header class="dashboard-header">
       <button (click)="_toggleOpened()" class="dashboard-header__toggle">Toggle sidebar</button>
@@ -45,13 +47,13 @@
               [view]="view"
               [(viewDate)]="viewDate"
               (viewDateChange)="activeDayIsOpen = false">
-              Previous
+              Vorheriger
             </div>
             <div
               class="btn btn-outline-secondary"
               mwlCalendarToday
               [(viewDate)]="viewDate">
-              Today
+              Aktueller
             </div>
             <div
               class="btn btn-outline-secondary"
@@ -59,7 +61,7 @@
               [view]="view"
               [(viewDate)]="viewDate"
               (viewDateChange)="activeDayIsOpen = false">
-              Next
+              Nächster
             </div>
           </div>
 
@@ -70,14 +72,24 @@
         </div>
       </div>
 
-      <mwl-calendar-month-view
-        [viewDate]="viewDate"
+        <div [ngSwitch]="view">
+        <mwl-calendar-month-view
+          *ngSwitchCase="'month'"
+           [viewDate]="viewDate"
+        [events]="events"
+        [locale]="locale"
+        [weekStartsOn]="weekStartsOn"
+        [weekendDays]="weekendDays">>
+        </mwl-calendar-month-view>
+        <mwl-calendar-week-view
+          *ngSwitchCase="'week'"
+           [viewDate]="viewDate"
         [events]="events"
         [locale]="locale"
         [weekStartsOn]="weekStartsOn"
         [weekendDays]="weekendDays">
-      </mwl-calendar-month-view>
+        </mwl-calendar-week-view>
+      </div>
     </section>
-    <a routerLink="/">Log out</a>
   </div>
 </ng-sidebar-container>
