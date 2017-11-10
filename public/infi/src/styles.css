@@ -15,6 +15,7 @@ body { font-family: meine-schrift }
 }
 aside{
   background-color: white !important;
+  width:250px;
 }
 .ng-sidebar{
   background-color: white !important;

@@ -27,8 +27,8 @@
         <div id="imagePlatzhalter"></div><br>
         <p class="einfuegen"><b> Antonia Kriegner </b></p><hr>
         <div href="#" id="hover"><p class="einfuegen"><i class="material-icons">home</i> Startseite</p></div>
-        <div href="#" id="hover"><p class="einfuegen"><i class="material-icons">date_range</i> Monatsansicht</p></div>
-        <div href="#" id="hover"><p class="einfuegen"><i class="material-icons">line_style</i> Wochenansicht</p></div>
+        <div href="#" id="hover" (click)="view = 'month'" [class.active]="view === 'month'"><p class="einfuegen"><i class="material-icons">date_range</i> Monatsansicht</p></div>
+        <div href="#" id="hover" (click)="view = 'week'" [class.active]="view === 'week'"><p class="einfuegen"><i class="material-icons">line_style</i> Wochenansicht</p></div>
            
         <a routerLink="/"><div id="platzierung"><div class="button"></div></div></a>
     </ng-sidebar>
@@ -72,13 +72,24 @@
         </div>
       </div>
 
-      <mwl-calendar-month-view
-        [viewDate]="viewDate"
+        <div [ngSwitch]="view">
+        <mwl-calendar-month-view
+          *ngSwitchCase="'month'"
+           [viewDate]="viewDate"
+        [events]="events"
+        [locale]="locale"
+        [weekStartsOn]="weekStartsOn"
+        [weekendDays]="weekendDays">>
+        </mwl-calendar-month-view>
+        <mwl-calendar-week-view
+          *ngSwitchCase="'week'"
+           [viewDate]="viewDate"
         [events]="events"
         [locale]="locale"
         [weekStartsOn]="weekStartsOn"
         [weekendDays]="weekendDays">
-      </mwl-calendar-month-view>
+        </mwl-calendar-week-view>
+      </div>
     </section>
   </div>
 </ng-sidebar-container>

@@ -11,7 +11,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,9 +26,9 @@ public class DatenbankRepository {
 
     private DatenbankRepository() {
         try {
-            String url = "jdbc:derby://localhost:1527/infiDB";
-            String user = "infi";
-            String pwd = "infi";
+            String url = "jdbc:mariadb://vm70.htl-leonding.ac.at:3306/infi";
+            String user = "app";
+            String pwd = "app";
             Connection connection = DriverManager.getConnection(url, user, pwd);
             statement = connection.createStatement();
         } catch (SQLException ex) {
