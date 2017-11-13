@@ -1,4 +1,6 @@
 p{
   text-align: center;
-  height: 5vh
+  bottom: 0px;
+  position: absolute;
+  width: 100%;
 }

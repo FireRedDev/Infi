@@ -26,9 +26,9 @@
         <div class="dashboard-control" (click)="_toggleOpened()"> X</div>
         <div id="imagePlatzhalter"></div><br>
         <p class="einfuegen"><b> Antonia Kriegner </b></p><hr>
-        <div href="#" id="hover"><p class="einfuegen"><i class="material-icons">home</i> Startseite</p></div>
-        <div href="#" id="hover" (click)="view = 'month'" [class.active]="view === 'month'"><p class="einfuegen"><i class="material-icons">date_range</i> Monatsansicht</p></div>
-        <div href="#" id="hover" (click)="view = 'week'" [class.active]="view === 'week'"><p class="einfuegen"><i class="material-icons">line_style</i> Wochenansicht</p></div>
+        <!--<div href="#" id="hover"><p class="einfuegen"><i class="material-icons">home</i> Startseite</p></div>-->
+        <div (click)="_toggleOpened()"><div href="#" id="hover" (click)="view = 'month'" [class.active]="view === 'month'" ><p class="einfuegen"><i class="material-icons">date_range</i> Monatsansicht</p></div>
+        <div href="#" id="hover" (click)="view = 'week'" [class.active]="view === 'week'"><p class="einfuegen"><i class="material-icons">line_style</i> Wochenansicht</p></div></div>
            
         <a routerLink="/"><div id="platzierung"><div class="button"></div></div></a>
     </ng-sidebar>
@@ -71,7 +71,7 @@
           <h1>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h1>
         </div>
       </div>
-
+      <div>
         <div [ngSwitch]="view">
         <mwl-calendar-month-view
           *ngSwitchCase="'month'"
@@ -89,6 +89,7 @@
         [weekStartsOn]="weekStartsOn"
         [weekendDays]="weekendDays">
         </mwl-calendar-week-view>
+      </div>
       </div>
     </section>
   </div>

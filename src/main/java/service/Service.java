@@ -1,8 +1,11 @@
 package service;
 
 import entities.Benutzer;
+import entities.Termin;
+import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import org.json.JSONObject;
 import repository.DatenbankRepository;
 
 /**
@@ -38,5 +41,12 @@ public class Service {
     @Consumes(MediaType.APPLICATION_JSON)
     public boolean login(Benutzer user) {
         return repo.login(user);
+    }
+    
+    @GET
+    @Path("termine")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Termin> termine(){
+        return repo.termine();
     }
 }
