@@ -3,6 +3,9 @@
 
 body { font-family: meine-schrift }
 
+.dashboard-contents{
+  margin-top: 25px !important;
+}
 .cal-month-view .cal-day-cell.cal-today {
   background-color: lightgray !important;
 }
@@ -27,3 +30,4 @@ aside{
 .ng-sidebar{
   background-color: white !important;
 }
+
