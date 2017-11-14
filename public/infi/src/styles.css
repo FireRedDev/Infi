@@ -31,3 +31,32 @@ aside{
   background-color: white !important;
 }
 
+.btn-group{
+  margin-bottom: 20px !important;
+}
+
+.cal-month-view .cal-day-cell{
+  border-color: lightgray !important;
+}
+
+a{
+  color: black !important;
+}
+.cal-open-day-events.ng-tns-c6-1.ng-trigger.ng-trigger-collapse,
+.cal-open-day-events.ng-tns-c6-2.ng-trigger.ng-trigger-collapse,
+.cal-open-day-events.ng-tns-c6-3.ng-trigger.ng-trigger-collapse,
+.cal-open-day-events.ng-tns-c6-4.ng-trigger.ng-trigger-collapse,
+.cal-open-day-events.ng-tns-c6-5.ng-trigger.ng-trigger-collapse {
+  height: 0px;
+  width: 0px;
+  color:white;
+  margin: 0;
+  background-color: white;
+  padding: 0;
+}
+
+.my-custom-class a {
+  position: absolute;
+  background-color: lightgrey !important;
+  bottom: 0px;
+}
