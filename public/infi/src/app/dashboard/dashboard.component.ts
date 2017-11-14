@@ -1,20 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {UserService} from "../user.service";
 import {
   CalendarEvent,
   CalendarDateFormatter,
   DAYS_OF_WEEK
 } from 'angular-calendar';
+import { CustomDateFormatter } from './custom-date-formatter.provider';
+import { colors } from './colors';
+
+import { Http, URLSearchParams } from '@angular/http';
+import 'rxjs/add/operator/map';
+import {
+  isSameMonth,
+  isSameDay,
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  startOfDay,
+  endOfDay,
+  format
+} from 'date-fns';
+import { Observable } from 'rxjs/Observable';
+
+
+interface Termin {
+  id: number;
+  title: string;
+  date: string;
+}
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  providers: [
+    {
+      provide: CalendarDateFormatter,
+      useClass: CustomDateFormatter
+    }
+  ]
 })
 export class DashboardComponent implements OnInit {
 
   viewDate: Date = new Date();
-  events = [];
   title = 'app';
   locale: string = 'de';
   view: string = 'month';
@@ -113,10 +142,71 @@ export class DashboardComponent implements OnInit {
   private _onClosed(): void {
     console.info('Sidebar closed');
   }
-  
-  constructor(private user:UserService) { }
+  events$: Observable<Array<CalendarEvent<{ termin: Termin }>>>;
+
+  activeDayIsOpen: boolean = false;
+
+  constructor(private http: Http,private user:UserService) {}
 
   ngOnInit() {
+    this.fetchEvents();
+  }
+      
+    fetchEvents(): void {
+    const getStart: any = {
+      month: startOfMonth,
+      week: startOfWeek,
+      day: startOfDay
+    }[this.view];
+
+    const getEnd: any = {
+      month: endOfMonth,
+      week: endOfWeek,
+      day: endOfDay
+    }[this.view];
+
+    this.events$ = this.http
+      .get('http://localhost:8080/api/service/termine')
+      .map(res => res.json())
+      .map(({ results }: { results: Termin[] }) => {
+        return results.map((termin: Termin) => {
+          return {
+            title: termin.title,
+            start: new Date(termin.date),
+            color: colors.yellow,
+            meta: {
+              termin
+            }
+          };
+        });
+      });
+  }
+
+  dayClicked({
+    date,
+    events
+  }: {
+    date: Date;
+    events: Array<CalendarEvent<{ termin: Termin }>>;
+  }): void {
+    if (isSameMonth(date, this.viewDate)) {
+      if (
+        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+        events.length === 0
+      ) {
+        this.activeDayIsOpen = false;
+      } else {
+        this.activeDayIsOpen = true;
+        this.viewDate = date;
+      }
+    }
+  }
+
+  eventClicked(event: CalendarEvent<{ termin: Termin }>): void {
+    window.open(
+      `https://www.themoviedb.org/movie/`,
+      '_blank'
+    );
   }
 
 }

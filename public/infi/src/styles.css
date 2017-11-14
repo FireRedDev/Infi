@@ -6,17 +6,27 @@ body { font-family: meine-schrift }
 .dashboard-contents{
   margin-top: 25px !important;
 }
-
-.cal-day-cell.cal-today {
+.cal-month-view .cal-day-cell.cal-today {
   background-color: lightgray !important;
 }
+
+.cal-week-view .cal-today {
+  background-color: lightgray !important;
+}
+
 .cal-month-view .cal-header .cal-cell{
     text-overflow: clip !important;
 }
+
+.cal-month-view .cal-day-cell.cal-today .cal-day-number{
+  font-size: 1.2em;
+}
+
 aside{
   background-color: white !important;
   width:250px;
 }
+
 .ng-sidebar{
   background-color: white !important;
 }
