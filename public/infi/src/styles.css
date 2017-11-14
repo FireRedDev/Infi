@@ -42,21 +42,17 @@ aside{
 a{
   color: black !important;
 }
-.cal-open-day-events.ng-tns-c6-1.ng-trigger.ng-trigger-collapse,
-.cal-open-day-events.ng-tns-c6-2.ng-trigger.ng-trigger-collapse,
-.cal-open-day-events.ng-tns-c6-3.ng-trigger.ng-trigger-collapse,
-.cal-open-day-events.ng-tns-c6-4.ng-trigger.ng-trigger-collapse,
-.cal-open-day-events.ng-tns-c6-5.ng-trigger.ng-trigger-collapse {
-  height: 0px;
-  width: 0px;
-  color:white;
-  margin: 0;
-  background-color: white;
-  padding: 0;
+.cal-open-day-events.ng-trigger.ng-trigger-collapse {
+  position: absolute;
+  background-color: white !important;
+  bottom: 0px;
+  width: 90%;
+}
+.cal-month-view .cal-open-day-events{
+  box-shadow: none !important;
 }
 
-.my-custom-class a {
-  position: absolute;
-  background-color: lightgrey !important;
-  bottom: 0px;
+.cal-event{
+  background-color: rgb(173, 33, 33) !important;
+  display: inline;
 }

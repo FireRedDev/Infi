@@ -73,8 +73,8 @@ interface Termin {
   styleUrls: ['./dashboard.component.css'],
   providers: [
     {
-      provide: [CalendarDateFormatter,CustomEventTitleFormatter] ,
-      useClass: CustomEventTitleFormatter,
+      provide: CalendarDateFormatter ,
+      useClass: CustomDateFormatter,
     }
   ]
 })
