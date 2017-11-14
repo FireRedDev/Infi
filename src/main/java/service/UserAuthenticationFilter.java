@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ResourceInfo;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 
 /**
@@ -36,6 +37,8 @@ public class UserAuthenticationFilter implements ContainerRequestFilter {
         if (method.getAnnotation(Secured.class) != null) {
 
         }
+        Response response = Response.status(Response.Status.NOT_ACCEPTABLE.FORBIDDEN).build();
+        containerRequestContext.abortWith(response);
         System.out.print(userId);
     }
 

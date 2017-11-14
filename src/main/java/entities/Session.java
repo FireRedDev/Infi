@@ -22,6 +22,7 @@ public class Session implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    //private Benutzer user;
 
     public Long getId() {
         return id;
