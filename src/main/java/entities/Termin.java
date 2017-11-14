@@ -11,15 +11,18 @@ package entities;
  */
 public class Termin {
     private int id;
-    private String date;
+    private String s_date;
+    
+    private String e_date;
     private String title;
 
     public Termin() {
     }
 
-    public Termin(int id, String date, String title) {
+    public Termin(int id, String s_date, String e_date, String title) {
         this.id = id;
-        this.date = date;
+        this.s_date = s_date;
+        this.e_date = e_date;
         this.title = title;
     }
 
@@ -31,13 +34,22 @@ public class Termin {
         this.id = id;
     }
 
-    public String getDate() {
-        return date;
+    public String getS_date() {
+        return s_date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setS_date(String s_date) {
+        this.s_date = s_date;
     }
+
+    public String getE_date() {
+        return e_date;
+    }
+
+    public void setE_date(String e_date) {
+        this.e_date = e_date;
+    }
+
 
     public String getTitle() {
         return title;

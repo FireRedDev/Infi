@@ -51,9 +51,9 @@ public class DatenbankRepository {
     }
     public List<Termin> Termine() {
         List<Termin> t = new LinkedList();
-        t.add(new Termin(1,"2017-11-09","Gruppenstunde"));
-        t.add(new Termin(2,"2017-11-10","Gruppenstunde"));
-        t.add(new Termin(3,"2017-11-15","Gruppenstunde"));
+        t.add(new Termin(1,"2017-11-09 11:00:00","2017-11-09 13:00:00","Gruppenstunde"));
+        t.add(new Termin(2,"2017-11-10 09:00:00","2017-11-10 11:00:00","Gruppenstunde"));
+        t.add(new Termin(3,"2017-11-15 11:00:00","2017-11-20 20:00:00","Gruppenstunde"));
         return t;
 
     }

@@ -1,11 +1,24 @@
-import { Component, ChangeDetectionStrategy, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { forEach } from '@angular/router/src/utils/collection';
+import { Component, 
+  ChangeDetectionStrategy, 
+  OnInit, 
+  Input, 
+  Output, 
+  EventEmitter, 
+  ViewChild,
+  Provider,
+  TemplateRef } from '@angular/core';
 import {UserService} from "../user.service";
 import {
   CalendarEvent,
   CalendarDateFormatter,
-  DAYS_OF_WEEK
+  DAYS_OF_WEEK,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent,
+  CalendarEventTitleFormatter
 } from 'angular-calendar';
 import { CustomDateFormatter } from './custom-date-formatter.provider';
+import { DateTimePickerComponent } from './date-time-picker.component';
 import { colors } from './colors';
 
 import { Http, URLSearchParams } from '@angular/http';
@@ -19,16 +32,40 @@ import {
   endOfWeek,
   startOfDay,
   endOfDay,
-  format
+  format,
+  subDays,
+  addDays,
+  addHours
 } from 'date-fns';
 import { Observable } from 'rxjs/Observable';
-
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import {
+  NgbDatepickerModule,
+  NgbTimepickerModule,NgbModal
+} from '@ng-bootstrap/ng-bootstrap';
+import { CalendarModule } from 'angular-calendar';
+import { Subject } from 'rxjs/Subject';
+import { CustomEventTitleFormatter } from './custom-event-title-formatter.provider';
 
 interface Termin {
   id: number;
   title: string;
-  date: string;
+  s_date: string;
+  e_date: string;
 }
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    NgbDatepickerModule.forRoot(),
+    NgbTimepickerModule.forRoot(),
+    CalendarModule
+  ],
+  declarations: [ DateTimePickerComponent],
+  exports: [DateTimePickerComponent]
+})
 
 @Component({
   selector: 'app-dashboard',
@@ -36,12 +73,15 @@ interface Termin {
   styleUrls: ['./dashboard.component.css'],
   providers: [
     {
-      provide: CalendarDateFormatter,
-      useClass: CustomDateFormatter
+      provide: CalendarDateFormatter ,
+      useClass: CustomDateFormatter,
     }
   ]
 })
+
 export class DashboardComponent implements OnInit {
+
+  @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
   viewDate: Date = new Date();
   title = 'app';
@@ -49,6 +89,16 @@ export class DashboardComponent implements OnInit {
   view: string = 'month';
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
   weekendDays: number[] = [DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
+  
+    events$: Observable<Array<CalendarEvent<{ termin: Termin }>>>;
+  
+  activeDayIsOpen: boolean = false;
+  
+  events:Array<Termin>;
+
+  @Output() viewChange: EventEmitter<string> = new EventEmitter();
+  
+    @Output() viewDateChange: EventEmitter<Date> = new EventEmitter();
 
   private _opened: boolean = false;
   private _modeNum: number = 0;
@@ -142,17 +192,14 @@ export class DashboardComponent implements OnInit {
   private _onClosed(): void {
     console.info('Sidebar closed');
   }
-  events$: Observable<Array<CalendarEvent<{ termin: Termin }>>>;
-
-  activeDayIsOpen: boolean = false;
 
   constructor(private http: Http,private user:UserService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.fetchEvents();
   }
-      
-    fetchEvents(): void {
+
+  fetchEvents(): void {
     const getStart: any = {
       month: startOfMonth,
       week: startOfWeek,
@@ -168,20 +215,31 @@ export class DashboardComponent implements OnInit {
     this.events$ = this.http
       .get('http://localhost:8080/api/service/termine')
       .map(res => res.json())
-      .map(({ results }: { results: Termin[] }) => {
-        return results.map((termin: Termin) => {
-          return {
-            title: termin.title,
-            start: new Date(termin.date),
-            color: colors.yellow,
-            meta: {
-              termin
-            }
-          };
-        });
-      });
+      .map(json => {
+        console.log("JSON:" ,json);
+        this.events=json;
+        return this.convertEvents(this.events);
+      })
+      ;
   }
+  
 
+  convertEvents(events:Array<Termin>): Array<any>{
+    var calendarEvents=[];
+    events.forEach(function(event){
+      calendarEvents.push({ 
+        title: event.title,
+        start: new Date(event.s_date),
+        end: new Date(event.e_date),
+        color: colors.red,
+        cssClass: 'my-custom-class',
+        meta: {
+          event
+        }});
+    })
+    console.log(calendarEvents);
+    return calendarEvents;
+  }
   dayClicked({
     date,
     events
@@ -201,14 +259,6 @@ export class DashboardComponent implements OnInit {
       }
     }
   }
-
-  eventClicked(event: CalendarEvent<{ termin: Termin }>): void {
-    window.open(
-      `https://www.themoviedb.org/movie/`,
-      '_blank'
-    );
-  }
-
 }
 
 

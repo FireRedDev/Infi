@@ -136,7 +136,8 @@ dashboard {
     background: url(../../assets/sidebar.png) no-repeat;
     background-size: 100%;
     width: 100%;
-    height: 180px;
+    background-color: lightgrey;
+    height: 18%;
 }
 
 #hover:hover{
@@ -214,12 +215,6 @@ body {
     margin-bottom: 0px;
 }
 
-#imagePlatzhalter{
-    background-color: lightgrey;
-    width: 100%;
-    height: 20%;
-}
-
 #hover:hover{
     background-color: lightgrey;
     transition: all ease 1.5s;
@@ -232,3 +227,7 @@ body {
     padding-top: 3%;
     padding-bottom: 3%;
 }
+
+.my-custom-class a {
+    color: #FF3D7F !important;
+  }
