@@ -31,15 +31,15 @@ public class UserAuthenticationFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext containerRequestContext) throws IOException {
-        String userId = containerRequestContext.getHeaders().getFirst("kalendarCookie");
-        Class<?> klasse = resourceinfo.getClass();
-        Method method = resourceinfo.getResourceMethod();
-        if (method.getAnnotation(Secured.class) != null) {
-
-        }
-        Response response = Response.status(Response.Status.NOT_ACCEPTABLE.FORBIDDEN).build();
-        containerRequestContext.abortWith(response);
-        System.out.print(userId);
+//        String userId = containerRequestContext.getHeaders().getFirst("kalendarCookie");
+//        Class<?> klasse = resourceinfo.getClass();
+//        Method method = resourceinfo.getResourceMethod();
+//        if (method.getAnnotation(Secured.class) != null) {
+//
+//        }
+//        Response response = Response.status(Response.Status.NOT_ACCEPTABLE.FORBIDDEN).build();
+//        containerRequestContext.abortWith(response);
+//        System.out.print(userId);
     }
 
 }

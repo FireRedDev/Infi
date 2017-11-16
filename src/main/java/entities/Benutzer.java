@@ -17,7 +17,9 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Benutzer.listAll", query = "SELECT b FROM Benutzer b")
+    @NamedQuery(name = "Benutzer.listAll", query = "SELECT b FROM Benutzer b"),
+    @NamedQuery(name = "Benutzer.login", query = "SELECT b FROM Benutzer b where b.username=:username")
+    
 })
 public class Benutzer implements Serializable {
 
@@ -26,8 +28,16 @@ public class Benutzer implements Serializable {
     int id;
     private String username;
     private String password;
-    private Rolle rolle;
+//    private Rolle rolle;
+    @OneToMany(mappedBy = "benutzer")
     private List<Termin> termine = new LinkedList<Termin>();
+//    @OneToMany(mappedBy = "benutzer1")
+//    private List<Benutzer> benutzer;
+//    @ManyToOne
+//    private Benutzer benutzer1;
+    @ManyToOne
+    private Ortsstelle ortsstelle;
+
 
     public String getUsername() {
         return username;
@@ -56,9 +66,10 @@ public class Benutzer implements Serializable {
     public Benutzer() {
     }
 
-    public Benutzer(String username, String password) {
+    public Benutzer(String username, String password, Ortsstelle ortsstelle) {
         this.username = username;
         this.password = password;
+        this.ortsstelle = ortsstelle;
     }
 
     public int getId() {
@@ -69,13 +80,13 @@ public class Benutzer implements Serializable {
         this.id = id;
     }
 
-    public Rolle getRolle() {
-        return rolle;
-    }
-
-    public void setRolle(Rolle rolle) {
-        this.rolle = rolle;
-    }
+//    public Rolle getRolle() {
+//        return rolle;
+//    }
+//
+//    public void setRolle(Rolle rolle) {
+//        this.rolle = rolle;
+//    }
 
     public List<Termin> getTermine() {
         return termine;
@@ -110,6 +121,30 @@ public class Benutzer implements Serializable {
             return false;
         }
         return true;
+    }
+
+//    public List<Benutzer> getBenutzer() {
+//        return benutzer;
+//    }
+//
+//    public void setBenutzer(List<Benutzer> benutzer) {
+//        this.benutzer = benutzer;
+//    }
+//
+//    public Benutzer getBenutzer1() {
+//        return benutzer1;
+//    }
+//
+//    public void setBenutzer1(Benutzer benutzer1) {
+//        this.benutzer1 = benutzer1;
+//    }
+
+    public Ortsstelle getOrtsstelle() {
+        return ortsstelle;
+    }
+
+    public void setOrtsstelle(Ortsstelle ortsstelle) {
+        this.ortsstelle = ortsstelle;
     }
 
 }

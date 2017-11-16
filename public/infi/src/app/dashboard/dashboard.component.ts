@@ -7,6 +7,7 @@ import { Component,
   EventEmitter, 
   ViewChild,
   Provider,
+  OnDestroy,
   TemplateRef } from '@angular/core';
 import {UserService} from "../user.service";
 import {
@@ -48,6 +49,8 @@ import {
 import { CalendarModule } from 'angular-calendar';
 import { Subject } from 'rxjs/Subject';
 import { CustomEventTitleFormatter } from './custom-event-title-formatter.provider';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Benutzer } from '../login-form/benutzer.model';
 
 interface Termin {
   id: number;
@@ -113,6 +116,8 @@ export class DashboardComponent implements OnInit {
   private _keyClose: boolean = false;
   private _autoCollapseHeight: number = null;
   private _autoCollapseWidth: number = null;
+  id: number;
+  private sub: any;
 
   private _MODES: Array<string> = ['over', 'push', 'slide'];
   private _POSITIONS: Array<string> = ['left', 'right', 'top', 'bottom'];
@@ -193,9 +198,11 @@ export class DashboardComponent implements OnInit {
     console.info('Sidebar closed');
   }
 
-  constructor(private http: Http,private user:UserService) {}
+  constructor(private http: Http,private user:UserService,private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
+    
+      debugger;
     this.fetchEvents();
   }
 
@@ -212,8 +219,10 @@ export class DashboardComponent implements OnInit {
       day: endOfDay
     }[this.view];
 
+    const body = {"id":2,"username":"admin","password":"admin","termine":[],"ortsstelle":{"id":1,"name":"Sattledt","benutzer":[]}};
+    console.log(body);
     this.events$ = this.http
-      .get('http://localhost:8080/api/service/termine')
+      .post('http://localhost:8080/api/service/termineuser',body)
       .map(res => res.json())
       .map(json => {
         console.log("JSON:" ,json);

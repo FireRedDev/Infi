@@ -5,25 +5,44 @@
  */
 package entities;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
 /**
  *
  * @author isi
  */
-public class Termin {
-    private int id;
+@Entity
+@NamedQueries({
+    @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t"),
+    @NamedQuery(name = "Termin.listBenutzer", query = "SELECT t FROM Termin t where t.benutzer = :benutzer")
+})
+public class Termin implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    int id;
     private String s_date;
-    
+
     private String e_date;
     private String title;
+    @ManyToOne
+    private Benutzer benutzer;
 
     public Termin() {
     }
 
-    public Termin(int id, String s_date, String e_date, String title) {
-        this.id = id;
+    public Termin(String s_date, String e_date, String title, Benutzer benutzer) {
         this.s_date = s_date;
         this.e_date = e_date;
         this.title = title;
+        this.benutzer = benutzer;
     }
 
     public int getId() {
@@ -50,7 +69,6 @@ public class Termin {
         this.e_date = e_date;
     }
 
-
     public String getTitle() {
         return title;
     }
@@ -58,6 +76,13 @@ public class Termin {
     public void setTitle(String title) {
         this.title = title;
     }
-    
-    
+
+    public Benutzer getBenutzer() {
+        return benutzer;
+    }
+
+    public void setBenutzer(Benutzer benutzer) {
+        this.benutzer = benutzer;
+    }
+
 }
