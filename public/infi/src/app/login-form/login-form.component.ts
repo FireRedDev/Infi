@@ -55,10 +55,15 @@ export class LoginFormComponent implements OnInit {
     })
        // See below - subscribe() is still necessary when using post().
        .subscribe(data => {
-         console.log(data);
+          console.log(data);
+          if(data[0].json["_body"]>0){
           this.user.setUserLoggedIn();
-          console.log(data[0].json["_body"]);
+          localStorage.setItem('currentUser',data[0].json["_body"]);
           this.router.navigate(['dashboard']);
+          }
+          else{
+            alert("Falscher Username oder falsches Passwort eingegeben!");
+          }
         err=>{
           console.log("error");
           alert("Falscher Username oder falsches Passwort eingegeben!");

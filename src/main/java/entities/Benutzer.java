@@ -18,6 +18,9 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Benutzer.listAll", query = "SELECT b FROM Benutzer b"),
+    @NamedQuery(name = "Benutzer.list", query = "SELECT b FROM Benutzer b where b.id=:id"),
+    @NamedQuery(name = "Benutzer.username", query = "SELECT b.username FROM Benutzer b where b.id=:id"),
+    @NamedQuery(name = "Benutzer.chef", query = "SELECT b FROM Benutzer b where b.benutzer1.id=:id"),
     @NamedQuery(name = "Benutzer.login", query = "SELECT b FROM Benutzer b where b.username=:username")
     
 })
@@ -31,12 +34,16 @@ public class Benutzer implements Serializable {
 //    private Rolle rolle;
     @OneToMany(mappedBy = "benutzer")
     private List<Termin> termine = new LinkedList<Termin>();
-//    @OneToMany(mappedBy = "benutzer1")
-//    private List<Benutzer> benutzer;
-//    @ManyToOne
-//    private Benutzer benutzer1;
+    @OneToMany(mappedBy = "benutzer1",
+            cascade = CascadeType.ALL, 
+            orphanRemoval = true)
+    private List<Benutzer> benutzer;
+   
     @ManyToOne
     private Ortsstelle ortsstelle;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "benuzter1_id")
+    private Benutzer benutzer1;
 
 
     public String getUsername() {
@@ -66,11 +73,20 @@ public class Benutzer implements Serializable {
     public Benutzer() {
     }
 
-    public Benutzer(String username, String password, Ortsstelle ortsstelle) {
+    public Benutzer(String username, String password, Benutzer benutzer1, Ortsstelle ortsstelle) {
         this.username = username;
         this.password = password;
+        benutzer= new LinkedList();
+        this.benutzer1 = benutzer1;
         this.ortsstelle = ortsstelle;
     }
+
+    
+//    public Benutzer(String username, String password, Ortsstelle ortsstelle) {
+//        this.username = username;
+//        this.password = password;
+//        this.ortsstelle = ortsstelle;
+//    }
 
     public int getId() {
         return id;
@@ -123,22 +139,6 @@ public class Benutzer implements Serializable {
         return true;
     }
 
-//    public List<Benutzer> getBenutzer() {
-//        return benutzer;
-//    }
-//
-//    public void setBenutzer(List<Benutzer> benutzer) {
-//        this.benutzer = benutzer;
-//    }
-//
-//    public Benutzer getBenutzer1() {
-//        return benutzer1;
-//    }
-//
-//    public void setBenutzer1(Benutzer benutzer1) {
-//        this.benutzer1 = benutzer1;
-//    }
-
     public Ortsstelle getOrtsstelle() {
         return ortsstelle;
     }
@@ -146,5 +146,37 @@ public class Benutzer implements Serializable {
     public void setOrtsstelle(Ortsstelle ortsstelle) {
         this.ortsstelle = ortsstelle;
     }
+
+    public void addBenutzer(Benutzer besitzer) {
+        if (!this.benutzer.contains(besitzer)) {
+            this.benutzer.add(besitzer);
+            besitzer.setBenutzer1(this);
+        }
+    }
+
+    public Benutzer getBenutzer1() {
+        return benutzer1;
+    }
+
+    public void setBenutzer1(Benutzer benutzer1) {
+        this.benutzer1 = benutzer1;
+    }
+ 
+    public void removeBenutzer(Benutzer besitzer) {
+        if (this.benutzer.contains(besitzer)) {
+            this.benutzer.remove(besitzer);
+            besitzer.setBenutzer1(this);
+        }
+    }
+
+    public List<Benutzer> getBenutzer() {
+        return benutzer;
+    }
+
+    public void setBenutzer(List<Benutzer> benutzer) {
+        this.benutzer = benutzer;
+    }
+    
+    
 
 }

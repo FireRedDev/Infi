@@ -84,6 +84,7 @@ interface Termin {
 
 export class DashboardComponent implements OnInit {
 
+  username: String;
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
   viewDate: Date = new Date();
@@ -93,15 +94,14 @@ export class DashboardComponent implements OnInit {
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
   weekendDays: number[] = [DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
   
-    events$: Observable<Array<CalendarEvent<{ termin: Termin }>>>;
+  events$: Observable<Array<CalendarEvent<{ termin: Termin }>>>;
   
   activeDayIsOpen: boolean = false;
   
   events:Array<Termin>;
 
   @Output() viewChange: EventEmitter<string> = new EventEmitter();
-  
-    @Output() viewDateChange: EventEmitter<Date> = new EventEmitter();
+  @Output() viewDateChange: EventEmitter<Date> = new EventEmitter();
 
   private _opened: boolean = false;
   private _modeNum: number = 0;
@@ -201,8 +201,16 @@ export class DashboardComponent implements OnInit {
   constructor(private http: Http,private user:UserService,private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
-    
-      debugger;
+    debugger;
+    const body = localStorage.getItem('currentUser');
+    console.log(body);
+    this.http
+      .post('http://localhost:8080/api/service/username',JSON.parse(body))
+      .subscribe(data => {
+        // Read the result field from the JSON response.
+        console.log("Username", data["_body"]);
+        this.username=data["_body"];
+      });
     this.fetchEvents();
   }
 
@@ -219,17 +227,16 @@ export class DashboardComponent implements OnInit {
       day: endOfDay
     }[this.view];
 
-    const body = {"id":2,"username":"admin","password":"admin","termine":[],"ortsstelle":{"id":1,"name":"Sattledt","benutzer":[]}};
+    const body = localStorage.getItem('currentUser');
     console.log(body);
     this.events$ = this.http
-      .post('http://localhost:8080/api/service/termineuser',body)
+      .post('http://localhost:8080/api/service/termineuser',JSON.parse(body))
       .map(res => res.json())
       .map(json => {
         console.log("JSON:" ,json);
         this.events=json;
         return this.convertEvents(this.events);
-      })
-      ;
+      });
   }
   
 

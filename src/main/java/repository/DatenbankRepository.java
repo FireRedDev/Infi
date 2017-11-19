@@ -8,17 +8,11 @@ package repository;
 import entities.Benutzer;
 import entities.Ortsstelle;
 import entities.Termin;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
-import org.json.JSONObject;
 
 /**
  *
@@ -45,12 +39,12 @@ public class DatenbankRepository {
         return em.createNamedQuery("Benutzer.listAll", Benutzer.class).getResultList();
     }
 
-    public Benutzer login(Benutzer user) {
+    public int login(Benutzer user) {
         Benutzer b = em.createNamedQuery("Benutzer.login", Benutzer.class).setParameter("username", user.getUsername()).getSingleResult();
         if (b.getPassword().equals(user.getPassword())) {
-            return b;
+            return b.getId();
         }
-        return b;
+        return -1;
     }
 
     public List<Termin> getUserTermine(Benutzer user) {
@@ -89,15 +83,54 @@ public class DatenbankRepository {
         return em.createNamedQuery("Termin.listAll", Termin.class).getResultList();
     }
 
-    public List<Termin> termine(Benutzer user) {
-        List<Termin>termine= em.createNamedQuery("Termin.listBenutzer", Termin.class).setParameter("benutzer", user).getResultList();
-        List<Termin> dates=new LinkedList();
-        for(Termin t : termine){
-            if(t.getBenutzer().equals(user)){
-                dates.add(t);
-            }
-        }
-        return dates;
+    public List<Termin> termine(int id) {
+        List<Termin> termine = new LinkedList();
+        List<Termin> t = em.createNamedQuery("Termin.listBenutzer", Termin.class).setParameter("benutzerid", id).getResultList();
+        termine = addList(termine, t);
+        termine = termineLayerUp(id, termine);
+        termine = termineLayerDown(id, termine);
+        return termine;
     }
 
+    private List<Termin> termineLayerDown(int id, List<Termin> termine) {
+        List<Benutzer> bb = em.createNamedQuery("Benutzer.chef", Benutzer.class).setParameter("id", id).getResultList();
+        if (bb != null || !bb.isEmpty()) {
+            for (Benutzer b : bb) {
+                List<Termin> ter = em.createNamedQuery("Termin.listBenutzer", Termin.class).setParameter("benutzerid", b.getId()).getResultList();
+                termine = addList(termine, ter);
+                List<Termin> term = termineLayerDown(b.getId(), termine);
+                termine = addList(termine, term);
+            }
+        }
+        return termine;
+    }
+
+    private List<Termin> termineLayerUp(int id, List<Termin> termine) {
+        List<Benutzer> benutzer = em.createNamedQuery("Benutzer.list", Benutzer.class).setParameter("id", id).getResultList();
+        if (benutzer != null || !benutzer.isEmpty()) {
+            for (Benutzer b : benutzer) {
+                if (b.getBenutzer1() != null) {
+                    List<Termin> t = em.createNamedQuery("Termin.listBenutzer", Termin.class).setParameter("benutzerid", b.getBenutzer1().getId()).getResultList();
+                    termine = addList(termine, t);
+                    List<Termin> term = termineLayerUp(b.getBenutzer1().getId(), termine);
+                    termine = addList(termine, term);
+                }
+            }
+        }
+
+        return termine;
+    }
+
+    private List<Termin> addList(List<Termin> termine, List<Termin> tt) {
+        if (!termine.equals(tt)) {
+            for (Termin te : tt) {
+                termine.add(te);
+            }
+        }
+        return termine;
+    }
+
+    public String username(int id) {
+        return em.createNamedQuery("Benutzer.username", String.class).setParameter("id", id).getSingleResult();
+    }
 }

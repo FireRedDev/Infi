@@ -39,9 +39,8 @@ public class Service {
      */
     @POST
     @Path("login")
-    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Benutzer login(Benutzer user) {
+    public int login(Benutzer user) {
 //        String cookie = "12345";//repo.login(user);
 //        return Response.ok().header("Set-Cookie", "kalendarCookie=" + cookie).build();
         return repo.login(user);
@@ -64,24 +63,49 @@ public class Service {
     @POST
     @Path("termineuser")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public List<Termin> getUserTermine(Benutzer user) {
-        return repo.termine(user);
+    @Consumes(MediaType.TEXT_PLAIN)
+    public List<Termin> getUserTermine(int id) {
+        return repo.termine(id);
+    }
+    
+    @POST
+    @Path("username")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public String username(int id) {
+        return repo.username(id);
     }
 
     // Initialize data table
     @Path("init")
     @GET
     public String init() {
-        Ortsstelle ortsstelle = new Ortsstelle("Sattledt");
-        repo.insert(ortsstelle);
-        Benutzer admin = new Benutzer("admin", "admin", ortsstelle);
-        Benutzer test = new Benutzer("test", "test", ortsstelle);
-        repo.insert(admin);
-        repo.insert(test);
-        repo.insert(new Termin("2017-11-09 11:00:00", "2017-11-09 13:00:00", "Gruppenstunde", admin));
-        repo.insert(new Termin("2017-11-10 09:00:00", "2017-11-10 11:00:00", "Gruppenstunde", admin));
-        repo.insert(new Termin("2017-11-15 11:00:00", "2017-11-20 20:00:00", "Gruppenstunde", admin));
+        Ortsstelle sattledt = new Ortsstelle("Sattledt");
+        repo.insert(sattledt);
+        Ortsstelle marchtrenk = new Ortsstelle("Marchtrenk");
+        repo.insert(marchtrenk);
+        Ortsstelle eferding = new Ortsstelle("Eferding");
+        repo.insert(eferding);
+        Ortsstelle wels = new Ortsstelle("Bezirksstelle Wels");
+        repo.insert(wels);
+        Ortsstelle ooe = new Ortsstelle("Landesleitung Oberösterreich");
+        repo.insert(ooe);
+        Benutzer tom = new Benutzer("Tom", "passme", null, ooe);
+        Benutzer karin = new Benutzer("Karin", "passme", tom, wels);
+        Benutzer doris = new Benutzer("Doris", "passme", karin, sattledt);
+        Benutzer lina = new Benutzer("Lina", "passme", karin, marchtrenk);
+        Benutzer lisa = new Benutzer("Lisa", "passme", tom, eferding);
+        repo.insert(tom);
+        repo.insert(karin);
+        repo.insert(doris);
+        repo.insert(lina);
+        repo.insert(lisa);
+
+        repo.insert(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", doris));
+        repo.insert(new Termin("2017-11-03 15:30:00", "2017-11-03 17:30:00", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", lina));
+        repo.insert(new Termin("2017-11-25 15:30:00", "2017-11-26 10:00:00", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", lisa));
+        repo.insert(new Termin("2017-11-24 18:00:00", "2017-11-24 21:00:00", "Grillerei für alle Dienststellen des Bezirkes", karin));
+        repo.insert(new Termin("2017-12-02 18:00:00", "2017-12-02 21:00:00", "Punschstand für den guten Zweck", tom));
 
         return "Testvalues inserted";
     }

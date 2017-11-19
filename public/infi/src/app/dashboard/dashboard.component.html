@@ -23,9 +23,9 @@
         (onCloseStart)="_onCloseStart()"s
         (onClosed)="_onClosed()">
 
-        <div class="dashboard-control" (click)="_toggleOpened()"> X</div>
+        <div class="dashboard-control" (click)="_toggleOpened()"><i class="material-icons">close</i></div>
         <div id="imagePlatzhalter"></div><br>
-        <p class="einfuegen"><b> Antonia Kriegner </b></p><hr>
+        <p class="einfuegen"><i class="fa fa-user" aria-hidden="true"></i><b> {{username}} </b></p><hr>
         <!--<div href="#" id="hover"><p class="einfuegen"><i class="material-icons">home</i> Startseite</p></div>-->
         <div (click)="_toggleOpened()"><div href="#" id="hover" (click)="view = 'month'" [class.active]="view === 'month'" ><p class="einfuegen"><i class="material-icons">date_range</i> Monatsansicht</p></div>
         <div href="#" id="hover" (click)="view = 'week'" [class.active]="view === 'week'"><p class="einfuegen"><i class="material-icons">line_style</i> Wochenansicht</p></div></div>
@@ -64,8 +64,6 @@
               Nächster
             </div>
           </div>
-
-
         </div>
         <div class="col-md-4">
           <h1>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h1>
@@ -75,23 +73,21 @@
         <div [ngSwitch]="view">
         <mwl-calendar-month-view
           *ngSwitchCase="'month'"
-           [viewDate]="viewDate"
-        [events]="events"
-        [locale]="locale"
-        [weekStartsOn]="weekStartsOn"
-        [weekendDays]="weekendDays"
-        [activeDayIsOpen]="activeDayIsOpen"
-        (dayClicked)="dayClicked($event.day)"
-        >
+          [viewDate]="viewDate"
+          [events]="events"
+          [locale]="locale"
+          [weekStartsOn]="weekStartsOn"
+          [weekendDays]="weekendDays"
+          [activeDayIsOpen]="activeDayIsOpen"
+          (dayClicked)="dayClicked($event.day)">
         </mwl-calendar-month-view>
         <mwl-calendar-week-view
           *ngSwitchCase="'week'"
-           [viewDate]="viewDate"
-        [events]="events"
-        [locale]="locale"
-        [weekStartsOn]="weekStartsOn"
-        [weekendDays]="weekendDays"
-        >
+          [viewDate]="viewDate"
+          [events]="events"
+          [locale]="locale"
+          [weekStartsOn]="weekStartsOn"
+          [weekendDays]="weekendDays">
         </mwl-calendar-week-view>
       </div>
       </div>

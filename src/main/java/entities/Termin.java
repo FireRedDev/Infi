@@ -21,7 +21,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t"),
-    @NamedQuery(name = "Termin.listBenutzer", query = "SELECT t FROM Termin t where t.benutzer = :benutzer")
+    @NamedQuery(name = "Termin.listBenutzer", query = "SELECT t FROM Termin t where t.benutzer.id = :benutzerid")
 })
 public class Termin implements Serializable {
 
