@@ -12,7 +12,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
 import javax.ws.rs.NameBinding;
 
-
 /**
  *
  * @author Christopher G
@@ -21,5 +20,5 @@ import javax.ws.rs.NameBinding;
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})
 public @interface Secured {
-    
+
 }

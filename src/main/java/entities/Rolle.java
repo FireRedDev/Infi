@@ -44,6 +44,5 @@ class Rolle implements Serializable {
     public void setPermission(String permission) {
         this.permission = permission;
     }
-    
 
 }

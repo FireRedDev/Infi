@@ -22,7 +22,7 @@ import javax.persistence.*;
     @NamedQuery(name = "Benutzer.username", query = "SELECT b.username FROM Benutzer b where b.id=:id"),
     @NamedQuery(name = "Benutzer.chef", query = "SELECT b FROM Benutzer b where b.benutzer1.id=:id"),
     @NamedQuery(name = "Benutzer.login", query = "SELECT b FROM Benutzer b where b.username=:username")
-    
+
 })
 public class Benutzer implements Serializable {
 
@@ -35,17 +35,26 @@ public class Benutzer implements Serializable {
     @OneToMany(mappedBy = "benutzer")
     private List<Termin> termine = new LinkedList<Termin>();
     @OneToMany(mappedBy = "benutzer1",
-            cascade = CascadeType.ALL, 
+            cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<Benutzer> benutzer;
-   
     @ManyToOne
     private Ortsstelle ortsstelle;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "benuzter1_id")
     private Benutzer benutzer1;
 
+    public Benutzer() {
+    }
 
+    public Benutzer(String username, String password, Benutzer benutzer1, Ortsstelle ortsstelle) {
+        this.username = username;
+        this.password = password;
+        benutzer = new LinkedList();
+        this.benutzer1 = benutzer1;
+        this.ortsstelle = ortsstelle;
+    }
+    
     public String getUsername() {
         return username;
     }
@@ -70,24 +79,6 @@ public class Benutzer implements Serializable {
         this.password = password;
     }
 
-    public Benutzer() {
-    }
-
-    public Benutzer(String username, String password, Benutzer benutzer1, Ortsstelle ortsstelle) {
-        this.username = username;
-        this.password = password;
-        benutzer= new LinkedList();
-        this.benutzer1 = benutzer1;
-        this.ortsstelle = ortsstelle;
-    }
-
-    
-//    public Benutzer(String username, String password, Ortsstelle ortsstelle) {
-//        this.username = username;
-//        this.password = password;
-//        this.ortsstelle = ortsstelle;
-//    }
-
     public int getId() {
         return id;
     }
@@ -103,7 +94,6 @@ public class Benutzer implements Serializable {
 //    public void setRolle(Rolle rolle) {
 //        this.rolle = rolle;
 //    }
-
     public List<Termin> getTermine() {
         return termine;
     }
@@ -161,7 +151,7 @@ public class Benutzer implements Serializable {
     public void setBenutzer1(Benutzer benutzer1) {
         this.benutzer1 = benutzer1;
     }
- 
+
     public void removeBenutzer(Benutzer besitzer) {
         if (this.benutzer.contains(besitzer)) {
             this.benutzer.remove(besitzer);
@@ -176,7 +166,5 @@ public class Benutzer implements Serializable {
     public void setBenutzer(List<Benutzer> benutzer) {
         this.benutzer = benutzer;
     }
-    
-    
 
 }

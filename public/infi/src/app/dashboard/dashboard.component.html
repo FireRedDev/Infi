@@ -83,11 +83,13 @@
         </mwl-calendar-month-view>
         <mwl-calendar-week-view
           *ngSwitchCase="'week'"
+          precision="minutes"
           [viewDate]="viewDate"
           [events]="events"
           [locale]="locale"
           [weekStartsOn]="weekStartsOn"
-          [weekendDays]="weekendDays">
+          [weekendDays]="weekendDays"
+          (dayClicked)="dayClicked($event.day)">
         </mwl-calendar-week-view>
       </div>
       </div>

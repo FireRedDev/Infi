@@ -26,12 +26,6 @@ public class Service {
         return "INFI Jugendrotkreuz Server up and running..";
     }
 
-//    @GET
-//    @Path("init")
-//    public String init() {
-//        repo.init();
-//        return "init";
-//    }
     /**
      *
      * @param user
@@ -67,7 +61,7 @@ public class Service {
     public List<Termin> getUserTermine(int id) {
         return repo.termine(id);
     }
-    
+
     @POST
     @Path("username")
     @Produces(MediaType.TEXT_PLAIN)
@@ -93,19 +87,23 @@ public class Service {
         Benutzer tom = new Benutzer("Tom", "passme", null, ooe);
         Benutzer karin = new Benutzer("Karin", "passme", tom, wels);
         Benutzer doris = new Benutzer("Doris", "passme", karin, sattledt);
+        Benutzer isabella = new Benutzer("Isabella", "passme", doris, sattledt);
         Benutzer lina = new Benutzer("Lina", "passme", karin, marchtrenk);
-        Benutzer lisa = new Benutzer("Lisa", "passme", tom, eferding);
+        Benutzer franz = new Benutzer("Franz", "passme", tom, eferding);
+        Benutzer lisa = new Benutzer("Lisa", "passme", franz, eferding);
         repo.insert(tom);
         repo.insert(karin);
         repo.insert(doris);
         repo.insert(lina);
+        repo.insert(franz);
         repo.insert(lisa);
+        repo.insert(isabella);
 
-        repo.insert(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", doris));
-        repo.insert(new Termin("2017-11-03 15:30:00", "2017-11-03 17:30:00", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", lina));
-        repo.insert(new Termin("2017-11-25 15:30:00", "2017-11-26 10:00:00", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", lisa));
-        repo.insert(new Termin("2017-11-24 18:00:00", "2017-11-24 21:00:00", "Grillerei für alle Dienststellen des Bezirkes", karin));
-        repo.insert(new Termin("2017-12-02 18:00:00", "2017-12-02 21:00:00", "Punschstand für den guten Zweck", tom));
+        repo.insert(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", doris, "Gruppenstunde mit Schwerpunkt Erste-Hilfe","Dienststelle Sattledt"));
+        repo.insert(new Termin("2017-11-03 15:30:00", "2017-11-03 17:30:00", "Gruppenstunde", lina, "Gruppenstunde mit Schwerpunkt Erste-Hilfe","Dienststelle Marchtrenk"));
+        repo.insert(new Termin("2017-11-25 15:30:00", "2017-11-26 10:00:00", "Dienststellen Übernachtung", lisa, "Gruppenstunde mit Schwerpunkt Erste-Hilfe","Dienststelle Eferding"));
+        repo.insert(new Termin("2017-11-24 18:00:00", "2017-11-24 21:00:00", "Grillerei", karin, "Grillerei für alle Dienststellen des Bezirkes","Dienststelle Marchtrenk"));
+        repo.insert(new Termin("2017-12-02 18:00:00", "2017-12-02 21:00:00", "Adventmarkt", tom, "Punschstand für den guten Zweck","Adventmarkt Linz"));
 
         return "Testvalues inserted";
     }

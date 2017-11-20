@@ -8,23 +8,23 @@ export class CustomEventTitleFormatter extends CalendarEventTitleFormatter {
   locale: string = 'de';
 
   month(event: CalendarEvent): string {
-    return `<b>${new Intl.DateTimeFormat(this.locale, {
+    return `<div class="black"><b>${new Intl.DateTimeFormat(this.locale, {
       hour: 'numeric',
       minute: 'numeric'
     }).format(event.start)}</b> - <b>${new Intl.DateTimeFormat(this.locale, {
       hour: 'numeric',
       minute: 'numeric'
-    }).format(event.end)} </b>${event.title}`;
+    }).format(event.end)} </b><br>${event.title}</div>`;
   }
 
   week(event: CalendarEvent): string {
     return `<b>${new Intl.DateTimeFormat(this.locale, {
       hour: 'numeric',
+        minute: 'numeric'
+      }).format(event.start)}</b> - <b>${new Intl.DateTimeFormat(this.locale, {
+        hour: 'numeric',
       minute: 'numeric'
-    }).format(event.start)}</b> - <b>${new Intl.DateTimeFormat(this.locale, {
-      hour: 'numeric',
-      minute: 'numeric'
-    }).format(event.end)} </b>${event.title}`;
+    }).format(event.end)} </b><br>${event.title}`;
   }
 
   day(event: CalendarEvent): string {
@@ -34,6 +34,6 @@ export class CustomEventTitleFormatter extends CalendarEventTitleFormatter {
     }).format(event.start)}</b> - <b>${new Intl.DateTimeFormat(this.locale, {
       hour: 'numeric',
       minute: 'numeric'
-    }).format(event.end)} </b>${event.title}}`;
+    }).format(event.end)} </b><br>${event.title}}`;
   }
 }

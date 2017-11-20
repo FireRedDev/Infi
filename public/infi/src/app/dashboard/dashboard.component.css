@@ -176,7 +176,7 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -70%);
   overflow: hidden;
   cursor: pointer;
   color: #fff;
@@ -192,7 +192,7 @@ body {
   left: 50%;
   top: 50%;
   transition: all 0.3s;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -90%);
 }
 .button:hover:after {
   top: -50%;
@@ -230,4 +230,13 @@ body {
 
 .my-custom-class a {
     color: #FF3D7F !important;
-  }
+}
+
+@media screen and (max-width: 500px) {
+  .dashboard-contents[_ngcontent-c3] {
+    padding: 0px !important;
+    }
+}
+.black{
+    color:black !important;
+}

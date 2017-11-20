@@ -56,6 +56,9 @@ interface Termin {
   title: string;
   s_date: string;
   e_date: string;
+  beschreibung: string;
+  benutzer: Benutzer;
+  ort: String;
 }
 @NgModule({
   imports: [
@@ -246,7 +249,7 @@ export class DashboardComponent implements OnInit {
     var calendarEvents=[];
     events.forEach(function(event){
       calendarEvents.push({ 
-        title: event.title,
+        title: "Titel: "+event.title +"<br>Beschreibung: "+event.beschreibung+"<br>Gruppenleiter: "+event.benutzer.username+"<br>Ort: "+event.ort,
         start: new Date(event.s_date),
         end: new Date(event.e_date),
         color: colors.red,
