@@ -166,7 +166,7 @@ dashboard {
 
 @import url('http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
 body {
-  background: #ee;
+  background: #eee;
   font-family: 'helvetica Neue';
 }
 .button {

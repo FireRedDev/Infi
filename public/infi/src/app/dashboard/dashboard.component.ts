@@ -16,12 +16,12 @@ import {
   DAYS_OF_WEEK,
   CalendarEventAction,
   CalendarEventTimesChangedEvent,
-  CalendarEventTitleFormatter
+  CalendarEventTitleFormatter,
+  CalendarModule
 } from 'angular-calendar';
 import { CustomDateFormatter } from './custom-date-formatter.provider';
 import { DateTimePickerComponent } from './date-time-picker.component';
 import { colors } from './colors';
-
 import { Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {
@@ -46,7 +46,6 @@ import {
   NgbDatepickerModule,
   NgbTimepickerModule,NgbModal
 } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarModule } from 'angular-calendar';
 import { Subject } from 'rxjs/Subject';
 import { CustomEventTitleFormatter } from './custom-event-title-formatter.provider';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -205,7 +204,6 @@ export class DashboardComponent implements OnInit {
   constructor(private http: Http,private user:UserService,private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
-    debugger;
     const body = localStorage.getItem('currentUser');
     console.log(body);
     this.http

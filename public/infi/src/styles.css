@@ -64,3 +64,12 @@ a.cal-event-title{
   outline: none !important;
   box-shadow: none;
 }
+@media screen and (max-width: 900px) {
+.cal-month-view .cal-day-badge{
+  position:relative;
+  top: 50px;
+}
+.cal-month-view .cal-day-number{
+  margin-right: 0px !important;
+}
+}

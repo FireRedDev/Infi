@@ -1,4 +1,4 @@
-import { Http } from '@angular/http';
+import { Http,Headers,RequestOptions } from '@angular/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
@@ -36,6 +36,12 @@ export class LoginFormComponent implements OnInit {
      
      const body = {"username": username,"password":password};
      console.log(body);
+        
+    //const headers = new Headers();
+    //headers.append('Content-Type', 'application/json');
+    //headers.append('Authorization', 'Basic cGFzc21l');
+
+    //onst options = new RequestOptions({headers: headers});
      this.http
        .post('http://localhost:8080/api/service/login', body)
        .map((data: any) => {
