@@ -45,7 +45,7 @@ a{
 .cal-open-day-events.ng-trigger.ng-trigger-collapse {
   position: fixed;
   background-color: white !important;
-  bottom: 30px;
+  bottom: 50px;
   width: 90%;
 }
 .cal-month-view .cal-open-day-events{
@@ -81,4 +81,11 @@ a.cal-event-title{
 }
 .black{
   color:black !important;
+  background-color: white !important;
+}
+ng-sidebar{
+  height:100% !important;
+}
+ng-sidebar-container{
+  height:100% !important;
 }
