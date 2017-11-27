@@ -68,6 +68,7 @@
         <div class="col-md-4">
           <h1>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h1>
         </div>
+        <i class="fa fa-plus" aria-hidden="true"></i>
       </div>
       <div *ngIf="events$ | async; else loading; let events">
         <div [ngSwitch]="view">
