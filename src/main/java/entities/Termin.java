@@ -33,14 +33,14 @@ public class Termin implements Serializable {
     private String e_date;
     private String title;
     @ManyToOne
-    private Benutzer benutzer;
+    private Person benutzer;
     private String beschreibung;
     private String ort;
 
     public Termin() {
     }
 
-    public Termin(String s_date, String e_date, String title, Benutzer benutzer, String beschreibung, String ort) {
+    public Termin(String s_date, String e_date, String title, Person benutzer, String beschreibung, String ort) {
         this.s_date = s_date;
         this.e_date = e_date;
         this.title = title;
@@ -81,11 +81,11 @@ public class Termin implements Serializable {
         this.title = title;
     }
 
-    public Benutzer getBenutzer() {
+    public Person getBenutzer() {
         return benutzer;
     }
 
-    public void setBenutzer(Benutzer benutzer) {
+    public void setBenutzer(Person benutzer) {
         this.benutzer = benutzer;
     }
 

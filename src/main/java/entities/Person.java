@@ -24,48 +24,32 @@ import javax.persistence.*;
     @NamedQuery(name = "Benutzer.login", query = "SELECT b FROM Benutzer b where b.username=:username")
 
 })
-public class Benutzer implements Serializable {
+public class Person implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
     private String username;
     private String password;
+    private String vorname;
+    private String nachname;
+    private String telefonnummer;
+    private String medizinischeInfos;
+    
 //    private Rolle rolle;
-    @OneToMany(mappedBy = "benutzer")
-    private List<Termin> termine = new LinkedList<Termin>();
-    @OneToMany(mappedBy = "benutzer1",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    private List<Benutzer> benutzer;
+
     @ManyToOne
-    private Ortsstelle ortsstelle;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "benuzter1_id")
-    private Benutzer benutzer1;
+    private JRKEntität ortsstelle;
 
-    public Benutzer() {
+
+    public Person() {
     }
 
-    public Benutzer(String username, String password, Benutzer benutzer1, Ortsstelle ortsstelle) {
-        this.username = username;
-        this.password = password;
-        benutzer = new LinkedList();
-        this.benutzer1 = benutzer1;
-        this.ortsstelle = ortsstelle;
-    }
     
     public String getUsername() {
         return username;
     }
 
-    public void addTermin(Termin termin) {
-        termine.add(termin);
-    }
-
-    public void removeTermin(Termin termin) {
-        termine.remove(termin);
-    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -94,13 +78,7 @@ public class Benutzer implements Serializable {
 //    public void setRolle(Rolle rolle) {
 //        this.rolle = rolle;
 //    }
-    public List<Termin> getTermine() {
-        return termine;
-    }
 
-    public void setTermine(List<Termin> termine) {
-        this.termine = termine;
-    }
 
     @Override
     public int hashCode() {
@@ -119,7 +97,7 @@ public class Benutzer implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Benutzer other = (Benutzer) obj;
+        final Person other = (Person) obj;
         if (!Objects.equals(this.username, other.username)) {
             return false;
         }
@@ -129,42 +107,14 @@ public class Benutzer implements Serializable {
         return true;
     }
 
-    public Ortsstelle getOrtsstelle() {
+    public JRKEntität getJRKEntität() {
         return ortsstelle;
     }
 
-    public void setOrtsstelle(Ortsstelle ortsstelle) {
+    public void setJRKEntität(JRKEntität ortsstelle) {
         this.ortsstelle = ortsstelle;
     }
 
-    public void addBenutzer(Benutzer besitzer) {
-        if (!this.benutzer.contains(besitzer)) {
-            this.benutzer.add(besitzer);
-            besitzer.setBenutzer1(this);
-        }
-    }
-
-    public Benutzer getBenutzer1() {
-        return benutzer1;
-    }
-
-    public void setBenutzer1(Benutzer benutzer1) {
-        this.benutzer1 = benutzer1;
-    }
-
-    public void removeBenutzer(Benutzer besitzer) {
-        if (this.benutzer.contains(besitzer)) {
-            this.benutzer.remove(besitzer);
-            besitzer.setBenutzer1(this);
-        }
-    }
-
-    public List<Benutzer> getBenutzer() {
-        return benutzer;
-    }
-
-    public void setBenutzer(List<Benutzer> benutzer) {
-        this.benutzer = benutzer;
-    }
+  
 
 }
