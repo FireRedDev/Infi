@@ -41,12 +41,13 @@ public class Termin implements Serializable {
     public Termin() {
     }
 
-    public Termin(String s_date, String e_date, String title, String beschreibung, String ort) {
+    public Termin(String s_date, String e_date, String title, String beschreibung, String ort, JRKEntitaet jrkEntitaet) {
         this.s_date = s_date;
         this.e_date = e_date;
         this.title = title;
         this.beschreibung = beschreibung;
         this.ort = ort;
+        this.jrkEntitaet = jrkEntitaet;
     }
 
     public int getId() {

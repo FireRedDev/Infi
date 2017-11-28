@@ -17,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -24,6 +26,9 @@ import javax.persistence.OneToMany;
  * @author isi
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "JRKEntitaet.listAll", query = "SELECT j FROM JRKEntitaet j")
+})
 public class JRKEntitaet implements Serializable {
 
     @Id
@@ -31,10 +36,13 @@ public class JRKEntitaet implements Serializable {
     int id;
     private String name;
     private String ort;
-    
+    private Typ typ;
     @OneToMany(mappedBy = "jrkEntitaet")
     private List<Termin> termine = new LinkedList<Termin>();
     
+    public void addTermin(Termin termin) {
+        termine.add(termin);
+    }
     //übergeordnet
     @ManyToOne
     private JRKEntitaet jrkentitaet;
@@ -51,8 +59,9 @@ public class JRKEntitaet implements Serializable {
     public JRKEntitaet() {
     }
 
-    public JRKEntitaet(String name) {
+     public JRKEntitaet(String name,Typ kategorie) {
         this.name = name;
+        this.typ= kategorie;
     }
 
     public String getName() {
@@ -65,6 +74,13 @@ public class JRKEntitaet implements Serializable {
 
     public int getId() {
         return id;
+    }
+  public Typ getTyp() {
+        return typ;
+    }
+
+    public void setTyp(Typ typ) {
+        this.typ = typ;
     }
 
     public void setId(int id) {

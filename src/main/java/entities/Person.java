@@ -63,20 +63,25 @@ public class Person implements Serializable {
     }
 
     /**
-     * Leiter
+     * leitet
      * @param personalnr
      * @param password
      * @param vorname
      * @param nachname
+     * @param telefonnummer
+     * @param jrkentitaet
      * @param leitet 
      */
-    public Person(String personalnr, String password, String vorname, String nachname, List<JRKEntitaet> leitet) {
+    public Person(String personalnr, String password, String vorname, String nachname, JRKEntitaet jrkentitaet, List<JRKEntitaet> leitet) {
         this.personalnr = personalnr;
         this.password = password;
         this.vorname = vorname;
         this.nachname = nachname;
+        this.jrkentitaet = jrkentitaet;
         this.leitet = leitet;
     }
+
+
 
     public String getPassword() {
         return password;
