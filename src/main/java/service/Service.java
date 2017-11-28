@@ -1,8 +1,9 @@
 package service;
 
 import entities.Person;
-import entities.JRKEntität;
+import entities.JRKEntitaet;
 import entities.Termin;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -74,30 +75,33 @@ public class Service {
     @Path("init")
     @GET
     public String init() {
-        JRKEntität sattledt = new JRKEntität("Sattledt");
+        JRKEntitaet sattledt = new JRKEntitaet("Sattledt");
         repo.insert(sattledt);
-        JRKEntität marchtrenk = new JRKEntität("Marchtrenk");
+        JRKEntitaet sattledt1 = new JRKEntitaet("Sattledt_Gruppe1");
+        repo.insert(sattledt1);
+        JRKEntitaet marchtrenk = new JRKEntitaet("Marchtrenk");
         repo.insert(marchtrenk);
-        JRKEntität eferding = new JRKEntität("Eferding");
+        JRKEntitaet eferding = new JRKEntitaet("Eferding");
         repo.insert(eferding);
-        JRKEntität wels = new JRKEntität("Bezirksstelle Wels");
+        JRKEntitaet wels = new JRKEntitaet("Bezirksstelle Wels");
         repo.insert(wels);
-        JRKEntität ooe = new JRKEntität("Landesleitung Oberösterreich");
+        JRKEntitaet ooe = new JRKEntitaet("Landesleitung Oberösterreich");
         repo.insert(ooe);
-//        Person tom = new Person("Tom", "passme", null, ooe);
-//        Person karin = new Person("Karin", "passme", tom, wels);
-//        Person doris = new Person("Doris", "passme", karin, sattledt);
-//        Person isabella = new Person("Isabella", "passme", doris, sattledt);
-//        Person lina = new Person("Lina", "passme", karin, marchtrenk);
-//        Person franz = new Person("Franz", "passme", tom, eferding);
-//        Person lisa = new Person("Lisa", "passme", franz, eferding);
-//        repo.insert(tom);
-//        repo.insert(karin);
-//        repo.insert(doris);
-//        repo.insert(lina);
-//        repo.insert(franz);
-//        repo.insert(lisa);
-//        repo.insert(isabella);
+        List<JRKEntitaet> landesleitung = new LinkedList<>();
+        landesleitung.add(wels);
+        List<JRKEntitaet> bezirksleitung_wels = new LinkedList<>();
+        bezirksleitung_wels.add(sattledt);
+        bezirksleitung_wels.add(marchtrenk);
+        List<JRKEntitaet> ortstelle_sattledt = new LinkedList<>();
+        ortstelle_sattledt.add(sattledt1);
+        Person tom = new Person("00001", "passme", "Tom", "Tom", landesleitung);
+        Person karin = new Person("00002", "passme", "Karin", "Karin", bezirksleitung_wels);
+        Person doris = new Person("00003", "passme", "Doris", "Doris", ortstelle_sattledt);
+        Person isabella = new Person("00004", "passme", "Isabella", "Isabella", sattledt);
+        repo.insert(tom);
+        repo.insert(karin);
+        repo.insert(doris);
+        repo.insert(isabella);
 //
 //        repo.insert(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", doris, "Gruppenstunde mit Schwerpunkt Erste-Hilfe","Dienststelle Sattledt"));
 //        repo.insert(new Termin("2017-11-03 15:30:00", "2017-11-03 17:30:00", "Gruppenstunde", lina, "Gruppenstunde mit Schwerpunkt Erste-Hilfe","Dienststelle Marchtrenk"));

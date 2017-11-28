@@ -6,7 +6,7 @@
 package repository;
 
 import entities.Person;
-import entities.JRKEntität;
+import entities.JRKEntitaet;
 import entities.Termin;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class DatenbankRepository {
     }
 
     public int login(Person user) {
-        Person b = em.createNamedQuery("Benutzer.login", Person.class).setParameter("username", user.getUsername()).getSingleResult();
+        Person b = em.createNamedQuery("Benutzer.login", Person.class).setParameter("personalnr", user.getPersonalnr()).getSingleResult();
         if (b.getPassword().equals(user.getPassword())) {
             return b.getId();
         }
@@ -74,7 +74,7 @@ public class DatenbankRepository {
         return termin;
     }
 
-    public void insert(JRKEntität ortsstelle) {
+    public void insert(JRKEntitaet ortsstelle) {
         em.getTransaction().begin();
         em.persist(ortsstelle);
         em.getTransaction().commit();

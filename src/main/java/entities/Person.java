@@ -14,14 +14,15 @@ import javax.persistence.*;
 /**
  *
  * @author isi
+ * @NamedQuery(name = "Benutzer.chef", query = "SELECT b FROM Person b where b.benutzer1.id=:id"),
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Benutzer.listAll", query = "SELECT b FROM Benutzer b"),
-    @NamedQuery(name = "Benutzer.list", query = "SELECT b FROM Benutzer b where b.id=:id"),
-    @NamedQuery(name = "Benutzer.username", query = "SELECT b.username FROM Benutzer b where b.id=:id"),
-    @NamedQuery(name = "Benutzer.chef", query = "SELECT b FROM Benutzer b where b.benutzer1.id=:id"),
-    @NamedQuery(name = "Benutzer.login", query = "SELECT b FROM Benutzer b where b.username=:username")
+    @NamedQuery(name = "Benutzer.listAll", query = "SELECT b FROM Person b"),
+    @NamedQuery(name = "Benutzer.list", query = "SELECT b FROM Person b where b.id=:id"),
+    @NamedQuery(name = "Benutzer.personalnr", query = "SELECT b.personalnr FROM Person b where b.id=:id"),
+
+    @NamedQuery(name = "Benutzer.login", query = "SELECT b FROM Person b where b.personalnr=:personalnr")
 
 })
 public class Person implements Serializable {
@@ -29,30 +30,52 @@ public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
-    private String username;
+    private String personalnr;
     private String password;
     private String vorname;
     private String nachname;
     private String telefonnummer;
-    private String medizinischeInfos;
-    
-//    private Rolle rolle;
 
     @ManyToOne
-    private JRKEntität ortsstelle;
+    private JRKEntitaet jrkentitaet;
+    
+    @ManyToMany
+    private List<JRKEntitaet> leitet;
 
 
     public Person() {
     }
 
-    
-    public String getUsername() {
-        return username;
+    /**
+     * Kinder
+     * @param personalnr
+     * @param password
+     * @param vorname
+     * @param nachname
+     * @param jrkentitaet 
+     */
+    public Person(String personalnr, String password, String vorname, String nachname, JRKEntitaet jrkentitaet) {
+        this.personalnr = personalnr;
+        this.password = password;
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.jrkentitaet = jrkentitaet;
     }
 
-
-    public void setUsername(String username) {
-        this.username = username;
+    /**
+     * Leiter
+     * @param personalnr
+     * @param password
+     * @param vorname
+     * @param nachname
+     * @param leitet 
+     */
+    public Person(String personalnr, String password, String vorname, String nachname, List<JRKEntitaet> leitet) {
+        this.personalnr = personalnr;
+        this.password = password;
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.leitet = leitet;
     }
 
     public String getPassword() {
@@ -71,48 +94,52 @@ public class Person implements Serializable {
         this.id = id;
     }
 
-//    public Rolle getRolle() {
-//        return rolle;
-//    }
-//
-//    public void setRolle(Rolle rolle) {
-//        this.rolle = rolle;
-//    }
-
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        return hash;
+    public String getPersonalnr() {
+        return personalnr;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Person other = (Person) obj;
-        if (!Objects.equals(this.username, other.username)) {
-            return false;
-        }
-        if (!Objects.equals(this.password, other.password)) {
-            return false;
-        }
-        return true;
+    public void setPersonalnr(String personalnr) {
+        this.personalnr = personalnr;
     }
 
-    public JRKEntität getJRKEntität() {
-        return ortsstelle;
+    public String getVorname() {
+        return vorname;
     }
 
-    public void setJRKEntität(JRKEntität ortsstelle) {
-        this.ortsstelle = ortsstelle;
+    public void setVorname(String vorname) {
+        this.vorname = vorname;
+    }
+
+    public String getNachname() {
+        return nachname;
+    }
+
+    public void setNachname(String nachname) {
+        this.nachname = nachname;
+    }
+
+    public String getTelefonnummer() {
+        return telefonnummer;
+    }
+
+    public void setTelefonnummer(String telefonnummer) {
+        this.telefonnummer = telefonnummer;
+    }    
+
+    public List<JRKEntitaet> getLeitet() {
+        return leitet;
+    }
+
+    public void setLeitet(List<JRKEntitaet> leitet) {
+        this.leitet = leitet;
+    }
+
+    public JRKEntitaet getJrkentitaet() {
+        return jrkentitaet;
+    }
+
+    public void setJrkentitaet(JRKEntitaet jrkentitaet) {
+        this.jrkentitaet = jrkentitaet;
     }
 
   

@@ -17,11 +17,11 @@ import javax.persistence.NamedQuery;
 /**
  *
  * @author isi
+ * @NamedQuery(name = "Termin.listBenutzer", query = "SELECT t FROM Termin t where t.jrkEntitaet = :benutzerid")
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t"),
-    @NamedQuery(name = "Termin.listBenutzer", query = "SELECT t FROM Termin t where t.benutzer.id = :benutzerid")
+    @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t")
 })
 public class Termin implements Serializable {
 
@@ -32,19 +32,19 @@ public class Termin implements Serializable {
 
     private String e_date;
     private String title;
-    @ManyToOne
-    private Person benutzer;
+
     private String beschreibung;
     private String ort;
+    @ManyToOne
+    private JRKEntitaet jrkEntitaet;
 
     public Termin() {
     }
 
-    public Termin(String s_date, String e_date, String title, Person benutzer, String beschreibung, String ort) {
+    public Termin(String s_date, String e_date, String title, String beschreibung, String ort) {
         this.s_date = s_date;
         this.e_date = e_date;
         this.title = title;
-        this.benutzer = benutzer;
         this.beschreibung = beschreibung;
         this.ort = ort;
     }
@@ -79,14 +79,6 @@ public class Termin implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Person getBenutzer() {
-        return benutzer;
-    }
-
-    public void setBenutzer(Person benutzer) {
-        this.benutzer = benutzer;
     }
 
     public String getOrt() {
