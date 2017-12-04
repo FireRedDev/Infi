@@ -127,7 +127,9 @@ wels.addTermin(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppen
 //        repo.insert(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt", sattledt1));
 //        repo.insert(new Termin("2017-11-24 18:00:00", "2017-11-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk", wels));
 //        repo.insert(new Termin("2017-12-02 18:00:00", "2017-12-02 21:00:00", "Adventmarkt", "Punschstand für den guten Zweck", "Adventmarkt Linz", ooe));
-        repo.insert(wels);
+wels.addLowerEntitaet(sattledt);
+wels.setHigherEntitaet(ooe);
+repo.insert(wels);
 
         return "Testvalues inserted";
     }

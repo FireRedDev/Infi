@@ -57,13 +57,19 @@ public class JRKEntitaet implements Serializable {
     private List<Person> persons1;
 
     public JRKEntitaet() {
+        
     }
 
      public JRKEntitaet(String name,Typ kategorie) {
         this.name = name;
         this.typ= kategorie;
     }
-
+public void addLowerEntitaet (JRKEntitaet ent) {
+    jrkentitaet1.add(ent);
+}
+public void setHigherEntitaet (JRKEntitaet ent) {
+    this.setJrkentitaet(ent);
+}
     public String getName() {
         return name;
     }
