@@ -98,4 +98,12 @@ public class Termin implements Serializable {
         this.beschreibung = beschreibung;
     }
 
+    public JRKEntitaet getJrkEntitaet() {
+        return jrkEntitaet;
+    }
+
+    public void setJrkEntitaet(JRKEntitaet jrkEntitaet) {
+        this.jrkEntitaet = jrkEntitaet;
+    }
+
 }

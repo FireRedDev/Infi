@@ -26,6 +26,11 @@ public class Service {
     private DatenbankRepository repo = new DatenbankRepository();
 
     // Nur zum Testen
+
+    /**
+     * Servertestfunction
+     * @return
+     */
     @GET
     @Path("message")
     public String message() {
@@ -33,7 +38,7 @@ public class Service {
     }
 
     /**
-     *
+     * Login Function to authenticate
      * @param user
      * @return
      */
@@ -47,6 +52,10 @@ public class Service {
     }
 
     //funktioniert nicht
+    /**
+     * Lists all Termine
+     * @return
+     */
     @GET
     @Path("listAllTermine")
     @Produces(MediaType.APPLICATION_JSON)
@@ -54,13 +63,21 @@ public class Service {
         return repo.termine();
     }
 
+    /**
+     * Lists all Persons
+     * @return
+     */
     @GET
     @Path("listAllPersons")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Person> listAll() {
-        return repo.listAll();
+    public List<Person> listAllPersons() {
+        return repo.listAllUsers();
     }
 
+    /**
+     * Lists all JRKENTITYS
+     * @return
+     */
     @GET
     @Path("listAllJRKEntitaeten")
     @Produces(MediaType.APPLICATION_JSON)
@@ -68,23 +85,38 @@ public class Service {
         return repo.listAllJRK();
     }
 
+    /**
+     * Gets Users Termine/Appointments
+     * @param id
+     * @return
+     */
     @POST
-    @Path("termineuser")
+    @Path("getUserTermine")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<Termin> getUserTermine(int id) {
-        return repo.termine(id);
+        return repo.getUsertermine(id);
     }
 
+    /**
+     * Gets Username
+     * @param id
+     * @return
+     */
     @POST
     @Path("getName")
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
-    public String username(int id) {
+    public String getUsername(int id) {
         return repo.username(id);
     }
 
     // Initialize data table
+
+    /**
+     * Inserts and creates Test Values
+     * @return
+     */
     @Path("init")
     @GET
     public String init() {
@@ -146,19 +178,42 @@ public class Service {
 //      public void removeTermin(Termin termin, Person user) {
 //        user.removeTermin(termin);
 //    }
+    //????
+
+    /**
+     * Outdated
+     * @param user
+     */
     @POST
     @Path("addBenutzer")
     @Consumes(MediaType.APPLICATION_JSON)
     public void addBenutzer(Person user) {
         repo.addBenutzer(user);
     }
-    // insert one new messung
+    // meine funktion
 
-    @Path("insert")
+    /**
+     * Inserts a Person
+     * @param b
+     */
+    @Path("insertPerson")
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
-    public void insert(Person b) {
+    public void insertPerson(Person b) {
+        //TODO HERE INSERT PERSON INTO JRK
         repo.insert(b);
+    }
+
+    /**
+     * Inserts a Termin/Appointment
+     * @param t
+     */
+    @Path("insertTermin")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @POST
+    public void insertTermin(Termin t) {
+        t.getJrkEntitaet().addTermin(t);
+        repo.insert(t);
     }
 
 }
