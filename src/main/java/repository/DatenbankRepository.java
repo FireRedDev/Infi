@@ -127,7 +127,7 @@ public class DatenbankRepository {
     }
 
     public String username(int id) {
-        return em.createNamedQuery("Benutzer.username", String.class).setParameter("id", id).getSingleResult();
+        return em.createNamedQuery("Benutzer.name", String.class).setParameter("id", id).getSingleResult();
     }
 
     public List<JRKEntitaet> listAllJRK() {

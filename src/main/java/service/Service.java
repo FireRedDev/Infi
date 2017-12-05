@@ -76,7 +76,7 @@ public class Service {
     }
 
     @POST
-    @Path("username")
+    @Path("getName")
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
     public String username(int id) {
@@ -113,23 +113,23 @@ public class Service {
         List<JRKEntitaet> ortstelle_sattledt = new LinkedList<>();
         ortstelle_sattledt.add(sattledt1);
         repo.insert(ortstelle_sattledt);
-        Person tom = new Person("00001", "passme", "Tom", "Tom", ooe, landesleitung);
-        Person karin = new Person("00002", "passme", "Karin", "Karin", wels, bezirksleitung_wels);
-        Person gusi = new Person("00003", "passme", "Gusi", "Gusi", sattledt, ortstelle_sattledt);
-        Person doris = new Person("00004", "passme", "Doris", "Doris", sattledt1, ortstelle_sattledt);
-        Person isabella = new Person("00004", "passme", "Isabella", "Isabella", sattledt1);
+        Person tom = new Person("00001", "passme", "Tom", "Tester", ooe, landesleitung);
+        Person karin = new Person("00002", "passme", "Karin", "Tester", wels, bezirksleitung_wels);
+        Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt, ortstelle_sattledt);
+        Person doris = new Person("00004", "passme", "Doris", "Tester", sattledt1, ortstelle_sattledt);
+        Person isabella = new Person("00004", "passme", "Isabella", "Tester", sattledt1);
         repo.insert(tom);
         repo.insert(karin);
         repo.insert(gusi);
         repo.insert(doris);
         repo.insert(isabella);
-wels.addTermin(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt", wels));
+        wels.addTermin(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt", wels));
 //        repo.insert(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt", sattledt1));
 //        repo.insert(new Termin("2017-11-24 18:00:00", "2017-11-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk", wels));
 //        repo.insert(new Termin("2017-12-02 18:00:00", "2017-12-02 21:00:00", "Adventmarkt", "Punschstand für den guten Zweck", "Adventmarkt Linz", ooe));
-wels.addLowerEntitaet(sattledt);
-wels.setHigherEntitaet(ooe);
-repo.insert(wels);
+        wels.addLowerEntitaet(sattledt);
+        wels.setHigherEntitaet(ooe);
+        repo.insert(wels);
 
         return "Testvalues inserted";
     }
