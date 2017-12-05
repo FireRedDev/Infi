@@ -17,11 +17,11 @@ import javax.persistence.NamedQuery;
 /**
  *
  * @author isi
+ * @NamedQuery(name = "Termin.listBenutzer", query = "SELECT t FROM Termin t where t.jrkEntitaet = :benutzerid")
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t"),
-    @NamedQuery(name = "Termin.listBenutzer", query = "SELECT t FROM Termin t where t.benutzer.id = :benutzerid")
+    @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t")
 })
 public class Termin implements Serializable {
 
@@ -32,21 +32,22 @@ public class Termin implements Serializable {
 
     private String e_date;
     private String title;
-    @ManyToOne
-    private Benutzer benutzer;
+
     private String beschreibung;
     private String ort;
+    @ManyToOne
+    private JRKEntitaet jrkEntitaet;
 
     public Termin() {
     }
 
-    public Termin(String s_date, String e_date, String title, Benutzer benutzer, String beschreibung, String ort) {
+    public Termin(String s_date, String e_date, String title, String beschreibung, String ort, JRKEntitaet jrkEntitaet) {
         this.s_date = s_date;
         this.e_date = e_date;
         this.title = title;
-        this.benutzer = benutzer;
         this.beschreibung = beschreibung;
         this.ort = ort;
+        this.jrkEntitaet = jrkEntitaet;
     }
 
     public int getId() {
@@ -81,14 +82,6 @@ public class Termin implements Serializable {
         this.title = title;
     }
 
-    public Benutzer getBenutzer() {
-        return benutzer;
-    }
-
-    public void setBenutzer(Benutzer benutzer) {
-        this.benutzer = benutzer;
-    }
-
     public String getOrt() {
         return ort;
     }
@@ -103,6 +96,14 @@ public class Termin implements Serializable {
 
     public void setBeschreibung(String beschreibung) {
         this.beschreibung = beschreibung;
+    }
+
+    public JRKEntitaet getJrkEntitaet() {
+        return jrkEntitaet;
+    }
+
+    public void setJrkEntitaet(JRKEntitaet jrkEntitaet) {
+        this.jrkEntitaet = jrkEntitaet;
     }
 
 }

@@ -1,34 +1,26 @@
 <header>
 
 </header>
-<body>
+<body>   
+  <div class="main">
+    Titel<input type="text" [(ngModel)]="actTermin.title">
+    <br>
+    Startdatum<input type="text" [(ngModel)]="actTermin.s_date">
+    <br>
+    Enddatum<input type="text" [(ngModel)]="actTermin.e_date">
+    <br>
+    <!--
+    Startuhrzeit<input type="time">
+    <br>
+    Enduhrzeit<input type="time">
+    <br>
+    [{"id":22,"s_date":"2017-11-04 15:30:00","e_date":"2017-11-04 17:30:00","title":"Gruppenstunde","beschreibung":"Gruppenstunde mit Schwerpunkt Erste-Hilfe","ort":"Dienststelle Sattledt"
     
-<div class="main">
-  <ul>
-  <li>Titel</li>
-  <li>Startdatum</li>
-  <li>Enddatum</li>
-  <li>Startuhrzeit</li>
-  <li>Enduhrzeit</li>
-  <li>Ort</li>
-  <li>Beschreibung</li>
-  </ul>
-  
-  <input type="text">Titel
-  <br>
-  <input type="date">Startdatum
-  <br>
-  <input type="date">Enddatum
-  <br>
-  <input type="time">Startuhrzeit
-  <br>
-  <input type="time">Enduhrzeit
-  <br>
-  <input type="text"> Ort
-  <br>
-  <input type="text"> Beschreibung
-  <br>
-  
-</div>
-  
+    -->
+    Ort<input type="text" [(ngModel)]="actTermin.ort"> 
+    <br>
+    Beschreibung<input type="text" [(ngModel)]="actTermin.beschreibung"> 
+    <br>
+    <input type="button" class="btn" (click)="save()" value="einfügen">
+  </div>
 </body>

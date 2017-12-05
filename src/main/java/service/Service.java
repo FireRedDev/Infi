@@ -1,8 +1,14 @@
 package service;
 
-import entities.Benutzer;
-import entities.Ortsstelle;
+import entities.Person;
+import entities.JRKEntitaet;
 import entities.Termin;
+import entities.Typ;
+import static entities.Typ.Bezirkstelle;
+import static entities.Typ.Gruppe;
+import static entities.Typ.Landstelle;
+import static entities.Typ.Ortstelle;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -12,14 +18,19 @@ import repository.DatenbankRepository;
 
 /**
  *
- * @author INFI-Projektgruppe
+ * @author INFI-Projektgruppe http://localhost:8080/api/service/message
  */
 @Path("service")
 public class Service {
-
+    
     private DatenbankRepository repo = new DatenbankRepository();
 
     // Nur zum Testen
+    /**
+     * Servertestfunction
+     *
+     * @return
+     */
     @GET
     @Path("message")
     public String message() {
@@ -27,6 +38,7 @@ public class Service {
     }
 
     /**
+     * Login Function to authenticate
      *
      * @param user
      * @return
@@ -34,109 +46,183 @@ public class Service {
     @POST
     @Path("login")
     @Produces(MediaType.APPLICATION_JSON)
-    public int login(Benutzer user) {
+    public int login(Person user) {
 //        String cookie = "12345";//repo.login(user);
 //        return Response.ok().header("Set-Cookie", "kalendarCookie=" + cookie).build();
         return repo.login(user);
     }
 
+    //funktioniert nicht
+    /**
+     * Lists all Termine
+     *
+     * @return
+     */
     @GET
-    @Path("termine")
+    @Path("listAllTermine")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Termin> getUserTermine() {
+    public List<Termin> listallTermine() {
         return repo.termine();
     }
 
+    /**
+     * Lists all Persons
+     *
+     * @return
+     */
     @GET
-    @Path("listAll")
+    @Path("listAllPersons")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Benutzer> listAll() {
-        return repo.listAll();
+    public List<Person> listAllPersons() {
+        return repo.listAllUsers();
     }
 
+    /**
+     * Lists all JRKENTITYS
+     *
+     * @return
+     */
+    @GET
+    @Path("listAllJRKEntitaeten")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<JRKEntitaet> listAllJRKEntitaeten() {
+        return repo.listAllJRK();
+    }
+
+    /**
+     * Gets Users Termine/Appointments
+     *
+     * @param id
+     * @return
+     */
     @POST
-    @Path("termineuser")
+    @Path("getUserTermine")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<Termin> getUserTermine(int id) {
-        return repo.termine(id);
+        return repo.getUsertermine(id);
     }
 
+    /**
+     * Gets Username
+     *
+     * @param id
+     * @return
+     */
     @POST
-    @Path("username")
+    @Path("getName")
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
-    public String username(int id) {
+    public String getUsername(int id) {
         return repo.username(id);
     }
 
     // Initialize data table
+    /**
+     * Inserts and creates Test Values
+     *
+     * @return
+     */
     @Path("init")
     @GET
     public String init() {
-        Ortsstelle sattledt = new Ortsstelle("Sattledt");
+        Typ gruppe = Gruppe;
+        Typ ortstelle = Ortstelle;
+        Typ bezirkstelle = Bezirkstelle;
+        Typ landesstelle = Landstelle;
+        JRKEntitaet sattledt = new JRKEntitaet("Sattledt", ortstelle);
         repo.insert(sattledt);
-        Ortsstelle marchtrenk = new Ortsstelle("Marchtrenk");
+        JRKEntitaet sattledt1 = new JRKEntitaet("Gruppe1", gruppe);
+        repo.insert(sattledt1);
+        JRKEntitaet marchtrenk = new JRKEntitaet("Marchtrenk", ortstelle);
         repo.insert(marchtrenk);
-        Ortsstelle eferding = new Ortsstelle("Eferding");
+        JRKEntitaet eferding = new JRKEntitaet("Eferding", bezirkstelle);
         repo.insert(eferding);
-        Ortsstelle wels = new Ortsstelle("Bezirksstelle Wels");
+        JRKEntitaet wels = new JRKEntitaet("Wels", bezirkstelle);
         repo.insert(wels);
-        Ortsstelle ooe = new Ortsstelle("Landesleitung Oberösterreich");
+        JRKEntitaet ooe = new JRKEntitaet("Oberösterreich", landesstelle);
         repo.insert(ooe);
-        Benutzer tom = new Benutzer("Tom", "passme", null, ooe);
-        Benutzer karin = new Benutzer("Karin", "passme", tom, wels);
-        Benutzer doris = new Benutzer("Doris", "passme", karin, sattledt);
-        Benutzer isabella = new Benutzer("Isabella", "passme", doris, sattledt);
-        Benutzer lina = new Benutzer("Lina", "passme", karin, marchtrenk);
-        Benutzer franz = new Benutzer("Franz", "passme", tom, eferding);
-        Benutzer lisa = new Benutzer("Lisa", "passme", franz, eferding);
+        List<JRKEntitaet> landesleitung = new LinkedList<>();
+        landesleitung.add(wels);
+        repo.insert(landesleitung);
+        List<JRKEntitaet> bezirksleitung_wels = new LinkedList<>();
+        bezirksleitung_wels.add(sattledt);
+        bezirksleitung_wels.add(marchtrenk);
+        repo.insert(bezirksleitung_wels);
+        List<JRKEntitaet> ortstelle_sattledt = new LinkedList<>();
+        ortstelle_sattledt.add(sattledt1);
+        repo.insert(ortstelle_sattledt);
+        Person tom = new Person("00001", "passme", "Tom", "Tester", ooe, landesleitung);
+        Person karin = new Person("00002", "passme", "Karin", "Tester", wels, bezirksleitung_wels);
+        Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt, ortstelle_sattledt);
+        Person doris = new Person("00004", "passme", "Doris", "Tester", sattledt1, ortstelle_sattledt);
+        Person isabella = new Person("00004", "passme", "Isabella", "Tester", sattledt1);
         repo.insert(tom);
         repo.insert(karin);
+        repo.insert(gusi);
         repo.insert(doris);
-        repo.insert(lina);
-        repo.insert(franz);
-        repo.insert(lisa);
         repo.insert(isabella);
-
-        repo.insert(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", doris, "Gruppenstunde mit Schwerpunkt Erste-Hilfe","Dienststelle Sattledt"));
-        repo.insert(new Termin("2017-11-03 15:30:00", "2017-11-03 17:30:00", "Gruppenstunde", lina, "Gruppenstunde mit Schwerpunkt Erste-Hilfe","Dienststelle Marchtrenk"));
-        repo.insert(new Termin("2017-11-25 15:30:00", "2017-11-26 10:00:00", "Dienststellen Übernachtung", lisa, "Gruppenstunde mit Schwerpunkt Erste-Hilfe","Dienststelle Eferding"));
-        repo.insert(new Termin("2017-11-24 18:00:00", "2017-11-24 21:00:00", "Grillerei", karin, "Grillerei für alle Dienststellen des Bezirkes","Dienststelle Marchtrenk"));
-        repo.insert(new Termin("2017-12-02 18:00:00", "2017-12-02 21:00:00", "Adventmarkt", tom, "Punschstand für den guten Zweck","Adventmarkt Linz"));
-
+        sattledt1.addTermin(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt", sattledt1));
+        wels.addTermin(new Termin("2017-11-24 18:00:00", "2017-11-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk", wels));
+        ooe.addTermin(new Termin("2017-12-02 18:00:00", "2017-12-02 21:00:00", "Adventmarkt", "Punschstand für den guten Zweck", "Adventmarkt Linz", ooe));
+//        repo.insert(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt", sattledt1));
+//        repo.insert(new Termin("2017-11-24 18:00:00", "2017-11-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk", wels));
+//        repo.insert(new Termin("2017-12-02 18:00:00", "2017-12-02 21:00:00", "Adventmarkt", "Punschstand für den guten Zweck", "Adventmarkt Linz", ooe));
+        wels.addLowerEntitaet(sattledt);
+        wels.setHigherEntitaet(ooe);
+        repo.insert(wels);
+        
         return "Testvalues inserted";
     }
 
 //    @POST
 //    @Path("addTermin")
 //    @Consumes(MediaType.APPLICATION_JSON)
-//    public void addTermin(Termin termin, Benutzer user) {
+//    public void addTermin(Termin termin, Person user) {
 //        user.addTermin(termin);
 //    }
 //     @POST
 //     @Path("removeTermin")
-//      public void removeTermin(Termin termin, Benutzer user) {
+//      public void removeTermin(Termin termin, Person user) {
 //        user.removeTermin(termin);
 //    }
+    //????
+    /**
+     * Outdated
+     *
+     * @param user
+     */
     @POST
     @Path("addBenutzer")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void addBenutzer(Benutzer user) {
+    public void addBenutzer(Person user) {
         repo.addBenutzer(user);
     }
-    // insert one new messung
+    // meine funktion
 
-    @Path("insert")
+    /**
+     * Inserts a Person
+     *
+     * @param b
+     */
+    @Path("insertPerson")
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
-    public void insert(Benutzer b) {
+    public void insertPerson(Person b) {
+        //TODO HERE INSERT PERSON INTO JRK
         repo.insert(b);
     }
 
-    @Path("insertMore")
+    /**
+     * Inserts a Termin/Appointment
+     *
+     * @param t
+     */
+    @Path("insertTermin")
+    @Consumes(MediaType.APPLICATION_JSON)
     @POST
-    public void insertMore(List<Benutzer> b) {
-        repo.insert(b);
+    public void insertTermin(Termin t) {
+        repo.insertTermin(t);
     }
+    
 }

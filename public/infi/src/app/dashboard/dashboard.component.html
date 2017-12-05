@@ -39,7 +39,7 @@
       <i (click)="view = 'termin'" class="fa fa-plus" aria-hidden="true"></i>
     </header>
     <section class="dashboard-contents">
-      <div *ngIf="view=='month'||view=='week'">
+        <div *ngIf="view=='month'||view=='week'">
       <div class="row text-center">
         <div class="col-md-4">
           <div class="btn-group">
@@ -70,7 +70,6 @@
         <div class="col-md-4">
           <h1>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h1>
         </div>
-        
       </div>
       <div *ngIf="events$ | async; else loading; let events">
         <div [ngSwitch]="view">
