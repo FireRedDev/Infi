@@ -14,15 +14,16 @@ import javax.persistence.*;
 /**
  *
  * @author isi
- * @NamedQuery(name = "Benutzer.chef", query = "SELECT b FROM Person b where b.benutzer1.id=:id"),
+ * @NamedQuery(name = "Benutzer.chef", query = "SELECT b FROM Person b where
+ * b.benutzer1.id=:id"),
  */
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Benutzer.listAll", query = "SELECT b FROM Person b"),
     @NamedQuery(name = "Benutzer.list", query = "SELECT b FROM Person b where b.id=:id"),
     @NamedQuery(name = "Benutzer.personalnr", query = "SELECT b.personalnr FROM Person b where b.id=:id"),
-
-    @NamedQuery(name = "Benutzer.login", query = "SELECT b FROM Person b where b.personalnr=:personalnr")
+    @NamedQuery(name = "Benutzer.login", query = "SELECT b FROM Person b where b.personalnr=:personalnr"),
+    @NamedQuery(name = "Benutzer.name", query = "SELECT concat(b.vorname,' ',b.nachname) FROM Person b where b.id=:id")
 
 })
 public class Person implements Serializable {
@@ -38,21 +39,21 @@ public class Person implements Serializable {
 
     @ManyToOne
     private JRKEntitaet jrkentitaet;
-    
+
     @ManyToMany
     private List<JRKEntitaet> leitet;
-
 
     public Person() {
     }
 
     /**
      * Kinder
+     *
      * @param personalnr
      * @param password
      * @param vorname
      * @param nachname
-     * @param jrkentitaet 
+     * @param jrkentitaet
      */
     public Person(String personalnr, String password, String vorname, String nachname, JRKEntitaet jrkentitaet) {
         this.personalnr = personalnr;
@@ -64,13 +65,13 @@ public class Person implements Serializable {
 
     /**
      * leitet
+     *
      * @param personalnr
      * @param password
      * @param vorname
      * @param nachname
-     * @param telefonnummer
      * @param jrkentitaet
-     * @param leitet 
+     * @param leitet
      */
     public Person(String personalnr, String password, String vorname, String nachname, JRKEntitaet jrkentitaet, List<JRKEntitaet> leitet) {
         this.personalnr = personalnr;
@@ -80,8 +81,6 @@ public class Person implements Serializable {
         this.jrkentitaet = jrkentitaet;
         this.leitet = leitet;
     }
-
-
 
     public String getPassword() {
         return password;
@@ -129,7 +128,7 @@ public class Person implements Serializable {
 
     public void setTelefonnummer(String telefonnummer) {
         this.telefonnummer = telefonnummer;
-    }    
+    }
 
     public List<JRKEntitaet> getLeitet() {
         return leitet;
@@ -146,7 +145,5 @@ public class Person implements Serializable {
     public void setJrkentitaet(JRKEntitaet jrkentitaet) {
         this.jrkentitaet = jrkentitaet;
     }
-
-  
 
 }

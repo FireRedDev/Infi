@@ -210,7 +210,7 @@ export class DashboardComponent implements OnInit {
     const body = localStorage.getItem('currentUser');
     console.log(body);
     this.http
-      .post('http://localhost:8080/api/service/username',JSON.parse(body))
+      .post('http://localhost:8080/api/service/getName',JSON.parse(body))
       .subscribe(data => {
         // Read the result field from the JSON response.
         console.log("Username", data["_body"]);
@@ -249,7 +249,7 @@ export class DashboardComponent implements OnInit {
     var calendarEvents=[];
     events.forEach(function(event){
       calendarEvents.push({ 
-        title: "Titel: "+event.title +"<br>Beschreibung: "+event.beschreibung+"<br>Gruppenleiter: "+event.benutzer.username+"<br>Ort: "+event.ort,
+        title: "Titel: "+event.title +"<br>Beschreibung: "+event.beschreibung+"<br>Gruppenleiter: "+event.benutzer.personalnr+"<br>Ort: "+event.ort,
         start: new Date(event.s_date),
         end: new Date(event.e_date),
         color: colors.red,

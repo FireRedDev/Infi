@@ -39,37 +39,40 @@ public class JRKEntitaet implements Serializable {
     private Typ typ;
     @OneToMany(mappedBy = "jrkEntitaet")
     private List<Termin> termine = new LinkedList<Termin>();
-    
+
     public void addTermin(Termin termin) {
         termine.add(termin);
     }
     //übergeordnet
     @ManyToOne
     private JRKEntitaet jrkentitaet;
-        
+
     //untergeordnet
     @OneToMany(mappedBy = "jrkentitaet")
     private List<JRKEntitaet> jrkentitaet1;
-    
+
     @ManyToMany(mappedBy = "leitet")
     private List<Person> persons;
     @OneToMany(mappedBy = "jrkentitaet")
     private List<Person> persons1;
 
     public JRKEntitaet() {
-        
+
     }
 
-     public JRKEntitaet(String name,Typ kategorie) {
+    public JRKEntitaet(String name, Typ kategorie) {
         this.name = name;
-        this.typ= kategorie;
+        this.typ = kategorie;
     }
-public void addLowerEntitaet (JRKEntitaet ent) {
-    jrkentitaet1.add(ent);
-}
-public void setHigherEntitaet (JRKEntitaet ent) {
-    this.setJrkentitaet(ent);
-}
+
+    public void addLowerEntitaet(JRKEntitaet ent) {
+        jrkentitaet1.add(ent);
+    }
+
+    public void setHigherEntitaet(JRKEntitaet ent) {
+        this.setJrkentitaet(ent);
+    }
+
     public String getName() {
         return name;
     }
@@ -81,7 +84,8 @@ public void setHigherEntitaet (JRKEntitaet ent) {
     public int getId() {
         return id;
     }
-  public Typ getTyp() {
+
+    public Typ getTyp() {
         return typ;
     }
 

@@ -46,6 +46,7 @@ public class Service {
         return repo.login(user);
     }
 
+    //funktioniert nicht
     @GET
     @Path("listAllTermine")
     @Produces(MediaType.APPLICATION_JSON)
