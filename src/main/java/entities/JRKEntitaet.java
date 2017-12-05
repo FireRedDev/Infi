@@ -5,6 +5,7 @@
  */
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,6 +38,8 @@ public class JRKEntitaet implements Serializable {
     private String name;
     private String ort;
     private Typ typ;
+    
+    @JsonIgnore
     @OneToMany(mappedBy = "jrkEntitaet")
     private List<Termin> termine = new LinkedList<Termin>();
     

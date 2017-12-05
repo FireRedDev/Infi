@@ -5,6 +5,8 @@
  */
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,6 +37,7 @@ public class Termin implements Serializable {
 
     private String beschreibung;
     private String ort;
+    @JsonIgnore
     @ManyToOne
     private JRKEntitaet jrkEntitaet;
 
