@@ -235,7 +235,7 @@ export class DashboardComponent implements OnInit {
     const body = localStorage.getItem('currentUser');
     console.log(body);
     this.events$ = this.http
-      .post('http://localhost:8080/api/service/termineuser',JSON.parse(body))
+      .post('http://localhost:8080/api/service/getUserTermine',JSON.parse(body))
       .map(res => res.json())
       .map(json => {
         console.log("JSON:" ,json);

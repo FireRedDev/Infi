@@ -22,13 +22,13 @@ import repository.DatenbankRepository;
  */
 @Path("service")
 public class Service {
-
+    
     private DatenbankRepository repo = new DatenbankRepository();
 
     // Nur zum Testen
-
     /**
      * Servertestfunction
+     *
      * @return
      */
     @GET
@@ -39,6 +39,7 @@ public class Service {
 
     /**
      * Login Function to authenticate
+     *
      * @param user
      * @return
      */
@@ -54,6 +55,7 @@ public class Service {
     //funktioniert nicht
     /**
      * Lists all Termine
+     *
      * @return
      */
     @GET
@@ -65,6 +67,7 @@ public class Service {
 
     /**
      * Lists all Persons
+     *
      * @return
      */
     @GET
@@ -76,6 +79,7 @@ public class Service {
 
     /**
      * Lists all JRKENTITYS
+     *
      * @return
      */
     @GET
@@ -87,6 +91,7 @@ public class Service {
 
     /**
      * Gets Users Termine/Appointments
+     *
      * @param id
      * @return
      */
@@ -100,6 +105,7 @@ public class Service {
 
     /**
      * Gets Username
+     *
      * @param id
      * @return
      */
@@ -112,9 +118,9 @@ public class Service {
     }
 
     // Initialize data table
-
     /**
      * Inserts and creates Test Values
+     *
      * @return
      */
     @Path("init")
@@ -156,14 +162,16 @@ public class Service {
         repo.insert(gusi);
         repo.insert(doris);
         repo.insert(isabella);
-        wels.addTermin(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt", wels));
+        sattledt1.addTermin(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt", sattledt1));
+        wels.addTermin(new Termin("2017-11-24 18:00:00", "2017-11-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk", wels));
+        ooe.addTermin(new Termin("2017-12-02 18:00:00", "2017-12-02 21:00:00", "Adventmarkt", "Punschstand für den guten Zweck", "Adventmarkt Linz", ooe));
 //        repo.insert(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt", sattledt1));
 //        repo.insert(new Termin("2017-11-24 18:00:00", "2017-11-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk", wels));
 //        repo.insert(new Termin("2017-12-02 18:00:00", "2017-12-02 21:00:00", "Adventmarkt", "Punschstand für den guten Zweck", "Adventmarkt Linz", ooe));
         wels.addLowerEntitaet(sattledt);
         wels.setHigherEntitaet(ooe);
         repo.insert(wels);
-
+        
         return "Testvalues inserted";
     }
 
@@ -179,9 +187,9 @@ public class Service {
 //        user.removeTermin(termin);
 //    }
     //????
-
     /**
      * Outdated
+     *
      * @param user
      */
     @POST
@@ -194,6 +202,7 @@ public class Service {
 
     /**
      * Inserts a Person
+     *
      * @param b
      */
     @Path("insertPerson")
@@ -206,14 +215,14 @@ public class Service {
 
     /**
      * Inserts a Termin/Appointment
+     *
      * @param t
      */
     @Path("insertTermin")
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     public void insertTermin(Termin t) {
-        t.getJrkEntitaet().addTermin(t);
-        repo.insert(t);
+        repo.insertTermin(t);
     }
-
+    
 }
