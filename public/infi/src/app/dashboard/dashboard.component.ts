@@ -249,7 +249,7 @@ export class DashboardComponent implements OnInit {
     var calendarEvents=[];
     events.forEach(function(event){
       calendarEvents.push({ 
-        title: "Titel: "+event.title +"<br>Beschreibung: "+event.beschreibung+"<br>Gruppenleiter: "+event.benutzer.personalnr+"<br>Ort: "+event.ort,
+        title: "Titel: "+event.title +"<br>Beschreibung: "+event.beschreibung+"<br>Ort: "+event.ort,
         start: new Date(event.s_date),
         end: new Date(event.e_date),
         color: colors.red,

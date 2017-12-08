@@ -5,15 +5,9 @@
  */
 package repository;
 
-import entities.Person;
-import entities.JRKEntitaet;
-import entities.Termin;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
+import entities.*;
+import java.util.*;
+import javax.persistence.*;
 
 /**
  *
@@ -48,7 +42,6 @@ public class DatenbankRepository {
         return -1;
     }
 
-    // Einfügen einer neuen Messung
     public Person insert(Person b) {
         em.getTransaction().begin();
         em.merge(b);
@@ -76,31 +69,43 @@ public class DatenbankRepository {
     public List<Termin> getUsertermine(int id) {
         List<Termin> termine = new LinkedList();
         Person currentPerson = em.find(Person.class, id);
-        termine = currentPerson.getJrkentitaet().getTermine();
-        termine.addAll(this.termineLayerDown(currentPerson.getJrkentitaet()));
-        termine.addAll(this.termineLayerUp(currentPerson.getJrkentitaet()));
-//        List<Termin> t = em.createNamedQuery("Termin.listBenutzer", Termin.class).setParameter("benutzerid", id).getResultList();
-//        termine = addList(termine, t);
-//        //termine = termineLayerUp(id, termine);
-//        termine = termineLayerDown(id, termine);
-//        return termine;
+        addList(termine, currentPerson.getJrkentitaet().getTermine());
+        termine = this.termineLayerDown(currentPerson.getJrkentitaet(), termine);
+        termine = this.termineLayerUp(currentPerson.getJrkentitaet(), termine);
         return termine;
     }
 
-    private List<Termin> termineLayerUp(JRKEntitaet jrk) {
-        List<Termin> termine = new LinkedList();
-        while (jrk.getJrkentitaet() != null) {
-            termine.addAll(jrk.getJrkentitaet().getTermine());
-            jrk = jrk.getJrkentitaet();
+    private List<Termin> termineLayerUp(JRKEntitaet jrk, List<Termin> termine) {
+        List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerUp", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+        if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
+            for (JRKEntitaet entity : jrkentitaet) {
+                List<Termin> t = em.createNamedQuery("Termin.listBenutzer", Termin.class).setParameter("jrkentitaet", entity).getResultList();
+                addList(termine, t);
+                List<Termin> term = termineLayerUp(entity, termine);
+                addList(termine, term);
+            }
         }
         return termine;
     }
 
-    private List<Termin> termineLayerDown(JRKEntitaet jrk) {
-        List<Termin> termine = new LinkedList();
-        if (jrk.getJrkentitaet1() != null) {
-            for (JRKEntitaet entity : jrk.getJrkentitaet1()) {
-                termine.addAll(termineLayerDown(entity));
+    private List<Termin> termineLayerDown(JRKEntitaet jrk, List<Termin> termine) {
+        List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+        if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
+            for (JRKEntitaet entity : jrkentitaet) {
+                List<Termin> t = em.createNamedQuery("Termin.listBenutzer", Termin.class).setParameter("jrkentitaet", entity).getResultList();
+                addList(termine, t);
+                List<Termin> term = termineLayerDown(entity, termine);
+                addList(termine, term);
+            }
+        }
+        return termine;
+    }
+
+    private List<Termin> addList(List<Termin> termine, List<Termin> tt) {
+        if (!termine.equals(tt)) {
+            for (Termin te : tt) {
+                te.setJrkEntitaet(null);
+                termine.add(te);
             }
         }
         return termine;
@@ -114,14 +119,8 @@ public class DatenbankRepository {
         return em.createNamedQuery("JRKEntitaet.listAll", JRKEntitaet.class).getResultList();
     }
 
-    public void insert(List<JRKEntitaet> landesleitung) {
-        for (JRKEntitaet jrkentitaet : landesleitung) {
-            insert(jrkentitaet);
-        }
-    }
-
     public void insertTermin(Termin t) {
-        t.setJrkEntitaet(em.find(JRKEntitaet.class, 1));
+        t.setJrkEntitaet(em.find(JRKEntitaet.class, 5));
         insert(t);
     }
 

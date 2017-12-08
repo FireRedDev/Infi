@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
@@ -13,8 +6,6 @@ import javax.persistence.*;
 /**
  *
  * @author isi
- * @NamedQuery(name = "Benutzer.chef", query = "SELECT b FROM Person b where
- * b.benutzer1.id=:id"),
  */
 @Entity
 @NamedQueries({

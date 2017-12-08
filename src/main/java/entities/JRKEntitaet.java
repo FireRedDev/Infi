@@ -17,7 +17,9 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "JRKEntitaet.listAll", query = "SELECT j FROM JRKEntitaet j")
+    @NamedQuery(name = "JRKEntitaet.listAll", query = "SELECT j FROM JRKEntitaet j"),
+    @NamedQuery(name = "JRKEntitaet.layerDown", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet=:jrkentitaet"),
+    @NamedQuery(name = "JRKEntitaet.layerUp", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet1=:jrkentitaet")
 })
 public class JRKEntitaet implements Serializable {
 
@@ -49,10 +51,11 @@ public class JRKEntitaet implements Serializable {
 
     }
 
-    public JRKEntitaet(int id,String name, Typ kategorie) {
-        this.id=id;
+    public JRKEntitaet(int id, String name, Typ typ, JRKEntitaet jrkentitaet) {
+        this.id = id;
         this.name = name;
-        this.typ = kategorie;
+        this.typ = typ;
+        this.jrkentitaet = jrkentitaet;
     }
 
     public String getName() {
@@ -127,7 +130,7 @@ public class JRKEntitaet implements Serializable {
         this.persons1 = persons1;
     }
     
-        public void addJRKEntitaet(JRKEntitaet newJRK) {
+    public void addJRKEntitaet(JRKEntitaet newJRK) {
         if (!this.jrkentitaet1.contains(newJRK)) {
             this.jrkentitaet1.add(newJRK);
             newJRK.setJrkentitaet(this);

@@ -25,7 +25,6 @@ public class Service {
 
     private DatenbankRepository repo = new DatenbankRepository();
 
-    // Nur zum Testen
     /**
      * Servertestfunction
      *
@@ -117,7 +116,6 @@ public class Service {
         return repo.username(id);
     }
 
-    // Initialize data table
     /**
      * Inserts and creates Test Values
      *
@@ -130,16 +128,15 @@ public class Service {
         Typ ortstelle = Ortstelle;
         Typ bezirkstelle = Bezirkstelle;
         Typ landesstelle = Landstelle;
-        JRKEntitaet sattledt = new JRKEntitaet(1, "Sattledt", ortstelle);
-        JRKEntitaet sattledt1 = new JRKEntitaet(2, "Gruppe1", gruppe);
-        JRKEntitaet marchtrenk = new JRKEntitaet(3, "Marchtrenk", ortstelle);
-        JRKEntitaet wels = new JRKEntitaet(4, "Wels", bezirkstelle);
-        JRKEntitaet ooe = new JRKEntitaet(5, "Oberösterreich", landesstelle);
+        JRKEntitaet ooe = new JRKEntitaet(5, "Oberösterreich", landesstelle, null);
+        JRKEntitaet wels = new JRKEntitaet(4, "Wels", bezirkstelle, ooe);
+        JRKEntitaet sattledt = new JRKEntitaet(1, "Sattledt", ortstelle, wels);
+        JRKEntitaet sattledt1 = new JRKEntitaet(2, "Gruppe1", gruppe, sattledt);
+
         List<JRKEntitaet> landesleitung = new LinkedList<>();
         landesleitung.add(ooe);
         List<JRKEntitaet> bezirksleitung_wels = new LinkedList<>();
         bezirksleitung_wels.add(sattledt);
-        bezirksleitung_wels.add(marchtrenk);
         List<JRKEntitaet> ortstelle_sattledt = new LinkedList<>();
         ortstelle_sattledt.add(sattledt1);
         sattledt1.addTermin(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt", sattledt1));
@@ -157,33 +154,6 @@ public class Service {
         repo.insert(isabella);
 
         return "Testvalues inserted";
-    }
-
-    //????
-    /**
-     * Outdated
-     *
-     * @param user
-     */
-    @POST
-    @Path("addBenutzer")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void addBenutzer(Person user) {
-        repo.addBenutzer(user);
-    }
-    // meine funktion
-
-    /**
-     * Inserts a Person
-     *
-     * @param b
-     */
-    @Path("insertPerson")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @POST
-    public void insertPerson(Person b) {
-        //TODO HERE INSERT PERSON INTO JRK
-        repo.insert(b);
     }
 
     /**
