@@ -22,7 +22,7 @@ import repository.DatenbankRepository;
  */
 @Path("service")
 public class Service {
-    
+
     private DatenbankRepository repo = new DatenbankRepository();
 
     // Nur zum Testen
@@ -130,28 +130,21 @@ public class Service {
         Typ ortstelle = Ortstelle;
         Typ bezirkstelle = Bezirkstelle;
         Typ landesstelle = Landstelle;
-        JRKEntitaet sattledt = new JRKEntitaet("Sattledt", ortstelle);
-        repo.insert(sattledt);
-        JRKEntitaet sattledt1 = new JRKEntitaet("Gruppe1", gruppe);
-        repo.insert(sattledt1);
-        JRKEntitaet marchtrenk = new JRKEntitaet("Marchtrenk", ortstelle);
-        repo.insert(marchtrenk);
-        JRKEntitaet eferding = new JRKEntitaet("Eferding", bezirkstelle);
-        repo.insert(eferding);
-        JRKEntitaet wels = new JRKEntitaet("Wels", bezirkstelle);
-        repo.insert(wels);
-        JRKEntitaet ooe = new JRKEntitaet("Oberösterreich", landesstelle);
-        repo.insert(ooe);
+        JRKEntitaet sattledt = new JRKEntitaet(1, "Sattledt", ortstelle);
+        JRKEntitaet sattledt1 = new JRKEntitaet(2, "Gruppe1", gruppe);
+        JRKEntitaet marchtrenk = new JRKEntitaet(3, "Marchtrenk", ortstelle);
+        JRKEntitaet wels = new JRKEntitaet(4, "Wels", bezirkstelle);
+        JRKEntitaet ooe = new JRKEntitaet(5, "Oberösterreich", landesstelle);
         List<JRKEntitaet> landesleitung = new LinkedList<>();
-        landesleitung.add(wels);
-        repo.insert(landesleitung);
+        landesleitung.add(ooe);
         List<JRKEntitaet> bezirksleitung_wels = new LinkedList<>();
         bezirksleitung_wels.add(sattledt);
         bezirksleitung_wels.add(marchtrenk);
-        repo.insert(bezirksleitung_wels);
         List<JRKEntitaet> ortstelle_sattledt = new LinkedList<>();
         ortstelle_sattledt.add(sattledt1);
-        repo.insert(ortstelle_sattledt);
+        sattledt1.addTermin(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt", sattledt1));
+        wels.addTermin(new Termin("2017-11-24 18:00:00", "2017-11-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk", wels));
+        ooe.addTermin(new Termin("2017-12-02 18:00:00", "2017-12-02 21:00:00", "Adventmarkt", "Punschstand für den guten Zweck", "Adventmarkt Linz", ooe));
         Person tom = new Person("00001", "passme", "Tom", "Tester", ooe, landesleitung);
         Person karin = new Person("00002", "passme", "Karin", "Tester", wels, bezirksleitung_wels);
         Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt, ortstelle_sattledt);
@@ -162,30 +155,10 @@ public class Service {
         repo.insert(gusi);
         repo.insert(doris);
         repo.insert(isabella);
-        sattledt1.addTermin(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt", sattledt1));
-        wels.addTermin(new Termin("2017-11-24 18:00:00", "2017-11-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk", wels));
-        ooe.addTermin(new Termin("2017-12-02 18:00:00", "2017-12-02 21:00:00", "Adventmarkt", "Punschstand für den guten Zweck", "Adventmarkt Linz", ooe));
-//        repo.insert(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt", sattledt1));
-//        repo.insert(new Termin("2017-11-24 18:00:00", "2017-11-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk", wels));
-//        repo.insert(new Termin("2017-12-02 18:00:00", "2017-12-02 21:00:00", "Adventmarkt", "Punschstand für den guten Zweck", "Adventmarkt Linz", ooe));
-        wels.addLowerEntitaet(sattledt);
-        wels.setHigherEntitaet(ooe);
-        repo.insert(wels);
-        
+
         return "Testvalues inserted";
     }
 
-//    @POST
-//    @Path("addTermin")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public void addTermin(Termin termin, Person user) {
-//        user.addTermin(termin);
-//    }
-//     @POST
-//     @Path("removeTermin")
-//      public void removeTermin(Termin termin, Person user) {
-//        user.removeTermin(termin);
-//    }
     //????
     /**
      * Outdated
@@ -224,5 +197,5 @@ public class Service {
     public void insertTermin(Termin t) {
         repo.insertTermin(t);
     }
-    
+
 }

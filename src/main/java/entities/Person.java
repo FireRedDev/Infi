@@ -6,9 +6,7 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import javax.persistence.*;
 
 /**
@@ -37,10 +35,10 @@ public class Person implements Serializable {
     private String nachname;
     private String telefonnummer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private JRKEntitaet jrkentitaet;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<JRKEntitaet> leitet;
 
     public Person() {
