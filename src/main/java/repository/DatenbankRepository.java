@@ -120,8 +120,17 @@ public class DatenbankRepository {
     }
 
     public void insertTermin(Termin t) {
-        t.setJrkEntitaet(em.find(JRKEntitaet.class, 5));
+//        t.setJrkEntitaet(em.find(JRKEntitaet.class, 5));
         insert(t);
+    }
+
+    public JRKEntitaet getJRKEntitaet(int id) {
+        JRKEntitaet jrk= em.createNamedQuery("Benutzer.jrkEntitaet", JRKEntitaet.class).setParameter("id", id).getSingleResult();
+        jrk.setTermine(null);
+        jrk.setJrkentitaet1(null);
+        jrk.setPersons1(null);
+        jrk.setPersons(null);
+        return jrk;
     }
 
 }

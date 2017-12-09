@@ -1,3 +1,4 @@
+import { jrkEntitaet } from '../termin/jrkEntitaet.model';
 import { forEach } from '@angular/router/src/utils/collection';
 import { Component, 
   ChangeDetectionStrategy, 
@@ -91,6 +92,7 @@ interface Termin {
 export class DashboardComponent implements OnInit {
 
   username: String;
+  jrkEntitaet:jrkEntitaet;
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
   viewDate: Date = new Date();
@@ -215,6 +217,12 @@ export class DashboardComponent implements OnInit {
         // Read the result field from the JSON response.
         console.log("Username", data["_body"]);
         this.username=data["_body"];
+      });
+      this.http
+      .post('http://localhost:8080/api/service/getJRKEntitaet',JSON.parse(body))
+      .subscribe(data => {
+        var help=JSON.parse(data["_body"]);
+        this.jrkEntitaet=new jrkEntitaet(help.id,help.name,help.ort);
       });
     this.fetchEvents();
   }

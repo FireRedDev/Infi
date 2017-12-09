@@ -4,7 +4,7 @@ import java.util.*;
 import javax.persistence.*;
 
 /**
- *
+ * Benutzer.jrkEntitaet
  * @author isi
  */
 @Entity
@@ -13,7 +13,8 @@ import javax.persistence.*;
     @NamedQuery(name = "Benutzer.list", query = "SELECT b FROM Person b where b.id=:id"),
     @NamedQuery(name = "Benutzer.personalnr", query = "SELECT b.personalnr FROM Person b where b.id=:id"),
     @NamedQuery(name = "Benutzer.login", query = "SELECT b FROM Person b where b.personalnr=:personalnr"),
-    @NamedQuery(name = "Benutzer.name", query = "SELECT concat(b.vorname,' ',b.nachname) FROM Person b where b.id=:id")
+    @NamedQuery(name = "Benutzer.name", query = "SELECT concat(b.vorname,' ',b.nachname) FROM Person b where b.id=:id"),
+    @NamedQuery(name = "Benutzer.jrkEntitaet", query = "SELECT b.jrkentitaet FROM Person b where b.id=:id")
 
 })
 public class Person implements Serializable {

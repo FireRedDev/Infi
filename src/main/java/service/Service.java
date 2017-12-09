@@ -115,6 +115,14 @@ public class Service {
     public String getUsername(int id) {
         return repo.username(id);
     }
+    
+        @POST
+    @Path("getJRKEntitaet")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public JRKEntitaet getJRKEntitaet(int id) {
+        return repo.getJRKEntitaet(id);
+    }
 
     /**
      * Inserts and creates Test Values
