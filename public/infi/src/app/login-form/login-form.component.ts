@@ -28,20 +28,20 @@ export class LoginFormComponent implements OnInit {
   loginUser(e) {
     e.preventDefault();
     console.log(e);
-    var username = e.target.elements[0].value;
+    var personalnr = e.target.elements[0].value;
     var password = e.target.elements[1].value;
 
      // Make the HTTP request:
      // Md5.hashStr(password)
      
-     const body = {"username": username,"password":password};
+     const body = {"personalnr": personalnr,"password":password};
      console.log(body);
         
     //const headers = new Headers();
     //headers.append('Content-Type', 'application/json');
     //headers.append('Authorization', 'Basic cGFzc21l');
 
-    //onst options = new RequestOptions({headers: headers});
+    //const options = new RequestOptions({headers: headers});
      this.http
        .post('http://localhost:8080/api/service/login', body)
        .map((data: any) => {
@@ -55,7 +55,7 @@ export class LoginFormComponent implements OnInit {
         }
     }).catch((error: any) => {
         if (error.status < 400 ||  error.status ===500) {
-          alert("Falscher Username oder falsches Passwort eingegeben!");
+          alert("Falsche Personalnummer oder falsches Passwort eingegeben!");
           return Observable.throw(new Error(error.status));
         }
     })
@@ -63,16 +63,17 @@ export class LoginFormComponent implements OnInit {
        .subscribe(data => {
           console.log(data);
           if(data[0].json["_body"]>0){
-          this.user.setUserLoggedIn();
-          localStorage.setItem('currentUser',data[0].json["_body"]);
-          this.router.navigate(['dashboard']);
+            console.log(data[0],"logged in");
+            this.user.setUserLoggedIn();
+            localStorage.setItem('currentUser',data[0].json["_body"]);
+            this.router.navigate(['dashboard']);
           }
           else{
-            alert("Falscher Username oder falsches Passwort eingegeben!");
+            alert("Falsche Personalnummer oder falsches Passwort eingegeben!");
           }
         err=>{
           console.log("error");
-          alert("Falscher Username oder falsches Passwort eingegeben!");
+          alert("Falsche Personalnummer oder falsches Passwort eingegeben!");
         }
       });    
   }

@@ -11,6 +11,16 @@ dashboard {
     width: 100%;
 }
 
+i.fa.fa-plus {
+    color: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 40px;
+    margin-top: 11px;
+    font-size: 30px;
+}
+
 .dashboard-header {
     align-items: center;
     background: red;

@@ -5,14 +5,9 @@
  */
 package repository;
 
-import entities.Benutzer;
-import entities.Ortsstelle;
-import entities.Termin;
-import java.util.LinkedList;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
+import entities.*;
+import java.util.*;
+import javax.persistence.*;
 
 /**
  *
@@ -28,42 +23,30 @@ public class DatenbankRepository {
         em = Persistence.createEntityManagerFactory("infiPU").createEntityManager();
     }
 
-    public Benutzer addBenutzer(Benutzer measurement) {
+    public Person addBenutzer(Person measurement) {
         em.getTransaction().begin();
         em.persist(measurement);
         em.getTransaction().commit();
         return measurement;
     }
 
-    public List<Benutzer> listAll() {
-        return em.createNamedQuery("Benutzer.listAll", Benutzer.class).getResultList();
+    public List<Person> listAllUsers() {
+        return em.createNamedQuery("Benutzer.listAll", Person.class).getResultList();
     }
 
-    public int login(Benutzer user) {
-        Benutzer b = em.createNamedQuery("Benutzer.login", Benutzer.class).setParameter("username", user.getUsername()).getSingleResult();
+    public int login(Person user) {
+        Person b = em.createNamedQuery("Benutzer.login", Person.class).setParameter("personalnr", user.getPersonalnr()).getSingleResult();
         if (b.getPassword().equals(user.getPassword())) {
             return b.getId();
         }
         return -1;
     }
 
-    public List<Termin> getUserTermine(Benutzer user) {
-        return em.find(Benutzer.class, user.getId()).getTermine();
-    }
-
-    // Einfügen einer neuen Messung
-    public Benutzer insert(Benutzer b) {
+    public Person insert(Person b) {
         em.getTransaction().begin();
-        em.persist(b);
+        em.merge(b);
         em.getTransaction().commit();
         return b;
-    }
-
-    // Einfügen mehrere Messungen
-    public void insert(List<Benutzer> benutzer) {
-        for (Benutzer b : benutzer) {
-            this.insert(b);
-        }
     }
 
     public Termin insert(Termin termin) {
@@ -73,9 +56,9 @@ public class DatenbankRepository {
         return termin;
     }
 
-    public void insert(Ortsstelle ortsstelle) {
+    public void insert(JRKEntitaet ortsstelle) {
         em.getTransaction().begin();
-        em.persist(ortsstelle);
+        em.merge(ortsstelle);
         em.getTransaction().commit();
     }
 
@@ -83,47 +66,45 @@ public class DatenbankRepository {
         return em.createNamedQuery("Termin.listAll", Termin.class).getResultList();
     }
 
-    public List<Termin> termine(int id) {
+    public List<Termin> getUsertermine(int id) {
         List<Termin> termine = new LinkedList();
-        List<Termin> t = em.createNamedQuery("Termin.listBenutzer", Termin.class).setParameter("benutzerid", id).getResultList();
-        termine = addList(termine, t);
-        termine = termineLayerUp(id, termine);
-        termine = termineLayerDown(id, termine);
+        Person currentPerson = em.find(Person.class, id);
+        addList(termine, currentPerson.getJrkentitaet().getTermine());
+        termine = this.termineLayerDown(currentPerson.getJrkentitaet(), termine);
+        termine = this.termineLayerUp(currentPerson.getJrkentitaet(), termine);
         return termine;
     }
 
-    private List<Termin> termineLayerDown(int id, List<Termin> termine) {
-        List<Benutzer> bb = em.createNamedQuery("Benutzer.chef", Benutzer.class).setParameter("id", id).getResultList();
-        if (bb != null || !bb.isEmpty()) {
-            for (Benutzer b : bb) {
-                List<Termin> ter = em.createNamedQuery("Termin.listBenutzer", Termin.class).setParameter("benutzerid", b.getId()).getResultList();
-                termine = addList(termine, ter);
-                List<Termin> term = termineLayerDown(b.getId(), termine);
-                termine = addList(termine, term);
+    private List<Termin> termineLayerUp(JRKEntitaet jrk, List<Termin> termine) {
+        List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerUp", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+        if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
+            for (JRKEntitaet entity : jrkentitaet) {
+                List<Termin> t = em.createNamedQuery("Termin.listBenutzer", Termin.class).setParameter("jrkentitaet", entity).getResultList();
+                addList(termine, t);
+                List<Termin> term = termineLayerUp(entity, termine);
+                addList(termine, term);
             }
         }
         return termine;
     }
 
-    private List<Termin> termineLayerUp(int id, List<Termin> termine) {
-        List<Benutzer> benutzer = em.createNamedQuery("Benutzer.list", Benutzer.class).setParameter("id", id).getResultList();
-        if (benutzer != null || !benutzer.isEmpty()) {
-            for (Benutzer b : benutzer) {
-                if (b.getBenutzer1() != null) {
-                    List<Termin> t = em.createNamedQuery("Termin.listBenutzer", Termin.class).setParameter("benutzerid", b.getBenutzer1().getId()).getResultList();
-                    termine = addList(termine, t);
-                    List<Termin> term = termineLayerUp(b.getBenutzer1().getId(), termine);
-                    termine = addList(termine, term);
-                }
+    private List<Termin> termineLayerDown(JRKEntitaet jrk, List<Termin> termine) {
+        List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+        if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
+            for (JRKEntitaet entity : jrkentitaet) {
+                List<Termin> t = em.createNamedQuery("Termin.listBenutzer", Termin.class).setParameter("jrkentitaet", entity).getResultList();
+                addList(termine, t);
+                List<Termin> term = termineLayerDown(entity, termine);
+                addList(termine, term);
             }
         }
-
         return termine;
     }
 
     private List<Termin> addList(List<Termin> termine, List<Termin> tt) {
         if (!termine.equals(tt)) {
             for (Termin te : tt) {
+                te.setJrkEntitaet(null);
                 termine.add(te);
             }
         }
@@ -131,6 +112,25 @@ public class DatenbankRepository {
     }
 
     public String username(int id) {
-        return em.createNamedQuery("Benutzer.username", String.class).setParameter("id", id).getSingleResult();
+        return em.createNamedQuery("Benutzer.name", String.class).setParameter("id", id).getSingleResult();
     }
+
+    public List<JRKEntitaet> listAllJRK() {
+        return em.createNamedQuery("JRKEntitaet.listAll", JRKEntitaet.class).getResultList();
+    }
+
+    public void insertTermin(Termin t) {
+//        t.setJrkEntitaet(em.find(JRKEntitaet.class, 5));
+        insert(t);
+    }
+
+    public JRKEntitaet getJRKEntitaet(int id) {
+        JRKEntitaet jrk= em.createNamedQuery("Benutzer.jrkEntitaet", JRKEntitaet.class).setParameter("id", id).getSingleResult();
+        jrk.setTermine(null);
+        jrk.setJrkentitaet1(null);
+        jrk.setPersons1(null);
+        jrk.setPersons(null);
+        return jrk;
+    }
+
 }

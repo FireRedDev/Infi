@@ -36,8 +36,10 @@
     <header class="dashboard-header">
       <button (click)="_toggleOpened()" class="dashboard-header__toggle">Toggle sidebar</button>
       <span>Infi</span>
+      <i (click)="view = 'termin'" class="fa fa-plus" aria-hidden="true"></i>
     </header>
     <section class="dashboard-contents">
+        <div *ngIf="view=='month'||view=='week'">
       <div class="row text-center">
         <div class="col-md-4">
           <div class="btn-group">
@@ -93,6 +95,10 @@
         </mwl-calendar-week-view>
       </div>
       </div>
+    </div>
+    <div *ngIf="view=='termin'">
+      <app-termin [jrkEntitaet]="jrkEntitaet"></app-termin>
+    </div>
     </section>
   </div>
 </ng-sidebar-container>
