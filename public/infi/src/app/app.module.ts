@@ -15,6 +15,7 @@ import { UserService } from './user.service';
 import {AuthguardGuard} from "./authguard.guard";
 import { SidebarModule } from 'ng-sidebar';
 import {HttpClientModule} from '@angular/common/http';
+import { ImportExcelComponent } from './import-excel/import-excel.component';
 
 const appRoutes:Routes = [
   {
@@ -33,7 +34,8 @@ const appRoutes:Routes = [
     HeaderComponent,
     LoginFormComponent,
     FooterComponent,
-    DashboardComponent
+    DashboardComponent,
+    ImportExcelComponent
   ],
   imports: [
     BrowserModule,
