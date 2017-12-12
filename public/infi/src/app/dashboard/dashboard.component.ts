@@ -1,3 +1,4 @@
+import { jrkEntitaet } from '../termin/jrkEntitaet.model';
 import { forEach } from '@angular/router/src/utils/collection';
 import { Component, 
   ChangeDetectionStrategy, 
@@ -91,6 +92,7 @@ interface Termin {
 export class DashboardComponent implements OnInit {
 
   username: String;
+  jrkEntitaet:jrkEntitaet;
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
   viewDate: Date = new Date();
@@ -216,6 +218,12 @@ export class DashboardComponent implements OnInit {
         console.log("Username", data["_body"]);
         this.username=data["_body"];
       });
+      this.http
+      .post('http://localhost:8080/api/service/getJRKEntitaet',JSON.parse(body))
+      .subscribe(data => {
+        var help=JSON.parse(data["_body"]);
+        this.jrkEntitaet=new jrkEntitaet(help.id,help.name,help.ort);
+      });
     this.fetchEvents();
   }
 
@@ -249,7 +257,7 @@ export class DashboardComponent implements OnInit {
     var calendarEvents=[];
     events.forEach(function(event){
       calendarEvents.push({ 
-        title: "Titel: "+event.title +"<br>Beschreibung: "+event.beschreibung+"<br>Gruppenleiter: "+event.benutzer.personalnr+"<br>Ort: "+event.ort,
+        title: "Titel: "+event.title +"<br>Beschreibung: "+event.beschreibung+"<br>Ort: "+event.ort,
         start: new Date(event.s_date),
         end: new Date(event.e_date),
         color: colors.red,

@@ -1,21 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
-
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import javax.persistence.*;
 
 /**
- *
+ * Benutzer.jrkEntitaet
  * @author isi
- * @NamedQuery(name = "Benutzer.chef", query = "SELECT b FROM Person b where
- * b.benutzer1.id=:id"),
  */
 @Entity
 @NamedQueries({
@@ -23,7 +13,8 @@ import javax.persistence.*;
     @NamedQuery(name = "Benutzer.list", query = "SELECT b FROM Person b where b.id=:id"),
     @NamedQuery(name = "Benutzer.personalnr", query = "SELECT b.personalnr FROM Person b where b.id=:id"),
     @NamedQuery(name = "Benutzer.login", query = "SELECT b FROM Person b where b.personalnr=:personalnr"),
-    @NamedQuery(name = "Benutzer.name", query = "SELECT concat(b.vorname,' ',b.nachname) FROM Person b where b.id=:id")
+    @NamedQuery(name = "Benutzer.name", query = "SELECT concat(b.vorname,' ',b.nachname) FROM Person b where b.id=:id"),
+    @NamedQuery(name = "Benutzer.jrkEntitaet", query = "SELECT b.jrkentitaet FROM Person b where b.id=:id")
 
 })
 public class Person implements Serializable {
@@ -37,10 +28,10 @@ public class Person implements Serializable {
     private String nachname;
     private String telefonnummer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private JRKEntitaet jrkentitaet;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<JRKEntitaet> leitet;
 
     public Person() {

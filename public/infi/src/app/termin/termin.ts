@@ -1,3 +1,5 @@
+import { jrkEntitaet } from "./jrkEntitaet.model";
+
 export class Termin {
     constructor(
         private id=0,
@@ -6,7 +8,7 @@ export class Termin {
         private title='',
         private beschreibung='',
         private ort='',
-        private jrkEntitaet=null
+        public jrkEntitaet:jrkEntitaet={id:0,name:'',ort:'',typ:null,termine :null,jrkEntitaet :null,jrkentitaet1:null, persons : null,persons1:null}
     )
     {}
 }

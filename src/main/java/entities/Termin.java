@@ -1,27 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.*;
 
 /**
  *
  * @author isi
- * @NamedQuery(name = "Termin.listBenutzer", query = "SELECT t FROM Termin t where t.jrkEntitaet = :benutzerid")
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t")
+    @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t"),
+    @NamedQuery(name = "Termin.listBenutzer", query = "SELECT t FROM Termin t where t.jrkEntitaet = :jrkentitaet")
 })
 public class Termin implements Serializable {
 
@@ -35,7 +24,7 @@ public class Termin implements Serializable {
 
     private String beschreibung;
     private String ort;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private JRKEntitaet jrkEntitaet;
 
     public Termin() {

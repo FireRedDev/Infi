@@ -5,21 +5,11 @@
  */
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
  *
@@ -27,17 +17,18 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "JRKEntitaet.listAll", query = "SELECT j FROM JRKEntitaet j")
+    @NamedQuery(name = "JRKEntitaet.listAll", query = "SELECT j FROM JRKEntitaet j"),
+    @NamedQuery(name = "JRKEntitaet.layerDown", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet=:jrkentitaet"),
+    @NamedQuery(name = "JRKEntitaet.layerUp", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet1=:jrkentitaet")
 })
 public class JRKEntitaet implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
     private String name;
     private String ort;
     private Typ typ;
-    @OneToMany(mappedBy = "jrkEntitaet")
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Termin> termine = new LinkedList<Termin>();
 
     public void addTermin(Termin termin) {
@@ -60,17 +51,11 @@ public class JRKEntitaet implements Serializable {
 
     }
 
-    public JRKEntitaet(String name, Typ kategorie) {
+    public JRKEntitaet(int id, String name, Typ typ, JRKEntitaet jrkentitaet) {
+        this.id = id;
         this.name = name;
-        this.typ = kategorie;
-    }
-
-    public void addLowerEntitaet(JRKEntitaet ent) {
-        jrkentitaet1.add(ent);
-    }
-
-    public void setHigherEntitaet(JRKEntitaet ent) {
-        this.setJrkentitaet(ent);
+        this.typ = typ;
+        this.jrkentitaet = jrkentitaet;
     }
 
     public String getName() {
@@ -143,5 +128,19 @@ public class JRKEntitaet implements Serializable {
 
     public void setPersons1(List<Person> persons1) {
         this.persons1 = persons1;
+    }
+    
+    public void addJRKEntitaet(JRKEntitaet newJRK) {
+        if (!this.jrkentitaet1.contains(newJRK)) {
+            this.jrkentitaet1.add(newJRK);
+            newJRK.setJrkentitaet(this);
+        }
+    }
+
+    public void removeJRKEntitaet(JRKEntitaet old) {
+        if (this.jrkentitaet1.contains(old)) {
+            this.jrkentitaet1.remove(old);
+            old.setJrkentitaet(this);
+        }
     }
 }

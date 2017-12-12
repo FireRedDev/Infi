@@ -42,11 +42,20 @@ aside{
 a{
   color: black !important;
 }
-.cal-open-day-events.ng-trigger.ng-trigger-collapse {
-  position: fixed;
-  background-color: white !important;
-  bottom: 50px;
-  width: 90%;
+@media screen and (min-height: 950px) {
+  .cal-open-day-events.ng-trigger.ng-trigger-collapse {
+    position: fixed;
+    background-color: white !important;
+    bottom: 50px;
+    width: 90%;
+  }
+  .black{
+    color:black !important;
+    background-color: white !important;
+  }
+  a.cal-event-title{
+    color: rgb(173, 33, 33) !important;
+  }
 }
 .cal-month-view .cal-open-day-events{
   box-shadow: none !important;
@@ -65,24 +74,15 @@ a.cal-event-title{
   box-shadow: none;
 }
 @media screen and (max-width: 900px) {
-.cal-month-view .cal-day-badge{
-  position:relative;
-  top: 50px;
+  .cal-month-view .cal-day-badge{
+    position:relative;
+    top: 50px;
+  }
+  .cal-month-view .cal-day-number{
+    margin-right: 0px !important;
+  }
 }
-.cal-month-view .cal-day-number{
-  margin-right: 0px !important;
-}
-}
-.ng-sidebar__content {
-  overflow: hidden !important;
-}
-a.cal-event-title{
-  color: rgb(173, 33, 33) !important;
-}
-.black{
-  color:black !important;
-  background-color: white !important;
-}
+
 ng-sidebar{
   height:100% !important;
 }
