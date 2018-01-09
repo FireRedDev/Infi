@@ -94,3 +94,6 @@ ng-sidebar{
 ng-sidebar-container{
   height:100% !important;
 }
+input.owl-datetime-input.owl-datetime-main-input {
+    border: none !important;
+}

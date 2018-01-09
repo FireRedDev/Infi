@@ -16,6 +16,7 @@ import {AuthguardGuard} from "./authguard.guard";
 import { SidebarModule } from 'ng-sidebar';
 import {HttpClientModule} from '@angular/common/http';
 import { TerminComponent } from './termin/termin.component';
+import { DateTimePickerModule } from 'ng-pick-datetime';
 
 const appRoutes:Routes = [
   {
@@ -45,7 +46,8 @@ const appRoutes:Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     CalendarModule.forRoot(),
-    SidebarModule.forRoot()
+    SidebarModule.forRoot(),
+    DateTimePickerModule
   ],
   providers: [UserService, AuthguardGuard],
   bootstrap: [AppComponent]
