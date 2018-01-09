@@ -1,26 +1,96 @@
-<header>
+    <form (ngSubmit)="onSubmit()" #terminForm="ngForm">
+      <div class="form-group">
+        <label for="title">Titel</label>
+        <input type="text" class="form-control" id="title"
+               required
+               [(ngModel)]="actTermin.title" name="title"
+               #title="ngModel">
+        <div [hidden]="title.valid || title.pristine"
+             class="alert alert-danger">
+        Titel muss eingegeben werden!
+        </div>
+        <label for="beschreibung">Beschreibung</label>
+        <input type="text" class="form-control" id="beschreibung"
+               required
+               [(ngModel)]="actTermin.beschreibung" name="beschreibung"
+               #beschreibung="ngModel">
+        <div [hidden]="beschreibung.valid || beschreibung.pristine"
+             class="alert alert-danger">
+        Beschreibung muss eingegeben werden!
+        </div>
+         <label for="ort">Ort</label>
+        <input type="text" class="form-control" id="ort"
+               required
+               [(ngModel)]="actTermin.ort" name="ort"
+               #ort="ngModel">
+        <div [hidden]="ort.valid || ort.pristine"
+             class="alert alert-danger">
+        Ort muss eingegeben werden!
+        </div>
+        <label for="s_date">Startdatum</label>
+        <input type="date" class="form-control" id="s_date"
+               required
+               [(ngModel)]="actTermin.s_date" name="s_date"
+               #sdate="ngModel">
+        <div [hidden]="sdate.valid || sdate.pristine"
+            class="alert alert-danger">
+        Startdatum muss eingegeben werden!
+        </div>
+        <label for="s_time">Startzeit</label>
+        <input type="time" class="form-control" id="s_time"
+               required
+               [(ngModel)]="s_time" name="s_time"
+               #stime="ngModel">
+        <div [hidden]="stime.valid || stime.pristine"
+            class="alert alert-danger">
+        Startzeit muss eingegeben werden!
+        </div>
+        <label for="e_date">Enddatum</label>
+        <input type="date" class="form-control" id="e_date"
+               required
+               [(ngModel)]="actTermin.e_date" name="e_date"
+               #edate="ngModel">
+        <div [hidden]="edate.valid || edate.pristine"
+            class="alert alert-danger">
+        Enddatum muss eingegeben werden!
+        </div>
+        <label for="e_time">Endzeit</label>
+        <input type="time" class="form-control" id="e_time"
+               required
+               [(ngModel)]="e_time" name="e_time"
+               #etime="ngModel">
+        <div [hidden]="etime.valid || etime.pristine"
+            class="alert alert-danger">
+        Endzeit muss eingegeben werden!
+        </div>
+      </div>
+      <!--
+      <div class="form-group">
+        <label for="beschreibung">Beschreibung</label>
+        <input type="text" class="form-control" id="beschreibung"
+               required
+               [(ngModel)]="actTermin.beschreibung" name="beschreibung"
+               #beschreibung="ngModel">
+        <div [hidden]="beschreibung.valid || beschreibung.pristine"
+             class="alert alert-danger">
+        Beschreibung muss eingegeben werden!
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="ort">Ort</label>
+        <input type="text" class="form-control" id="ort"
+               required
+               [(ngModel)]="actTermin.ort" name="ort"
+               #ort="ngModel">
+        <div [hidden]="ort.valid || ort.pristine"
+             class="alert alert-danger">
+        Titel muss eingegeben werden!
+        </div>
+      </div>
+      Startdatum<input type="text" [(ngModel)]="actTermin.s_date">
+      <br>
+      Enddatum<input type="text" [(ngModel)]="actTermin.e_date">
 
-</header>
-<body>   
-  <div class="main">
-    Titel<input type="text" [(ngModel)]="actTermin.title">
-    <br>
-    Startdatum<input type="text" [(ngModel)]="actTermin.s_date">
-    <br>
-    Enddatum<input type="text" [(ngModel)]="actTermin.e_date">
-    <br>
-    <!--
-    Startuhrzeit<input type="time">
-    <br>
-    Enduhrzeit<input type="time">
-    <br>
-    [{"id":22,"s_date":"2017-11-04 15:30:00","e_date":"2017-11-04 17:30:00","title":"Gruppenstunde","beschreibung":"Gruppenstunde mit Schwerpunkt Erste-Hilfe","ort":"Dienststelle Sattledt"
-    
-    -->
-    Ort<input type="text" [(ngModel)]="actTermin.ort"> 
-    <br>
-    Beschreibung<input type="text" [(ngModel)]="actTermin.beschreibung"> 
-    <br>
-    <input type="button" class="btn" (click)="save()" value="einfügen">
-  </div>
-</body>
+      -->
+      <button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save(); view = 'termin'">einfügen</button>
+    </form>
