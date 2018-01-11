@@ -1,4 +1,10 @@
-.main{
-    margin-left: auto;
-    margin-right: auto;
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #00FF48; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid red; /* red */
+}
+input.ng-tns-c8-5.owl-datetime-input.owl-datetime-main-input {
+    border: none;
 }
