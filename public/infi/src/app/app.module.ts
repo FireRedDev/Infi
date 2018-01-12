@@ -18,6 +18,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { TerminComponent } from './termin/termin.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './../auth/token.interceptor';
+import { DateTimePickerModule } from 'ng-pick-datetime';
+
 const appRoutes:Routes = [
   {
     path: '',
@@ -46,7 +48,8 @@ const appRoutes:Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     CalendarModule.forRoot(),
-    SidebarModule.forRoot()
+    SidebarModule.forRoot(),
+    DateTimePickerModule
   ],
   providers: [UserService, AuthguardGuard, {
     provide: HTTP_INTERCEPTORS,

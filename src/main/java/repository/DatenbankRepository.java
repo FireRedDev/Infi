@@ -183,8 +183,9 @@ public class DatenbankRepository {
      * @param t
      */
     public void insertTermin(Termin t) {
-//        t.setJrkEntitaet(em.find(JRKEntitaet.class, 5));
-        insert(t);
+        JRKEntitaet jrk =em.find(JRKEntitaet.class, t.getJrkEntitaet().getId());
+        jrk.addTermin(t);
+        insert(jrk);
     }
 
     /**
