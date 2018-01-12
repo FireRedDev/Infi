@@ -223,5 +223,10 @@ public class Service {
     public List<Person> getUsersbytheirJRKEntity(int id) {
         return repo.getUsersbytheirJRKEntity(id);
     }
-
+ 
+    @POST
+    @Path("getTerminbyId")
+    public Termin getTerminbyId(int id) {
+        return repo.getTerminbyId(id);
+    }
 }

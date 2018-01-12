@@ -219,6 +219,10 @@ return em.find(JRKEntitaet.class, id).getPersons1();
     public Dokumentation getDokumentationbyTermin(int id) {
 return em.find(Termin.class, id).getDoku();
     }
+
+    public Termin getTerminbyId(int id) {
+return em.find(Termin.class, id);
+    }
   
 
 
