@@ -16,6 +16,7 @@ import {AuthguardGuard} from "./authguard.guard";
 import { SidebarModule } from 'ng-sidebar';
 import {HttpClientModule} from '@angular/common/http';
 import { TerminComponent } from './termin/termin.component';
+import { ProtocolComponent } from './protocol/protocol.component';
 
 const appRoutes:Routes = [
   {
@@ -35,7 +36,8 @@ const appRoutes:Routes = [
     LoginFormComponent,
     FooterComponent,
     DashboardComponent,
-    TerminComponent
+    TerminComponent,
+    ProtocolComponent
   ],
   imports: [
     BrowserModule,
