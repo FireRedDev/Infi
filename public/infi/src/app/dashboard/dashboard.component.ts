@@ -262,10 +262,17 @@ export class DashboardComponent implements OnInit {
     var calendarEvents=[];
     events.forEach(function(event){
       calendarEvents.push({ 
-        title: "Titel: "+event.title +"<br>Beschreibung: "+event.beschreibung+"<br>Ort: "+event.ort,
+        title: "Titel: "+event.title +"<br>Beschreibung: "+event.beschreibung+"<br>Ort: "+event.ort+"<br><a id='protocol' (click)=\"view = 'protocol'\" [class.active]=\"view === 'protocol'\">Protokoll</a>",
         start: new Date(event.s_date),
         end: new Date(event.e_date),
         color: colors.red,
+        actions: [{ // an array of actions that will be displayed next to the event title
+        label: "<br><a id='protocol' (click)='view = 'protocol'' [class.active]='view === 'protocol''>Protokoll</a>",
+        cssClass: 'edit-action', // a CSS class that will be added to the action element so you can implement custom styling
+        onClick: function(args) { 
+          this.view = 'protocol'
+       }
+       }],
         cssClass: 'my-custom-class',
         meta: {
           event

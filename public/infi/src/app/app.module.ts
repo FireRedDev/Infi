@@ -38,7 +38,8 @@ const appRoutes:Routes = [
     LoginFormComponent,
     FooterComponent,
     DashboardComponent,
-    TerminComponent
+    TerminComponent,
+    ProtocolComponent
   ],
   imports: [
     BrowserModule,
