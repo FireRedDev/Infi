@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import org.json.JSONObject;
 import repository.DatenbankRepository;
 
 /**
@@ -47,7 +48,7 @@ public class Service {
     @POST
     @Path("login")
     @Produces(MediaType.APPLICATION_JSON)
-    public int login(Person user) {
+    public JSONObject login(Person user) {
 //        String cookie = "12345";//repo.login(user);
 //        return Response.ok().header("Set-Cookie", "kalendarCookie=" + cookie).build();
         return repo.login(user);
