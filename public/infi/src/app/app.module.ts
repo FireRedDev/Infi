@@ -17,7 +17,7 @@ import { SidebarModule } from 'ng-sidebar';
 import {HttpClientModule} from '@angular/common/http';
 import { TerminComponent } from './termin/termin.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './../auth/token.interceptor';
+import { TokenInterceptor } from './auth/token.interceptor';
 import { DateTimePickerModule } from 'ng-pick-datetime';
 
 const appRoutes:Routes = [

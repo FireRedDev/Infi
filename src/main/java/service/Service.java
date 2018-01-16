@@ -32,6 +32,7 @@ public class Service {
      * @return
      */
     @GET
+    @Secured
     @Path("message")
     public String message() {
         return "INFI Jugendrotkreuz Server up and running..";

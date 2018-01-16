@@ -16,7 +16,7 @@ import static javax.ws.rs.core.Response.ResponseBuilder;
 import static javax.ws.rs.core.Response.Status;
 
 @Provider
-@PreMatching
+@Secured
 public class UserAuthenticationFilter implements ContainerRequestFilter, 
                                              ContainerResponseFilter {
     
