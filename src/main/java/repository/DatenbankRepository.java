@@ -65,11 +65,12 @@ public class DatenbankRepository {
      * @return
      */
     public JSONObject login(Person user) {
+        String token =  generateJWT();
         Person b = em.createNamedQuery("Benutzer.login", Person.class).setParameter("personalnr", user.getPersonalnr()).getSingleResult();
         if (b.getPassword().equals(user.getPassword())) {
 JSONObject json = new JSONObject()
-                  .put("userID", b.getId()).put("token", generateJWT());
-                
+                  .put("userID", b.getId()).put("token",token);
+              insert(new JWTTokenUser(token,b));
             return json;
         }
         return null;
@@ -123,7 +124,12 @@ return null;
         em.getTransaction().commit();
         return b;
     }
-
+   public JWTTokenUser insert(JWTTokenUser b) {
+        em.getTransaction().begin();
+        em.merge(b);
+        em.getTransaction().commit();
+        return b;
+    }
     /**
      *
      * @param termin

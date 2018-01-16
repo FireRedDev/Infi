@@ -44,7 +44,9 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
                 credentials="";
             }
 
-            if (!credentials.equals("passme")) {
+            if (!credentials.equals("passme")) {// an der stelle schaun ob der token in der tabelle gespeichert is
+                //TODO
+                //em.find (jwttokenuser klasse,token is der primary key)!
                 // Eintrag in Http-Header:
                 // Authorization: Basic cGFzc21l
                 System.out.println("Authentication failed!");

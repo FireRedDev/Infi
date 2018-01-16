@@ -6,7 +6,7 @@
     <class>entities.Person</class>
     <class>entities.JRKEntitaet</class>
     <class>entities.Dokumentation</class>
-    <class>entities.Token</class>
+    <class>entities.JWTTokenUser</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://vm70.htl-leonding.ac.at:3306/infi"/>
       <property name="javax.persistence.jdbc.user" value="app"/>
