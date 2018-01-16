@@ -36,7 +36,7 @@
     <header class="dashboard-header">
       <button (click)="_toggleOpened()" class="dashboard-header__toggle">Toggle sidebar</button>
       <span>Infi</span>
-      <i (click)="view = 'termin'" class="fa fa-plus" aria-hidden="true"></i>
+      <i (click)="view = 'termin'" class="fa fa-plus" (changeView)="changeView(i)" aria-hidden="true"></i>
     </header>
     <section class="dashboard-contents">
         <div *ngIf="view=='month'||view=='week'">

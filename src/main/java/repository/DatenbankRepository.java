@@ -19,10 +19,18 @@ public class DatenbankRepository {
 
     private EntityManager em;
 
+    /**
+     *
+     */
     public DatenbankRepository() {
         em = Persistence.createEntityManagerFactory("infiPU").createEntityManager();
     }
 
+    /**
+     *
+     * @param measurement
+     * @return
+     */
     public Person addBenutzer(Person measurement) {
         em.getTransaction().begin();
         em.persist(measurement);
@@ -30,10 +38,19 @@ public class DatenbankRepository {
         return measurement;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Person> listAllUsers() {
         return em.createNamedQuery("Benutzer.listAll", Person.class).getResultList();
     }
 
+    /**
+     *
+     * @param user
+     * @return
+     */
     public int login(Person user) {
         Person b = em.createNamedQuery("Benutzer.login", Person.class).setParameter("personalnr", user.getPersonalnr()).getSingleResult();
         if (b.getPassword().equals(user.getPassword())) {
@@ -42,6 +59,11 @@ public class DatenbankRepository {
         return -1;
     }
 
+    /**
+     *
+     * @param b
+     * @return
+     */
     public Person insert(Person b) {
         em.getTransaction().begin();
         em.merge(b);
@@ -49,6 +71,11 @@ public class DatenbankRepository {
         return b;
     }
 
+    /**
+     *
+     * @param termin
+     * @return
+     */
     public Termin insert(Termin termin) {
         em.getTransaction().begin();
         em.persist(termin);
@@ -56,16 +83,39 @@ public class DatenbankRepository {
         return termin;
     }
 
+    /**
+     *
+     * @param ortsstelle
+     */
     public void insert(JRKEntitaet ortsstelle) {
         em.getTransaction().begin();
         em.merge(ortsstelle);
         em.getTransaction().commit();
     }
 
+    /**
+     *
+     * @param doku
+     */
+    public void insert(Dokumentation doku) {
+        em.getTransaction().begin();
+        em.merge(doku);
+        em.getTransaction().commit();
+    }
+
+    /**
+     *
+     * @return
+     */
     public List<Termin> termine() {
         return em.createNamedQuery("Termin.listAll", Termin.class).getResultList();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<Termin> getUsertermine(int id) {
         List<Termin> termine = new LinkedList();
         Person currentPerson = em.find(Person.class, id);
@@ -111,19 +161,38 @@ public class DatenbankRepository {
         return termine;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public String username(int id) {
         return em.createNamedQuery("Benutzer.name", String.class).setParameter("id", id).getSingleResult();
     }
 
+    /**
+     *
+     * @return
+     */
     public List<JRKEntitaet> listAllJRK() {
         return em.createNamedQuery("JRKEntitaet.listAll", JRKEntitaet.class).getResultList();
     }
 
+    /**
+     *
+     * @param t
+     */
     public void insertTermin(Termin t) {
-//        t.setJrkEntitaet(em.find(JRKEntitaet.class, 5));
-        insert(t);
+        JRKEntitaet jrk =em.find(JRKEntitaet.class, t.getJrkEntitaet().getId());
+        jrk.addTermin(t);
+        insert(jrk);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public JRKEntitaet getJRKEntitaet(int id) {
         JRKEntitaet jrk= em.createNamedQuery("Benutzer.jrkEntitaet", JRKEntitaet.class).setParameter("id", id).getSingleResult();
         jrk.setTermine(null);
@@ -133,4 +202,25 @@ public class DatenbankRepository {
         return jrk;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public List<Person> getUsersbytheirJRKEntity(int id) {
+return em.find(JRKEntitaet.class, id).getPersons1();
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public Dokumentation getDokumentationbyTermin(int id) {
+return em.find(Termin.class, id).getDoku();
+    }
+  
+
+
+   
 }

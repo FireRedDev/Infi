@@ -227,6 +227,11 @@ export class DashboardComponent implements OnInit {
     this.fetchEvents();
   }
 
+  changeView(message:string){
+    debugger;
+    this.view='month';
+  }
+
   fetchEvents(): void {
     const getStart: any = {
       month: startOfMonth,

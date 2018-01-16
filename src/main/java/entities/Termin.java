@@ -26,7 +26,8 @@ public class Termin implements Serializable {
     private String ort;
     @ManyToOne(fetch = FetchType.LAZY)
     private JRKEntitaet jrkEntitaet;
-
+    @OneToOne
+    private Dokumentation doku;
     public Termin() {
     }
 
@@ -53,6 +54,14 @@ public class Termin implements Serializable {
 
     public void setS_date(String s_date) {
         this.s_date = s_date;
+    }
+
+    public Dokumentation getDoku() {
+        return doku;
+    }
+
+    public void setDoku(Dokumentation doku) {
+        this.doku = doku;
     }
 
     public String getE_date() {
