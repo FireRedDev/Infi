@@ -99,6 +99,12 @@
     <div *ngIf="view=='termin'">
       <app-termin [jrkEntitaet]="jrkEntitaet"></app-termin>
     </div>
+    <div *ngIf="view =='protocol'">
+      <app-protocol></app-protocol>
+    </div>
+    <div (click)="view = 'protocol'" [class.active]="view === 'protocol'">
+      Protokoll
+    </div>
     </section>
   </div>
 </ng-sidebar-container>
