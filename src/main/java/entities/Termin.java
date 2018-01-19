@@ -10,7 +10,8 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t"),
-    @NamedQuery(name = "Termin.listBenutzer", query = "SELECT t FROM Termin t where t.jrkEntitaet = :jrkentitaet")
+    @NamedQuery(name = "Termin.listBenutzer", query = "SELECT t FROM Termin t where t.jrkEntitaet = :jrkentitaet"),
+    @NamedQuery(name = "Termin.getOpenDoko", query = "SELECT t FROM Termin t where t.doko IS NULL"),
 })
 public class Termin implements Serializable {
 
@@ -27,7 +28,8 @@ public class Termin implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private JRKEntitaet jrkEntitaet;
     @OneToOne
-    private Dokumentation doku;
+    private Dokumentation doko;
+
     public Termin() {
     }
 
@@ -54,14 +56,6 @@ public class Termin implements Serializable {
 
     public void setS_date(String s_date) {
         this.s_date = s_date;
-    }
-
-    public Dokumentation getDoku() {
-        return doku;
-    }
-
-    public void setDoku(Dokumentation doku) {
-        this.doku = doku;
     }
 
     public String getE_date() {
@@ -102,6 +96,14 @@ public class Termin implements Serializable {
 
     public void setJrkEntitaet(JRKEntitaet jrkEntitaet) {
         this.jrkEntitaet = jrkEntitaet;
+    }
+
+    public Dokumentation getDoko() {
+        return doko;
+    }
+
+    public void setDoko(Dokumentation doko) {
+        this.doko = doko;
     }
 
 }

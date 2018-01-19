@@ -92,6 +92,7 @@ interface Termin {
 export class DashboardComponent implements OnInit {
 
   username: String;
+  isEditor=true;
   jrkEntitaet:jrkEntitaet;
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
@@ -219,6 +220,13 @@ export class DashboardComponent implements OnInit {
         this.username=data["_body"];
       });
       this.http
+      .post('http://localhost:8080/api/service/isEditor',JSON.parse(body))
+      .subscribe(data => {
+        // Read the result field from the JSON response.
+        console.log("Editor", data["_body"]);
+        this.isEditor=data["_body"];
+      });
+    this.http
       .post('http://localhost:8080/api/service/getJRKEntitaet',JSON.parse(body))
       .subscribe(data => {
         var help=JSON.parse(data["_body"]);
@@ -226,6 +234,11 @@ export class DashboardComponent implements OnInit {
       });
     this.fetchEvents();
   }
+
+  modalData: {
+    action: string;
+    event: CalendarEvent;
+  };
 
   changeView(message:string){
     debugger;
@@ -257,26 +270,26 @@ export class DashboardComponent implements OnInit {
       });
   }
   
-
   convertEvents(events:Array<Termin>): Array<any>{
     var calendarEvents=[];
     events.forEach(function(event){
       calendarEvents.push({ 
-        title: "Titel: "+event.title +"<br>Beschreibung: "+event.beschreibung+"<br>Ort: "+event.ort+"<br><a id='protocol' (click)=\"view = 'protocol'\" [class.active]=\"view === 'protocol'\">Protokoll</a>",
+        title: "Titel: "+event.title +"<br>Beschreibung: "+event.beschreibung+"<br>Ort: "+event.ort,
         start: new Date(event.s_date),
         end: new Date(event.e_date),
         color: colors.red,
-        actions: [{ // an array of actions that will be displayed next to the event title
-        label: "<br><a id='protocol' (click)='view = 'protocol'' [class.active]='view === 'protocol''>Protokoll</a>",
-        cssClass: 'edit-action', // a CSS class that will be added to the action element so you can implement custom styling
-        onClick: function(args) { 
-          this.view = 'protocol'
-       }
-       }],
         cssClass: 'my-custom-class',
-        meta: {
-          event
-        }});
+        actions: [
+          {
+            label: '<i class="fa fa-file-text"></i><button (click)="view = \'protocol\'">Protokoll</button>',
+            onClick: ({ event }: { event: CalendarEvent }): void => {
+              console.log("Termin");
+               //document.getElementById("calendarView").innerHTML="<app-protocol></app-protocol>";
+               //document.getElementById("calendarView").innerHTML="test";
+            }
+          }
+        ]
+        });
     })
     console.log(calendarEvents);
     return calendarEvents;

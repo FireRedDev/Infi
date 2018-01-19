@@ -97,3 +97,11 @@ ng-sidebar-container{
 input.owl-datetime-input.owl-datetime-main-input {
     border: none !important;
 }
+
+a.cal-event-action {
+    text-decoration: none;
+}
+
+a.cal-event-title {
+    text-decoration: none;
+}

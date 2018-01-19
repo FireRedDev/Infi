@@ -36,7 +36,9 @@
     <header class="dashboard-header">
       <button (click)="_toggleOpened()" class="dashboard-header__toggle">Toggle sidebar</button>
       <span>Infi</span>
-      <i (click)="view = 'termin'" class="fa fa-plus" (changeView)="changeView(i)" aria-hidden="true"></i>
+      <div *ngIf="isEditor === turue">
+      <i (click)="view = 'termin'" class="fa fa-plus" aria-hidden="true"></i>
+    </div>
     </header>
     <section class="dashboard-contents">
         <div *ngIf="view=='month'||view=='week'">
@@ -74,14 +76,16 @@
       <div *ngIf="events$ | async; else loading; let events">
         <div [ngSwitch]="view">
         <mwl-calendar-month-view
-          *ngSwitchCase="'month'"
+          *ngSwitchCase="'month'"      
+          [refresh]="refresh"
           [viewDate]="viewDate"
           [events]="events"
           [locale]="locale"
           [weekStartsOn]="weekStartsOn"
           [weekendDays]="weekendDays"
           [activeDayIsOpen]="activeDayIsOpen"
-          (dayClicked)="dayClicked($event.day)">
+          (dayClicked)="dayClicked($event.day)"
+          (eventTimesChanged)="eventTimesChanged($event)">
         </mwl-calendar-month-view>
         <mwl-calendar-week-view
           *ngSwitchCase="'week'"
@@ -91,20 +95,21 @@
           [locale]="locale"
           [weekStartsOn]="weekStartsOn"
           [weekendDays]="weekendDays"
-          (dayClicked)="dayClicked($event.day)">
+          [refresh]="refresh"
+          (eventTimesChanged)="eventTimesChanged($event)">
         </mwl-calendar-week-view>
       </div>
       </div>
     </div>
     <div *ngIf="view=='termin'">
-      <app-termin [jrkEntitaet]="jrkEntitaet"></app-termin>
+      <app-termin [jrkEntitaet]="jrkEntitaet" (changeView)="changeView(i)" ></app-termin>
     </div>
-          <div *ngIf="view =='protocol'">
-              <app-protocol></app-protocol>
-          </div>
-          <div (click)="view = 'protocol'" [class.active]="view === 'protocol'">
-            Protokoll
-          </div>
+    <div *ngIf="view =='protocol'">
+      <app-protocol></app-protocol>
+    </div>
+    <div *ngIf="view=='month' ||view=='week'">
+      <button (click)="view = 'protocol'">Protokoll</button>
+    </div>
     </section>
   </div>
 </ng-sidebar-container>

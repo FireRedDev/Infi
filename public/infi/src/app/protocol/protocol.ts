@@ -4,14 +4,12 @@ export class Protokoll{
         public title='',
         public beschreibung='',
         public ort='',
-        public s_date='',
-        public s_time='',
-        public e_date='',
-        public e_time='',
+        public s_date='12-12-2017 00:00',
+        public e_date='12-12-2017 00:00',
         public kinderliste='',
         public taetigkeiten='',
         public vzeit='',
-        public kategorie=''
+        public kategorie='Soziales'
     )
     {}
 

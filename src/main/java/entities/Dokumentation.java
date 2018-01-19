@@ -3,106 +3,124 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package entities;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
-* C.G
+ * C.G
  */
 @Entity
 public class Dokumentation implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String externePersonen;
-    private String Tätigkeiten;
-    private Kategorie kategorie;
-    //beziehung zu kindern
-    @OneToMany()
-    private List<Person> teilnehmer;
-    public Long getId() {
-        return id;
-    }
-public Dokumentation() {
-    
-}
-    public Dokumentation(String externePersonen, String Tätigkeiten, Kategorie kategorie, List<Person> teilnehmer) {
-        this.externePersonen = externePersonen;
-        this.Tätigkeiten = Tätigkeiten;
-        this.kategorie = kategorie;
-        this.teilnehmer = teilnehmer;
+    private int id;
+    private String title;
+    private String beschreibung;
+    private String ort;
+    private String s_date;
+    private String e_date;
+    private String kinderliste;
+    private String taetigkeiten;
+    private double vzeit;
+    private String kategorie;
+
+    public Dokumentation() {
+
     }
 
-    public void setId(Long id) {
+    public Dokumentation(String title, String beschreibung, String ort, String s_date, String e_date, String kinderliste, String taetigkeiten, double vzeit, String kategorie) {
+        this.title = title;
+        this.beschreibung = beschreibung;
+        this.ort = ort;
+        this.s_date = s_date;
+        this.e_date = e_date;
+        this.kinderliste = kinderliste;
+        this.taetigkeiten = taetigkeiten;
+        this.vzeit = vzeit;
+        this.kategorie = kategorie;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public String getTitle() {
+        return title;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Dokumentation)) {
-            return false;
-        }
-        Dokumentation other = (Dokumentation) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getExternePersonen() {
-        return externePersonen;
+    public String getBeschreibung() {
+        return beschreibung;
     }
 
-    public void setExternePersonen(String externePersonen) {
-        this.externePersonen = externePersonen;
+    public void setBeschreibung(String beschreibung) {
+        this.beschreibung = beschreibung;
     }
 
-    public String getTätigkeiten() {
-        return Tätigkeiten;
+    public String getOrt() {
+        return ort;
     }
 
-    public void setTätigkeiten(String Tätigkeiten) {
-        this.Tätigkeiten = Tätigkeiten;
+    public void setOrt(String ort) {
+        this.ort = ort;
     }
 
-    public Kategorie getKategorie() {
+    public String getS_date() {
+        return s_date;
+    }
+
+    public void setS_date(String s_date) {
+        this.s_date = s_date;
+    }
+
+    public String getE_date() {
+        return e_date;
+    }
+
+    public void setE_date(String e_date) {
+        this.e_date = e_date;
+    }
+
+    public String getKinderliste() {
+        return kinderliste;
+    }
+
+    public void setKinderliste(String kinderliste) {
+        this.kinderliste = kinderliste;
+    }
+
+    public String getTaetigkeiten() {
+        return taetigkeiten;
+    }
+
+    public void setTaetigkeiten(String taetigkeiten) {
+        this.taetigkeiten = taetigkeiten;
+    }
+
+    public double getVzeit() {
+        return vzeit;
+    }
+
+    public void setVzeit(double vzeit) {
+        this.vzeit = vzeit;
+    }
+
+    public String getKategorie() {
         return kategorie;
     }
 
-    public void setKategorie(Kategorie kategorie) {
+    public void setKategorie(String kategorie) {
         this.kategorie = kategorie;
-    }
-
-    public List<Person> getTeilnehmer() {
-        return teilnehmer;
-    }
-
-    public void setTeilnehmer(List<Person> teilnehmer) {
-        this.teilnehmer = teilnehmer;
-    }
-
-    @Override
-    public String toString() {
-        return "entities.Dokumentation[ id=" + id + " ]";
     }
 
 }

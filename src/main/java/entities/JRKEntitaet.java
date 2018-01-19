@@ -5,10 +5,8 @@
  */
 package entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import javax.persistence.*;
 
 /**
@@ -129,7 +127,7 @@ public class JRKEntitaet implements Serializable {
     public void setPersons1(List<Person> persons1) {
         this.persons1 = persons1;
     }
-    
+
     public void addJRKEntitaet(JRKEntitaet newJRK) {
         if (!this.jrkentitaet1.contains(newJRK)) {
             this.jrkentitaet1.add(newJRK);

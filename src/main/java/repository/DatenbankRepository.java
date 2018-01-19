@@ -83,23 +83,15 @@ public class DatenbankRepository {
         return termin;
     }
 
-    /**
-     *
-     * @param ortsstelle
-     */
-    public void insert(JRKEntitaet ortsstelle) {
+    public void insert(Dokumentation doku) {
         em.getTransaction().begin();
-        em.merge(ortsstelle);
+        em.persist(doku);
         em.getTransaction().commit();
     }
 
-    /**
-     *
-     * @param doku
-     */
-    public void insert(Dokumentation doku) {
+    public void insert(JRKEntitaet ortsstelle) {
         em.getTransaction().begin();
-        em.merge(doku);
+        em.merge(ortsstelle);
         em.getTransaction().commit();
     }
 
@@ -183,7 +175,7 @@ public class DatenbankRepository {
      * @param t
      */
     public void insertTermin(Termin t) {
-        JRKEntitaet jrk =em.find(JRKEntitaet.class, t.getJrkEntitaet().getId());
+        JRKEntitaet jrk = em.find(JRKEntitaet.class, t.getJrkEntitaet().getId());
         jrk.addTermin(t);
         insert(jrk);
     }
@@ -194,21 +186,23 @@ public class DatenbankRepository {
      * @return
      */
     public JRKEntitaet getJRKEntitaet(int id) {
-        JRKEntitaet jrk= em.createNamedQuery("Benutzer.jrkEntitaet", JRKEntitaet.class).setParameter("id", id).getSingleResult();
+        JRKEntitaet jrk = em.createNamedQuery("Benutzer.jrkEntitaet", JRKEntitaet.class).setParameter("id", id).getSingleResult();
         jrk.setTermine(null);
         jrk.setJrkentitaet1(null);
         jrk.setPersons1(null);
         jrk.setPersons(null);
+        jrk.setJrkentitaet(null);
         return jrk;
     }
 
-    /**
-     *
-     * @param id
-     * @return
-     */
-    public List<Person> getUsersbytheirJRKEntity(int id) {
-return em.find(JRKEntitaet.class, id).getPersons1();
+    public boolean isEditor(int id) {
+        Person p = em.find(Person.class, id);
+        return !p.getLeitet().isEmpty();
+    }
+
+    public List<Termin> getOpenDoko(int id) {
+        Person p = em.find(Person.class, id);
+        return em.createNamedQuery("Termin.getOpenDoko", Termin.class).getResultList();
     }
 
     /**
@@ -217,10 +211,6 @@ return em.find(JRKEntitaet.class, id).getPersons1();
      * @return
      */
     public Dokumentation getDokumentationbyTermin(int id) {
-return em.find(Termin.class, id).getDoku();
+        return em.find(Termin.class, id).getDoko();
     }
-  
-
-
-   
 }
