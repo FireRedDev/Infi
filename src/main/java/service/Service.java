@@ -1,20 +1,10 @@
 package service;
 
-import entities.Dokumentation;
-import entities.Person;
-import entities.JRKEntitaet;
-import entities.Termin;
-import entities.Typ;
-import static entities.Typ.Bezirkstelle;
-import static entities.Typ.Gruppe;
-import static entities.Typ.Landstelle;
-import static entities.Typ.Ortstelle;
-import java.util.LinkedList;
-import java.util.List;
+import entities.*;
+import static entities.Typ.*;
+import java.util.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import org.json.JSONObject;
 import repository.DatenbankRepository;
 
 /**
@@ -52,7 +42,6 @@ public class Service {
         return repo.login(user);
     }
 
-    //funktioniert nicht
     /**
      * Lists all Termine
      *
@@ -183,7 +172,7 @@ public class Service {
     public void insertDoko(Dokumentation d) {
         repo.insert(d);
     }
-    
+
     @Path("isEditor")
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
@@ -191,7 +180,7 @@ public class Service {
     public boolean isEditor(int id) {
         return repo.isEditor(id);
     }
-    
+
     @Path("getOpenDoko")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
