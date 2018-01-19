@@ -56,6 +56,12 @@ public class DatenbankRepository {
         return termin;
     }
 
+    public void insert(Dokumentation doku) {
+        em.getTransaction().begin();
+        em.persist(doku);
+        em.getTransaction().commit();
+    }
+    
     public void insert(JRKEntitaet ortsstelle) {
         em.getTransaction().begin();
         em.merge(ortsstelle);
@@ -131,7 +137,18 @@ public class DatenbankRepository {
         jrk.setJrkentitaet1(null);
         jrk.setPersons1(null);
         jrk.setPersons(null);
+        jrk.setJrkentitaet(null);
         return jrk;
+    }
+
+    public boolean isEditor(int id) {
+        Person p = em.find(Person.class, id);
+        return !p.getLeitet().isEmpty();
+    }
+
+    public List<Termin> getOpenDoko(int id) {
+        Person p = em.find(Person.class, id);
+        return em.createNamedQuery("Termin.getOpenDoko", Termin.class).getResultList();
     }
 
 }

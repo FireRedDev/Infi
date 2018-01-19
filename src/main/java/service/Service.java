@@ -1,5 +1,6 @@
 package service;
 
+import entities.Dokumentation;
 import entities.Person;
 import entities.JRKEntitaet;
 import entities.Termin;
@@ -115,8 +116,8 @@ public class Service {
     public String getUsername(int id) {
         return repo.username(id);
     }
-    
-        @POST
+
+    @POST
     @Path("getJRKEntitaet")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
@@ -154,7 +155,7 @@ public class Service {
         Person karin = new Person("00002", "passme", "Karin", "Tester", wels, bezirksleitung_wels);
         Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt, ortstelle_sattledt);
         Person doris = new Person("00004", "passme", "Doris", "Tester", sattledt1, ortstelle_sattledt);
-        Person isabella = new Person("00004", "passme", "Isabella", "Tester", sattledt1);
+        Person isabella = new Person("00005", "passme", "Isabella", "Tester", sattledt1);
         repo.insert(tom);
         repo.insert(karin);
         repo.insert(gusi);
@@ -176,4 +177,26 @@ public class Service {
         repo.insertTermin(t);
     }
 
+    @Path("insertDoko")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @POST
+    public void insertDoko(Dokumentation d) {
+        repo.insert(d);
+    }
+    
+    @Path("isEditor")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @POST
+    public boolean isEditor(int id) {
+        return repo.isEditor(id);
+    }
+    
+    @Path("getOpenDoko")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @POST
+    public List<Termin> getOpenDoko(int id) {
+        return repo.getOpenDoko(id);
+    }
 }

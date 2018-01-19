@@ -9,7 +9,7 @@ export class Protokoll{
         public kinderliste='',
         public taetigkeiten='',
         public vzeit='',
-        public kategorie=''
+        public kategorie='Soziales'
     )
     {}
 

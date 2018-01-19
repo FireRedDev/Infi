@@ -63,7 +63,7 @@
       Tätigkeiten muss eingegeben werden!
       </div>
        <label for="vzeit">Vorbereitungszeit in Stunden</label>
-      <input type="number" class="form-control" id="vzeit"
+        <input type="number" class="form-control" id="vzeit"
               required
               [(ngModel)]="actTermin.vzeit" name="vzeit"
               #vzeit="ngModel">
@@ -72,14 +72,13 @@
       Vorbereitungszeit muss eingegeben werden!
       </div>
       <label for="kategorie">Kategorie</label><br>
-      <label class="radio-inline"><input type="radio" [(ngModel)]="actTermin.kategorie" name="kategorie"  [value]="1"
-       [checked]="actTermin.kategorie==1">Soziales</label>
-        <label class="radio-inline"><input type="radio" [(ngModel)]="actTermin.kategorie" name="kategorie"  [value]="2"
-       [checked]="actTermin.kategorie==2">Erste Hilfe</label>
-        <label class="radio-inline"><input type="radio" [(ngModel)]="actTermin.kategorie" name="kategorie"  [value]="3"
-       [checked]="actTermin.kategorie==3">Exkursion</label>
+      <label class="radio-inline"><input type="radio" [(ngModel)]="actTermin.kategorie" FormControlName= "kat" name="kategorie"  [value]="'Soziales'"
+       [checked]="actTermin.kategorie === 'Soziales'">Soziales</label>
+        <label class="radio-inline"><input type="radio" [(ngModel)]="actTermin.kategorie" FormControlName= "kat" name="kategorie"  [value]="'EH'"
+       [checked]="actTermin.kategorie === 'EH'">Erste Hilfe</label>
+        <label class="radio-inline"><input type="radio" [(ngModel)]="actTermin.kategorie" FormControlName= "kat" name="kategorie"  [value]="'Exkursion'"
+       [checked]="actTermin.kategorie === 'Exkursion'">Exkursion</label>
 
     </div>
-        Radiobutton funktionieren noch nicht
     <button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save(); view = 'termin'">einfügen</button>
 </form>
