@@ -1,5 +1,6 @@
 package service;
 
+import entities.Person;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseContext;
@@ -10,6 +11,9 @@ import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Base64;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.ws.rs.container.PreMatching;
 
 import static javax.ws.rs.core.Response.ResponseBuilder;
@@ -19,7 +23,13 @@ import static javax.ws.rs.core.Response.Status;
 @Secured
 public class UserAuthenticationFilter implements ContainerRequestFilter, 
                                              ContainerResponseFilter {
-    
+        @Inject
+    private EntityManager em;
+
+    public UserAuthenticationFilter() {
+        em = Persistence.createEntityManagerFactory("infiPU").createEntityManager();
+    }
+        
     @Override
     public void filter(ContainerRequestContext requestContext)
                        throws IOException {
@@ -44,7 +54,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
                 credentials="";
             }
 
-            if (!credentials.equals("passme")) {// an der stelle schaun ob der token in der tabelle gespeichert is
+            if (!credentials.equals(em.find(Person.class,credentials).getPassword())) {// an der stelle schaun ob der token in der tabelle gespeichert is
                 //TODO
                 //em.find (jwttokenuser klasse,token is der primary key)!
                 // Eintrag in Http-Header:
