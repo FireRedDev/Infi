@@ -1,10 +1,6 @@
 package service;
 
-import entities.Dokumentation;
-import entities.Person;
-import entities.JRKEntitaet;
-import entities.Termin;
-import entities.Typ;
+import entities.*;
 import static entities.Typ.Bezirkstelle;
 import static entities.Typ.Gruppe;
 import static entities.Typ.Landstelle;
@@ -13,8 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import org.json.JSONObject;
 import repository.DatenbankRepository;
 
 /**
@@ -52,7 +46,6 @@ public class Service {
         return repo.login(user);
     }
 
-    //funktioniert nicht
     /**
      * Lists all Termine
      *
@@ -180,8 +173,8 @@ public class Service {
     @Path("insertDoko")
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
-    public void insertDoko(Dokumentation d) {
-        repo.insert(d);
+    public void insertDoko(Termin d) {
+        repo.insertDoko(d);
     }
     
     @Path("isEditor")

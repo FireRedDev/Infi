@@ -56,12 +56,6 @@ public class DatenbankRepository {
         return termin;
     }
 
-    public void insert(Dokumentation doku) {
-        em.getTransaction().begin();
-        em.persist(doku);
-        em.getTransaction().commit();
-    }
-    
     public void insert(JRKEntitaet ortsstelle) {
         em.getTransaction().begin();
         em.merge(ortsstelle);
@@ -69,7 +63,11 @@ public class DatenbankRepository {
     }
 
     public List<Termin> termine() {
-        return em.createNamedQuery("Termin.listAll", Termin.class).getResultList();
+        List<Termin> termine = em.createNamedQuery("Termin.listAll", Termin.class).getResultList();
+        for (Termin t : termine) {
+            t.setJrkEntitaet(null);
+        }
+        return termine;
     }
 
     public List<Termin> getUsertermine(int id) {
@@ -126,13 +124,14 @@ public class DatenbankRepository {
     }
 
     public void insertTermin(Termin t) {
-        JRKEntitaet jrk =em.find(JRKEntitaet.class, t.getJrkEntitaet().getId());
+        JRKEntitaet jrk = em.find(JRKEntitaet.class, t.getJrkEntitaet().getId());
+        t.setDoko(null);
         jrk.addTermin(t);
         insert(jrk);
     }
 
     public JRKEntitaet getJRKEntitaet(int id) {
-        JRKEntitaet jrk= em.createNamedQuery("Benutzer.jrkEntitaet", JRKEntitaet.class).setParameter("id", id).getSingleResult();
+        JRKEntitaet jrk = em.createNamedQuery("Benutzer.jrkEntitaet", JRKEntitaet.class).setParameter("id", id).getSingleResult();
         jrk.setTermine(null);
         jrk.setJrkentitaet1(null);
         jrk.setPersons1(null);
@@ -147,8 +146,19 @@ public class DatenbankRepository {
     }
 
     public List<Termin> getOpenDoko(int id) {
-        Person p = em.find(Person.class, id);
-        return em.createNamedQuery("Termin.getOpenDoko", Termin.class).getResultList();
+        List<Termin> termine = this.getUsertermine(id);
+        for (Termin t : termine) {
+            if(t.getDoko()!=null){
+                termine.remove(t);
+            }
+        }
+        return termine;
+    }
+
+    public void insertDoko(Termin d) {
+        em.getTransaction().begin();
+        em.merge(d);
+        em.getTransaction().commit();
     }
 
 }

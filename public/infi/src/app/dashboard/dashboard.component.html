@@ -28,7 +28,9 @@
         <p class="einfuegen"><i class="fa fa-user" aria-hidden="true"></i><b> {{username}} </b></p><hr>
         <!--<div href="#" id="hover"><p class="einfuegen"><i class="material-icons">home</i> Startseite</p></div>-->
         <div (click)="_toggleOpened()"><div href="#" id="hover" (click)="view = 'month'" [class.active]="view === 'month'" ><p class="einfuegen"><i class="material-icons">date_range</i> Monatsansicht</p></div>
-        <div href="#" id="hover" (click)="view = 'week'" [class.active]="view === 'week'"><p class="einfuegen"><i class="material-icons">line_style</i> Wochenansicht</p></div></div>
+        <div href="#" id="hover" (click)="view = 'week'" [class.active]="view === 'week'"><p class="einfuegen"><i class="material-icons">line_style</i> Wochenansicht</p></div>
+        <div href="#" id="hover" (click)="view = 'protocol'"><p class="einfuegen"><i class="material-icons">subject</i> Protokol</p></div>
+      </div>
            
         <a routerLink="/"><div id="platzierung"><div class="button"></div></div></a>
     </ng-sidebar>
@@ -36,8 +38,8 @@
     <header class="dashboard-header">
       <button (click)="_toggleOpened()" class="dashboard-header__toggle">Toggle sidebar</button>
       <span>Infi</span>
-      <div *ngIf="isEditor === turue">
-      <i (click)="view = 'termin'" class="fa fa-plus" aria-hidden="true"></i>
+      <div class="addTermin" *ngIf="isEditor" (click)="view = 'termin'">
+      <i class="fa fa-plus" aria-hidden="true"></i> Termin einfügen
     </div>
     </header>
     <section class="dashboard-contents">
@@ -105,11 +107,11 @@
       <app-termin [jrkEntitaet]="jrkEntitaet" (changeView)="changeView(i)" ></app-termin>
     </div>
     <div *ngIf="view =='protocol'">
-      <app-protocol></app-protocol>
+      <app-protocol (changeView)="changeView(i)"></app-protocol>
     </div>
-    <div *ngIf="view=='month' ||view=='week'">
-      <button (click)="view = 'protocol'">Protokoll</button>
-    </div>
+    <!--<div *ngIf="view=='month' ||view=='week'">
+      <button class="btn" (click)="view = 'protocol'">Protokoll</button>
+    </div>-->
     </section>
   </div>
 </ng-sidebar-container>

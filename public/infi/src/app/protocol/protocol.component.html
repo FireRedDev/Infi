@@ -1,6 +1,10 @@
 <h2>Protokoll</h2>
 <form (ngSubmit)="onSubmit()" #terminForm="ngForm">
     <div class="form-group">
+        <label for="auswahl">Termin vorauswählen</label>
+        <select class="form-control" #selectElem (change)="setTermin(selectElem.value)" name="termSelect">
+                <option *ngFor="let t of term, let i=index" [selected]="i==0" [value]="t.id">{{t.title}}, am {{t.s_date | date:'dd.MM.yyyy'}}</option>
+        </select>
       <label for="title">Titel</label>
       <input type="text" class="form-control" id="title"
               required
@@ -47,7 +51,7 @@
       <label for="kinderliste">Kinderliste</label>
       <textarea type="text" class="form-control" id="kinderliste"
               required
-              [(ngModel)]="actTermin.kinderliste" name="kinderliste"
+              [(ngModel)]="actProtokol.kinderliste" name="kinderliste"
               #kinderliste="ngModel"></textarea>
       <div [hidden]="kinderliste.valid || kinderliste.pristine"
               class="alert alert-danger">
@@ -56,7 +60,7 @@
       <label for="taetigkeiten">Tätigkeiten</label>
       <textarea type="text" class="form-control" id="taetigkeiten"
               required
-              [(ngModel)]="actTermin.taetigkeiten" name="taetigkeiten"
+              [(ngModel)]="actProtokol.taetigkeiten" name="taetigkeiten"
               #taetigkeiten="ngModel"></textarea>
       <div [hidden]="taetigkeiten.valid || taetigkeiten.pristine"
               class="alert alert-danger">
@@ -65,19 +69,19 @@
        <label for="vzeit">Vorbereitungszeit in Stunden</label>
         <input type="number" class="form-control" id="vzeit"
               required
-              [(ngModel)]="actTermin.vzeit" name="vzeit"
+              [(ngModel)]="actProtokol.vzeit" name="vzeit"
               #vzeit="ngModel">
       <div [hidden]="vzeit.valid || vzeit.pristine"
               class="alert alert-danger">
-      Vorbereitungszeit muss eingegeben werden!
+      Vorbereitungszeit muss als (Dezimal)zahl eingegeben werden!
       </div>
       <label for="kategorie">Kategorie</label><br>
-      <label class="radio-inline"><input type="radio" [(ngModel)]="actTermin.kategorie" FormControlName= "kat" name="kategorie"  [value]="'Soziales'"
-       [checked]="actTermin.kategorie === 'Soziales'">Soziales</label>
-        <label class="radio-inline"><input type="radio" [(ngModel)]="actTermin.kategorie" FormControlName= "kat" name="kategorie"  [value]="'EH'"
-       [checked]="actTermin.kategorie === 'EH'">Erste Hilfe</label>
-        <label class="radio-inline"><input type="radio" [(ngModel)]="actTermin.kategorie" FormControlName= "kat" name="kategorie"  [value]="'Exkursion'"
-       [checked]="actTermin.kategorie === 'Exkursion'">Exkursion</label>
+      <label class="radio-inline"><input type="radio" [(ngModel)]="actProtokol.kategorie" FormControlName= "kat" name="kategorie"  [value]="'Soziales'"
+       [checked]="actProtokol.kategorie === 'Soziales'">Soziales</label>
+        <label class="radio-inline"><input type="radio" [(ngModel)]="actProtokol.kategorie" FormControlName= "kat" name="kategorie"  [value]="'EH'"
+       [checked]="actProtokol.kategorie === 'EH'">Erste Hilfe</label>
+        <label class="radio-inline"><input type="radio" [(ngModel)]="actProtokol.kategorie" FormControlName= "kat" name="kategorie"  [value]="'Exkursion'"
+       [checked]="actProtokol.kategorie === 'Exkursion'">Exkursion</label>
 
     </div>
     <button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save(); view = 'termin'">einfügen</button>

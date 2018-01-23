@@ -34,9 +34,8 @@ success=false;
         .subscribe(data => {
           // Read the result field from the JSON response.
           console.log("insert Termin");
+          this.changeView.emit("month");
       });
-      debugger;
-      this.changeView.emit("month");
       this.success=true;
   }
   

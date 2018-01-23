@@ -1,16 +1,16 @@
 import { jrkEntitaet } from '../termin/jrkEntitaet.model';
 import { forEach } from '@angular/router/src/utils/collection';
-import { Component, 
-  ChangeDetectionStrategy, 
-  OnInit, 
-  Input, 
-  Output, 
-  EventEmitter, 
+import { Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
   ViewChild,
   Provider,
   OnDestroy,
   TemplateRef } from '@angular/core';
-import {UserService} from "../user.service";
+import {UserService} from '../user.service';
 import {
   CalendarEvent,
   CalendarDateFormatter,
@@ -93,36 +93,36 @@ export class DashboardComponent implements OnInit {
 
   username: String;
   isEditor=true;
-  jrkEntitaet:jrkEntitaet;
+  jrkEntitaet: jrkEntitaet;
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
   viewDate: Date = new Date();
   title = 'app';
-  locale: string = 'de';
-  view: string = 'month';
+  locale = 'de';
+  view = 'month';
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
   weekendDays: number[] = [DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
-  
+
   events$: Observable<Array<CalendarEvent<{ termin: Termin }>>>;
-  
-  activeDayIsOpen: boolean = false;
-  
+
+  activeDayIsOpen = false;
+
   events:Array<Termin>;
 
   @Output() viewChange: EventEmitter<string> = new EventEmitter();
   @Output() viewDateChange: EventEmitter<Date> = new EventEmitter();
 
-  private _opened: boolean = false;
-  private _modeNum: number = 0;
-  private _positionNum: number = 0;
-  private _dock: boolean = false;
-  private _closeOnClickOutside: boolean = false;
-  private _closeOnClickBackdrop: boolean = false;
-  private _showBackdrop: boolean = false;
-  private _animate: boolean = true;
-  private _trapFocus: boolean = true;
-  private _autoFocus: boolean = true;
-  private _keyClose: boolean = false;
+  private _opened = false;
+  private _modeNum = 0;
+  private _positionNum = 0;
+  private _dock = false;
+  private _closeOnClickOutside = false;
+  private _closeOnClickBackdrop = false;
+  private _showBackdrop = false;
+  private _animate = true;
+  private _trapFocus = true;
+  private _autoFocus = true;
+  private _keyClose = false;
   private _autoCollapseHeight: number = null;
   private _autoCollapseWidth: number = null;
   id: number;
@@ -192,19 +192,19 @@ export class DashboardComponent implements OnInit {
   }
 
   private _onOpenStart(): void {
-    console.info('Sidebar opening');
+    console.log('Sidebar opening');
   }
 
   private _onOpened(): void {
-    console.info('Sidebar opened');
+    console.log('Sidebar opened');
   }
 
   private _onCloseStart(): void {
-    console.info('Sidebar closing');
+    console.log('Sidebar closing');
   }
 
   private _onClosed(): void {
-    console.info('Sidebar closed');
+    console.log('Sidebar closed');
   }
 
   constructor(private http: Http,private user:UserService,private route: ActivatedRoute, private router: Router) {}
@@ -216,33 +216,27 @@ export class DashboardComponent implements OnInit {
       .post('http://localhost:8080/api/service/getName',JSON.parse(body))
       .subscribe(data => {
         // Read the result field from the JSON response.
-        console.log("Username", data["_body"]);
-        this.username=data["_body"];
+        console.log('Username', data['_body']);
+        this.username = data['_body'];
       });
       this.http
       .post('http://localhost:8080/api/service/isEditor',JSON.parse(body))
       .subscribe(data => {
         // Read the result field from the JSON response.
-        console.log("Editor", data["_body"]);
-        this.isEditor=data["_body"];
+        console.log('Editor', data['_body']);
+        this.isEditor = (data['_body'] === 'true');
       });
     this.http
       .post('http://localhost:8080/api/service/getJRKEntitaet',JSON.parse(body))
       .subscribe(data => {
-        var help=JSON.parse(data["_body"]);
-        this.jrkEntitaet=new jrkEntitaet(help.id,help.name,help.ort);
+        var help =JSON.parse(data['_body']);
+        this.jrkEntitaet = new jrkEntitaet(help.id,help.name,help.ort);
       });
     this.fetchEvents();
   }
 
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
-
   changeView(message:string){
-    debugger;
-    this.view='month';
+    this.view = 'month';
   }
 
   fetchEvents(): void {
@@ -264,17 +258,17 @@ export class DashboardComponent implements OnInit {
       .post('http://localhost:8080/api/service/getUserTermine',JSON.parse(body))
       .map(res => res.json())
       .map(json => {
-        console.log("JSON:" ,json);
-        this.events=json;
+        console.log('JSON:' ,json);
+        this.events = json;
         return this.convertEvents(this.events);
       });
   }
-  
+
   convertEvents(events:Array<Termin>): Array<any>{
-    var calendarEvents=[];
+    var calendarEvents =[];
     events.forEach(function(event){
-      calendarEvents.push({ 
-        title: "Titel: "+event.title +"<br>Beschreibung: "+event.beschreibung+"<br>Ort: "+event.ort,
+      calendarEvents.push({
+        title: 'Titel: '+event.title + '<br>Beschreibung: ' + event.beschreibung + '<br>Ort: ' + event.ort,
         start: new Date(event.s_date),
         end: new Date(event.e_date),
         color: colors.red,
@@ -283,14 +277,14 @@ export class DashboardComponent implements OnInit {
           {
             label: '<i class="fa fa-file-text"></i><button (click)="view = \'protocol\'">Protokoll</button>',
             onClick: ({ event }: { event: CalendarEvent }): void => {
-              console.log("Termin");
-               //document.getElementById("calendarView").innerHTML="<app-protocol></app-protocol>";
+              console.log('Termin');
+               // document.getElementById("calendarView").innerHTML="<app-protocol></app-protocol>";
                //document.getElementById("calendarView").innerHTML="test";
             }
           }
         ]
         });
-    })
+    });
     console.log(calendarEvents);
     return calendarEvents;
   }

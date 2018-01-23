@@ -1,4 +1,4 @@
-import { jrkEntitaet } from "./jrkEntitaet.model";
+import { jrkEntitaet } from './jrkEntitaet.model';
 
 export class Termin {
     constructor(

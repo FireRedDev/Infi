@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { Http, URLSearchParams } from '@angular/http';
 import { Protokoll } from './protocol';
+import { jrkEntitaet } from '../termin/jrkEntitaet.model';
+import { Termin } from './termin';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-protocol',
@@ -8,12 +11,23 @@ import { Protokoll } from './protocol';
   styleUrls: ['./protocol.component.css']
 })
 export class ProtocolComponent implements OnInit {
-
   constructor(private http: Http) { }
 
+  @Output() changeView: EventEmitter<string> = new EventEmitter();
   de: any;
+  private term;
   
   ngOnInit() {
+    const body = localStorage.getItem('currentUser');
+    this.http
+        .post('http://localhost:8080/api/service/getOpenDoko', JSON.parse(body))
+        .subscribe(data => {
+          // Read the result field from the JSON response.
+          console.log('Protokol: ',data);
+          this.term=JSON.parse(data["_body"]);
+          console.log(this.term);
+          this.actTermin=this.term[0];
+      });
     this.de = {
             firstDayOfWeek: 0,
             dayNames: ["Sonntag", "Montag", "Dienstag","Mittwoch", "Donnerstag", "Freitag", "Samstag"],
@@ -23,18 +37,30 @@ export class ProtocolComponent implements OnInit {
         };
   }
   save(){
+      this.actTermin.doko = this.actProtokol;
       console.log(this.actTermin);
-      
       this.http
         .post('http://localhost:8080/api/service/insertDoko', this.actTermin)
         .subscribe(data => {
-          console.log("insert Protokoll");
+          console.log('insert Protokoll');
+          this.changeView.emit('month');
       });
+
   }
   
-  actTermin: Protokoll = new Protokoll('','','','','','','',0,'Soziales');
+  actProtokol: Protokoll = new Protokoll(0,'','','Soziales');
+  actTermin:Termin = new Termin();
   submitted = false;
  
   onSubmit() { this.submitted = true; }
+
+  setTermin(id: any): void {
+    var index;
+    for (index = 0; index < this.term.length; ++index) {
+      if(this.term[index].id == id){
+        this.actTermin=this.term[index];
+      }
+    }
+}
 }
 
