@@ -21,7 +21,7 @@ import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import javax.persistence.*;
 import org.json.JSONObject;
-
+import service.*;
 /**
  *
  * @author isi
@@ -64,14 +64,15 @@ public class DatenbankRepository {
      * @param user
      * @return
      */
-    public JSONObject login(Person user) {
+    public PersonTokenTransferObject login(PersonTransferObject pto) {
+     Query query= em.createNamedQuery("Benutzer.login", Person.class);
+     query.setParameter("personalnr", pto.personalnr);
+     Person b=(Person) query.getSingleResult();
+  
         String token =  generateJWT();
-        Person b = em.createNamedQuery("Benutzer.login", Person.class).setParameter("personalnr", user.getPersonalnr()).getSingleResult();
-        if (b.getPassword().equals(user.getPassword())) {
-JSONObject json = new JSONObject()
-                  .put("userID", b.getId()).put("token",token);
-              insert(new JWTTokenUser(token,b));
-            return json;
+         if (b.getPassword().equals(pto.password)) {
+PersonTokenTransferObject pt = new PersonTokenTransferObject(String.valueOf(b.getId()),token);
+            return pt;
         }
         return null;
     }

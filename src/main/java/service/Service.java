@@ -1,5 +1,6 @@
     package service;
 
+import repository.PersonTransferObject;
 import entities.Dokumentation;
 import entities.Person;
 import entities.JRKEntitaet;
@@ -17,6 +18,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import org.json.JSONObject;
 import repository.DatenbankRepository;
+import repository.PersonTokenTransferObject;
 
 /**
  *
@@ -51,14 +53,15 @@ public class Service {
      * @return
      */
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-      @Consumes(MediaType.APPLICATION_JSON)
-    @Path("login")
-    public JSONObject login(Person user) {
+    @Produces("application/json")
+    @Consumes("application/json")
+    @Path("login")//jsonobject könnte weggehören müssen!
+    public PersonTokenTransferObject login(PersonTransferObject pto) {
 //        String cookie = "12345";//repo.login(user);
 //        return Response.ok().header("Set-Cookie", "kalendarCookie=" + cookie).build();
        System.out.println("LoginTest");
-        return repo.login(user);
+       
+        return repo.login(pto);
     }
 
     /**
