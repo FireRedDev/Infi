@@ -1,4 +1,4 @@
-package service;
+    package service;
 
 import entities.Dokumentation;
 import entities.Person;
@@ -38,6 +38,11 @@ public class Service {
     public String message() {
         return "INFI Jugendrotkreuz Server up and running..";
     }
+    @POST
+    @Path("printMSG")
+    public void message(String message) {
+        System.out.println(message);    
+    }
 
     /**
      * Login Function to authenticate
@@ -46,11 +51,13 @@ public class Service {
      * @return
      */
     @POST
-    @Path("login")
     @Produces(MediaType.APPLICATION_JSON)
+      @Consumes(MediaType.APPLICATION_JSON)
+    @Path("login")
     public JSONObject login(Person user) {
 //        String cookie = "12345";//repo.login(user);
 //        return Response.ok().header("Set-Cookie", "kalendarCookie=" + cookie).build();
+       System.out.println("LoginTest");
         return repo.login(user);
     }
 

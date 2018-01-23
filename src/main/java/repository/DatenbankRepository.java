@@ -28,7 +28,7 @@ import org.json.JSONObject;
  */
 public class DatenbankRepository {
 
-    @PersistenceContext
+ 
 
     private EntityManager em;
 
@@ -77,7 +77,7 @@ JSONObject json = new JSONObject()
     }
 
     public String generateJWT() {
-        try {
+        try { 
             String jwt = Jwts.builder().setSubject("1234567890")
                     .setId("bbe02373-36ce-46b7-80d2-1ba4c866d7bb")
                     .setIssuedAt(Date.from(Instant.ofEpochSecond(1516102685)))

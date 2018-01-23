@@ -11,9 +11,11 @@ import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Base64;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.ws.rs.container.PreMatching;
 
 import static javax.ws.rs.core.Response.ResponseBuilder;
@@ -21,9 +23,10 @@ import static javax.ws.rs.core.Response.Status;
 
 @Provider
 @Secured
+
 public class UserAuthenticationFilter implements ContainerRequestFilter, 
                                              ContainerResponseFilter {
-        @Inject
+       
     private EntityManager em;
 
     public UserAuthenticationFilter() {
@@ -54,7 +57,10 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
                 credentials="";
             }
 
-            if (!credentials.equals(em.find(Person.class,credentials).getPassword())) {// an der stelle schaun ob der token in der tabelle gespeichert is
+         Query query=   em.createQuery("select t from JWTTokenUser t where t.token = ':token'");
+            query.setParameter("token", credentials);
+            List results = query.getResultList();
+            if (results.size()==0) {// an der stelle schaun ob der token in der tabelle gespeichert is
                 //TODO
                 //em.find (jwttokenuser klasse,token is der primary key)!
                 // Eintrag in Http-Header:

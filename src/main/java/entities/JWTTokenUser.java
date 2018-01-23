@@ -20,8 +20,11 @@ public class JWTTokenUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue
+    int id;
+ 
     private String token;
-private Person person;
+    private Person person;
 
     public String getToken() {
         return token;
