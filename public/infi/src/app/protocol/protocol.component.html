@@ -54,12 +54,28 @@
     Enddatum muss eingegeben werden!
 </div> 
 <br>
+<label for="betreuer">Betreuer</label>
+<div>
+    <div>
+        <form (submit)="addBetreuer($event)">
+            <div><input type="text" class="form-control list" [(ngModel)]="newBetreuer" (keyup.enter)="newBetreuer=''" name="newBetreuer">
+                <button class="form-control listadd" type="submit" [disabled]="newBetreuer===''"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+            </div>
+        </form>
+    </div>
+
+    <div *ngFor="let c of betreuer; let i=index">
+        {{ c }}
+        <span (click)="deleteBetreuer(i)" class="delete-icon"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+    </div>
+</div>
+<br>
 <label for="kinderliste">Kinderliste</label>
 <div>
     <div>
         <form (submit)="addChild($event)">
-            <div><input type="text" class="form-control todo" [(ngModel)]="newChild" (keyup.enter)="newChild=''" name="newChild">
-                <button class="form-control todoadd" type="submit" [disabled]="newChild===''"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+            <div><input type="text" class="form-control list" [(ngModel)]="newChild" (keyup.enter)="newChild=''" name="newChild">
+                <button class="form-control listadd" type="submit" [disabled]="newChild===''"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
             </div>
         </form>
     </div>
@@ -99,5 +115,5 @@
                                    [checked]="actProtokol.kategorie === 'Exkursion'">Exkursion</label>
 
 </div>
-<button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save(); view = 'termin'">einfügen</button>
+<button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save(); view = 'termin'">einfÃ¼gen</button>
 </form>

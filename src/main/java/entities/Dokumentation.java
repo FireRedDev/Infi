@@ -21,6 +21,7 @@ public class Dokumentation implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String[] kinderliste;
+    private String[] betreuer;
     private String taetigkeiten;
     private double vzeit;
     private String kategorie;
@@ -29,8 +30,9 @@ public class Dokumentation implements Serializable {
 
     }
 
-    public Dokumentation(String[] kinderliste, String taetigkeiten, double vzeit, String kategorie) {
+    public Dokumentation(String[] kinderliste, String[] betreuer, String taetigkeiten, double vzeit, String kategorie) {
         this.kinderliste = kinderliste;
+        this.betreuer = betreuer;
         this.taetigkeiten = taetigkeiten;
         this.vzeit = vzeit;
         this.kategorie = kategorie;
@@ -70,6 +72,14 @@ public class Dokumentation implements Serializable {
 
     public String getKategorie() {
         return kategorie;
+    }
+
+    public String[] getBetreuer() {
+        return betreuer;
+    }
+
+    public void setBetreuer(String[] betreuer) {
+        this.betreuer = betreuer;
     }
 
     public void setKategorie(String kategorie) {

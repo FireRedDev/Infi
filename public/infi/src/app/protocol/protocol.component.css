@@ -9,12 +9,12 @@ input.ng-tns-c8-5.owl-datetime-input.owl-datetime-main-input {
     border: none;
 }
 
-.todo{
+.list{
   width: 90%;
   margin-right:0px;
   float:left;
 }
 
-.todoadd{
+.listadd{
   width:10%;
 }

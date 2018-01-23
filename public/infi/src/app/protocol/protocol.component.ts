@@ -12,8 +12,10 @@ import { EventEmitter } from '@angular/core';
 })
 export class ProtocolComponent implements OnInit {
   constructor(private http: Http) {
-    this.newChild = '';
+      this.newChild = '';
       this.children = [];
+      this.newBetreuer = '';
+      this.betreuer = [];
    }
 
   @Output() changeView: EventEmitter<string> = new EventEmitter();
@@ -38,7 +40,8 @@ export class ProtocolComponent implements OnInit {
         };
   }
   save(){
-    this.actProtokol.kinderliste=this.children;
+    this.actProtokol.kinderliste = this.children;
+    this.actProtokol.betreuer = this.betreuer;
       this.actTermin.doko = this.actProtokol;
       console.log(this.actTermin);
       this.http
@@ -49,7 +52,7 @@ export class ProtocolComponent implements OnInit {
 
   }
   
-  actProtokol: Protokoll = new Protokoll(0,null,'','Soziales');
+  actProtokol: Protokoll = new Protokoll(0,null,null,'','Soziales');
   actTermin:Termin = new Termin();
   submitted = false;
  
@@ -66,6 +69,9 @@ export class ProtocolComponent implements OnInit {
 newChild: string;
     children: any;
 
+    newBetreuer: string;
+    betreuer: any;
+
     addChild(event) {
       this.children.push(this.newChild);
       this.newChild = '';
@@ -74,6 +80,16 @@ newChild: string;
 
     deleteChild(index) {
       this.children.splice(index, 1);
+    }
+
+    addBetreuer(event) {
+      this.betreuer.push(this.newBetreuer);
+      this.newBetreuer = '';
+      event.preventDefault();
+    }
+
+    deleteBetreuer(index) {
+      this.betreuer.splice(index, 1);
     }
 
 }
