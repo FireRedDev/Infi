@@ -45,7 +45,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   NgbDatepickerModule,
-  NgbTimepickerModule,NgbModal
+  NgbTimepickerModule, NgbModal
 } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs/Subject';
 import { CustomEventTitleFormatter } from './custom-event-title-formatter.provider';
@@ -92,7 +92,7 @@ interface Termin {
 export class DashboardComponent implements OnInit {
 
   username: String;
-  isEditor=true;
+  isEditor= true;
   jrkEntitaet: jrkEntitaet;
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
@@ -107,7 +107,7 @@ export class DashboardComponent implements OnInit {
 
   activeDayIsOpen = false;
 
-  events:Array<Termin>;
+  events: Array<Termin>;
 
   @Output() viewChange: EventEmitter<string> = new EventEmitter();
   @Output() viewDateChange: EventEmitter<Date> = new EventEmitter();
@@ -192,50 +192,44 @@ export class DashboardComponent implements OnInit {
   }
 
   private _onOpenStart(): void {
-    console.log('Sidebar opening');
   }
 
   private _onOpened(): void {
-    console.log('Sidebar opened');
   }
 
   private _onCloseStart(): void {
-    console.log('Sidebar closing');
   }
 
   private _onClosed(): void {
-    console.log('Sidebar closed');
   }
 
-  constructor(private http: Http,private user:UserService,private route: ActivatedRoute, private router: Router) {}
+  constructor(private http: Http, private user: UserService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     const body = localStorage.getItem('currentUser');
     console.log(body);
     this.http
-      .post('http://localhost:8080/api/service/getName',JSON.parse(body))
+      .post('http://localhost:8080/api/service/getName', JSON.parse(body))
       .subscribe(data => {
         // Read the result field from the JSON response.
-        console.log('Username', data['_body']);
         this.username = data['_body'];
       });
       this.http
-      .post('http://localhost:8080/api/service/isEditor',JSON.parse(body))
+      .post('http://localhost:8080/api/service/isEditor', JSON.parse(body))
       .subscribe(data => {
         // Read the result field from the JSON response.
-        console.log('Editor', data['_body']);
         this.isEditor = (data['_body'] === 'true');
       });
     this.http
-      .post('http://localhost:8080/api/service/getJRKEntitaet',JSON.parse(body))
+      .post('http://localhost:8080/api/service/getJRKEntitaet', JSON.parse(body))
       .subscribe(data => {
-        var help =JSON.parse(data['_body']);
-        this.jrkEntitaet = new jrkEntitaet(help.id,help.name,help.ort);
+        const help = JSON.parse(data['_body']);
+        this.jrkEntitaet = new jrkEntitaet(help.id, help.name, help.ort);
       });
     this.fetchEvents();
   }
 
-  changeView(message:string){
+  changeView(message: string){
     this.view = 'month';
   }
 
@@ -253,39 +247,27 @@ export class DashboardComponent implements OnInit {
     }[this.view];
 
     const body = localStorage.getItem('currentUser');
-    console.log(body);
     this.events$ = this.http
-      .post('http://localhost:8080/api/service/getUserTermine',JSON.parse(body))
+      .post('http://localhost:8080/api/service/getUserTermine', JSON.parse(body))
       .map(res => res.json())
       .map(json => {
-        console.log('JSON:' ,json);
+        console.log('JSON:' , json);
         this.events = json;
         return this.convertEvents(this.events);
       });
   }
 
-  convertEvents(events:Array<Termin>): Array<any>{
-    var calendarEvents =[];
+  convertEvents(events: Array<Termin>): Array<any>{
+    const calendarEvents = [];
     events.forEach(function(event){
       calendarEvents.push({
-        title: 'Titel: '+event.title + '<br>Beschreibung: ' + event.beschreibung + '<br>Ort: ' + event.ort,
+        title: 'Titel: ' + event.title + '<br>Beschreibung: ' + event.beschreibung + '<br>Ort: ' + event.ort,
         start: new Date(event.s_date),
         end: new Date(event.e_date),
         color: colors.red,
-        cssClass: 'my-custom-class',
-        actions: [
-          {
-            label: '<i class="fa fa-file-text"></i><button (click)="view = \'protocol\'">Protokoll</button>',
-            onClick: ({ event }: { event: CalendarEvent }): void => {
-              console.log('Termin');
-               // document.getElementById("calendarView").innerHTML="<app-protocol></app-protocol>";
-               //document.getElementById("calendarView").innerHTML="test";
-            }
-          }
-        ]
+        cssClass: 'my-custom-class'
         });
     });
-    console.log(calendarEvents);
     return calendarEvents;
   }
   dayClicked({

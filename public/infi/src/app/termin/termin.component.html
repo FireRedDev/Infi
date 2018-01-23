@@ -9,6 +9,7 @@
             class="alert alert-danger">
     Titel muss eingegeben werden!
     </div>
+    <br>
     <label for="beschreibung">Beschreibung</label>
     <input type="text" class="form-control" id="beschreibung"
             required
@@ -18,7 +19,8 @@
             class="alert alert-danger">
     Beschreibung muss eingegeben werden!
     </div>
-        <label for="ort">Ort</label>
+    <br>
+    <label for="ort">Ort</label>
     <input type="text" class="form-control" id="ort"
             required
             [(ngModel)]="actTermin.ort" name="ort"
@@ -27,6 +29,7 @@
             class="alert alert-danger">
     Ort muss eingegeben werden!
     </div>
+    <br>
     <label for="s_date">Startdatum</label>
     <owl-date-time [locale]="de" dataType="string" hideClearButton=true max={{actTermin.e_date}} dateFormat="YYYY-MM-DD HH:mm:ss" autoclose="true" class="form-control" id="s_date"
             required [(ngModel)]="actTermin.s_date" name="s_date"
@@ -35,6 +38,7 @@
         class="alert alert-danger">
     Startdatum muss eingegeben werden!
     </div>
+    <br>
     <label for="e_date">Enddatum</label>
     <owl-date-time [locale]="de" dataType="string" hideClearButton=true min={{actTermin.s_date}} dateFormat="YYYY-MM-DD HH:mm:ss" autoclose="true" class="form-control" id="e_date"
             required [(ngModel)]="actTermin.e_date" name="e_date"

@@ -8,6 +8,13 @@
 input.ng-tns-c8-5.owl-datetime-input.owl-datetime-main-input {
     border: none;
 }
-select{
-  border-left: 5px solid #00FF48;
+
+.todo{
+  width: 90%;
+  margin-right:0px;
+  float:left;
+}
+
+.todoadd{
+  width:10%;
 }

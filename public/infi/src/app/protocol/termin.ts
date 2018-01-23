@@ -9,7 +9,7 @@ export class Termin {
         public beschreibung='',
         public ort='',
         public jrkEntitaet:jrkEntitaet={id:0,name:'',ort:'',typ:null,termine :null,jrkEntitaet :null,jrkentitaet1:null, persons : null,persons1:null},
-        public doko:Protokoll={vzeit: 0,kinderliste:'',taetigkeiten:'',kategorie:'Soziales'}
+        public doko:Protokoll={vzeit: 0,kinderliste:[],taetigkeiten:'',kategorie:'Soziales'}
     )
     {}
 }

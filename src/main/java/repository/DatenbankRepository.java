@@ -147,12 +147,13 @@ public class DatenbankRepository {
 
     public List<Termin> getOpenDoko(int id) {
         List<Termin> termine = this.getUsertermine(id);
+        List<Termin> te = new LinkedList<>();
         for (Termin t : termine) {
-            if(t.getDoko()!=null){
-                termine.remove(t);
+            if(t.getDoko()==null){
+                te.add(t);
             }
         }
-        return termine;
+        return te;
     }
 
     public void insertDoko(Termin d) {

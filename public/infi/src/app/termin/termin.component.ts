@@ -33,7 +33,6 @@ success=false;
         .post('http://localhost:8080/api/service/insertTermin',this.actTermin)
         .subscribe(data => {
           // Read the result field from the JSON response.
-          console.log("insert Termin");
           this.changeView.emit("month");
       });
       this.success=true;

@@ -6,13 +6,10 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 /**
  * C.G
@@ -23,7 +20,7 @@ public class Dokumentation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String kinderliste;
+    private String[] kinderliste;
     private String taetigkeiten;
     private double vzeit;
     private String kategorie;
@@ -32,7 +29,7 @@ public class Dokumentation implements Serializable {
 
     }
 
-    public Dokumentation(String kinderliste, String taetigkeiten, double vzeit, String kategorie) {
+    public Dokumentation(String[] kinderliste, String taetigkeiten, double vzeit, String kategorie) {
         this.kinderliste = kinderliste;
         this.taetigkeiten = taetigkeiten;
         this.vzeit = vzeit;
@@ -47,11 +44,11 @@ public class Dokumentation implements Serializable {
         this.id = id;
     }
 
-    public String getKinderliste() {
+    public String[] getKinderliste() {
         return kinderliste;
     }
 
-    public void setKinderliste(String kinderliste) {
+    public void setKinderliste(String[] kinderliste) {
         this.kinderliste = kinderliste;
     }
 

@@ -11,7 +11,10 @@ import { EventEmitter } from '@angular/core';
   styleUrls: ['./protocol.component.css']
 })
 export class ProtocolComponent implements OnInit {
-  constructor(private http: Http) { }
+  constructor(private http: Http) {
+    this.newChild = '';
+      this.children = [];
+   }
 
   @Output() changeView: EventEmitter<string> = new EventEmitter();
   de: any;
@@ -23,9 +26,7 @@ export class ProtocolComponent implements OnInit {
         .post('http://localhost:8080/api/service/getOpenDoko', JSON.parse(body))
         .subscribe(data => {
           // Read the result field from the JSON response.
-          console.log('Protokol: ',data);
           this.term=JSON.parse(data["_body"]);
-          console.log(this.term);
           this.actTermin=this.term[0];
       });
     this.de = {
@@ -37,18 +38,18 @@ export class ProtocolComponent implements OnInit {
         };
   }
   save(){
+    this.actProtokol.kinderliste=this.children;
       this.actTermin.doko = this.actProtokol;
       console.log(this.actTermin);
       this.http
         .post('http://localhost:8080/api/service/insertDoko', this.actTermin)
         .subscribe(data => {
-          console.log('insert Protokoll');
           this.changeView.emit('month');
       });
 
   }
   
-  actProtokol: Protokoll = new Protokoll(0,'','','Soziales');
+  actProtokol: Protokoll = new Protokoll(0,null,'','Soziales');
   actTermin:Termin = new Termin();
   submitted = false;
  
@@ -62,5 +63,18 @@ export class ProtocolComponent implements OnInit {
       }
     }
 }
+newChild: string;
+    children: any;
+
+    addChild(event) {
+      this.children.push(this.newChild);
+      this.newChild = '';
+      event.preventDefault();
+    }
+
+    deleteChild(index) {
+      this.children.splice(index, 1);
+    }
+
 }
 
