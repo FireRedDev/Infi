@@ -169,8 +169,8 @@ public class Service {
     @Path("insertDoko")
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
-    public void insertDoko(Dokumentation d) {
-        repo.insert(d);
+    public void insertDoko(Termin d) {
+        repo.insertDoko(d);
     }
 
     @Path("isEditor")

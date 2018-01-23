@@ -100,7 +100,11 @@ public class DatenbankRepository {
      * @return
      */
     public List<Termin> termine() {
-        return em.createNamedQuery("Termin.listAll", Termin.class).getResultList();
+        List<Termin> termine = em.createNamedQuery("Termin.listAll", Termin.class).getResultList();
+        for (Termin t : termine) {
+            t.setJrkEntitaet(null);
+        }
+        return termine;
     }
 
     /**
@@ -176,6 +180,7 @@ public class DatenbankRepository {
      */
     public void insertTermin(Termin t) {
         JRKEntitaet jrk = em.find(JRKEntitaet.class, t.getJrkEntitaet().getId());
+        t.setDoko(null);
         jrk.addTermin(t);
         insert(jrk);
     }
@@ -201,8 +206,20 @@ public class DatenbankRepository {
     }
 
     public List<Termin> getOpenDoko(int id) {
-        Person p = em.find(Person.class, id);
-        return em.createNamedQuery("Termin.getOpenDoko", Termin.class).getResultList();
+        List<Termin> termine = this.getUsertermine(id);
+        List<Termin> te = new LinkedList<>();
+        for (Termin t : termine) {
+            if(t.getDoko()==null){
+                te.add(t);
+            }
+        }
+        return te;
+    }
+
+    public void insertDoko(Termin d) {
+        em.getTransaction().begin();
+        em.merge(d);
+        em.getTransaction().commit();
     }
 
     /**

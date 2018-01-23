@@ -17,12 +17,8 @@ public class Dokumentation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String title;
-    private String beschreibung;
-    private String ort;
-    private String s_date;
-    private String e_date;
-    private String kinderliste;
+    private String[] kinderliste;
+    private String[] betreuer;
     private String taetigkeiten;
     private double vzeit;
     private String kategorie;
@@ -31,13 +27,9 @@ public class Dokumentation implements Serializable {
 
     }
 
-    public Dokumentation(String title, String beschreibung, String ort, String s_date, String e_date, String kinderliste, String taetigkeiten, double vzeit, String kategorie) {
-        this.title = title;
-        this.beschreibung = beschreibung;
-        this.ort = ort;
-        this.s_date = s_date;
-        this.e_date = e_date;
+    public Dokumentation(String[] kinderliste, String[] betreuer, String taetigkeiten, double vzeit, String kategorie) {
         this.kinderliste = kinderliste;
+        this.betreuer = betreuer;
         this.taetigkeiten = taetigkeiten;
         this.vzeit = vzeit;
         this.kategorie = kategorie;
@@ -51,51 +43,11 @@ public class Dokumentation implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getBeschreibung() {
-        return beschreibung;
-    }
-
-    public void setBeschreibung(String beschreibung) {
-        this.beschreibung = beschreibung;
-    }
-
-    public String getOrt() {
-        return ort;
-    }
-
-    public void setOrt(String ort) {
-        this.ort = ort;
-    }
-
-    public String getS_date() {
-        return s_date;
-    }
-
-    public void setS_date(String s_date) {
-        this.s_date = s_date;
-    }
-
-    public String getE_date() {
-        return e_date;
-    }
-
-    public void setE_date(String e_date) {
-        this.e_date = e_date;
-    }
-
-    public String getKinderliste() {
+    public String[] getKinderliste() {
         return kinderliste;
     }
 
-    public void setKinderliste(String kinderliste) {
+    public void setKinderliste(String[] kinderliste) {
         this.kinderliste = kinderliste;
     }
 
@@ -117,6 +69,14 @@ public class Dokumentation implements Serializable {
 
     public String getKategorie() {
         return kategorie;
+    }
+
+    public String[] getBetreuer() {
+        return betreuer;
+    }
+
+    public void setBetreuer(String[] betreuer) {
+        this.betreuer = betreuer;
     }
 
     public void setKategorie(String kategorie) {
