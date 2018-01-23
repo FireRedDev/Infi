@@ -1,12 +1,8 @@
 package service;
 
 import entities.*;
-import static entities.Typ.Bezirkstelle;
-import static entities.Typ.Gruppe;
-import static entities.Typ.Landstelle;
-import static entities.Typ.Ortstelle;
-import java.util.LinkedList;
-import java.util.List;
+import static entities.Typ.*;
+import java.util.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import repository.DatenbankRepository;
@@ -176,7 +172,7 @@ public class Service {
     public void insertDoko(Termin d) {
         repo.insertDoko(d);
     }
-    
+
     @Path("isEditor")
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
@@ -184,7 +180,7 @@ public class Service {
     public boolean isEditor(int id) {
         return repo.isEditor(id);
     }
-    
+
     @Path("getOpenDoko")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
