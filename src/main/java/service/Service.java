@@ -130,6 +130,8 @@ public class Service {
         JRKEntitaet wels = new JRKEntitaet(4, "Wels", bezirkstelle, ooe);
         JRKEntitaet sattledt = new JRKEntitaet(1, "Sattledt", ortstelle, wels);
         JRKEntitaet sattledt1 = new JRKEntitaet(2, "Gruppe1", gruppe, sattledt);
+        JRKEntitaet marchtrenk = new JRKEntitaet(3, "Sattledt", ortstelle, wels);
+        JRKEntitaet marchtrenk1 = new JRKEntitaet(6, "Gruppe1", gruppe, marchtrenk);
 
         List<JRKEntitaet> landesleitung = new LinkedList<>();
         landesleitung.add(ooe);
@@ -137,19 +139,27 @@ public class Service {
         bezirksleitung_wels.add(sattledt);
         List<JRKEntitaet> ortstelle_sattledt = new LinkedList<>();
         ortstelle_sattledt.add(sattledt1);
-        sattledt1.addTermin(new Termin("2017-11-04 15:30:00", "2017-11-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt", sattledt1));
-        wels.addTermin(new Termin("2017-11-24 18:00:00", "2017-11-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk", wels));
-        ooe.addTermin(new Termin("2017-12-02 18:00:00", "2017-12-02 21:00:00", "Adventmarkt", "Punschstand für den guten Zweck", "Adventmarkt Linz", ooe));
+        bezirksleitung_wels.add(marchtrenk);
+        List<JRKEntitaet> ortstelle_marchtrenk = new LinkedList<>();
+        ortstelle_marchtrenk.add(marchtrenk1);
+        sattledt1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt", sattledt1));
+        marchtrenk1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Eislaufen", "Bitte Eislaufschuhe, Winterkleidung und 3€ Eintritt mitnehmen", "Eislaufplatz Marchtrenk", marchtrenk1));
+        wels.addTermin(new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk", wels));
+        ooe.addTermin(new Termin("2018-02-02 18:00:00", "2018-02-02 21:00:00", "Faschingsumzug", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz", ooe));
         Person tom = new Person("00001", "passme", "Tom", "Tester", ooe, landesleitung);
         Person karin = new Person("00002", "passme", "Karin", "Tester", wels, bezirksleitung_wels);
         Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt, ortstelle_sattledt);
         Person doris = new Person("00004", "passme", "Doris", "Tester", sattledt1, ortstelle_sattledt);
         Person isabella = new Person("00005", "passme", "Isabella", "Tester", sattledt1);
+        Person antonia = new Person("00006", "passme", "Antonia", "Tester", marchtrenk, ortstelle_marchtrenk);
+        Person melanie = new Person("00007", "passme", "Melanie", "Tester", marchtrenk1);
         repo.insert(tom);
         repo.insert(karin);
         repo.insert(gusi);
         repo.insert(doris);
         repo.insert(isabella);
+        repo.insert(antonia);
+        repo.insert(melanie);
 
         return "Testvalues inserted";
     }
