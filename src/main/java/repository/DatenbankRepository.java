@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Repository
  */
 package repository;
 
@@ -9,10 +7,6 @@ import entities.*;
 import java.util.*;
 import javax.persistence.*;
 
-/**
- *
- * @author isi
- */
 public class DatenbankRepository {
 
     @PersistenceContext
@@ -20,22 +14,22 @@ public class DatenbankRepository {
     private EntityManager em;
 
     /**
-     *
+     * Konstruktor
      */
     public DatenbankRepository() {
         em = Persistence.createEntityManagerFactory("infiPU").createEntityManager();
     }
 
     /**
-     *
-     * @param measurement
+     * Add Benutzer
+     * @param p
      * @return
      */
-    public Person addBenutzer(Person measurement) {
+    public Person addBenutzer(Person p) {
         em.getTransaction().begin();
-        em.persist(measurement);
+        em.persist(p);
         em.getTransaction().commit();
-        return measurement;
+        return p;
     }
 
     /**
@@ -83,12 +77,20 @@ public class DatenbankRepository {
         return termin;
     }
 
+    /**
+     * 
+     * @param doku 
+     */
     public void insert(Dokumentation doku) {
         em.getTransaction().begin();
         em.persist(doku);
         em.getTransaction().commit();
     }
 
+    /**
+     * 
+     * @param ortsstelle 
+     */
     public void insert(JRKEntitaet ortsstelle) {
         em.getTransaction().begin();
         em.merge(ortsstelle);
@@ -101,9 +103,6 @@ public class DatenbankRepository {
      */
     public List<Termin> termine() {
         List<Termin> termine = em.createNamedQuery("Termin.listAll", Termin.class).getResultList();
-        for (Termin t : termine) {
-            t.setJrkEntitaet(null);
-        }
         return termine;
     }
 
@@ -121,12 +120,17 @@ public class DatenbankRepository {
         return termine;
     }
 
+    /**
+     * 
+     * @param jrk
+     * @param termine
+     * @return 
+     */
     private List<Termin> termineLayerUp(JRKEntitaet jrk, List<Termin> termine) {
         List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerUp", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
         if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
             for (JRKEntitaet entity : jrkentitaet) {
-                List<Termin> t = em.createNamedQuery("Termin.listBenutzer", Termin.class).setParameter("jrkentitaet", entity).getResultList();
-                addList(termine, t);
+                addList(termine, entity.getTermine());
                 List<Termin> term = termineLayerUp(entity, termine);
                 addList(termine, term);
             }
@@ -134,12 +138,17 @@ public class DatenbankRepository {
         return termine;
     }
 
+    /**
+     * 
+     * @param jrk
+     * @param termine
+     * @return 
+     */
     private List<Termin> termineLayerDown(JRKEntitaet jrk, List<Termin> termine) {
         List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
         if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
             for (JRKEntitaet entity : jrkentitaet) {
-                List<Termin> t = em.createNamedQuery("Termin.listBenutzer", Termin.class).setParameter("jrkentitaet", entity).getResultList();
-                addList(termine, t);
+                addList(termine, entity.getTermine());
                 List<Termin> term = termineLayerDown(entity, termine);
                 addList(termine, term);
             }
@@ -147,10 +156,15 @@ public class DatenbankRepository {
         return termine;
     }
 
+    /**
+     * 
+     * @param termine
+     * @param tt
+     * @return 
+     */
     private List<Termin> addList(List<Termin> termine, List<Termin> tt) {
         if (!termine.equals(tt)) {
             for (Termin te : tt) {
-                te.setJrkEntitaet(null);
                 termine.add(te);
             }
         }
@@ -176,10 +190,11 @@ public class DatenbankRepository {
 
     /**
      *
+     * @param id
      * @param t
      */
-    public void insertTermin(Termin t) {
-        JRKEntitaet jrk = em.find(JRKEntitaet.class, t.getJrkEntitaet().getId());
+    public void insertTermin(int id, Termin t) {
+        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
         t.setDoko(null);
         jrk.addTermin(t);
         insert(jrk);
@@ -192,30 +207,39 @@ public class DatenbankRepository {
      */
     public JRKEntitaet getJRKEntitaet(int id) {
         JRKEntitaet jrk = em.createNamedQuery("Benutzer.jrkEntitaet", JRKEntitaet.class).setParameter("id", id).getSingleResult();
-        jrk.setTermine(null);
-        jrk.setJrkentitaet1(null);
-        jrk.setPersons1(null);
-        jrk.setPersons(null);
-        jrk.setJrkentitaet(null);
         return jrk;
     }
 
+    /**
+     * 
+     * @param id
+     * @return 
+     */
     public boolean isEditor(int id) {
         Person p = em.find(Person.class, id);
         return !p.getLeitet().isEmpty();
     }
 
+    /**
+     * 
+     * @param id
+     * @return 
+     */
     public List<Termin> getOpenDoko(int id) {
         List<Termin> termine = this.getUsertermine(id);
         List<Termin> te = new LinkedList<>();
         for (Termin t : termine) {
-            if(t.getDoko()==null){
+            if (t.getDoko() == null) {
                 te.add(t);
             }
         }
         return te;
     }
 
+    /**
+     * 
+     * @param d 
+     */
     public void insertDoko(Termin d) {
         em.getTransaction().begin();
         em.merge(d);

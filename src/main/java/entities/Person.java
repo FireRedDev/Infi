@@ -1,12 +1,11 @@
+/**
+ * Person
+ */
 package entities;
 import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
 
-/**
- * Benutzer.jrkEntitaet
- * @author isi
- */
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Benutzer.listAll", query = "SELECT b FROM Person b"),
@@ -55,7 +54,7 @@ public class Person implements Serializable {
     }
 
     /**
-     * leitet
+     * Leiter
      *
      * @param personalnr
      * @param password
