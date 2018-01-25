@@ -26,11 +26,10 @@ success=false;
         };
   }
   save(){
-      this.actTermin.jrkEntitaet=this.jrkEntitaet;
       console.log(this.actTermin);
       
       this.http
-        .post('http://localhost:8080/api/service/insertTermin',this.actTermin)
+        .post('http://localhost:8080/api/service/insertTermin/'+this.jrkEntitaet.id,this.actTermin)
         .subscribe(data => {
           // Read the result field from the JSON response.
           this.changeView.emit("month");
@@ -38,7 +37,7 @@ success=false;
       this.success=true;
   }
   
-  actTermin:Termin = new Termin(0,'','','','','',null);
+  actTermin:Termin = new Termin(0,'','','','','');
   submitted = false;
  
   onSubmit() { this.submitted = true; }

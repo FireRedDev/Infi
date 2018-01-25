@@ -7,13 +7,8 @@ import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
-/**
- *
- * @author INFI-Projektgruppe
- */
 public class HttpServer_JavaSE {
 
-    // Basis URI 
     public static final String BASE_URI = "http://localhost:8080/api/";
 
     public static void main(String[] args) throws IOException {

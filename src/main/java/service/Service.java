@@ -17,7 +17,7 @@ public class Service {
     private DatenbankRepository repo = new DatenbankRepository();
 
     /**
-     * Servertestfunction
+     * Servertestfunktion
      *
      * @return
      */
@@ -106,6 +106,12 @@ public class Service {
         return repo.username(id);
     }
 
+    /**
+     * Get JRKEnitaet
+     * 
+     * @param id id der Entität
+     * @return 
+     */
     @POST
     @Path("getJRKEntitaet")
     @Produces(MediaType.APPLICATION_JSON)
@@ -142,10 +148,10 @@ public class Service {
         bezirksleitung_wels.add(marchtrenk);
         List<JRKEntitaet> ortstelle_marchtrenk = new LinkedList<>();
         ortstelle_marchtrenk.add(marchtrenk1);
-        sattledt1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt", sattledt1));
-        marchtrenk1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Eislaufen", "Bitte Eislaufschuhe, Winterkleidung und 3€ Eintritt mitnehmen", "Eislaufplatz Marchtrenk", marchtrenk1));
-        wels.addTermin(new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk", wels));
-        ooe.addTermin(new Termin("2018-02-02 18:00:00", "2018-02-02 21:00:00", "Faschingsumzug", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz", ooe));
+        sattledt1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt"));
+        marchtrenk1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Eislaufen", "Bitte Eislaufschuhe, Winterkleidung und 3€ Eintritt mitnehmen", "Eislaufplatz Marchtrenk"));
+        wels.addTermin(new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk"));
+        ooe.addTermin(new Termin("2018-02-02 18:00:00", "2018-02-02 21:00:00", "Faschingsumzug", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz"));
         Person tom = new Person("00001", "passme", "Tom", "Tester", ooe, landesleitung);
         Person karin = new Person("00002", "passme", "Karin", "Tester", wels, bezirksleitung_wels);
         Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt, ortstelle_sattledt);
@@ -167,15 +173,20 @@ public class Service {
     /**
      * Inserts a Termin/Appointment
      *
+     * @param id
      * @param t
      */
-    @Path("insertTermin")
+    @Path("insertTermin/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
-    public void insertTermin(Termin t) {
-        repo.insertTermin(t);
+    public void insertTermin(@PathParam("id") int id, Termin t) {
+        repo.insertTermin(id, t);
     }
 
+    /**
+     * insert Dokumentation
+     * @param d Termin
+     */
     @Path("insertDoko")
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
@@ -183,6 +194,12 @@ public class Service {
         repo.insertDoko(d);
     }
 
+    /**
+     * Darf dieser User Termine und Protokolle einfügen
+     * 
+     * @param id
+     * @return 
+     */
     @Path("isEditor")
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
@@ -191,6 +208,12 @@ public class Service {
         return repo.isEditor(id);
     }
 
+    /**
+     * Noch nicht dokumentierte Termine zurückgeben
+     * 
+     * @param id
+     * @return 
+     */
     @Path("getOpenDoko")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)

@@ -7,8 +7,7 @@ export class Termin {
         public e_date='12-12-2017 00:00',
         public title='',
         public beschreibung='',
-        public ort='',
-        public jrkEntitaet:jrkEntitaet={id:0,name:'',ort:'',typ:null,termine :null,jrkEntitaet :null,jrkentitaet1:null, persons : null,persons1:null}
+        public ort=''
     )
     {}
 }

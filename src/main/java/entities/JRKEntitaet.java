@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * JRKEnitaet
  */
 package entities;
 
@@ -9,10 +7,6 @@ import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
 
-/**
- *
- * @author isi
- */
 @Entity
 @NamedQueries({
     @NamedQuery(name = "JRKEntitaet.listAll", query = "SELECT j FROM JRKEntitaet j"),
@@ -26,7 +20,7 @@ public class JRKEntitaet implements Serializable {
     private String name;
     private String ort;
     private Typ typ;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany
     private List<Termin> termine = new LinkedList<Termin>();
 
     public void addTermin(Termin termin) {
@@ -39,11 +33,6 @@ public class JRKEntitaet implements Serializable {
     //untergeordnet
     @OneToMany(mappedBy = "jrkentitaet")
     private List<JRKEntitaet> jrkentitaet1;
-
-    @ManyToMany(mappedBy = "leitet")
-    private List<Person> persons;
-    @OneToMany(mappedBy = "jrkentitaet")
-    private List<Person> persons1;
 
     public JRKEntitaet() {
 
@@ -110,22 +99,6 @@ public class JRKEntitaet implements Serializable {
 
     public void setJrkentitaet1(List<JRKEntitaet> jrkentitaet1) {
         this.jrkentitaet1 = jrkentitaet1;
-    }
-
-    public List<Person> getPersons() {
-        return persons;
-    }
-
-    public void setPersons(List<Person> persons) {
-        this.persons = persons;
-    }
-
-    public List<Person> getPersons1() {
-        return persons1;
-    }
-
-    public void setPersons1(List<Person> persons1) {
-        this.persons1 = persons1;
     }
 
     public void addJRKEntitaet(JRKEntitaet newJRK) {
