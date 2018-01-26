@@ -25,7 +25,6 @@ public class Person implements Serializable {
     private String password;
     private String vorname;
     private String nachname;
-    private String telefonnummer;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private JRKEntitaet jrkentitaet;
@@ -111,15 +110,7 @@ public class Person implements Serializable {
     public void setNachname(String nachname) {
         this.nachname = nachname;
     }
-
-    public String getTelefonnummer() {
-        return telefonnummer;
-    }
-
-    public void setTelefonnummer(String telefonnummer) {
-        this.telefonnummer = telefonnummer;
-    }
-
+    
     public List<JRKEntitaet> getLeitet() {
         return leitet;
     }
