@@ -29,8 +29,8 @@ public class Person implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private JRKEntitaet jrkentitaet;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<JRKEntitaet> leitet;
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    private List<JRKEntitaet> leitet;
 
     public Person() {
     }
@@ -62,14 +62,14 @@ public class Person implements Serializable {
      * @param jrkentitaet
      * @param leitet
      */
-    public Person(String personalnr, String password, String vorname, String nachname, JRKEntitaet jrkentitaet, List<JRKEntitaet> leitet) {
-        this.personalnr = personalnr;
-        this.password = password;
-        this.vorname = vorname;
-        this.nachname = nachname;
-        this.jrkentitaet = jrkentitaet;
-        this.leitet = leitet;
-    }
+//    public Person(String personalnr, String password, String vorname, String nachname, JRKEntitaet jrkentitaet, List<JRKEntitaet> leitet) {
+//        this.personalnr = personalnr;
+//        this.password = password;
+//        this.vorname = vorname;
+//        this.nachname = nachname;
+//        this.jrkentitaet = jrkentitaet;
+//        this.leitet = leitet;
+//    }
 
     public String getPassword() {
         return password;
@@ -111,13 +111,13 @@ public class Person implements Serializable {
         this.nachname = nachname;
     }
     
-    public List<JRKEntitaet> getLeitet() {
-        return leitet;
-    }
-
-    public void setLeitet(List<JRKEntitaet> leitet) {
-        this.leitet = leitet;
-    }
+//    public List<JRKEntitaet> getLeitet() {
+//        return leitet;
+//    }
+//
+//    public void setLeitet(List<JRKEntitaet> leitet) {
+//        this.leitet = leitet;
+//    }
 
     public JRKEntitaet getJrkentitaet() {
         return jrkentitaet;

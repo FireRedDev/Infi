@@ -219,7 +219,7 @@ public class DatenbankRepository {
      */
     public boolean isEditor(int id) {
         Person p = em.find(Person.class, id);
-        return !p.getLeitet().isEmpty();
+        return p.getJrkentitaet().getTyp()!=Typ.Gruppe;
     }
 
     /**

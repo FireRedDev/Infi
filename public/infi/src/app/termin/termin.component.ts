@@ -26,7 +26,7 @@ success=false;
         };
   }
   save(){
-      console.log(this.actTermin);
+      // console.log(this.actTermin);
       
       this.http
         .post('http://localhost:8080/api/service/insertTermin/'+this.jrkEntitaet.id,this.actTermin)

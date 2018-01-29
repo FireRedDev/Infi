@@ -207,7 +207,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     const body = localStorage.getItem('currentUser');
-    console.log(body);
+    // console.log(body);
     this.http
       .post('http://localhost:8080/api/service/getName', JSON.parse(body))
       .subscribe(data => {
@@ -251,7 +251,7 @@ export class DashboardComponent implements OnInit {
       .post('http://localhost:8080/api/service/getUserTermine', JSON.parse(body))
       .map(res => res.json())
       .map(json => {
-        console.log('JSON:' , json);
+        // console.log('JSON:' , json);
         this.events = json;
         return this.convertEvents(this.events);
       });

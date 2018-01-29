@@ -43,7 +43,7 @@ export class ProtocolComponent implements OnInit {
     this.actProtokol.kinderliste = this.children;
     this.actProtokol.betreuer = this.betreuer;
       this.actTermin.doko = this.actProtokol;
-      console.log(this.actTermin);
+      // console.log(this.actTermin);
       this.http
         .post('http://localhost:8080/api/service/insertDoko', this.actTermin)
         .subscribe(data => {

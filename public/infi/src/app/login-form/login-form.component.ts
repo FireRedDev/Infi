@@ -33,7 +33,7 @@ export class LoginFormComponent implements OnInit {
      // Md5.hashStr(password)
 
      const body = {'personalnr': personalnr, 'password': password};
-     console.log(body);
+     // console.log(body);
 
     // const headers = new Headers();
     // headers.append('Content-Type', 'application/json');
@@ -60,7 +60,7 @@ export class LoginFormComponent implements OnInit {
        // See below - subscribe() is still necessary when using post().
        .subscribe(data => {
           if (data[0].json['_body'] > 0){
-            console.log(data[0], 'logged in');
+            // console.log(data[0], 'logged in');
             this.user.setUserLoggedIn();
             localStorage.setItem('currentUser', data[0].json['_body']);
             this.router.navigate(['dashboard']);
@@ -69,7 +69,7 @@ export class LoginFormComponent implements OnInit {
             alert('Falsche Personalnummer oder falsches Passwort eingegeben!');
           }
         err => {
-          console.log('error');
+          // console.log('error');
           alert('Falsche Personalnummer oder falsches Passwort eingegeben!');
         };
       });
