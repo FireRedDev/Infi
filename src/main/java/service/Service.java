@@ -152,12 +152,12 @@ public class Service {
         marchtrenk1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Eislaufen", "Bitte Eislaufschuhe, Winterkleidung und 3€ Eintritt mitnehmen", "Eislaufplatz Marchtrenk"));
         wels.addTermin(new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk"));
         ooe.addTermin(new Termin("2018-02-02 18:00:00", "2018-02-02 21:00:00", "Faschingsumzug", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz"));
-        Person tom = new Person("00001", "passme", "Tom", "Tester", ooe, landesleitung);
-        Person karin = new Person("00002", "passme", "Karin", "Tester", wels, bezirksleitung_wels);
-        Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt, ortstelle_sattledt);
-        Person doris = new Person("00004", "passme", "Doris", "Tester", sattledt1, ortstelle_sattledt);
+        Person tom = new Person("00001", "passme", "Tom", "Tester", ooe);
+        Person karin = new Person("00002", "passme", "Karin", "Tester", wels);
+        Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt);
+        Person doris = new Person("00004", "passme", "Doris", "Tester", sattledt1);
         Person isabella = new Person("00005", "passme", "Isabella", "Tester", sattledt1);
-        Person antonia = new Person("00006", "passme", "Antonia", "Tester", marchtrenk, ortstelle_marchtrenk);
+        Person antonia = new Person("00006", "passme", "Antonia", "Tester", marchtrenk);
         Person melanie = new Person("00007", "passme", "Melanie", "Tester", marchtrenk1);
         repo.insert(tom);
         repo.insert(karin);

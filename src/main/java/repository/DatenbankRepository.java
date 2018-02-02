@@ -4,6 +4,8 @@
 package repository;
 
 import entities.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import javax.persistence.*;
 
@@ -217,7 +219,7 @@ public class DatenbankRepository {
      */
     public boolean isEditor(int id) {
         Person p = em.find(Person.class, id);
-        return !p.getLeitet().isEmpty();
+        return p.getJrkentitaet().getTyp()!=Typ.Gruppe;
     }
 
     /**
@@ -228,8 +230,9 @@ public class DatenbankRepository {
     public List<Termin> getOpenDoko(int id) {
         List<Termin> termine = this.getUsertermine(id);
         List<Termin> te = new LinkedList<>();
+         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         for (Termin t : termine) {
-            if (t.getDoko() == null) {
+            if (t.getDoko() == null && LocalDate.parse(t.getE_date(),formatter).isBefore(LocalDate.now())) {
                 te.add(t);
             }
         }

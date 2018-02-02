@@ -30,6 +30,15 @@ public class Termin implements Serializable {
     public Termin() {
     }
 
+    /**
+     * Konstruktor ohne Dokumentation
+     * 
+     * @param s_date
+     * @param e_date
+     * @param title
+     * @param beschreibung
+     * @param ort 
+     */
     public Termin(String s_date, String e_date, String title, String beschreibung, String ort) {
         this.s_date = s_date;
         this.e_date = e_date;
@@ -38,6 +47,16 @@ public class Termin implements Serializable {
         this.ort = ort;
     }
 
+    /**
+     * Konstruktor mit allen Parametern
+     * 
+     * @param s_date
+     * @param e_date
+     * @param title
+     * @param beschreibung
+     * @param ort
+     * @param doko 
+     */
     public Termin(String s_date, String e_date, String title, String beschreibung, String ort, Dokumentation doko) {
         this.s_date = s_date;
         this.e_date = e_date;
