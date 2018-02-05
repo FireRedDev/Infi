@@ -29,6 +29,7 @@
         <div (click)="_toggleOpened()"><div href="#" id="hover" (click)="view = 'month'" [class.active]="view === 'month'" ><p class="einfuegen"><i class="material-icons">date_range</i> Monatsansicht</p></div>
             <div href="#" id="hover" (click)="view = 'week'" [class.active]="view === 'week'"><p class="einfuegen"><i class="material-icons">line_style</i> Wochenansicht</p></div>
             <div href="#" id="hover" (click)="view = 'protocol'" *ngIf="isEditor"><p class="einfuegen"><i class="material-icons">subject</i> Protokoll</p></div>
+            <div href="#" id="hover" (click)="view = 'diagram'" *ngIf="isEditor"><p class="einfuegen"><i class="material-icons">pie_chart</i> Statistiken</p></div>
         </div>
         <a routerLink="/"><div id="platzierung"><div class="button"></div></div></a>
     </ng-sidebar>
@@ -106,6 +107,9 @@
 </div>
 <div *ngIf="view =='protocol'">
     <app-protocol (changeView)="changeView(i)"></app-protocol>
+</div>
+<div *ngIf="view =='diagram'">
+    <app-diagrams></app-diagrams>
 </div>
 </section>
 </div>
