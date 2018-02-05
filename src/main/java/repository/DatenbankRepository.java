@@ -3,9 +3,14 @@
  */
 package repository;
 
+import RestResponseClasses.NameValue;
 import entities.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import javax.persistence.*;
 
@@ -24,6 +29,7 @@ public class DatenbankRepository {
 
     /**
      * Add Benutzer
+     *
      * @param p
      * @return
      */
@@ -80,8 +86,8 @@ public class DatenbankRepository {
     }
 
     /**
-     * 
-     * @param doku 
+     *
+     * @param doku
      */
     public void insert(Dokumentation doku) {
         em.getTransaction().begin();
@@ -90,8 +96,8 @@ public class DatenbankRepository {
     }
 
     /**
-     * 
-     * @param ortsstelle 
+     *
+     * @param ortsstelle
      */
     public void insert(JRKEntitaet ortsstelle) {
         em.getTransaction().begin();
@@ -123,10 +129,10 @@ public class DatenbankRepository {
     }
 
     /**
-     * 
+     *
      * @param jrk
      * @param termine
-     * @return 
+     * @return
      */
     private List<Termin> termineLayerUp(JRKEntitaet jrk, List<Termin> termine) {
         List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerUp", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
@@ -141,10 +147,10 @@ public class DatenbankRepository {
     }
 
     /**
-     * 
+     *
      * @param jrk
      * @param termine
-     * @return 
+     * @return
      */
     private List<Termin> termineLayerDown(JRKEntitaet jrk, List<Termin> termine) {
         List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
@@ -159,10 +165,10 @@ public class DatenbankRepository {
     }
 
     /**
-     * 
+     *
      * @param termine
      * @param tt
-     * @return 
+     * @return
      */
     private List<Termin> addList(List<Termin> termine, List<Termin> tt) {
         if (!termine.equals(tt)) {
@@ -213,26 +219,26 @@ public class DatenbankRepository {
     }
 
     /**
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
     public boolean isEditor(int id) {
         Person p = em.find(Person.class, id);
-        return p.getJrkentitaet().getTyp()!=Typ.Gruppe;
+        return p.getJrkentitaet().getTyp() != Typ.Gruppe;
     }
 
     /**
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
     public List<Termin> getOpenDoko(int id) {
         List<Termin> termine = this.getUsertermine(id);
         List<Termin> te = new LinkedList<>();
-         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         for (Termin t : termine) {
-            if (t.getDoko() == null && LocalDate.parse(t.getE_date(),formatter).isBefore(LocalDate.now())) {
+            if (t.getDoko() == null && LocalDate.parse(t.getE_date(), formatter).isBefore(LocalDate.now())) {
                 te.add(t);
             }
         }
@@ -240,8 +246,8 @@ public class DatenbankRepository {
     }
 
     /**
-     * 
-     * @param d 
+     *
+     * @param d
      */
     public void insertDoko(Termin d) {
         em.getTransaction().begin();
@@ -256,5 +262,59 @@ public class DatenbankRepository {
      */
     public Dokumentation getDokumentationbyTermin(int id) {
         return em.find(Termin.class, id).getDoko();
+    }
+//name is kategorie
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public List<NameValue> getChartValues(int id) {
+        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+        List<Termin> list = jrk.getTermine();
+        int[] katcount = new int[3];
+        for (Termin termin : list) {
+            Dokumentation doku = termin.getDoko();
+            switch (doku.getKategorie()) {
+                case "EH":
+                    katcount[0]++;
+                    break;
+
+                case "Exkursion":
+                    katcount[1]++;
+                    break;
+                case "Soziales":
+                    katcount[2]++;
+                    break;
+            }
+        }
+        List<NameValue> returnlist = new LinkedList<NameValue>();
+        returnlist.add(new NameValue("EH", katcount[0]));
+        returnlist.add(new NameValue("Exkursion", katcount[1]));
+        returnlist.add(new NameValue("Soziales", katcount[2]));
+
+        return returnlist;
+    }
+
+    public List<NameValue> getTimelineValues(int id) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+        List<Termin> list = jrk.getTermine();
+        List<NameValue> returnlist = new LinkedList<NameValue>();
+        for (Month month : Month.values()) {
+            NameValue nv = new NameValue(month.getDisplayName(TextStyle.FULL, Locale.getDefault()), 0);
+            for (Termin termin : list) {
+                LocalDateTime.parse(termin.getS_date(), formatter);
+                if (LocalDateTime.parse(termin.getS_date(), formatter).getMonth() == month) {
+                    LocalDateTime.parse(termin.getE_date(), formatter);
+                    long hours = ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter));
+                    nv.setValue(nv.getValue() + (int) hours);
+                }
+            }
+            returnlist.add(nv);
+        }
+
+        return returnlist;
     }
 }
