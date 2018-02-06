@@ -1,6 +1,5 @@
 package service;
 
-import entities.Person;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseContext;
@@ -12,30 +11,28 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Base64;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-
 
 import static javax.ws.rs.core.Response.ResponseBuilder;
 import static javax.ws.rs.core.Response.Status;
 
 @Provider
-@Secured
+//@Secured
 
-public class UserAuthenticationFilter implements ContainerRequestFilter, 
-                                             ContainerResponseFilter {
-       
+public class UserAuthenticationFilter implements ContainerRequestFilter,
+        ContainerResponseFilter{
+
     private EntityManager em;
 
     public UserAuthenticationFilter() {
         em = Persistence.createEntityManagerFactory("infiPU").createEntityManager();
     }
-        
+
     @Override
     public void filter(ContainerRequestContext requestContext)
-                       throws IOException {
+            throws IOException {
 
         MultivaluedMap<String, String> headers = requestContext.getHeaders();
         System.out.println(" ================ Header start ================");
@@ -50,17 +47,16 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
             String base64Credentials = authorization.substring("Basic".length()).trim();
             String credentials;
             try {
-                credentials = new String(Base64.getDecoder().decode(base64Credentials), 
-                                         Charset.forName("UTF-8"));
-            }
-            catch(IllegalArgumentException e) {
-                credentials="";
+                credentials = new String(Base64.getDecoder().decode(base64Credentials),
+                        Charset.forName("UTF-8"));
+            } catch (IllegalArgumentException e) {
+                credentials = "";
             }
 
-         Query query=   em.createQuery("select t from JWTTokenUser t where t.token = ':token'");
+            Query query = em.createQuery("select t from JWTTokenUser t where t.token = ':token'");
             query.setParameter("token", credentials);
             List results = query.getResultList();
-            if (results.size()==0) {// an der stelle schaun ob der token in der tabelle gespeichert is
+            if (results.size() == 0) {// an der stelle schaun ob der token in der tabelle gespeichert is
                 //TODO
                 //em.find (jwttokenuser klasse,token is der primary key)!
                 // Eintrag in Http-Header:
@@ -83,10 +79,10 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
 
     @Override
     public void filter(ContainerRequestContext requestContext,
-                       ContainerResponseContext responseContext)
+            ContainerResponseContext responseContext)
             throws IOException {
-            responseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
-            responseContext.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
-            responseContext.getHeaders().add("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With");;
+        responseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
+        responseContext.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
+        responseContext.getHeaders().add("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With");;
     }
 }

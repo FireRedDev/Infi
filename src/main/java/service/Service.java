@@ -153,6 +153,7 @@ public class Service {
      * @return
      */
     @POST
+    @Secured
     @Path("getUserTermine")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
