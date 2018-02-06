@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package entities;
 
 import java.io.Serializable;
@@ -16,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 /**
-* C.G
+ * C.G
  */
 @Entity
 public class Dokumentation implements Serializable {
@@ -31,12 +30,15 @@ public class Dokumentation implements Serializable {
     //beziehung zu kindern
     @OneToMany()
     private List<Person> teilnehmer;
+
     public Long getId() {
         return id;
     }
-public Dokumentation() {
-    
-}
+
+    public Dokumentation() {
+
+    }
+
     public Dokumentation(String externePersonen, String Tätigkeiten, Kategorie kategorie, List<Person> teilnehmer) {
         this.externePersonen = externePersonen;
         this.Tätigkeiten = Tätigkeiten;

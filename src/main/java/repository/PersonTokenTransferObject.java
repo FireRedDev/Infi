@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package repository;
 
 /**
-* C.G
+ * C.G
  */
 public class PersonTokenTransferObject {
+
     public String userID;
-public String token;
+    public String token;
 
     public PersonTokenTransferObject(String userID, String token) {
         this.userID = userID;

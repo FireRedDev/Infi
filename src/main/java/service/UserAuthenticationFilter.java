@@ -12,11 +12,11 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Base64;
 import java.util.List;
-import javax.inject.Inject;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.ws.rs.container.PreMatching;
+
 
 import static javax.ws.rs.core.Response.ResponseBuilder;
 import static javax.ws.rs.core.Response.Status;

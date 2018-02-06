@@ -1,4 +1,4 @@
-    package service;
+package service;
 
 import repository.PersonTransferObject;
 import entities.Dokumentation;
@@ -16,7 +16,6 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import org.json.JSONObject;
 import repository.DatenbankRepository;
 import repository.PersonTokenTransferObject;
 

@@ -22,13 +22,12 @@ import javax.json.JsonObject;
 import javax.persistence.*;
 import org.json.JSONObject;
 import service.*;
+
 /**
  *
  * @author isi
  */
 public class DatenbankRepository {
-
- 
 
     private EntityManager em;
 
@@ -65,24 +64,24 @@ public class DatenbankRepository {
      * @return
      */
     public PersonTokenTransferObject login(PersonTransferObject pto) {
-     Query query= em.createNamedQuery("Benutzer.login", Person.class);
-     query.setParameter("personalnr", pto.personalnr);
-     Person b=(Person) query.getSingleResult();
-  
-        String token =  generateJWT();
-         if (b.getPassword().equals(pto.password)) {
-PersonTokenTransferObject pt = new PersonTokenTransferObject(String.valueOf(b.getId()),token);
+        Query query = em.createNamedQuery("Benutzer.login", Person.class);
+        query.setParameter("personalnr", pto.personalnr);
+        Person b = (Person) query.getSingleResult();
+
+        String token = generateJWT();
+        if (b.getPassword().equals(pto.password)) {
+            PersonTokenTransferObject pt = new PersonTokenTransferObject(String.valueOf(b.getId()), token);
             return pt;
         }
         return null;
     }
 
     public String generateJWT() {
-        try { 
+        try {
             String jwt = Jwts.builder().setSubject("1234567890")
                     .setId("bbe02373-36ce-46b7-80d2-1ba4c866d7bb")
-                    .setIssuedAt(Date.from(Instant.ofEpochSecond(1516102685)))
-                    .setExpiration(Date.from(Instant.ofEpochSecond(1516106285)))
+                    .setIssuedAt(Date.from(Instant.now()))
+                    .setExpiration(Date.from(Instant.now().plusSeconds(10000)))
                     .claim("name", "John Doe")
                     .claim("admin", true).signWith(SignatureAlgorithm.HS256, "secret".getBytes("UTF-8")).compact();
 
@@ -97,7 +96,7 @@ PersonTokenTransferObject pt = new PersonTokenTransferObject(String.valueOf(b.ge
         try {
 
             try {
-             return Jwts.parser()
+                return Jwts.parser()
                         .setSigningKey("secret".getBytes("UTF-8"))
                         .parseClaimsJws("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImp0aSI6ImJiZTAyMzczLTM2Y2UtNDZiNy04MGQyLTFiYTRjODY2ZDdiYiIsImlhdCI6MTUxNjEwMjY4NSwiZXhwIjoxNTE2MTA2Mjg1fQ.zYcRHkM9RVqQN079rn0lY1rS1Qz4BmsanxsOBptJlbE"
                         ).getSignature();
@@ -111,7 +110,7 @@ PersonTokenTransferObject pt = new PersonTokenTransferObject(String.valueOf(b.ge
 
             //don't trust the JWT!
         }
-return null;
+        return null;
     }
 
     /**
@@ -125,12 +124,14 @@ return null;
         em.getTransaction().commit();
         return b;
     }
-   public JWTTokenUser insert(JWTTokenUser b) {
+
+    public JWTTokenUser insert(JWTTokenUser b) {
         em.getTransaction().begin();
         em.merge(b);
         em.getTransaction().commit();
         return b;
     }
+
     /**
      *
      * @param termin
