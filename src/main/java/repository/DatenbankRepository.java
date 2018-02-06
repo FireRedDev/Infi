@@ -317,4 +317,49 @@ public class DatenbankRepository {
 
         return returnlist;
     }
+
+    public List<NameValue> getLowerEntityHourList(int id) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+
+        List<NameValue> returnlist = new LinkedList<NameValue>();
+        for (JRKEntitaet jr : jrk.getJrkentitaet1()) {
+
+            List<Termin> list = jr.getTermine();
+            NameValue nv = new NameValue(jr.getName(), 0);
+            for (Termin termin : list) {
+                LocalDateTime.parse(termin.getS_date(), formatter);
+
+                LocalDateTime.parse(termin.getE_date(), formatter);
+                long hours = ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter));
+                nv.setValue(nv.getValue() + (int) hours);
+
+            }
+            returnlist.add(nv);
+        }
+
+        return returnlist;
+    }
+
+    public List<NameValue> getYearlyHoursPerPeople(int id) {
+        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        List<Termin> list = jrk.getTermine();
+        int[] katcount = new int[3];
+        for (Termin termin : list) {
+            Dokumentation doku = termin.getDoko();
+            katcount[0] = (katcount[0] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getBetreuer().length;
+            katcount[1] = (katcount[1] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getKinderliste().length;
+            //POSSIBLE BUG: San ChronoUnit Hours gleichgroß wie deine Hours?
+            katcount[2] = (katcount[2] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) + (int) doku.getVzeit();
+        }
+        List<NameValue> returnlist = new LinkedList<NameValue>();
+        returnlist.add(new NameValue("Betreuer", katcount[0]));
+        returnlist.add(new NameValue("Kinder", katcount[1]));
+        returnlist.add(new NameValue("Vorbereitungszeit", katcount[2]));
+
+        return returnlist;
+    }
+
 }

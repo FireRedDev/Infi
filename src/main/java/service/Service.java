@@ -247,4 +247,12 @@ public class Service {
     public List<NameValue> getTimelinesValues(int id) {
         return repo.getTimelineValues(id);
     }
+
+    @POST
+    @Path("getYearlyHoursPerPeople")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public List<NameValue> getYearlyHoursPerPeople(int id) {
+        return repo.getYearlyHoursPerPeople(id);
+    }
 }
