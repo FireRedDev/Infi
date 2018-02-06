@@ -59,20 +59,17 @@ export class LoginFormComponent implements OnInit {
     })
        // See below - subscribe() is still necessary when using post().
        .subscribe(data => {
-          if (data[0].json['_body'] > 0){
-            // console.log(data[0], 'logged in');
-            this.user.setUserLoggedIn();
-            localStorage.setItem('currentUser', data[0].json['_body']);
-            this.router.navigate(['dashboard']);
-          }
-          else{
-            alert('Falsche Personalnummer oder falsches Passwort eingegeben!');
-          }
-        err => {
-          // console.log('error');
-          alert('Falsche Personalnummer oder falsches Passwort eingegeben!');
-        };
-      });
+          console.log(data);
+          console.log(data[0],"logged in");
+          this.user.setUserLoggedIn();
+          localStorage.setItem('currentUser',JSON.parse(data[0].json["_body"]).userID);
+          localStorage.setItem('token',JSON.parse(data[0].json["_body"]).token);
+          this.router.navigate(['dashboard']);
+        err=>{
+          console.log("error");
+          alert("Falsche Personalnummer oder falsches Passwort eingegeben!");
+        }
+      });    
   }
 
 }

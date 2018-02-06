@@ -1,12 +1,15 @@
 package service;
 
 import RestResponseClasses.NameValue;
+import repository.PersonTransferObject;
 import entities.*;
 import static entities.Typ.*;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import repository.DatenbankRepository;
+import repository.PersonTokenTransferObject;
 
 /**
  *
@@ -23,9 +26,15 @@ public class Service {
      * @return
      */
     @GET
+    @Secured
     @Path("message")
     public String message() {
         return "INFI Jugendrotkreuz Server up and running..";
+    }
+    @POST
+    @Path("printMSG")
+    public void message(String message) {
+        System.out.println(message);    
     }
 
     /**
@@ -33,8 +42,35 @@ public class Service {
      *
      * @return
      */
-    @Path("init")
+    @POST
+    @Produces("application/json")
+    @Consumes("application/json")
+    @Path("login")//jsonobject könnte weggehören müssen!
+    public PersonTokenTransferObject login(PersonTransferObject pto) {
+//        String cookie = "12345";//repo.login(user);
+//        return Response.ok().header("Set-Cookie", "kalendarCookie=" + cookie).build();
+       System.out.println("LoginTest");
+       
+        return repo.login(pto);
+    }
+
+    /**
+     * Lists all Termine
+     *
+     * @return
+     */
     @GET
+    @Path("listAllTermine")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Termin> listallTermine() {
+        return repo.termine();
+    }
+
+    /**
+     * Testinitfunction
+     */
+    @GET
+    @Path("init")
     public String init() {
         Typ gruppe = Gruppe;
         Typ ortstelle = Ortstelle;
@@ -84,33 +120,6 @@ public class Service {
         repo.insert(melanie);
 
         return "Testvalues inserted";
-    }
-
-    /**
-     * Login Function to authenticate
-     *
-     * @param user
-     * @return
-     */
-    @POST
-    @Path("login")
-    @Produces(MediaType.APPLICATION_JSON)
-    public int login(Person user) {
-//        String cookie = "12345";//repo.login(user);
-//        return Response.ok().header("Set-Cookie", "kalendarCookie=" + cookie).build();
-        return repo.login(user);
-    }
-
-    /**
-     * Lists all Termine
-     *
-     * @return
-     */
-    @GET
-    @Path("listAllTermine")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Termin> listallTermine() {
-        return repo.termine();
     }
 
     /**

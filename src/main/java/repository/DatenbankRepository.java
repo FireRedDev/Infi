@@ -11,12 +11,15 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
+import io.jsonwebtoken.*;
+import java.io.UnsupportedEncodingException;
+import java.time.Instant;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.*;
 
 public class DatenbankRepository {
-
-    @PersistenceContext
 
     private EntityManager em;
 
@@ -53,12 +56,54 @@ public class DatenbankRepository {
      * @param user
      * @return
      */
-    public int login(Person user) {
-        Person b = em.createNamedQuery("Benutzer.login", Person.class).setParameter("personalnr", user.getPersonalnr()).getSingleResult();
-        if (b.getPassword().equals(user.getPassword())) {
-            return b.getId();
+    public PersonTokenTransferObject login(PersonTransferObject pto) {
+        Query query = em.createNamedQuery("Benutzer.login", Person.class);
+        query.setParameter("personalnr", pto.personalnr);
+        Person b = (Person) query.getSingleResult();
+
+        String token = generateJWT();
+        if (b.getPassword().equals(pto.password)) {
+            PersonTokenTransferObject pt = new PersonTokenTransferObject(String.valueOf(b.getId()), token);
+            return pt;
         }
-        return -1;
+        return null;
+    }
+
+    public String generateJWT() {
+        try {
+            String jwt = Jwts.builder().setSubject("1234567890")
+                    .setId("bbe02373-36ce-46b7-80d2-1ba4c866d7bb")
+                    .setIssuedAt(Date.from(Instant.now()))
+                    .setExpiration(Date.from(Instant.now().plusSeconds(10000)))
+                    .claim("name", "John Doe")
+                    .claim("admin", true).signWith(SignatureAlgorithm.HS256, "secret".getBytes("UTF-8")).compact();
+
+            return jwt;
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(DatenbankRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public String decodeJWT(String jwt) {
+        try {
+
+            try {
+                return Jwts.parser()
+                        .setSigningKey("secret".getBytes("UTF-8"))
+                        .parseClaimsJws("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImp0aSI6ImJiZTAyMzczLTM2Y2UtNDZiNy04MGQyLTFiYTRjODY2ZDdiYiIsImlhdCI6MTUxNjEwMjY4NSwiZXhwIjoxNTE2MTA2Mjg1fQ.zYcRHkM9RVqQN079rn0lY1rS1Qz4BmsanxsOBptJlbE"
+                        ).getSignature();
+
+                //OK, we can trust this JWT
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(DatenbankRepository.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } catch (SignatureException e) {
+
+            //don't trust the JWT!
+        }
+        return null;
     }
 
     /**
@@ -67,6 +112,13 @@ public class DatenbankRepository {
      * @return
      */
     public Person insert(Person b) {
+        em.getTransaction().begin();
+        em.merge(b);
+        em.getTransaction().commit();
+        return b;
+    }
+
+    public JWTTokenUser insert(JWTTokenUser b) {
         em.getTransaction().begin();
         em.merge(b);
         em.getTransaction().commit();
@@ -360,6 +412,10 @@ public class DatenbankRepository {
         returnlist.add(new NameValue("Vorbereitungszeit", katcount[2]));
 
         return returnlist;
+    }
+
+    public Termin getTerminbyId(int id) {
+        return em.find(Termin.class, id);
     }
 
 }
