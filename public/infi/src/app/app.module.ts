@@ -19,6 +19,7 @@ import { TerminComponent } from './termin/termin.component';
 import { DateTimePickerModule } from 'ng-pick-datetime';
 import { ProtocolComponent } from './protocol/protocol.component';
 import { DiagramsComponent } from './diagrams/diagrams.component';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 const appRoutes:Routes = [
   {
@@ -51,7 +52,8 @@ const appRoutes:Routes = [
     RouterModule.forRoot(appRoutes),
     CalendarModule.forRoot(),
     SidebarModule.forRoot(),
-    DateTimePickerModule
+    DateTimePickerModule,
+    NgxChartsModule
   ],
   providers: [UserService, AuthguardGuard],
   bootstrap: [AppComponent]
