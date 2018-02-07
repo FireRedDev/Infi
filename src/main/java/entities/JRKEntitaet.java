@@ -22,10 +22,9 @@ public class JRKEntitaet implements Serializable {
     private Typ typ;
     @OneToMany
     private List<Termin> termine = new LinkedList<Termin>();
+    @OneToMany
+    private List<Info> info = new LinkedList<Info>();
 
-    public void addTermin(Termin termin) {
-        termine.add(termin);
-    }
     //übergeordnet
     @ManyToOne
     private JRKEntitaet jrkentitaet;
@@ -85,6 +84,14 @@ public class JRKEntitaet implements Serializable {
         this.termine = termine;
     }
 
+    public List<Info> getInfo() {
+        return info;
+    }
+
+    public void setInfo(List<Info> info) {
+        this.info = info;
+    }
+
     public JRKEntitaet getJrkentitaet() {
         return jrkentitaet;
     }
@@ -113,5 +120,13 @@ public class JRKEntitaet implements Serializable {
             this.jrkentitaet1.remove(old);
             old.setJrkentitaet(this);
         }
+    }
+
+    public void addTermin(Termin termin) {
+        termine.add(termin);
+    }
+
+    public void addInfo(Info info) {
+        this.info.add(info);
     }
 }
