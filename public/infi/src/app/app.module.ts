@@ -20,6 +20,7 @@ import { DateTimePickerModule } from 'ng-pick-datetime';
 import { ProtocolComponent } from './protocol/protocol.component';
 import { DiagramsComponent } from './diagrams/diagrams.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes:Routes = [
   {
@@ -41,7 +42,8 @@ const appRoutes:Routes = [
     DashboardComponent,
     TerminComponent,
     ProtocolComponent,
-    DiagramsComponent
+    DiagramsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

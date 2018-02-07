@@ -6,6 +6,7 @@
     <class>entities.Person</class>
     <class>entities.JRKEntitaet</class>
     <class>entities.Dokumentation</class>
+    <class>entities.Info</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/infidb2"/>
       <property name="javax.persistence.jdbc.user" value="app"/>

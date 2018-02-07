@@ -44,7 +44,7 @@ public class Service {
         JRKEntitaet wels = new JRKEntitaet(4, "Wels", bezirkstelle, ooe);
         JRKEntitaet sattledt = new JRKEntitaet(1, "Sattledt", ortstelle, wels);
         JRKEntitaet sattledt1 = new JRKEntitaet(2, "Gruppe1", gruppe, sattledt);
-        JRKEntitaet marchtrenk = new JRKEntitaet(3, "Sattledt", ortstelle, wels);
+        JRKEntitaet marchtrenk = new JRKEntitaet(3, "Marchtrenk", ortstelle, wels);
         JRKEntitaet marchtrenk1 = new JRKEntitaet(6, "Gruppe1", gruppe, marchtrenk);
 
         List<JRKEntitaet> landesleitung = new LinkedList<>();
@@ -67,6 +67,10 @@ public class Service {
         marchtrenk1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Eislaufen", "Bitte Eislaufschuhe, Winterkleidung und 3€ Eintritt mitnehmen", "Eislaufplatz Marchtrenk"));
         wels.addTermin(new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk"));
         ooe.addTermin(new Termin("2018-02-02 18:00:00", "2018-02-02 21:00:00", "Faschingsumzug", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz"));
+
+        sattledt1.addInfo(new Info("Terminfindung für Fotoshooting", "Bitte Abstimmen Doodle-Link", "assets/lager.jpg"));
+        ooe.addInfo(new Info("Fotos", "fotos sind online oö", "assets/teambuilding.jpg"));
+        wels.addInfo(new Info("Bezirkslager", "Bilder sind endlich auf Dropbox Link:", "assets/lager.jpg"));
 
         Person tom = new Person("00001", "passme", "Tom", "Tester", ooe);
         Person karin = new Person("00002", "passme", "Karin", "Tester", wels);
@@ -149,6 +153,20 @@ public class Service {
     @Consumes(MediaType.TEXT_PLAIN)
     public List<Termin> getUserTermine(int id) {
         return repo.getUsertermine(id);
+    }
+
+    /**
+     * Gets Users Infos
+     *
+     * @param id
+     * @return
+     */
+    @POST
+    @Path("getUserInfos")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public List<Info> getUserInfos(int id) {
+        return repo.getUserInfos(id);
     }
 
     /**
