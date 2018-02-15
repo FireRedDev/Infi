@@ -257,6 +257,14 @@ public class Service {
     public List<NameValue> getChartValues(int id) {
         return repo.getChartValues(id);
     }
+    
+    @POST
+    @Path("getLowerEntityHourList")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public List<NameValue> getLowerEntityHourList(int id) {
+        return repo.getLowerEntityHourList(id);
+    }
 
     @POST
     @Path("getTimelineValues")
