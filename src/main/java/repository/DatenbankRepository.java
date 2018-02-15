@@ -323,10 +323,11 @@ public class DatenbankRepository {
         JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
 
         List<NameValue> returnlist = new LinkedList<NameValue>();
-        for (JRKEntitaet jr : jrk.getJrkentitaet1()) {
+        List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+        for (JRKEntitaet jr : jrks) {
 
             List<Termin> list = jr.getTermine();
-            NameValue nv = new NameValue(jr.getName(), 0);
+            NameValue nv = new NameValue(jr.getName(), 2);
             for (Termin termin : list) {
                 LocalDateTime.parse(termin.getS_date(), formatter);
 

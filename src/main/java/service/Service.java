@@ -44,7 +44,7 @@ public class Service {
         JRKEntitaet wels = new JRKEntitaet(4, "Wels", bezirkstelle, ooe);
         JRKEntitaet sattledt = new JRKEntitaet(1, "Sattledt", ortstelle, wels);
         JRKEntitaet sattledt1 = new JRKEntitaet(2, "Gruppe1", gruppe, sattledt);
-        JRKEntitaet marchtrenk = new JRKEntitaet(3, "Sattledt", ortstelle, wels);
+        JRKEntitaet marchtrenk = new JRKEntitaet(3, "Marchtrenk", ortstelle, wels);
         JRKEntitaet marchtrenk1 = new JRKEntitaet(6, "Gruppe1", gruppe, marchtrenk);
 
         List<JRKEntitaet> landesleitung = new LinkedList<>();
@@ -238,6 +238,14 @@ public class Service {
     @Consumes(MediaType.TEXT_PLAIN)
     public List<NameValue> getChartValues(int id) {
         return repo.getChartValues(id);
+    }
+    
+    @POST
+    @Path("getLowerEntityHourList")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public List<NameValue> getLowerEntityHourList(int id) {
+        return repo.getLowerEntityHourList(id);
     }
 
     @POST
