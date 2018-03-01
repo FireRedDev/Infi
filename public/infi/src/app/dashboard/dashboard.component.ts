@@ -99,7 +99,7 @@ export class DashboardComponent implements OnInit {
   viewDate: Date = new Date();
   title = 'app';
   locale = 'de';
-  view = 'month';
+  view = 'home';
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
   weekendDays: number[] = [DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
 

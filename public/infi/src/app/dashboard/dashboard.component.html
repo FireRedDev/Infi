@@ -26,9 +26,11 @@
         <div class="dashboard-control" (click)="_toggleOpened()"><i class="material-icons">close</i></div>
         <div id="imagePlatzhalter"></div><br>
         <p class="einfuegen"><i class="fa fa-user" aria-hidden="true"></i><b> {{username}} </b></p><hr>
-        <div (click)="_toggleOpened()"><div href="#" id="hover" (click)="view = 'month'" [class.active]="view === 'month'" ><p class="einfuegen"><i class="material-icons">date_range</i> Monatsansicht</p></div>
+        <div (click)="_toggleOpened()">
+            <div href="#" id="hover" (click)="view = 'home'" [class.active]="view === 'home'"><p class="einfuegen"><i class="material-icons">home</i> Startseite</p></div><hr>
+            <div href="#" id="hover" (click)="view = 'month'" [class.active]="view === 'month'" ><p class="einfuegen"><i class="material-icons">date_range</i> Monatsansicht</p></div>
             <div href="#" id="hover" (click)="view = 'week'" [class.active]="view === 'week'"><p class="einfuegen"><i class="material-icons">line_style</i> Wochenansicht</p></div>
-            <div href="#" id="hover" (click)="view = 'protocol'" *ngIf="isEditor"><p class="einfuegen"><i class="material-icons">subject</i> Protokoll</p></div>
+            <div href="#" id="hover" (click)="view = 'protocol'" *ngIf="isEditor"><hr><p class="einfuegen"><i class="material-icons">subject</i> Protokoll</p></div>
             <div href="#" id="hover" (click)="view = 'diagram'" *ngIf="isEditor"><p class="einfuegen"><i class="material-icons">pie_chart</i> Statistiken</p></div>
         </div>
         <a routerLink="/"><div id="platzierung"><div class="button"></div></div></a>
@@ -110,6 +112,9 @@
 </div>
 <div *ngIf="view =='diagram'">
     <app-diagrams></app-diagrams>
+</div>
+<div *ngIf="view =='home'">
+    <app-home></app-home>
 </div>
 </section>
 </div>
