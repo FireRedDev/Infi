@@ -1,3 +1,9 @@
+<div align="center">
+        <select class="form-control" #selectElem (change)="set(selectElem.value)" name="jrkselect">
+            <option *ngFor="let JRKEntitaet of JRKEntitaeten, let i=index" [selected]="i==0" [value]="JRKEntitaet.id">{{JRKEntitaet.name}}</option>
+        </select>
+</div>
+
 <ngx-charts-pie-chart
 [view]="view"
 [scheme]="colorScheme"
@@ -22,3 +28,35 @@
 [gradient]="gradient"
 (select)="onSelect($event)">
 </ngx-charts-pie-chart>
+
+
+<ngx-charts-bar-vertical
+[view]="diagrams"
+[scheme]="colorScheme"
+[results]="singleChartBar"
+[gradient]="gradient"
+[xAxis]="showXAxis"
+[yAxis]="showYAxis"
+[legend]="showLegend"
+[showXAxisLabel]="showXAxisLabel"
+[showYAxisLabel]="showYAxisLabel"
+[xAxisLabel]="xAxisLabel"
+[yAxisLabel]="yAxisLabel"
+(select)="onSelect($event)">
+</ngx-charts-bar-vertical>
+
+
+<ngx-charts-bar-horizontal
+[view]="view"
+[scheme]="colorScheme"
+[results]="single3"
+[gradient]="gradient"
+[xAxis]="showXAxis"
+[yAxis]="showYAxis"
+[legend]="showLegend"
+[showXAxisLabel]="showXAxisLabel"
+[showYAxisLabel]="showYAxisLabel"
+[xAxisLabel]="xAxisLabel"
+[yAxisLabel]="yAxisLabel"
+(select)="onSelect($event)">
+</ngx-charts-bar-horizontal>

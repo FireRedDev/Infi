@@ -377,7 +377,9 @@ public class DatenbankRepository {
                     nv.setValue(nv.getValue() + (int) hours);
                 }
             }
-            returnlist.add(nv);
+            if(nv.getValue()!=0){
+                returnlist.add(nv);
+            }         
         }
 
         return returnlist;
@@ -426,6 +428,16 @@ public class DatenbankRepository {
         returnlist.add(new NameValue("Vorbereitungszeit", katcount[2]));
 
         return returnlist;
+    }
+         /**
+     * 
+     * @param id
+     * @return 
+     */
+    public List<JRKEntitaet> getJRKEntitaetdown(int id) {
+        Person currentPerson = em.find(Person.class, id);
+        JRKEntitaet jrk = currentPerson.getJrkentitaet();
+        return em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
     }
 
 }

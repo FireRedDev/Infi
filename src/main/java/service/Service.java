@@ -281,4 +281,12 @@ public class Service {
     public List<NameValue> getYearlyHoursPerPeople(int id) {
         return repo.getYearlyHoursPerPeople(id);
     }
+    
+    @Path("getJRKEntitaetdown")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @POST
+    public List<JRKEntitaet> getJRKEntitaetdown(int id) {
+        return repo.getJRKEntitaetdown(id);
+    }
 }
