@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { Termin } from './termin';
-import { HttpClient } from '@angular/common/http';
+import { RestService } from '../rest.service';
 import { jrkEntitaet } from './jrkEntitaet.model';
 import { EventEmitter } from '@angular/core';
 
@@ -13,8 +13,8 @@ export class TerminComponent implements OnInit {
 @Input() jrkEntitaet: jrkEntitaet;
 @Output() changeView: EventEmitter<string> = new EventEmitter();
 success=false;
-  constructor(private http: HttpClient) {
-    this.http=http;
+  constructor(private rest: RestService) {
+    this.rest=rest;
    }
   de: any;
 
@@ -28,12 +28,8 @@ success=false;
         };
   }
   save(){
-      // console.log(this.actTermin);
-      
-      this.http
-        .post('http://localhost:8080/api/service/insertTermin/'+this.jrkEntitaet.id,this.actTermin)
+      this.rest.insertTermin(this.jrkEntitaet,this.actTermin)
         .subscribe(data => {
-          // Read the result field from the JSON response.
           this.changeView.emit("month");
       });
       this.success=true;
