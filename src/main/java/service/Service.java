@@ -42,8 +42,6 @@ public class Service {
     @Consumes("application/json")
     @Path("login")
     public PersonTokenTransferObject login(PersonTransferObject pto) {
-        System.out.println("LoginTest");
-
         return repo.login(pto);
     }
 
@@ -73,9 +71,9 @@ public class Service {
         JRKEntitaet ooe = new JRKEntitaet(5, "Oberösterreich", landesstelle, null);
         JRKEntitaet wels = new JRKEntitaet(4, "Wels", bezirkstelle, ooe);
         JRKEntitaet sattledt = new JRKEntitaet(1, "Sattledt", ortstelle, wels);
-        JRKEntitaet sattledt1 = new JRKEntitaet(2, "Gruppe1", gruppe, sattledt);
-        JRKEntitaet marchtrenk = new JRKEntitaet(3, "Sattledt", ortstelle, wels);
-        JRKEntitaet marchtrenk1 = new JRKEntitaet(6, "Gruppe1", gruppe, marchtrenk);
+        JRKEntitaet sattledt1 = new JRKEntitaet(2, "Gruppe1_Sattledt", gruppe, sattledt);
+        JRKEntitaet marchtrenk = new JRKEntitaet(3, "Marchtrenk", ortstelle, wels);
+        JRKEntitaet marchtrenk1 = new JRKEntitaet(6, "Gruppe1_Marchtrenk", gruppe, marchtrenk);
 
         List<JRKEntitaet> landesleitung = new LinkedList<>();
         landesleitung.add(ooe);
@@ -94,13 +92,24 @@ public class Service {
         sattledttermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "Soziales"));
 
         sattledt1.addTermin(sattledttermin);
+
+        Termin weterm = new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
+        String[] betreuerwe = {"Gusi", "Isi"};
+        String[] kinderwe = {"Meli", "Antonia", "Luki"};
+        weterm.setDoko(new Dokumentation(kinderwe, betreuerwe, "basteln", 2.0, "Soziales"));
+
+        sattledt.addTermin(weterm);
         marchtrenk1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Eislaufen", "Bitte Eislaufschuhe, Winterkleidung und 3€ Eintritt mitnehmen", "Eislaufplatz Marchtrenk"));
         wels.addTermin(new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk"));
         ooe.addTermin(new Termin("2018-02-02 18:00:00", "2018-02-02 21:00:00", "Faschingsumzug", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz"));
 
+        sattledt1.addInfo(new Info("Terminfindung für Fotoshooting", "Bitte Abstimmen Doodle-Link", "assets/lager.jpg"));
+        ooe.addInfo(new Info("Fotos", "fotos sind online oö", "assets/teambuilding.jpg"));
+        wels.addInfo(new Info("Bezirkslager", "Bilder sind endlich auf Dropbox Link:", "assets/lager.jpg"));
+
         Person tom = new Person("00001", "passme", "Tom", "Tester", ooe, Role.LANDESLEITER);
         Person karin = new Person("00002", "passme", "Karin", "Tester", wels, Role.BEZIRKSLEITER);
-        Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt, Role.GRUPPENLEITER);
+        Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt, Role.ORTSTELLENLEITER);
         Person doris = new Person("00004", "passme", "Doris", "Tester", sattledt1, Role.KIND);
         Person isabella = new Person("00005", "passme", "Isabella", "Tester", sattledt1, Role.KIND);
         Person antonia = new Person("00006", "passme", "Antonia", "Tester", marchtrenk, Role.GRUPPENLEITER);
@@ -123,7 +132,6 @@ public class Service {
      */
     @GET
     @Secured({Role.LANDESLEITER})
-
     @Path("listAllPersons")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Person> listAllPersons() {
@@ -136,10 +144,8 @@ public class Service {
      * @return
      */
     @GET
-
     @Path("listAllJRKEntitaeten")
     @Secured({Role.LANDESLEITER})
-
     @Produces(MediaType.APPLICATION_JSON)
     public List<JRKEntitaet> listAllJRKEntitaeten() {
         return repo.listAllJRK();
@@ -153,12 +159,25 @@ public class Service {
      */
     @POST
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Path("getUserTermine")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<Termin> getUserTermine(int id) {
         return repo.getUsertermine(id);
+    }
+
+    /**
+     * Gets Users Infos
+     *
+     * @param id
+     * @return
+     */
+    @POST
+    @Path("getUserInfos")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public List<Info> getUserInfos(int id) {
+        return repo.getUserInfos(id);
     }
 
     /**
@@ -171,7 +190,6 @@ public class Service {
 
     @Path("getName")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
     public String getUsername(int id) {
@@ -187,7 +205,6 @@ public class Service {
     @POST
     @Path("getJRKEntitaet")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public JRKEntitaet getJRKEntitaet(int id) {
@@ -202,7 +219,6 @@ public class Service {
      */
     @Path("insertTermin/{id}")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     public void insertTermin(@PathParam("id") int id, Termin t) {
@@ -216,7 +232,6 @@ public class Service {
      */
     @Path("insertDoko")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     public void insertDoko(Termin d) {
@@ -231,7 +246,6 @@ public class Service {
      */
     @Path("isEditor")
     @Secured({Role.BEZIRKSLEITER, Role.KIND, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
     @POST
@@ -247,7 +261,6 @@ public class Service {
      */
     @Path("getOpenDoko")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     @POST
@@ -258,7 +271,6 @@ public class Service {
     @POST
     @Path("getChartValues")
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<NameValue> getChartValues(int id) {
@@ -266,9 +278,16 @@ public class Service {
     }
 
     @POST
+    @Path("getLowerEntityHourList")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public List<NameValue> getLowerEntityHourList(int id) {
+        return repo.getLowerEntityHourList(id);
+    }
+
+    @POST
     @Path("getTimelineValues")
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<NameValue> getTimelinesValues(int id) {
@@ -278,10 +297,19 @@ public class Service {
     @POST
     @Path("getYearlyHoursPerPeople")
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<NameValue> getYearlyHoursPerPeople(int id) {
         return repo.getYearlyHoursPerPeople(id);
     }
+
+    @POST
+    @Path("getJRKEntitaetdown")
+    @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public List<JRKEntitaet> getJRKEntitaetdown(int id) {
+        return repo.getJRKEntitaetdown(id);
+    }
+
 }

@@ -30,6 +30,7 @@ public class Dokumentation implements Serializable {
         this.betreuer = betreuer;
         this.taetigkeiten = taetigkeiten;
         this.vzeit = vzeit;
+        this.kategorie = kategorie;
     }
 
     public void setId(int id) {

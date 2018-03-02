@@ -23,7 +23,7 @@ import {
 import { CustomDateFormatter } from './custom-date-formatter.provider';
 import { DateTimePickerComponent } from './date-time-picker.component';
 import { colors } from './colors';
-import { HttpClient } from '@angular/common/http';
+import { RestService } from '../rest.service';
 import 'rxjs/add/operator/map';
 import {
   isSameMonth,
@@ -201,26 +201,21 @@ export class DashboardComponent implements OnInit {
   private _onClosed(): void {
   }
 
-  constructor(public http: HttpClient,private user: UserService, private route: ActivatedRoute, private router: Router) {
-    this.http=http;
+  constructor(public rest: RestService,private user: UserService, private route: ActivatedRoute, private router: Router) {
+    this.rest=rest;
   }
 
   ngOnInit(): void {
     const body = localStorage.getItem('currentUser');
-    console.log(body);
-    this.http
-      .post('http://localhost:8080/api/service/getName', body)
+    this.rest.getName(body)
       .subscribe(data => {
-        console.log("getName"+data);
         this.username = JSON.stringify(data).replace("\"","").replace("\"","");
       });
-      this.http
-      .post('http://localhost:8080/api/service/isEditor', body)
+      this.rest.isEditor(body)
       .subscribe(data => {
         this.isEditor = (data === true);
       });
-    this.http
-      .post('http://localhost:8080/api/service/getJRKEntitaet', body)
+    this.rest.getJRKEntitaet(body)
       .subscribe(data => {
         this.jrkEntitaet = data;
       });
@@ -245,11 +240,8 @@ export class DashboardComponent implements OnInit {
     }[this.view];
 
     const body = localStorage.getItem('currentUser');
-    this.events$ = this.http
-      .post('http://localhost:8080/api/service/getUserTermine', body)
+    this.events$ = this.rest.getUserTermine(body)
       .map(json => {
-         console.log('JSON:' , json);
-
         return this.convertEvents(json as Termin[]);
       });
   }

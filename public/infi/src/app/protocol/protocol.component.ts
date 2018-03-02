@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { RestService } from '../rest.service';
 import { Protokoll } from './protocol';
 import { jrkEntitaet } from '../termin/jrkEntitaet.model';
 import { Termin } from './termin';
@@ -11,12 +11,12 @@ import { EventEmitter } from '@angular/core';
   styleUrls: ['./protocol.component.css']
 })
 export class ProtocolComponent implements OnInit {
-  constructor(private http: HttpClient) {
+  constructor(private rest: RestService) {
       this.newChild = '';
       this.children = [];
       this.newBetreuer = '';
       this.betreuer = [];
-      this.http=http;
+      this.rest=rest;
    }
 
   @Output() changeView: EventEmitter<string> = new EventEmitter();
@@ -25,11 +25,8 @@ export class ProtocolComponent implements OnInit {
   
   ngOnInit() {
     const body = localStorage.getItem('currentUser');
-    this.http
-        .post('http://localhost:8080/api/service/getOpenDoko', body)
+    this.rest.getOpenDoko(body)
         .subscribe(data => {
-          debugger;
-          // Read the result field from the JSON response.
           this.term=data as Termin[];
           this.actTermin=this.term[0];
       });
@@ -45,9 +42,7 @@ export class ProtocolComponent implements OnInit {
     this.actProtokol.kinderliste = this.children;
     this.actProtokol.betreuer = this.betreuer;
       this.actTermin.doko = this.actProtokol;
-      // console.log(this.actTermin);
-      this.http
-        .post('http://localhost:8080/api/service/insertDoko', this.actTermin)
+      this.rest.insertDoku(this.actTermin)
         .subscribe(data => {
           this.changeView.emit('month');
       });
@@ -67,8 +62,8 @@ export class ProtocolComponent implements OnInit {
         this.actTermin=this.term[index];
       }
     }
-}
-newChild: string;
+    }
+    newChild: string;
     children: any;
 
     newBetreuer: string;

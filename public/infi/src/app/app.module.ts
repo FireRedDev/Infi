@@ -23,6 +23,8 @@ import { DateTimePickerModule } from 'ng-pick-datetime';
 import { ProtocolComponent } from './protocol/protocol.component';
 import { DiagramsComponent } from './diagrams/diagrams.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
+import { RestService } from './rest.service';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes:Routes = [
   {
@@ -44,7 +46,8 @@ const appRoutes:Routes = [
     DashboardComponent,
     TerminComponent,
     ProtocolComponent,
-    DiagramsComponent
+    DiagramsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +61,7 @@ const appRoutes:Routes = [
     DateTimePickerModule,
     NgxChartsModule
   ],
-  providers: [UserService, AuthguardGuard, AuthService, {
+  providers: [UserService, RestService, AuthguardGuard, AuthService, {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true

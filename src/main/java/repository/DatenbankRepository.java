@@ -373,6 +373,7 @@ public class DatenbankRepository {
         int[] katcount = new int[3];
         for (Termin termin : list) {
             Dokumentation doku = termin.getDoko();
+            if(doku!=null){
             switch (doku.getKategorie()) {
                 case "EH":
                     katcount[0]++;
@@ -384,6 +385,7 @@ public class DatenbankRepository {
                 case "Soziales":
                     katcount[2]++;
                     break;
+            }
             }
         }
         List<NameValue> returnlist = new LinkedList<NameValue>();
@@ -447,12 +449,14 @@ public class DatenbankRepository {
 
         List<Termin> list = jrk.getTermine();
         int[] katcount = new int[3];
+        if(list!=null){
         for (Termin termin : list) {
             Dokumentation doku = termin.getDoko();
             katcount[0] = (katcount[0] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getBetreuer().length;
             katcount[1] = (katcount[1] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getKinderliste().length;
             //POSSIBLE BUG: San ChronoUnit Hours gleichgroß wie deine Hours?
             katcount[2] = (katcount[2] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) + (int) doku.getVzeit();
+        }
         }
         List<NameValue> returnlist = new LinkedList<NameValue>();
         returnlist.add(new NameValue("Betreuer", katcount[0]));
@@ -461,7 +465,8 @@ public class DatenbankRepository {
 
         return returnlist;
     }
-         /**
+         
+    /**
      * 
      * @param id
      * @return 
