@@ -162,6 +162,20 @@ public class DatenbankRepository {
 
     /**
      *
+     * @param id
+     * @return
+     */
+    public List<Info> getUserInfos(int id) {
+        List<Info> info = new LinkedList();
+        Person currentPerson = em.find(Person.class, id);
+        addListInfo(info, currentPerson.getJrkentitaet().getInfo());
+        info = this.infoLayerDown(currentPerson.getJrkentitaet(), info);
+        info = this.infoLayerUp(currentPerson.getJrkentitaet(), info);
+        return info;
+    }
+
+    /**
+     *
      * @param jrk
      * @param termine
      * @return
@@ -194,6 +208,57 @@ public class DatenbankRepository {
             }
         }
         return termine;
+    }
+
+    /**
+     *
+     * @param jrk
+     * @param termine
+     * @return
+     */
+    private List<Info> infoLayerUp(JRKEntitaet jrk, List<Info> info) {
+        List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerUp", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+        if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
+            for (JRKEntitaet entity : jrkentitaet) {
+                addListInfo(info, entity.getInfo());
+                List<Info> term = infoLayerUp(entity, info);
+                addListInfo(info, term);
+            }
+        }
+        return info;
+    }
+
+    /**
+     *
+     * @param jrk
+     * @param termine
+     * @return
+     */
+    private List<Info> infoLayerDown(JRKEntitaet jrk, List<Info> info) {
+        List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+        if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
+            for (JRKEntitaet entity : jrkentitaet) {
+                addListInfo(info, entity.getInfo());
+                List<Info> term = infoLayerDown(entity, info);
+                addListInfo(info, term);
+            }
+        }
+        return info;
+    }
+
+    /**
+     *
+     * @param termine
+     * @param tt
+     * @return
+     */
+    private List<Info> addListInfo(List<Info> info, List<Info> tt) {
+        if (!info.equals(tt)) {
+            for (Info te : tt) {
+                info.add(te);
+            }
+        }
+        return info;
     }
 
     /**
@@ -344,7 +409,9 @@ public class DatenbankRepository {
                     nv.setValue(nv.getValue() + (int) hours);
                 }
             }
-            returnlist.add(nv);
+            if(nv.getValue()!=0){
+                returnlist.add(nv);
+            }         
         }
 
         return returnlist;
@@ -355,10 +422,11 @@ public class DatenbankRepository {
         JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
 
         List<NameValue> returnlist = new LinkedList<NameValue>();
-        for (JRKEntitaet jr : jrk.getJrkentitaet1()) {
+        List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+        for (JRKEntitaet jr : jrks) {
 
             List<Termin> list = jr.getTermine();
-            NameValue nv = new NameValue(jr.getName(), 0);
+            NameValue nv = new NameValue(jr.getName(), 2);
             for (Termin termin : list) {
                 LocalDateTime.parse(termin.getS_date(), formatter);
 
@@ -392,6 +460,16 @@ public class DatenbankRepository {
         returnlist.add(new NameValue("Vorbereitungszeit", katcount[2]));
 
         return returnlist;
+    }
+         /**
+     * 
+     * @param id
+     * @return 
+     */
+    public List<JRKEntitaet> getJRKEntitaetdown(int id) {
+        Person currentPerson = em.find(Person.class, id);
+        JRKEntitaet jrk = currentPerson.getJrkentitaet();
+        return em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
     }
 
     public Termin getTerminbyId(int id) {

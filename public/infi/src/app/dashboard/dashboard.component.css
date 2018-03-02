@@ -97,6 +97,8 @@ i.fa.fa-plus {
     padding-left: 5%;
     padding-right: 30%;
     font-size: 125%;
+    margin-top:10px;
+    margin-bottom:10px;
 }
 
 @import url('http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
@@ -253,4 +255,8 @@ body {
 .black{
     color:black !important;
     background-color: white !important;
+}
+
+hr{
+    margin: 0;
 }
