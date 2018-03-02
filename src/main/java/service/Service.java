@@ -1,12 +1,15 @@
 package service;
 
 import RestResponseClasses.NameValue;
+import repository.PersonTransferObject;
 import entities.*;
 import static entities.Typ.*;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import repository.DatenbankRepository;
+import repository.PersonTokenTransferObject;
 
 /**
  *
@@ -25,6 +28,7 @@ public class Service {
     @GET
     @Path("message")
     public String message() {
+        System.out.println("messagefunction");
         return "INFI Jugendrotkreuz Server up and running..";
     }
 
@@ -33,8 +37,34 @@ public class Service {
      *
      * @return
      */
-    @Path("init")
+    @POST
+    @Produces("application/json")
+    @Consumes("application/json")
+    @Path("login")
+    public PersonTokenTransferObject login(PersonTransferObject pto) {
+        System.out.println("LoginTest");
+
+        return repo.login(pto);
+    }
+
+    /**
+     * Lists all Termine
+     *
+     * @return
+     */
     @GET
+    @Path("listAllTermine")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    public List<Termin> listallTermine() {
+        return repo.termine();
+    }
+
+    /**
+     * Testinitfunction Löschen und ins programm integrieren
+     */
+    @GET
+    @Path("init")
     public String init() {
         Typ gruppe = Gruppe;
         Typ ortstelle = Ortstelle;
@@ -44,7 +74,7 @@ public class Service {
         JRKEntitaet wels = new JRKEntitaet(4, "Wels", bezirkstelle, ooe);
         JRKEntitaet sattledt = new JRKEntitaet(1, "Sattledt", ortstelle, wels);
         JRKEntitaet sattledt1 = new JRKEntitaet(2, "Gruppe1", gruppe, sattledt);
-        JRKEntitaet marchtrenk = new JRKEntitaet(3, "Marchtrenk", ortstelle, wels);
+        JRKEntitaet marchtrenk = new JRKEntitaet(3, "Sattledt", ortstelle, wels);
         JRKEntitaet marchtrenk1 = new JRKEntitaet(6, "Gruppe1", gruppe, marchtrenk);
 
         List<JRKEntitaet> landesleitung = new LinkedList<>();
@@ -68,17 +98,13 @@ public class Service {
         wels.addTermin(new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk"));
         ooe.addTermin(new Termin("2018-02-02 18:00:00", "2018-02-02 21:00:00", "Faschingsumzug", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz"));
 
-        sattledt1.addInfo(new Info("Terminfindung für Fotoshooting", "Bitte Abstimmen Doodle-Link", "assets/lager.jpg"));
-        ooe.addInfo(new Info("Fotos", "fotos sind online oö", "assets/teambuilding.jpg"));
-        wels.addInfo(new Info("Bezirkslager", "Bilder sind endlich auf Dropbox Link:", "assets/lager.jpg"));
-
-        Person tom = new Person("00001", "passme", "Tom", "Tester", ooe);
-        Person karin = new Person("00002", "passme", "Karin", "Tester", wels);
-        Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt);
-        Person doris = new Person("00004", "passme", "Doris", "Tester", sattledt1);
-        Person isabella = new Person("00005", "passme", "Isabella", "Tester", sattledt1);
-        Person antonia = new Person("00006", "passme", "Antonia", "Tester", marchtrenk);
-        Person melanie = new Person("00007", "passme", "Melanie", "Tester", marchtrenk1);
+        Person tom = new Person("00001", "passme", "Tom", "Tester", ooe, Role.LANDESLEITER);
+        Person karin = new Person("00002", "passme", "Karin", "Tester", wels, Role.BEZIRKSLEITER);
+        Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt, Role.GRUPPENLEITER);
+        Person doris = new Person("00004", "passme", "Doris", "Tester", sattledt1, Role.KIND);
+        Person isabella = new Person("00005", "passme", "Isabella", "Tester", sattledt1, Role.KIND);
+        Person antonia = new Person("00006", "passme", "Antonia", "Tester", marchtrenk, Role.GRUPPENLEITER);
+        Person melanie = new Person("00007", "passme", "Melanie", "Tester", marchtrenk1, Role.KIND);
         repo.insert(tom);
         repo.insert(karin);
         repo.insert(gusi);
@@ -91,38 +117,13 @@ public class Service {
     }
 
     /**
-     * Login Function to authenticate
-     *
-     * @param user
-     * @return
-     */
-    @POST
-    @Path("login")
-    @Produces(MediaType.APPLICATION_JSON)
-    public int login(Person user) {
-//        String cookie = "12345";//repo.login(user);
-//        return Response.ok().header("Set-Cookie", "kalendarCookie=" + cookie).build();
-        return repo.login(user);
-    }
-
-    /**
-     * Lists all Termine
-     *
-     * @return
-     */
-    @GET
-    @Path("listAllTermine")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Termin> listallTermine() {
-        return repo.termine();
-    }
-
-    /**
      * Lists all Persons
      *
      * @return
      */
     @GET
+    @Secured({Role.LANDESLEITER})
+
     @Path("listAllPersons")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Person> listAllPersons() {
@@ -135,7 +136,10 @@ public class Service {
      * @return
      */
     @GET
+
     @Path("listAllJRKEntitaeten")
+    @Secured({Role.LANDESLEITER})
+
     @Produces(MediaType.APPLICATION_JSON)
     public List<JRKEntitaet> listAllJRKEntitaeten() {
         return repo.listAllJRK();
@@ -148,25 +152,13 @@ public class Service {
      * @return
      */
     @POST
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+
     @Path("getUserTermine")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<Termin> getUserTermine(int id) {
         return repo.getUsertermine(id);
-    }
-
-    /**
-     * Gets Users Infos
-     *
-     * @param id
-     * @return
-     */
-    @POST
-    @Path("getUserInfos")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.TEXT_PLAIN)
-    public List<Info> getUserInfos(int id) {
-        return repo.getUserInfos(id);
     }
 
     /**
@@ -176,11 +168,14 @@ public class Service {
      * @return
      */
     @POST
+
     @Path("getName")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
     public String getUsername(int id) {
-        return repo.username(id);
+        return "\"" + repo.username(id) + "\"";
     }
 
     /**
@@ -191,6 +186,8 @@ public class Service {
      */
     @POST
     @Path("getJRKEntitaet")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public JRKEntitaet getJRKEntitaet(int id) {
@@ -204,6 +201,8 @@ public class Service {
      * @param t
      */
     @Path("insertTermin/{id}")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     public void insertTermin(@PathParam("id") int id, Termin t) {
@@ -216,6 +215,8 @@ public class Service {
      * @param d Termin
      */
     @Path("insertDoko")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     public void insertDoko(Termin d) {
@@ -229,6 +230,8 @@ public class Service {
      * @return
      */
     @Path("isEditor")
+    @Secured({Role.BEZIRKSLEITER, Role.KIND, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
     @POST
@@ -243,6 +246,8 @@ public class Service {
      * @return
      */
     @Path("getOpenDoko")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     @POST
@@ -252,22 +257,18 @@ public class Service {
 
     @POST
     @Path("getChartValues")
+    @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<NameValue> getChartValues(int id) {
         return repo.getChartValues(id);
     }
-    
-    @POST
-    @Path("getLowerEntityHourList")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.TEXT_PLAIN)
-    public List<NameValue> getLowerEntityHourList(int id) {
-        return repo.getLowerEntityHourList(id);
-    }
 
     @POST
     @Path("getTimelineValues")
+    @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<NameValue> getTimelinesValues(int id) {
@@ -276,17 +277,11 @@ public class Service {
 
     @POST
     @Path("getYearlyHoursPerPeople")
+    @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<NameValue> getYearlyHoursPerPeople(int id) {
         return repo.getYearlyHoursPerPeople(id);
-    }
-    
-    @Path("getJRKEntitaetdown")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.TEXT_PLAIN)
-    @POST
-    public List<JRKEntitaet> getJRKEntitaetdown(int id) {
-        return repo.getJRKEntitaetdown(id);
     }
 }

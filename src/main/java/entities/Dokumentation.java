@@ -6,6 +6,9 @@ package entities;
 import java.io.Serializable;
 import javax.persistence.*;
 
+/**
+ * C.G
+ */
 @Entity
 public class Dokumentation implements Serializable {
 
@@ -27,11 +30,6 @@ public class Dokumentation implements Serializable {
         this.betreuer = betreuer;
         this.taetigkeiten = taetigkeiten;
         this.vzeit = vzeit;
-        this.kategorie = kategorie;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public void setId(int id) {
@@ -77,5 +75,4 @@ public class Dokumentation implements Serializable {
     public void setKategorie(String kategorie) {
         this.kategorie = kategorie;
     }
-
 }

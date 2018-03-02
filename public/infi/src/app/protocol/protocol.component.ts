@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { Http, URLSearchParams } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Protokoll } from './protocol';
 import { jrkEntitaet } from '../termin/jrkEntitaet.model';
 import { Termin } from './termin';
@@ -11,24 +11,26 @@ import { EventEmitter } from '@angular/core';
   styleUrls: ['./protocol.component.css']
 })
 export class ProtocolComponent implements OnInit {
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
       this.newChild = '';
       this.children = [];
       this.newBetreuer = '';
       this.betreuer = [];
+      this.http=http;
    }
 
   @Output() changeView: EventEmitter<string> = new EventEmitter();
   de: any;
-  private term;
+  private term: Termin[];
   
   ngOnInit() {
     const body = localStorage.getItem('currentUser');
     this.http
-        .post('http://localhost:8080/api/service/getOpenDoko', JSON.parse(body))
+        .post('http://localhost:8080/api/service/getOpenDoko', body)
         .subscribe(data => {
+          debugger;
           // Read the result field from the JSON response.
-          this.term=JSON.parse(data["_body"]);
+          this.term=data as Termin[];
           this.actTermin=this.term[0];
       });
     this.de = {

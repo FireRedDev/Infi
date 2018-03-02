@@ -11,12 +11,15 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
+import io.jsonwebtoken.*;
+import java.io.UnsupportedEncodingException;
+import java.time.Instant;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.*;
 
 public class DatenbankRepository {
-
-    @PersistenceContext
 
     private EntityManager em;
 
@@ -53,12 +56,34 @@ public class DatenbankRepository {
      * @param user
      * @return
      */
-    public int login(Person user) {
-        Person b = em.createNamedQuery("Benutzer.login", Person.class).setParameter("personalnr", user.getPersonalnr()).getSingleResult();
-        if (b.getPassword().equals(user.getPassword())) {
-            return b.getId();
+    public PersonTokenTransferObject login(PersonTransferObject pto) {
+        Query query = em.createNamedQuery("Benutzer.login", Person.class);
+        query.setParameter("personalnr", pto.personalnr);
+        Person b = (Person) query.getSingleResult();
+
+        String token = generateJWT(b);
+        if (b.getPassword().equals(pto.password)) {
+            PersonTokenTransferObject pt = new PersonTokenTransferObject(String.valueOf(b.getId()), token);
+
+            em.getTransaction().begin();
+            em.merge(new JWTTokenUser(token, b));
+            em.getTransaction().commit();
+            return pt;
         }
-        return -1;
+        return null;
+    }
+
+    public String generateJWT(Person b) {
+        try {
+            String jwt = Jwts.builder().setSubject("1234567890")
+                    .setId(String.valueOf(b.getId()))
+                    .claim("admin", true).signWith(SignatureAlgorithm.HS256, "secret".getBytes("UTF-8")).compact();
+
+            return jwt;
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(DatenbankRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     /**
@@ -67,6 +92,13 @@ public class DatenbankRepository {
      * @return
      */
     public Person insert(Person b) {
+        em.getTransaction().begin();
+        em.merge(b);
+        em.getTransaction().commit();
+        return b;
+    }
+
+    public JWTTokenUser insert(JWTTokenUser b) {
         em.getTransaction().begin();
         em.merge(b);
         em.getTransaction().commit();
@@ -438,6 +470,10 @@ public class DatenbankRepository {
         Person currentPerson = em.find(Person.class, id);
         JRKEntitaet jrk = currentPerson.getJrkentitaet();
         return em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+    }
+
+    public Termin getTerminbyId(int id) {
+        return em.find(Termin.class, id);
     }
 
 }

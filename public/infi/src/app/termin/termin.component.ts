@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { Termin } from './termin';
-import { Http, URLSearchParams } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { jrkEntitaet } from './jrkEntitaet.model';
 import { EventEmitter } from '@angular/core';
 
@@ -13,7 +13,9 @@ export class TerminComponent implements OnInit {
 @Input() jrkEntitaet: jrkEntitaet;
 @Output() changeView: EventEmitter<string> = new EventEmitter();
 success=false;
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) {
+    this.http=http;
+   }
   de: any;
 
   ngOnInit() {

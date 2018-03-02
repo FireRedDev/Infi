@@ -13,14 +13,16 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
 import { UserService } from './user.service';
 import {AuthguardGuard} from './authguard.guard';
+import {AuthService} from './auth/auth.service';
 import { SidebarModule } from 'ng-sidebar';
 import {HttpClientModule} from '@angular/common/http';
 import { TerminComponent } from './termin/termin.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './auth/token.interceptor';
 import { DateTimePickerModule } from 'ng-pick-datetime';
 import { ProtocolComponent } from './protocol/protocol.component';
 import { DiagramsComponent } from './diagrams/diagrams.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
-import { HomeComponent } from './home/home.component';
 
 const appRoutes:Routes = [
   {
@@ -42,8 +44,7 @@ const appRoutes:Routes = [
     DashboardComponent,
     TerminComponent,
     ProtocolComponent,
-    DiagramsComponent,
-    HomeComponent
+    DiagramsComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +58,11 @@ const appRoutes:Routes = [
     DateTimePickerModule,
     NgxChartsModule
   ],
-  providers: [UserService, AuthguardGuard],
+  providers: [UserService, AuthguardGuard, AuthService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
