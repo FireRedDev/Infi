@@ -7,6 +7,10 @@ import java.io.Serializable;
 import javax.persistence.*;
 import service.Role;
 
+/**
+ *
+ * @author Christopher G
+ */
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Benutzer.listAll", query = "SELECT b FROM Person b")
@@ -35,6 +39,9 @@ public class Person implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private JRKEntitaet jrkentitaet;
 
+    /**
+     *
+     */
     public Person() {
     }
 
@@ -55,18 +62,39 @@ public class Person implements Serializable {
         this.jrkentitaet = jrkentitaet;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @return
+     */
     public Role getRolle() {
         return rolle;
     }
 
+    /**
+     *
+     * @param rolle
+     */
     public void setRolle(Role rolle) {
         this.rolle = rolle;
     }
 
+    /**
+     *
+     * @param personalnr
+     * @param password
+     * @param vorname
+     * @param nachname
+     * @param jrkentitaet
+     * @param rolle
+     */
     public Person(String personalnr, String password, String vorname, String nachname, JRKEntitaet jrkentitaet, Role rolle) {
         this.personalnr = personalnr;
         this.password = password;
@@ -76,46 +104,90 @@ public class Person implements Serializable {
         this.jrkentitaet = jrkentitaet;
     }
 
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPersonalnr() {
         return personalnr;
     }
 
+    /**
+     *
+     * @param personalnr
+     */
     public void setPersonalnr(String personalnr) {
         this.personalnr = personalnr;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getVorname() {
         return vorname;
     }
 
+    /**
+     *
+     * @param vorname
+     */
     public void setVorname(String vorname) {
         this.vorname = vorname;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNachname() {
         return nachname;
     }
 
+    /**
+     *
+     * @param nachname
+     */
     public void setNachname(String nachname) {
         this.nachname = nachname;
     }
 
+    /**
+     *
+     * @return
+     */
     public JRKEntitaet getJrkentitaet() {
         return jrkentitaet;
     }
 
+    /**
+     *
+     * @param jrkentitaet
+     */
     public void setJrkentitaet(JRKEntitaet jrkentitaet) {
         this.jrkentitaet = jrkentitaet;
     }

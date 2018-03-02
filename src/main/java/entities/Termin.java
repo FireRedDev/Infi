@@ -1,12 +1,15 @@
 /**
  * Termin
  */
-
 package entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
 
+/**
+ *
+ * @author Christopher G
+ */
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t"),
@@ -27,6 +30,9 @@ public class Termin implements Serializable {
     @OneToOne
     private Dokumentation doko;
 
+    /**
+     *
+     */
     public Termin() {
     }
 
@@ -66,58 +72,114 @@ public class Termin implements Serializable {
         this.doko = doko;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getS_date() {
         return s_date;
     }
 
+    /**
+     *
+     * @param s_date
+     */
     public void setS_date(String s_date) {
         this.s_date = s_date;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getE_date() {
         return e_date;
     }
 
+    /**
+     *
+     * @param e_date
+     */
     public void setE_date(String e_date) {
         this.e_date = e_date;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @param title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getOrt() {
         return ort;
     }
 
+    /**
+     *
+     * @param ort
+     */
     public void setOrt(String ort) {
         this.ort = ort;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBeschreibung() {
         return beschreibung;
     }
 
+    /**
+     *
+     * @param beschreibung
+     */
     public void setBeschreibung(String beschreibung) {
         this.beschreibung = beschreibung;
     }
 
+    /**
+     *
+     * @return
+     */
     public Dokumentation getDoko() {
         return doko;
     }
 
+    /**
+     *
+     * @param doko
+     */
     public void setDoko(Dokumentation doko) {
         this.doko = doko;
     }

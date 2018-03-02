@@ -3,6 +3,7 @@
  */
 package repository;
 
+import RestResponseClasses.PersonTokenTransferObject;
 import RestResponseClasses.NameValue;
 import entities.*;
 import java.time.LocalDate;
@@ -13,21 +14,25 @@ import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import io.jsonwebtoken.*;
 import java.io.UnsupportedEncodingException;
-import java.time.Instant;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.*;
 
+/**
+ *
+ * @author Christopher G
+ */
 public class DatenbankRepository {
 
-    private EntityManager em;
+    private final EntityManager em;
 
     /**
      * Konstruktor
      */
     public DatenbankRepository() {
-        em = Persistence.createEntityManagerFactory("infiPU").createEntityManager();
+
+        em = EntityManagerSingleton.getInstance().getEm();
     }
 
     /**
@@ -53,7 +58,7 @@ public class DatenbankRepository {
 
     /**
      *
-     * @param user
+     * @param pto
      * @return
      */
     public PersonTokenTransferObject login(PersonTransferObject pto) {
@@ -73,6 +78,11 @@ public class DatenbankRepository {
         return null;
     }
 
+    /**
+     *
+     * @param b
+     * @return
+     */
     public String generateJWT(Person b) {
         try {
             String jwt = Jwts.builder().setSubject("1234567890")
@@ -98,6 +108,11 @@ public class DatenbankRepository {
         return b;
     }
 
+    /**
+     *
+     * @param b
+     * @return
+     */
     public JWTTokenUser insert(JWTTokenUser b) {
         em.getTransaction().begin();
         em.merge(b);
@@ -269,9 +284,9 @@ public class DatenbankRepository {
      */
     private List<Termin> addList(List<Termin> termine, List<Termin> tt) {
         if (!termine.equals(tt)) {
-            for (Termin te : tt) {
+            tt.forEach((te) -> {
                 termine.add(te);
-            }
+            });
         }
         return termine;
     }
@@ -394,6 +409,11 @@ public class DatenbankRepository {
         return returnlist;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<NameValue> getTimelineValues(int id) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
@@ -409,22 +429,26 @@ public class DatenbankRepository {
                     nv.setValue(nv.getValue() + (int) hours);
                 }
             }
-            if(nv.getValue()!=0){
+            if (nv.getValue() != 0) {
                 returnlist.add(nv);
-            }         
+            }
         }
 
         return returnlist;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<NameValue> getLowerEntityHourList(int id) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
 
-        List<NameValue> returnlist = new LinkedList<NameValue>();
+        List<NameValue> returnlist = new LinkedList<>();
         List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
         for (JRKEntitaet jr : jrks) {
-
             List<Termin> list = jr.getTermine();
             NameValue nv = new NameValue(jr.getName(), 2);
             for (Termin termin : list) {
@@ -441,6 +465,11 @@ public class DatenbankRepository {
         return returnlist;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<NameValue> getYearlyHoursPerPeople(int id) {
         JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -461,10 +490,11 @@ public class DatenbankRepository {
 
         return returnlist;
     }
-         /**
-     * 
+
+    /**
+     *
      * @param id
-     * @return 
+     * @return
      */
     public List<JRKEntitaet> getJRKEntitaetdown(int id) {
         Person currentPerson = em.find(Person.class, id);
@@ -472,6 +502,11 @@ public class DatenbankRepository {
         return em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Termin getTerminbyId(int id) {
         return em.find(Termin.class, id);
     }

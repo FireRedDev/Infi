@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import javax.persistence.Entity;
@@ -24,43 +19,84 @@ public class Info {
     private String beschreibung;
     private String imgpath;
 
+    /**
+     *
+     */
     public Info() {
     }
 
+    /**
+     *
+     * @param ueberschrift
+     * @param beschreibung
+     * @param imgpath
+     */
     public Info(String ueberschrift, String beschreibung, String imgpath) {
         this.ueberschrift = ueberschrift;
         this.beschreibung = beschreibung;
         this.imgpath = imgpath;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUeberschrift() {
         return ueberschrift;
     }
 
+    /**
+     *
+     * @param ueberschrift
+     */
     public void setUeberschrift(String ueberschrift) {
         this.ueberschrift = ueberschrift;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getBeschreibung() {
         return beschreibung;
     }
 
+    /**
+     *
+     * @param beschreibung
+     */
     public void setBeschreibung(String beschreibung) {
         this.beschreibung = beschreibung;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getImgpath() {
         return imgpath;
     }
 
+    /**
+     *
+     * @param imgpath
+     */
     public void setImgpath(String imgpath) {
         this.imgpath = imgpath;
     }

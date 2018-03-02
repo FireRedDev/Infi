@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package service;
 
 /**
@@ -10,12 +5,26 @@ package service;
  * @author Christopher G
  */
 public enum Role {
-   
+
+    /**
+     *
+     */
     KIND,
+    /**
+     *
+     */
     GRUPPENLEITER,
+    /**
+     *
+     */
     ORTSTELLENLEITER,
+    /**
+     *
+     */
     BEZIRKSLEITER,
+    /**
+     *
+     */
     LANDESLEITER,
-    
 
 }

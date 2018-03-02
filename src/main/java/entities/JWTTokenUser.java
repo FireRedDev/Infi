@@ -1,19 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+
 import javax.persistence.Id;
 
 /**
-* C.G
+ * C.G
  */
 @Entity
 public class JWTTokenUser implements Serializable {
@@ -25,28 +19,52 @@ public class JWTTokenUser implements Serializable {
     @GeneratedValue
     private Person person;
 
+    /**
+     *
+     * @return
+     */
     public String getToken() {
         return token;
     }
+
+    /**
+     *
+     * @param token
+     */
     public void setToken(String token) {
         this.token = token;
     }
 
+    /**
+     *
+     * @return
+     */
     public Person getPerson() {
         return person;
     }
 
+    /**
+     *
+     * @param person
+     */
     public void setPerson(Person person) {
         this.person = person;
     }
 
+    /**
+     *
+     */
     public JWTTokenUser() {
     }
 
+    /**
+     *
+     * @param token
+     * @param person
+     */
     public JWTTokenUser(String token, Person person) {
         this.token = token;
         this.person = person;
     }
- 
- 
+
 }

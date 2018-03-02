@@ -15,25 +15,26 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Priority;
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Context;
-
 import static javax.ws.rs.core.Response.ResponseBuilder;
 import static javax.ws.rs.core.Response.Status;
 import repository.DatenbankRepository;
+import repository.EntityManagerSingleton;
 
+/**
+ *
+ * @author Christopher G
+ */
 @Secured
 @Provider
 @Priority(Priorities.AUTHORIZATION)
@@ -44,21 +45,25 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
     @Context
     private ResourceInfo resourceInfo;
 
-    private EntityManager em;
+    private final EntityManager em;
 
+    /**
+     *
+     */
     public UserAuthenticationFilter() {
-        em = Persistence.createEntityManagerFactory("infiPU").createEntityManager();
+        em = EntityManagerSingleton.getInstance().getEm();
     }
 
     @Override
     public void filter(ContainerRequestContext requestContext)
-            throws IOException {
+            throws IOException { 
+//TODO: get user/pass from token instead of database
 
         MultivaluedMap<String, String> headers = requestContext.getHeaders();
         System.out.println(" ================ Header start ================");
-        for (String key : headers.keySet()) {
+        headers.keySet().forEach((key) -> {
             System.out.println(key + " " + headers.getFirst(key));
-        }
+        });
         System.out.println(" ================ Header stop ================");
 
         String authorization = requestContext.getHeaderString("Authorization");
@@ -90,7 +95,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
                 // Check if the user is allowed to execute the method
                 // The method annotations override the class annotations
                 if (methodRoles.isEmpty()) {
-                    checkPermissions(classRoles,user);
+                    checkPermissions(classRoles, user);
                 } else {
                     checkPermissions(methodRoles, user);
                 }
@@ -99,11 +104,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
                 requestContext.abortWith(
                         Response.status(Response.Status.FORBIDDEN).build());
             }
-            if (false) {// an der stelle schaun ob der token in der tabelle gespeichert is
-                //TODO
-                //em.find (jwttokenuser klasse,token is der primary key)!
-                // Eintrag in Http-Header:
-                // Authorization: Basic cGFzc21l
+            if (false) {              
                 System.out.println("Authentication failed!");
                 ResponseBuilder responseBuilder = Response.status(Status.UNAUTHORIZED);
                 Response response = responseBuilder.build();
@@ -122,11 +123,11 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
 
     private List<Role> extractRoles(AnnotatedElement annotatedElement) {
         if (annotatedElement == null) {
-            return new ArrayList<Role>();
+            return new ArrayList<>();
         } else {
             Secured secured = annotatedElement.getAnnotation(Secured.class);
             if (secured == null) {
-                return new ArrayList<Role>();
+                return new ArrayList<>();
             } else {
                 Role[] allowedRoles = secured.value();
                 return Arrays.asList(allowedRoles);
@@ -134,6 +135,11 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
         }
     }
 
+    /**
+     *
+     * @param jwt
+     * @return
+     */
     public String decodeJWT(String jwt) {
         try {
 
@@ -163,11 +169,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
             if (role == user.getRolle()) {
                 VALID = true;
             }
-//            for (Role value : Role.values()) {
-//                if ((role == value)) {
-//                    VALID = true;
-//                }
-            //       }
+
         }
         if (!VALID) {
             throw new Exception();

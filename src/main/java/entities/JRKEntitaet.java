@@ -7,10 +7,16 @@ import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
 
+/**
+ *
+ * @author Christopher G
+ */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "JRKEntitaet.listAll", query = "SELECT j FROM JRKEntitaet j"),
-    @NamedQuery(name = "JRKEntitaet.layerDown", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet=:jrkentitaet"),
+    @NamedQuery(name = "JRKEntitaet.listAll", query = "SELECT j FROM JRKEntitaet j")
+    ,
+    @NamedQuery(name = "JRKEntitaet.layerDown", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet=:jrkentitaet")
+    ,
     @NamedQuery(name = "JRKEntitaet.layerUp", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet1=:jrkentitaet")
 })
 public class JRKEntitaet implements Serializable {
@@ -33,10 +39,20 @@ public class JRKEntitaet implements Serializable {
     @OneToMany(mappedBy = "jrkentitaet")
     private List<JRKEntitaet> jrkentitaet1;
 
+    /**
+     *
+     */
     public JRKEntitaet() {
 
     }
 
+    /**
+     *
+     * @param id
+     * @param name
+     * @param typ
+     * @param jrkentitaet
+     */
     public JRKEntitaet(int id, String name, Typ typ, JRKEntitaet jrkentitaet) {
         this.id = id;
         this.name = name;
@@ -44,70 +60,138 @@ public class JRKEntitaet implements Serializable {
         this.jrkentitaet = jrkentitaet;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Typ getTyp() {
         return typ;
     }
 
+    /**
+     *
+     * @param typ
+     */
     public void setTyp(Typ typ) {
         this.typ = typ;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getOrt() {
         return ort;
     }
 
+    /**
+     *
+     * @param ort
+     */
     public void setOrt(String ort) {
         this.ort = ort;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Termin> getTermine() {
         return termine;
     }
 
+    /**
+     *
+     * @param termine
+     */
     public void setTermine(List<Termin> termine) {
         this.termine = termine;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Info> getInfo() {
         return info;
     }
 
+    /**
+     *
+     * @param info
+     */
     public void setInfo(List<Info> info) {
         this.info = info;
     }
 
+    /**
+     *
+     * @return
+     */
     public JRKEntitaet getJrkentitaet() {
         return jrkentitaet;
     }
 
+    /**
+     *
+     * @param jrkentitaet
+     */
     public void setJrkentitaet(JRKEntitaet jrkentitaet) {
         this.jrkentitaet = jrkentitaet;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<JRKEntitaet> getJrkentitaet1() {
         return jrkentitaet1;
     }
 
+    /**
+     *
+     * @param jrkentitaet1
+     */
     public void setJrkentitaet1(List<JRKEntitaet> jrkentitaet1) {
         this.jrkentitaet1 = jrkentitaet1;
     }
 
+    /**
+     *
+     * @param newJRK
+     */
     public void addJRKEntitaet(JRKEntitaet newJRK) {
         if (!this.jrkentitaet1.contains(newJRK)) {
             this.jrkentitaet1.add(newJRK);
@@ -115,6 +199,10 @@ public class JRKEntitaet implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param old
+     */
     public void removeJRKEntitaet(JRKEntitaet old) {
         if (this.jrkentitaet1.contains(old)) {
             this.jrkentitaet1.remove(old);
@@ -122,10 +210,18 @@ public class JRKEntitaet implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param termin
+     */
     public void addTermin(Termin termin) {
         termine.add(termin);
     }
 
+    /**
+     *
+     * @param info
+     */
     public void addInfo(Info info) {
         this.info.add(info);
     }

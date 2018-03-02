@@ -10,6 +10,13 @@ package repository;
  */
 public class PersonTransferObject {
 
+    /**
+     *
+     */
     public String personalnr;
+
+    /**
+     *
+     */
     public String password;
 }
