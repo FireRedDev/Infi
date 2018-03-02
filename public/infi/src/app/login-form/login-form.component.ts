@@ -1,4 +1,5 @@
-import { Http, Headers, RequestOptions } from '@angular/http';
+//import { Http, Headers, RequestOptions } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
@@ -15,7 +16,8 @@ import {Observable} from 'rxjs/Rx';
 })
 export class LoginFormComponent implements OnInit {
   public benutzer: Benutzer;
-  constructor(private http: Http, private router: Router, private user: UserService) {
+  constructor(public http: HttpClient,private router: Router, private user: UserService) {
+    this.http=http;
    }
 
   results: string[];
@@ -44,12 +46,7 @@ export class LoginFormComponent implements OnInit {
        .post('http://localhost:8080/api/service/login', body)
        .map((data: any) => {
         if (data) {
-            if (data.status === 201) {
-                return [{ status: data.status, json: data }];
-            }
-            else if (data.status === 200) {
-                return [{ status: data.status, json: data }];
-            }
+          return data;
         }
     }).catch((error: any) => {
         if (error.status < 400 ||  error.status === 500) {
@@ -57,14 +54,12 @@ export class LoginFormComponent implements OnInit {
           return Observable.throw(new Error(error.status));
         }
     })
-       // See below - subscribe() is still necessary when using post().
-       .subscribe(data => {
-          console.log(data);
-          console.log(data[0],"logged in");
-          this.user.setUserLoggedIn();
-          localStorage.setItem('currentUser',JSON.parse(data[0].json["_body"]).userID);
-          localStorage.setItem('token',JSON.parse(data[0].json["_body"]).token);
-          this.router.navigate(['dashboard']);
+       .subscribe(data => {   
+        console.log(data);
+        this.user.setUserLoggedIn();
+        localStorage.setItem('currentUser',JSON.parse(data.userID));
+        localStorage.setItem('token',JSON.stringify(data.token));
+        this.router.navigate(['dashboard']);
         err=>{
           console.log("error");
           alert("Falsche Personalnummer oder falsches Passwort eingegeben!");

@@ -23,7 +23,7 @@ import {
 import { CustomDateFormatter } from './custom-date-formatter.provider';
 import { DateTimePickerComponent } from './date-time-picker.component';
 import { colors } from './colors';
-import { Http, URLSearchParams } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {
   isSameMonth,
@@ -93,7 +93,7 @@ export class DashboardComponent implements OnInit {
 
   username: String;
   isEditor= true;
-  jrkEntitaet: jrkEntitaet;
+  jrkEntitaet: any;
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
   viewDate: Date = new Date();
@@ -106,8 +106,6 @@ export class DashboardComponent implements OnInit {
   events$: Observable<Array<CalendarEvent<{ termin: Termin }>>>;
 
   activeDayIsOpen = false;
-
-  events: Array<Termin>;
 
   @Output() viewChange: EventEmitter<string> = new EventEmitter();
   @Output() viewDateChange: EventEmitter<Date> = new EventEmitter();
@@ -203,28 +201,28 @@ export class DashboardComponent implements OnInit {
   private _onClosed(): void {
   }
 
-  constructor(private http: Http, private user: UserService, private route: ActivatedRoute, private router: Router) {}
+  constructor(public http: HttpClient,private user: UserService, private route: ActivatedRoute, private router: Router) {
+    this.http=http;
+  }
 
   ngOnInit(): void {
     const body = localStorage.getItem('currentUser');
-    // console.log(body);
+    console.log(body);
     this.http
-      .post('http://localhost:8080/api/service/getName', JSON.parse(body))
+      .post('http://localhost:8080/api/service/getName', body)
       .subscribe(data => {
-        // Read the result field from the JSON response.
-        this.username = data['_body'];
+        console.log("getName"+data);
+        this.username = JSON.stringify(data).replace("\"","").replace("\"","");
       });
       this.http
-      .post('http://localhost:8080/api/service/isEditor', JSON.parse(body))
+      .post('http://localhost:8080/api/service/isEditor', body)
       .subscribe(data => {
-        // Read the result field from the JSON response.
-        this.isEditor = (data['_body'] === 'true');
+        this.isEditor = (data === true);
       });
     this.http
-      .post('http://localhost:8080/api/service/getJRKEntitaet', JSON.parse(body))
+      .post('http://localhost:8080/api/service/getJRKEntitaet', body)
       .subscribe(data => {
-        const help = JSON.parse(data['_body']);
-        this.jrkEntitaet = new jrkEntitaet(help.id, help.name, help.ort);
+        this.jrkEntitaet = data;
       });
     this.fetchEvents();
   }
@@ -248,12 +246,11 @@ export class DashboardComponent implements OnInit {
 
     const body = localStorage.getItem('currentUser');
     this.events$ = this.http
-      .post('http://localhost:8080/api/service/getUserTermine', JSON.parse(body))
-      .map(res => res.json())
+      .post('http://localhost:8080/api/service/getUserTermine', body)
       .map(json => {
-        // console.log('JSON:' , json);
-        this.events = json;
-        return this.convertEvents(this.events);
+         console.log('JSON:' , json);
+
+        return this.convertEvents(json as Termin[]);
       });
   }
 

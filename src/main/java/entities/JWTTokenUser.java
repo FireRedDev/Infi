@@ -19,11 +19,10 @@ import javax.persistence.Id;
 public class JWTTokenUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    private String token;
     @Id
     @GeneratedValue
-    int id;
- 
-    private String token;
     private Person person;
 
     public String getToken() {

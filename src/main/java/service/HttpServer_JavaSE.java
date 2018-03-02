@@ -33,6 +33,7 @@ public class HttpServer_JavaSE {
         ConsoleHandler ch = new ConsoleHandler();
         ch.setLevel(Level.ALL);
         l.addHandler(ch);
+        
         System.in.read();
         server.shutdown();
     }
