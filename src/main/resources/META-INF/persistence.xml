@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-    <persistence-unit name="infiPU" transaction-type="RESOURCE_LOCAL">
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <class>entities.Termin</class>
-        <class>entities.Person</class>
-        <class>entities.Dokumentation</class>
-        <class>entities.Info</class>
-        <class>RestResponseClasses.JWTTokenUser</class>
-        <class>entities.OrganisationalEntity</class>
-        <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/infidb3"/>
-            <property name="javax.persistence.jdbc.user" value="app"/>
-            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
-            <property name="javax.persistence.jdbc.password" value="app"/>
-            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-        </properties>
-    </persistence-unit>
+  <persistence-unit name="infiPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>entities.Termin</class>
+    <class>entities.Person</class>
+    <class>entities.JRKEntitaet</class>
+    <class>entities.Dokumentation</class>
+    <class>entities.JWTTokenUser</class>
+    <class>entities.Info</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/infiDB"/>
+      <property name="javax.persistence.jdbc.user" value="infi"/>
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+      <property name="javax.persistence.jdbc.password" value="infi"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    </properties>
+  </persistence-unit>
 </persistence>

@@ -1,5 +1,3 @@
-// src/app/auth/jwt.interceptor.ts
-// ...
 import 'rxjs/add/operator/do';
 import { Injectable } from '@angular/core';
 import {

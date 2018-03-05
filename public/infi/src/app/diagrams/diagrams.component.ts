@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {single, multi, single2, multi2, single3, multi3, singleChartBar, multiChartBar} from './data';
-import { Http } from '@angular/http';
+import { RestService } from '../rest.service';
 
 @Component({
 selector: 'app-diagrams',
@@ -30,66 +30,77 @@ colorScheme = {
 domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
 };
 
-constructor(private http: Http) {
-Object.assign(this, {single, multi});
-Object.assign(this, {single2, multi2}); 
-Object.assign(this, {single3, multi3});
-Object.assign(this, {singleChartBar, multiChartBar});
-this.http = http;  
-}
+  constructor(private rest: RestService) {
+    Object.assign(this, {single, multi});
+    Object.assign(this, {single2, multi2}); 
+    Object.assign(this, {single3, multi3});
+    Object.assign(this, {singleChartBar, multiChartBar});
+    this.rest = rest;  
+  }
   
 ngOnInit(){
 const body = localStorage.getItem('currentUser');
 this.jrkEnitaet = JSON.parse(body);
 
-this.http
-.post('http://localhost:8080/api/service/getJRKEntitaetdown', JSON.parse(body))
-.subscribe(data => {
-console.log(data)
-// Read the result field from the JSON response.
-this.JRKEntitaeten=JSON.parse(data["_body"]);
-console.log(this.JRKEntitaeten);
-});
+    this.rest.getJRKEntitaetdown(body)
+    .subscribe(data => {
+      console.log(data);
+      this.JRKEntitaeten=data;
+  });
 
-this.http
-.post('http://localhost:8080/api/service/getChartValues', this.jrkEnitaet)
-.subscribe(value => {
-console.log(value)
-this.single = JSON.parse(value["_body"]);
-this.multi = JSON.parse(value["_body"]);
-});
+    this.rest.getChartValues(body)
+    .subscribe(value => {
+        this.single = value;
+        this.multi = value;
+    });
 
-this.http
-.post('http://localhost:8080/api/service/getLowerEntityHourList', 4)
-.subscribe(value => {
-console.log(value)
-this.single2 = JSON.parse(value["_body"]);
-this.multi2 = JSON.parse(value["_body"]);
-});
+   this.rest.getLowerEntityHourList(body)
+    .subscribe(value => {
+        this.single2 = value;
+        this.multi2 = value;
+    });
 
-this.http
-.post('http://localhost:8080/api/service/getYearlyHoursPerPeople',  this.jrkEnitaet)
-.subscribe(value => {
-console.log(value);
-this.multi3 = JSON.parse(value["_body"]);
-this.single3 = JSON.parse(value["_body"]);
-});
+    this.rest.getYearlyHoursPerPeople(body)
+    .subscribe(value => {
+        this.multi3 = value;
+        this.single3 = value;
+    });
 
-this.http
-.post('http://localhost:8080/api/service/getTimelineValues',  this.jrkEnitaet)
-.subscribe(value => {
-console.log(value);
-//this.multiChartBar = JSON.parse(value["_body"]);
-this.singleChartBar = JSON.parse(value["_body"]);
-});
-}
+    this.rest.getTimelineValues(body)
+    .subscribe(value => {
+        this.singleChartBar = value;
+    });
+  }
 
 // pie
 showLabels = true;
 explodeSlices = false;
 doughnut = false;
 
+  set(body: any): void {
+    this.rest.getChartValues(body)
+    .subscribe(value => {
+        this.single = value;
+        this.multi = value;
+    });
 
+   this.rest.getLowerEntityHourList(body)
+    .subscribe(value => {
+        this.single2 = value;
+        this.multi2 = value;
+    });
+
+    this.rest.getYearlyHoursPerPeople(body)
+    .subscribe(value => {
+        this.multi3 = value;
+        this.single3 = value;
+    });
+
+    this.rest.getTimelineValues(body)
+    .subscribe(value => {
+        this.singleChartBar = value;
+    });
+  }
 
 onSelect(event) {
 console.log(event);

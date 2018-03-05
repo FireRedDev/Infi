@@ -1,3 +1,4 @@
+//Farben für Termin Kugel
 export const colors: any = {
 red: {
 primary: '#ad2121',

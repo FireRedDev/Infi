@@ -1,3 +1,4 @@
+//Datum formatieren
 import { CalendarDateFormatter, DateFormatterParams } from 'angular-calendar';
 
 export class CustomDateFormatter extends CalendarDateFormatter {

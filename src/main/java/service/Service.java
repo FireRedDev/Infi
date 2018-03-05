@@ -41,8 +41,6 @@ public class Service {
     @Consumes("application/json")
     @Path("login")
     public PersonTokenTransferObject login(PersonTransferObject pto) {
-        System.out.println("LoginTest");
-
         return repo.login(pto);
     }
 
@@ -66,7 +64,6 @@ public class Service {
      */
     @GET
     @Secured({Role.LANDESLEITER})
-
     @Path("listAllPersons")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Person> listAllPersons() {
@@ -79,10 +76,8 @@ public class Service {
      * @return
      */
     @GET
-
     @Path("listAllJRKEntitaeten")
     @Secured({Role.LANDESLEITER})
-
     @Produces(MediaType.APPLICATION_JSON)
     public List<OrganisationalEntity> listAllJRKEntitaeten() {
         return repo.listAllJRK();
@@ -96,12 +91,25 @@ public class Service {
      */
     @POST
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Path("getUserTermine")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<Termin> getUserTermine(int id) {
         return repo.getUsertermine(id);
+    }
+
+    /**
+     * Gets Users Infos
+     *
+     * @param id
+     * @return
+     */
+    @POST
+    @Path("getUserInfos")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public List<Info> getUserInfos(int id) {
+        return repo.getUserInfos(id);
     }
 
     /**
@@ -114,7 +122,6 @@ public class Service {
 
     @Path("getName")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
     public String getUsername(int id) {
@@ -130,7 +137,6 @@ public class Service {
     @POST
     @Path("getJRKEntitaet")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public OrganisationalEntity getJRKEntitaet(int id) {
@@ -145,7 +151,6 @@ public class Service {
      */
     @Path("insertTermin/{id}")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     public void insertTermin(@PathParam("id") int id, Termin t) {
@@ -159,7 +164,6 @@ public class Service {
      */
     @Path("insertDoko")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     public void insertDoko(Termin d) {
@@ -174,7 +178,6 @@ public class Service {
      */
     @Path("isEditor")
     @Secured({Role.BEZIRKSLEITER, Role.KIND, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
     @POST
@@ -206,7 +209,6 @@ public class Service {
     @POST
     @Path("getChartValues")
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<NameValue> getChartValues(int id) {
@@ -220,9 +222,16 @@ public class Service {
      * @return
      */
     @POST
+    @Path("getLowerEntityHourList")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public List<NameValue> getLowerEntityHourList(int id) {
+        return repo.getLowerEntityHourList(id);
+    }
+
+    @POST
     @Path("getTimelineValues")
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<NameValue> getTimelinesValues(int id) {
@@ -238,10 +247,19 @@ public class Service {
     @POST
     @Path("getYearlyHoursPerPeople")
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<NameValue> getYearlyHoursPerPeople(int id) {
         return repo.getYearlyHoursPerPeople(id);
     }
+
+    @POST
+    @Path("getJRKEntitaetdown")
+    @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public List<JRKEntitaet> getJRKEntitaetdown(int id) {
+        return repo.getJRKEntitaetdown(id);
+    }
+
 }

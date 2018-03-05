@@ -23,6 +23,8 @@ import { DateTimePickerModule } from 'ng-pick-datetime';
 import { ProtocolComponent } from './protocol/protocol.component';
 import { DiagramsComponent } from './diagrams/diagrams.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
+import { RestService } from './rest.service';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes:Routes = [
 {
@@ -36,34 +38,35 @@ component: DashboardComponent
 }
 ]
 @NgModule({
-declarations: [
-AppComponent,
-HeaderComponent,
-LoginFormComponent,
-FooterComponent,
-DashboardComponent,
-TerminComponent,
-ProtocolComponent,
-DiagramsComponent
-],
-imports: [
-BrowserModule,
-HttpClientModule,
-BrowserAnimationsModule,
-FormsModule,
-HttpModule,
-RouterModule.forRoot(appRoutes),
-CalendarModule.forRoot(),
-SidebarModule.forRoot(),
-DateTimePickerModule,
-NgxChartsModule
-],
-providers: [UserService, AuthguardGuard, AuthService, {
-provide: HTTP_INTERCEPTORS,
-useClass: TokenInterceptor,
-multi: true
-}],
-bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    LoginFormComponent,
+    FooterComponent,
+    DashboardComponent,
+    TerminComponent,
+    ProtocolComponent,
+    DiagramsComponent,
+    HomeComponent
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpModule,
+    RouterModule.forRoot(appRoutes),
+    CalendarModule.forRoot(),
+    SidebarModule.forRoot(),
+    DateTimePickerModule,
+    NgxChartsModule
+  ],
+  providers: [UserService, RestService, AuthguardGuard, AuthService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
 

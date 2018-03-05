@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { RestService } from '../rest.service';
 import { Protokoll } from './protocol';
 import { jrkEntitaet } from '../termin/jrkEntitaet.model';
 import { Termin } from './termin';
@@ -11,13 +11,13 @@ templateUrl: './protocol.component.html',
 styleUrls: ['./protocol.component.css']
 })
 export class ProtocolComponent implements OnInit {
-constructor(private http: HttpClient) {
-this.newChild = '';
-this.children = [];
-this.newBetreuer = '';
-this.betreuer = [];
-this.http=http;
-}
+  constructor(private rest: RestService) {
+      this.newChild = '';
+      this.children = [];
+      this.newBetreuer = '';
+      this.betreuer = [];
+      this.rest=rest;
+   }
 
 @Output() changeView: EventEmitter<string> = new EventEmitter();
     de: any;
@@ -25,14 +25,11 @@ this.http=http;
   
     ngOnInit() {
     const body = localStorage.getItem('currentUser');
-    this.http
-    .post('http://localhost:8080/api/service/getOpenDoko', body)
-    .subscribe(data => {
-    debugger;
-    // Read the result field from the JSON response.
-    this.term=data as Termin[];
-    this.actTermin=this.term[0];
-    });
+    this.rest.getOpenDoko(body)
+        .subscribe(data => {
+          this.term=data as Termin[];
+          this.actTermin=this.term[0];
+      });
     this.de = {
     firstDayOfWeek: 0,
     dayNames: ["Sonntag", "Montag", "Dienstag","Mittwoch", "Donnerstag", "Freitag", "Samstag"],
@@ -44,13 +41,11 @@ this.http=http;
     save(){
     this.actProtokol.kinderliste = this.children;
     this.actProtokol.betreuer = this.betreuer;
-    this.actTermin.doko = this.actProtokol;
-    // console.log(this.actTermin);
-    this.http
-    .post('http://localhost:8080/api/service/insertDoko', this.actTermin)
-    .subscribe(data => {
-    this.changeView.emit('month');
-    });
+      this.actTermin.doko = this.actProtokol;
+      this.rest.insertDoku(this.actTermin)
+        .subscribe(data => {
+          this.changeView.emit('month');
+      });
 
     }
   
@@ -65,7 +60,6 @@ this.http=http;
     for (index = 0; index < this.term.length; ++index) {
     if(this.term[index].id == id){
     this.actTermin=this.term[index];
-    }
     }
     }
     newChild: string;

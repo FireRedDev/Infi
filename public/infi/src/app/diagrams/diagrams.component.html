@@ -3,60 +3,57 @@
         <option *ngFor="let JRKEntitaet of JRKEntitaeten, let i=index" [selected]="i==0" [value]="JRKEntitaet.id">{{JRKEntitaet.name}}</option>
     </select>
 </div>
-
+<h2>Kategorien</h2>
 <ngx-charts-pie-chart
-    [view]="view"
-    [scheme]="colorScheme"
-    [results]="single"
-    [legend]="showLegend"
-    [explodeSlices]="explodeSlices"
-    [labels]="showLabels"
-    [doughnut]="doughnut"
-    [gradient]="gradient"
-    (select)="onSelect($event)">
+[view]="view"
+[scheme]="colorScheme"
+[results]="single"
+[legend]=false
+[explodeSlices]="explodeSlices"
+[labels]="showLabels"
+[doughnut]="doughnut"
+[gradient]="gradient"
+(select)="onSelect($event)">
 </ngx-charts-pie-chart>
-<br>
-<br>
+<h2>Aufteilung auf Gruppen</h2>
 <ngx-charts-pie-chart
-    [view]="view"
-    [scheme]="colorScheme"
-    [results]="single2"
-    [legend]="showLegend"
-    [explodeSlices]="explodeSlices"
-    [labels]="showLabels"
-    [doughnut]="doughnut"
-    [gradient]="gradient"
-    (select)="onSelect($event)">
+[view]="view"
+[scheme]="colorScheme"
+[results]="single2"
+[legend]=false
+[explodeSlices]="explodeSlices"
+[labels]="showLabels"
+[doughnut]="doughnut"
+[gradient]="gradient"
+(select)="onSelect($event)">
 </ngx-charts-pie-chart>
-
-
+<h2>Zeitleiste</h2>
 <ngx-charts-bar-vertical
-    [view]="diagrams"
-    [scheme]="colorScheme"
-    [results]="singleChartBar"
-    [gradient]="gradient"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [legend]="showLegend"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    (select)="onSelect($event)">
+[view]="diagrams"
+[scheme]="colorScheme"
+[results]="singleChartBar"
+[gradient]="gradient"
+[xAxis]=true
+[yAxis]=true
+[legend]=false
+[showXAxisLabel]=true
+[showYAxisLabel]=true
+[xAxisLabel]="Monat"
+[yAxisLabel]="Stunden"
+(select)="onSelect($event)">
 </ngx-charts-bar-vertical>
-
-
+<h2>geleistete Stunden</h2>
 <ngx-charts-bar-horizontal
-    [view]="view"
-    [scheme]="colorScheme"
-    [results]="single3"
-    [gradient]="gradient"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [legend]="showLegend"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    (select)="onSelect($event)">
+[view]="view"
+[scheme]="colorScheme"
+[results]="single3"
+[gradient]="gradient"
+[xAxis]=true
+[yAxis]=true
+[legend]=false
+[showXAxisLabel]="showXAxisLabel"
+[showYAxisLabel]="showYAxisLabel"
+[xAxisLabel]="xAxisLabel"
+[yAxisLabel]="yAxisLabel"
+(select)="onSelect($event)">
 </ngx-charts-bar-horizontal>
