@@ -51,6 +51,8 @@ import { Subject } from 'rxjs/Subject';
 import { CustomEventTitleFormatter } from './custom-event-title-formatter.provider';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Benutzer } from '../login-form/benutzer.model';
+declare var jquery: any;
+declare var $: any;
 
 interface Termin {
   id: number;
@@ -220,6 +222,7 @@ export class DashboardComponent implements OnInit {
         this.jrkEntitaet = data;
       });
     this.fetchEvents();
+    $('#exampleModal').modal('show');
   }
 
   changeView(message: string){

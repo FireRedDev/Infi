@@ -15,6 +15,7 @@ import { RestService } from '../rest.service';
 })
 export class LoginFormComponent implements OnInit {
   public benutzer: Benutzer;
+
   constructor(public rest: RestService,private router: Router, private user: UserService) {
     this.rest=rest;
    }
@@ -52,5 +53,4 @@ export class LoginFormComponent implements OnInit {
         }
       });    
   }
-
 }
