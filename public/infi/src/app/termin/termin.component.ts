@@ -5,9 +5,9 @@ import { jrkEntitaet } from './jrkEntitaet.model';
 import { EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-termin',
-  templateUrl: './termin.component.html',
-  styleUrls: ['./termin.component.css']
+selector: 'app-termin',
+templateUrl: './termin.component.html',
+styleUrls: ['./termin.component.css']
 })
 export class TerminComponent implements OnInit {
 @Input() jrkEntitaet: jrkEntitaet;
@@ -18,7 +18,7 @@ success=false;
    }
   de: any;
 
-  ngOnInit() {
+    ngOnInit() {
     this.de = {
             firstDayOfWeek: 0,
             dayNames: ["Sonntag", "Montag", "Dienstag","Mittwoch", "Donnerstag", "Freitag", "Samstag"],
@@ -35,8 +35,8 @@ success=false;
       this.success=true;
   }
   
-  actTermin:Termin = new Termin(0,'','','','','');
-  submitted = false;
+    actTermin:Termin = new Termin(0,'','','','','');
+    submitted = false;
  
-  onSubmit() { this.submitted = true; }
-}
+    onSubmit() { this.submitted = true; }
+    }

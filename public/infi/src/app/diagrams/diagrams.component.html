@@ -1,7 +1,7 @@
 <div align="center">
-        <select class="form-control" #selectElem (change)="set(selectElem.value)" name="jrkselect">
-            <option *ngFor="let JRKEntitaet of JRKEntitaeten, let i=index" [selected]="i==0" [value]="JRKEntitaet.id">{{JRKEntitaet.name}}</option>
-        </select>
+    <select class="form-control" #selectElem (change)="set(selectElem.value)" name="jrkselect">
+        <option *ngFor="let JRKEntitaet of JRKEntitaeten, let i=index" [selected]="i==0" [value]="JRKEntitaet.id">{{JRKEntitaet.name}}</option>
+    </select>
 </div>
 <h2>Kategorien</h2>
 <ngx-charts-pie-chart

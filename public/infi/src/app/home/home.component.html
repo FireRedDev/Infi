@@ -1,11 +1,11 @@
 <div class="card-deck">
-  <div *ngFor="let i of infos">
-      <div class="card">
-          <div class="card-block">
-            <h4 class="card-title">{{i.ueberschrift}}</h4>
-            <p class="card-text">{{i.beschreibung}}</p>
-          </div>
-          <img class="card-img-bottom" [src]=i.imgpath alt="Bild">
-      </div>
-  </div>
+    <div *ngFor="let i of infos">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">{{i.ueberschrift}}</h4>
+                <p class="card-text">{{i.beschreibung}}</p>
+            </div>
+            <img class="card-img-bottom" [src]=i.imgpath alt="Bild">
+        </div>
+    </div>
 </div>

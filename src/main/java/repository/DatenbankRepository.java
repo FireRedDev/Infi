@@ -3,6 +3,9 @@
  */
 package repository;
 
+import RestResponseClasses.PersonTransferObject;
+import RestResponseClasses.JWTTokenUser;
+import RestResponseClasses.PersonTokenTransferObject;
 import RestResponseClasses.NameValue;
 import entities.*;
 import java.time.LocalDate;
@@ -13,21 +16,26 @@ import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import io.jsonwebtoken.*;
 import java.io.UnsupportedEncodingException;
-import java.time.Instant;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.*;
 
+/**
+ * Repository
+ *
+ * @author Christopher G
+ */
 public class DatenbankRepository {
 
-    private EntityManager em;
+    private final EntityManager em;
 
     /**
      * Konstruktor
      */
     public DatenbankRepository() {
-        em = Persistence.createEntityManagerFactory("infiPU").createEntityManager();
+//get database
+        em = EntityManagerSingleton.getInstance().getEm();
     }
 
     /**
@@ -44,6 +52,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Returns all Users
      *
      * @return
      */
@@ -52,19 +61,22 @@ public class DatenbankRepository {
     }
 
     /**
+     * Login
      *
-     * @param user
+     * @param pto
      * @return
      */
     public PersonTokenTransferObject login(PersonTransferObject pto) {
+        //Find User and create Person Object
         Query query = em.createNamedQuery("Benutzer.login", Person.class);
         query.setParameter("personalnr", pto.personalnr);
         Person b = (Person) query.getSingleResult();
-
+//generate token
         String token = generateJWT(b);
+        //check password
         if (b.getPassword().equals(pto.password)) {
             PersonTokenTransferObject pt = new PersonTokenTransferObject(String.valueOf(b.getId()), token);
-
+//return user and token
             em.getTransaction().begin();
             em.merge(new JWTTokenUser(token, b));
             em.getTransaction().commit();
@@ -73,11 +85,17 @@ public class DatenbankRepository {
         return null;
     }
 
+    /**
+     * Generate JWT String with JWTs Libary, encrypted
+     *
+     * @param b
+     * @return
+     */
     public String generateJWT(Person b) {
         try {
             String jwt = Jwts.builder().setSubject("1234567890")
                     .setId(String.valueOf(b.getId()))
-                    .claim("admin", true).signWith(SignatureAlgorithm.HS256, "secret".getBytes("UTF-8")).compact();
+                    .claim("admin", true).signWith(SignatureAlgorithm.HS256, "secretswaggy132".getBytes("UTF-8")).compact();
 
             return jwt;
         } catch (UnsupportedEncodingException ex) {
@@ -87,6 +105,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Insert Person into Database
      *
      * @param b
      * @return
@@ -98,6 +117,11 @@ public class DatenbankRepository {
         return b;
     }
 
+    /**
+     *
+     * @param b
+     * @return
+     */
     public JWTTokenUser insert(JWTTokenUser b) {
         em.getTransaction().begin();
         em.merge(b);
@@ -131,13 +155,14 @@ public class DatenbankRepository {
      *
      * @param ortsstelle
      */
-    public void insert(JRKEntitaet ortsstelle) {
+    public void insert(OrganisationalEntity ortsstelle) {
         em.getTransaction().begin();
         em.merge(ortsstelle);
         em.getTransaction().commit();
     }
 
     /**
+     * Lists all Termine
      *
      * @return
      */
@@ -154,8 +179,11 @@ public class DatenbankRepository {
     public List<Termin> getUsertermine(int id) {
         List<Termin> termine = new LinkedList();
         Person currentPerson = em.find(Person.class, id);
+        //Check for Duplicates, prepare Termin list
         addList(termine, currentPerson.getJrkentitaet().getTermine());
+        //Recursivly get Termine hierarchic upwards
         termine = this.termineLayerDown(currentPerson.getJrkentitaet(), termine);
+        //Recursivly get Termine hierarchic downwards
         termine = this.termineLayerUp(currentPerson.getJrkentitaet(), termine);
         return termine;
     }
@@ -167,8 +195,11 @@ public class DatenbankRepository {
      */
     public List<Info> getUserInfos(int id) {
         List<Info> info = new LinkedList();
+        //find Person with primary key
         Person currentPerson = em.find(Person.class, id);
         addListInfo(info, currentPerson.getJrkentitaet().getInfo());
+        //Recursivly get Info hierarchic upwards
+        //Recursivly get Info hierarchic downwards
         info = this.infoLayerDown(currentPerson.getJrkentitaet(), info);
         info = this.infoLayerUp(currentPerson.getJrkentitaet(), info);
         return info;
@@ -180,10 +211,13 @@ public class DatenbankRepository {
      * @param termine
      * @return
      */
-    private List<Termin> termineLayerUp(JRKEntitaet jrk, List<Termin> termine) {
-        List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerUp", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+    private List<Termin> termineLayerUp(OrganisationalEntity jrk, List<Termin> termine) {
+        List<OrganisationalEntity> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerUp", OrganisationalEntity.class).setParameter("jrkentitaet", jrk).getResultList();
+        //Does List exist and is it filled
         if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
-            for (JRKEntitaet entity : jrkentitaet) {
+            //Go through all entitys
+            for (OrganisationalEntity entity : jrkentitaet) {
+                //Prepare Termin List, check for duplicates
                 addList(termine, entity.getTermine());
                 List<Termin> term = termineLayerUp(entity, termine);
                 addList(termine, term);
@@ -198,10 +232,10 @@ public class DatenbankRepository {
      * @param termine
      * @return
      */
-    private List<Termin> termineLayerDown(JRKEntitaet jrk, List<Termin> termine) {
-        List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+    private List<Termin> termineLayerDown(OrganisationalEntity jrk, List<Termin> termine) {
+        List<OrganisationalEntity> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerDown", OrganisationalEntity.class).setParameter("jrkentitaet", jrk).getResultList();
         if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
-            for (JRKEntitaet entity : jrkentitaet) {
+            for (OrganisationalEntity entity : jrkentitaet) {
                 addList(termine, entity.getTermine());
                 List<Termin> term = termineLayerDown(entity, termine);
                 addList(termine, term);
@@ -216,10 +250,10 @@ public class DatenbankRepository {
      * @param termine
      * @return
      */
-    private List<Info> infoLayerUp(JRKEntitaet jrk, List<Info> info) {
-        List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerUp", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+    private List<Info> infoLayerUp(OrganisationalEntity jrk, List<Info> info) {
+        List<OrganisationalEntity> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerUp", OrganisationalEntity.class).setParameter("jrkentitaet", jrk).getResultList();
         if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
-            for (JRKEntitaet entity : jrkentitaet) {
+            for (OrganisationalEntity entity : jrkentitaet) {
                 addListInfo(info, entity.getInfo());
                 List<Info> term = infoLayerUp(entity, info);
                 addListInfo(info, term);
@@ -234,10 +268,10 @@ public class DatenbankRepository {
      * @param termine
      * @return
      */
-    private List<Info> infoLayerDown(JRKEntitaet jrk, List<Info> info) {
-        List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+    private List<Info> infoLayerDown(OrganisationalEntity jrk, List<Info> info) {
+        List<OrganisationalEntity> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerDown", OrganisationalEntity.class).setParameter("jrkentitaet", jrk).getResultList();
         if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
-            for (JRKEntitaet entity : jrkentitaet) {
+            for (OrganisationalEntity entity : jrkentitaet) {
                 addListInfo(info, entity.getInfo());
                 List<Info> term = infoLayerDown(entity, info);
                 addListInfo(info, term);
@@ -269,9 +303,9 @@ public class DatenbankRepository {
      */
     private List<Termin> addList(List<Termin> termine, List<Termin> tt) {
         if (!termine.equals(tt)) {
-            for (Termin te : tt) {
+            tt.forEach((te) -> {
                 termine.add(te);
-            }
+            });
         }
         return termine;
     }
@@ -289,8 +323,8 @@ public class DatenbankRepository {
      *
      * @return
      */
-    public List<JRKEntitaet> listAllJRK() {
-        return em.createNamedQuery("JRKEntitaet.listAll", JRKEntitaet.class).getResultList();
+    public List<OrganisationalEntity> listAllJRK() {
+        return em.createNamedQuery("JRKEntitaet.listAll", OrganisationalEntity.class).getResultList();
     }
 
     /**
@@ -299,7 +333,7 @@ public class DatenbankRepository {
      * @param t
      */
     public void insertTermin(int id, Termin t) {
-        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+        OrganisationalEntity jrk = em.find(OrganisationalEntity.class, id);
         t.setDoko(null);
         jrk.addTermin(t);
         insert(jrk);
@@ -310,8 +344,8 @@ public class DatenbankRepository {
      * @param id
      * @return
      */
-    public JRKEntitaet getJRKEntitaet(int id) {
-        JRKEntitaet jrk = em.createNamedQuery("Benutzer.jrkEntitaet", JRKEntitaet.class).setParameter("id", id).getSingleResult();
+    public OrganisationalEntity getJRKEntitaet(int id) {
+        OrganisationalEntity jrk = em.createNamedQuery("Benutzer.jrkEntitaet", OrganisationalEntity.class).setParameter("id", id).getSingleResult();
         return jrk;
     }
 
@@ -322,7 +356,7 @@ public class DatenbankRepository {
      */
     public boolean isEditor(int id) {
         Person p = em.find(Person.class, id);
-        return p.getJrkentitaet().getTyp() != Typ.Gruppe;
+        return p.getJrkentitaet().getTyp() != OrganisationEntityType.Gruppe;
     }
 
     /**
@@ -333,8 +367,10 @@ public class DatenbankRepository {
     public List<Termin> getOpenDoko(int id) {
         List<Termin> termine = this.getUsertermine(id);
         List<Termin> te = new LinkedList<>();
+        //Parser for our Date Format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         for (Termin t : termine) {
+            //Where is no documentation and the Date is before right now
             if (t.getDoko() == null && LocalDate.parse(t.getE_date(), formatter).isBefore(LocalDate.now())) {
                 te.add(t);
             }
@@ -368,9 +404,11 @@ public class DatenbankRepository {
      * @return
      */
     public List<NameValue> getChartValues(int id) {
-        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+        OrganisationalEntity jrk = em.find(OrganisationalEntity.class, id);
         List<Termin> list = jrk.getTermine();
+        //to count the categories
         int[] katcount = new int[3];
+        //go through the terminlist and count its categories
         for (Termin termin : list) {
             Dokumentation doku = termin.getDoko();
             if(doku!=null){
@@ -396,14 +434,23 @@ public class DatenbankRepository {
         return returnlist;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<NameValue> getTimelineValues(int id) {
+        //to count the categories
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+        OrganisationalEntity jrk = em.find(OrganisationalEntity.class, id);
         List<Termin> list = jrk.getTermine();
-        List<NameValue> returnlist = new LinkedList<NameValue>();
+        List<NameValue> returnlist = new LinkedList<>();
+        //go through all 12 Months
         for (Month month : Month.values()) {
+            //for each month create a namevalue class(name is the month)
             NameValue nv = new NameValue(month.getDisplayName(TextStyle.FULL, Locale.getDefault()), 0);
             for (Termin termin : list) {
+                //get the value attribute by adding the hours to the value attribute(with help of hours) if the month is our current month
                 LocalDateTime.parse(termin.getS_date(), formatter);
                 if (LocalDateTime.parse(termin.getS_date(), formatter).getMonth() == month) {
                     LocalDateTime.parse(termin.getE_date(), formatter);
@@ -411,24 +458,31 @@ public class DatenbankRepository {
                     nv.setValue(nv.getValue() + (int) hours);
                 }
             }
-            if(nv.getValue()!=0){
+            if (nv.getValue() != 0) {
                 returnlist.add(nv);
-            }         
+            }
         }
 
         return returnlist;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<NameValue> getLowerEntityHourList(int id) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+        OrganisationalEntity jrk = em.find(OrganisationalEntity.class, id);
 
-        List<NameValue> returnlist = new LinkedList<NameValue>();
-        List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
-        for (JRKEntitaet jr : jrks) {
-
+        List<NameValue> returnlist = new LinkedList<>();
+        List<OrganisationalEntity> jrks = em.createNamedQuery("JRKEntitaet.layerDown", OrganisationalEntity.class).setParameter("jrkentitaet", jrk).getResultList();
+        // go through all hierarchicly lower jrk entities
+        for (OrganisationalEntity jr : jrks) {
+            //get current jrks termine
             List<Termin> list = jr.getTermine();
             NameValue nv = new NameValue(jr.getName(), 2);
+            //count the time of each termin for the jrk entity
             for (Termin termin : list) {
                 LocalDateTime.parse(termin.getS_date(), formatter);
 
@@ -443,8 +497,13 @@ public class DatenbankRepository {
         return returnlist;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<NameValue> getYearlyHoursPerPeople(int id) {
-        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+        OrganisationalEntity jrk = em.find(OrganisationalEntity.class, id);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         List<Termin> list = jrk.getTermine();
@@ -452,9 +511,12 @@ public class DatenbankRepository {
         if(list!=null){
         for (Termin termin : list) {
             Dokumentation doku = termin.getDoko();
+            // get the betreues time
             katcount[0] = (katcount[0] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getBetreuer().length;
+            //get the kinders time
             katcount[1] = (katcount[1] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getKinderliste().length;
             //POSSIBLE BUG: San ChronoUnit Hours gleichgroß wie deine Hours?
+            //get the Preparationtime
             katcount[2] = (katcount[2] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) + (int) doku.getVzeit();
         }
         }
@@ -469,14 +531,19 @@ public class DatenbankRepository {
     /**
      * 
      * @param id
-     * @return 
+     * @return
      */
-    public List<JRKEntitaet> getJRKEntitaetdown(int id) {
+    public List<OrganisationalEntity> getJRKEntitaetdown(int id) {
         Person currentPerson = em.find(Person.class, id);
-        JRKEntitaet jrk = currentPerson.getJrkentitaet();
-        return em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+        OrganisationalEntity jrk = currentPerson.getJrkentitaet();
+        return em.createNamedQuery("JRKEntitaet.layerDown", OrganisationalEntity.class).setParameter("jrkentitaet", jrk).getResultList();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Termin getTerminbyId(int id) {
         return em.find(Termin.class, id);
     }

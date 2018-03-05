@@ -6,9 +6,9 @@ import { Termin } from './termin';
 import { EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-protocol',
-  templateUrl: './protocol.component.html',
-  styleUrls: ['./protocol.component.css']
+selector: 'app-protocol',
+templateUrl: './protocol.component.html',
+styleUrls: ['./protocol.component.css']
 })
 export class ProtocolComponent implements OnInit {
   constructor(private rest: RestService) {
@@ -19,11 +19,11 @@ export class ProtocolComponent implements OnInit {
       this.rest=rest;
    }
 
-  @Output() changeView: EventEmitter<string> = new EventEmitter();
-  de: any;
-  private term: Termin[];
+@Output() changeView: EventEmitter<string> = new EventEmitter();
+    de: any;
+    private term: Termin[];
   
-  ngOnInit() {
+    ngOnInit() {
     const body = localStorage.getItem('currentUser');
     this.rest.getOpenDoko(body)
         .subscribe(data => {
@@ -31,14 +31,14 @@ export class ProtocolComponent implements OnInit {
           this.actTermin=this.term[0];
       });
     this.de = {
-            firstDayOfWeek: 0,
-            dayNames: ["Sonntag", "Montag", "Dienstag","Mittwoch", "Donnerstag", "Freitag", "Samstag"],
-            dayNamesShort: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
-            monthNames: [ "Jänner","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember" ],
-            monthNamesShort: [ "Jän", "Feb", "Mär", "Apr", "Mai", "Jun","Jul", "Aug", "Sep", "Okt", "Nov", "Dez" ]
-        };
-  }
-  save(){
+    firstDayOfWeek: 0,
+    dayNames: ["Sonntag", "Montag", "Dienstag","Mittwoch", "Donnerstag", "Freitag", "Samstag"],
+    dayNamesShort: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+    monthNames: [ "Jänner","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember" ],
+    monthNamesShort: [ "Jän", "Feb", "Mär", "Apr", "Mai", "Jun","Jul", "Aug", "Sep", "Okt", "Nov", "Dez" ]
+    };
+    }
+    save(){
     this.actProtokol.kinderliste = this.children;
     this.actProtokol.betreuer = this.betreuer;
       this.actTermin.doko = this.actProtokol;
@@ -47,20 +47,19 @@ export class ProtocolComponent implements OnInit {
           this.changeView.emit('month');
       });
 
-  }
+    }
   
-  actProtokol: Protokoll = new Protokoll(0,null,null,'','Soziales');
-  actTermin:Termin = new Termin();
-  submitted = false;
+    actProtokol: Protokoll = new Protokoll(0,null,null,'','Soziales');
+    actTermin:Termin = new Termin();
+    submitted = false;
  
-  onSubmit() { this.submitted = true; }
+    onSubmit() { this.submitted = true; }
 
-  setTermin(id: any): void {
+    setTermin(id: any): void {
     var index;
     for (index = 0; index < this.term.length; ++index) {
-      if(this.term[index].id == id){
-        this.actTermin=this.term[index];
-      }
+    if(this.term[index].id == id){
+    this.actTermin=this.term[index];
     }
     }
     newChild: string;
@@ -70,24 +69,24 @@ export class ProtocolComponent implements OnInit {
     betreuer: any;
 
     addChild(event) {
-      this.children.push(this.newChild);
-      this.newChild = '';
-      event.preventDefault();
+    this.children.push(this.newChild);
+    this.newChild = '';
+    event.preventDefault();
     }
 
     deleteChild(index) {
-      this.children.splice(index, 1);
+    this.children.splice(index, 1);
     }
 
     addBetreuer(event) {
-      this.betreuer.push(this.newBetreuer);
-      this.newBetreuer = '';
-      event.preventDefault();
+    this.betreuer.push(this.newBetreuer);
+    this.newBetreuer = '';
+    event.preventDefault();
     }
 
     deleteBetreuer(index) {
-      this.betreuer.splice(index, 1);
+    this.betreuer.splice(index, 1);
     }
 
-}
+    }
 

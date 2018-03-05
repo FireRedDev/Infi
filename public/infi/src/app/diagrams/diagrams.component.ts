@@ -3,32 +3,32 @@ import {single, multi, single2, multi2, single3, multi3, singleChartBar, multiCh
 import { RestService } from '../rest.service';
 
 @Component({
-  selector: 'app-diagrams',
-  templateUrl: './diagrams.component.html',
-  styleUrls: ['./diagrams.component.css']
+selector: 'app-diagrams',
+templateUrl: './diagrams.component.html',
+styleUrls: ['./diagrams.component.css']
 })
 export class DiagramsComponent implements OnInit{
 
-  private jrkEnitaet = 2;
-  private JRKEntitaeten;
-  data: any;
-  single: any[];
-  multi: any[];
-  single2: any[];
-  multi2: any[];
-  single3: any[];
-  multi3: any[];
-  multiChart : any[];
-  singleChart : any[];
-  singleChartBar : any[];
-  multiChartBar : any[];
-  view: any[] = [700, 400];
+private jrkEnitaet = 2;
+private JRKEntitaeten;
+data: any;
+single: any[];
+multi: any[];
+single2: any[];
+multi2: any[];
+single3: any[];
+multi3: any[];
+multiChart : any[];
+singleChart : any[];
+singleChartBar : any[];
+multiChartBar : any[];
+view: any[] = [700, 400];
 
-  showLegend = true;
+showLegend = true;
 
-  colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
-  };
+colorScheme = {
+domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+};
 
   constructor(private rest: RestService) {
     Object.assign(this, {single, multi});
@@ -38,9 +38,9 @@ export class DiagramsComponent implements OnInit{
     this.rest = rest;  
   }
   
-  ngOnInit(){
-    const body = localStorage.getItem('currentUser');
-    this.jrkEnitaet = JSON.parse(body);
+ngOnInit(){
+const body = localStorage.getItem('currentUser');
+this.jrkEnitaet = JSON.parse(body);
 
     this.rest.getJRKEntitaetdown(body)
     .subscribe(data => {
@@ -72,10 +72,10 @@ export class DiagramsComponent implements OnInit{
     });
   }
 
-  // pie
-  showLabels = true;
-  explodeSlices = false;
-  doughnut = false;
+// pie
+showLabels = true;
+explodeSlices = false;
+doughnut = false;
 
   set(body: any): void {
     this.rest.getChartValues(body)
@@ -102,9 +102,9 @@ export class DiagramsComponent implements OnInit{
     });
   }
 
-  onSelect(event) {
-    console.log(event);
-  }
+onSelect(event) {
+console.log(event);
+}
   
 }
 

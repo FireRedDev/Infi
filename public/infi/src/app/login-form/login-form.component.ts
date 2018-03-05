@@ -9,9 +9,9 @@ import {Observable} from 'rxjs/Rx';
 import { RestService } from '../rest.service';
 
 @Component({
-  selector: 'app-login-form',
-  templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css']
+selector: 'app-login-form',
+templateUrl: './login-form.component.html',
+styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
   public benutzer: Benutzer;
@@ -19,15 +19,15 @@ export class LoginFormComponent implements OnInit {
     this.rest=rest;
    }
 
-  results: string[];
+results: string[];
 
   ngOnInit() {
   }
 
-  loginUser(e) {
-    e.preventDefault();
-    const personalnr = e.target.elements[0].value;
-    const password = e.target.elements[1].value;
+loginUser(e) {
+e.preventDefault();
+const personalnr = e.target.elements[0].value;
+const password = e.target.elements[1].value;
 
      const body = {'personalnr': personalnr, 'password': password};
 

@@ -27,15 +27,15 @@ import { RestService } from './rest.service';
 import { HomeComponent } from './home/home.component';
 
 const appRoutes:Routes = [
-  {
-    path: '',
-    component: LoginFormComponent
-  },
-  {
-    path: 'dashboard',
-    canActivate: [AuthguardGuard],
-    component: DashboardComponent
-  }
+{
+path: '',
+component: LoginFormComponent
+},
+{
+path: 'dashboard',
+canActivate: [AuthguardGuard],
+component: DashboardComponent
+}
 ]
 @NgModule({
   declarations: [
