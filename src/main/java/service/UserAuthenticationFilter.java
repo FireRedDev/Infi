@@ -1,6 +1,7 @@
 package service;
 
-import entities.JWTTokenUser;
+import entities.Role;
+import RestResponseClasses.JWTTokenUser;
 import entities.Person;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
@@ -38,7 +39,9 @@ import repository.EntityManagerSingleton;
 @Secured
 @Provider
 @Priority(Priorities.AUTHORIZATION)
-//
+/**
+ * Blocks Unauthorized Access of Rest Methods Checks Permissions
+ */
 public class UserAuthenticationFilter implements ContainerRequestFilter,
         ContainerResponseFilter {
 
@@ -56,9 +59,9 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
 
     @Override
     public void filter(ContainerRequestContext requestContext)
-            throws IOException { 
-//TODO: get user/pass from token instead of database
-
+            throws IOException {
+        //TODO: get user/pass from token instead of database
+        //print header and method
         MultivaluedMap<String, String> headers = requestContext.getHeaders();
         System.out.println(" ================ Header start ================");
         headers.keySet().forEach((key) -> {
@@ -67,8 +70,9 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
         System.out.println(" ================ Header stop ================");
 
         String authorization = requestContext.getHeaderString("Authorization");
-
+        //is there a token?
         if (authorization != null && authorization.startsWith("Bearer")) {
+            //trim token
             authorization = authorization.substring("Bearer".length()).trim();
             authorization = authorization.replace("\"", "");
             String credentials;
@@ -82,6 +86,8 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
 
             JWTTokenUser jwt = (JWTTokenUser) query.getSingleResult();
             Person user = jwt.getPerson();
+            //get the tokens user from the database to check his permissions(can he access this method?) in the checkPermissions Method
+            //get permitted roles from the accessed method
             Class<?> resourceClass = resourceInfo.getResourceClass();
             List<Role> classRoles = extractRoles(resourceClass);
 
@@ -104,7 +110,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
                 requestContext.abortWith(
                         Response.status(Response.Status.FORBIDDEN).build());
             }
-            if (false) {              
+            if (false) {
                 System.out.println("Authentication failed!");
                 ResponseBuilder responseBuilder = Response.status(Status.UNAUTHORIZED);
                 Response response = responseBuilder.build();
@@ -136,6 +142,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
     }
 
     /**
+     * Decode JWT Token with JWTS Libary
      *
      * @param jwt
      * @return
@@ -145,7 +152,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
 
             try {
                 return Jwts.parser()
-                        .setSigningKey("secret".getBytes("UTF-8"))
+                        .setSigningKey("secretswaggy132".getBytes("UTF-8"))
                         .parseClaimsJws(jwt
                         ).getSignature();
 

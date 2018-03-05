@@ -1,7 +1,7 @@
 package service;
 
 import RestResponseClasses.NameValue;
-import repository.PersonTransferObject;
+import RestResponseClasses.PersonTransferObject;
 import entities.*;
 import java.util.List;
 import javax.ws.rs.*;
@@ -31,7 +31,7 @@ public class Service {
     }
 
     /**
-     * Inserts and creates Test Values
+     * Login to Server with Username/Password and get a Token
      *
      * @param pto
      * @return
@@ -47,7 +47,7 @@ public class Service {
     }
 
     /**
-     * Lists all Termine
+     * Lists all Termine of all Users and Entitys
      *
      * @return
      */
@@ -60,7 +60,7 @@ public class Service {
     }
 
     /**
-     * Lists all Persons
+     * Lists all Persons/Users
      *
      * @return
      */
@@ -84,12 +84,12 @@ public class Service {
     @Secured({Role.LANDESLEITER})
 
     @Produces(MediaType.APPLICATION_JSON)
-    public List<JRKEntitaet> listAllJRKEntitaeten() {
+    public List<OrganisationalEntity> listAllJRKEntitaeten() {
         return repo.listAllJRK();
     }
 
     /**
-     * Gets Users Termine/Appointments
+     * Gets Users Termine/Appointments with his PersonalNR
      *
      * @param id
      * @return
@@ -122,7 +122,7 @@ public class Service {
     }
 
     /**
-     * Get JRKEnitaet
+     * Get a JRKENTITÄT with its ID
      *
      * @param id id der Entität
      * @return
@@ -133,12 +133,12 @@ public class Service {
 
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
-    public JRKEntitaet getJRKEntitaet(int id) {
+    public OrganisationalEntity getJRKEntitaet(int id) {
         return repo.getJRKEntitaet(id);
     }
 
     /**
-     * Inserts a Termin/Appointment
+     * Inserts a Termin/Appointment and assigns it to a JRKEntitaet
      *
      * @param id
      * @param t
@@ -153,7 +153,7 @@ public class Service {
     }
 
     /**
-     * insert Dokumentation
+     * insert Dokumentation and create Relationship with its Termin
      *
      * @param d Termin
      */
@@ -167,7 +167,7 @@ public class Service {
     }
 
     /**
-     * Darf dieser User Termine und Protokolle einfügen
+     * Darf dieser User Termine und Protokolle einfügen?
      *
      * @param id
      * @return
@@ -190,7 +190,6 @@ public class Service {
      */
     @Path("getOpenDoko")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     @POST
@@ -199,6 +198,7 @@ public class Service {
     }
 
     /**
+     * Häufigkeit von Kategorie in einer JRKEntity
      *
      * @param id
      * @return
@@ -214,6 +214,7 @@ public class Service {
     }
 
     /**
+     * Anzahl von den Stunden pro Monat im letzten Jahr
      *
      * @param id
      * @return
@@ -229,6 +230,7 @@ public class Service {
     }
 
     /**
+     * get Anzahl der Stunden pro Persongruppe
      *
      * @param id
      * @return

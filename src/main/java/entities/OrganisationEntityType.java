@@ -1,10 +1,11 @@
 package entities;
 
 /**
+ * Type of the Organisation, like a Gruppe
  *
  * @author Christopher G
  */
-public enum Typ {
+public enum OrganisationEntityType {
 
     /**
      *

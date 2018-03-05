@@ -1,7 +1,9 @@
 package RestResponseClasses;
 
 /**
- * C.G
+ * Contains an identifier and a value; For Rest;
+ *
+ * @author Christopher G
  */
 public class NameValue {
 

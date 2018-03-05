@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
+ * Contains information for a Post on the Newsfeed
  *
  * @author isi
  */

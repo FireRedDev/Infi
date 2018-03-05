@@ -25,45 +25,45 @@ import { DiagramsComponent } from './diagrams/diagrams.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 const appRoutes:Routes = [
-  {
-    path: '',
-    component: LoginFormComponent
-  },
-  {
-    path: 'dashboard',
-    canActivate: [AuthguardGuard],
-    component: DashboardComponent
-  }
+{
+path: '',
+component: LoginFormComponent
+},
+{
+path: 'dashboard',
+canActivate: [AuthguardGuard],
+component: DashboardComponent
+}
 ]
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    LoginFormComponent,
-    FooterComponent,
-    DashboardComponent,
-    TerminComponent,
-    ProtocolComponent,
-    DiagramsComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpModule,
-    RouterModule.forRoot(appRoutes),
-    CalendarModule.forRoot(),
-    SidebarModule.forRoot(),
-    DateTimePickerModule,
-    NgxChartsModule
-  ],
-  providers: [UserService, AuthguardGuard, AuthService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptor,
-    multi: true
-  }],
-  bootstrap: [AppComponent]
+declarations: [
+AppComponent,
+HeaderComponent,
+LoginFormComponent,
+FooterComponent,
+DashboardComponent,
+TerminComponent,
+ProtocolComponent,
+DiagramsComponent
+],
+imports: [
+BrowserModule,
+HttpClientModule,
+BrowserAnimationsModule,
+FormsModule,
+HttpModule,
+RouterModule.forRoot(appRoutes),
+CalendarModule.forRoot(),
+SidebarModule.forRoot(),
+DateTimePickerModule,
+NgxChartsModule
+],
+providers: [UserService, AuthguardGuard, AuthService, {
+provide: HTTP_INTERCEPTORS,
+useClass: TokenInterceptor,
+multi: true
+}],
+bootstrap: [AppComponent]
 })
 export class AppModule {}
 

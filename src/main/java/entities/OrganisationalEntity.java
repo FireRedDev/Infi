@@ -8,6 +8,8 @@ import java.util.*;
 import javax.persistence.*;
 
 /**
+ * An JRKENTITY is an organisational unit/team, like a Jugengruppe or a
+ * Bezirksleitstelle
  *
  * @author Christopher G
  */
@@ -19,13 +21,14 @@ import javax.persistence.*;
     ,
     @NamedQuery(name = "JRKEntitaet.layerUp", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet1=:jrkentitaet")
 })
-public class JRKEntitaet implements Serializable {
+public class OrganisationalEntity implements Serializable {
 
     @Id
     int id;
     private String name;
     private String ort;
-    private Typ typ;
+    private OrganisationEntityType typ;
+    //each JRKENTITÄT has its own list of Termine and info
     @OneToMany
     private List<Termin> termine = new LinkedList<Termin>();
     @OneToMany
@@ -33,16 +36,16 @@ public class JRKEntitaet implements Serializable {
 
     //übergeordnet
     @ManyToOne
-    private JRKEntitaet jrkentitaet;
+    private OrganisationalEntity jrkentitaet;
 
     //untergeordnet
     @OneToMany(mappedBy = "jrkentitaet")
-    private List<JRKEntitaet> jrkentitaet1;
+    private List<OrganisationalEntity> jrkentitaet1;
 
     /**
      *
      */
-    public JRKEntitaet() {
+    public OrganisationalEntity() {
 
     }
 
@@ -53,7 +56,7 @@ public class JRKEntitaet implements Serializable {
      * @param typ
      * @param jrkentitaet
      */
-    public JRKEntitaet(int id, String name, Typ typ, JRKEntitaet jrkentitaet) {
+    public OrganisationalEntity(int id, String name, OrganisationEntityType typ, OrganisationalEntity jrkentitaet) {
         this.id = id;
         this.name = name;
         this.typ = typ;
@@ -88,7 +91,7 @@ public class JRKEntitaet implements Serializable {
      *
      * @return
      */
-    public Typ getTyp() {
+    public OrganisationEntityType getTyp() {
         return typ;
     }
 
@@ -96,7 +99,7 @@ public class JRKEntitaet implements Serializable {
      *
      * @param typ
      */
-    public void setTyp(Typ typ) {
+    public void setTyp(OrganisationEntityType typ) {
         this.typ = typ;
     }
 
@@ -160,7 +163,7 @@ public class JRKEntitaet implements Serializable {
      *
      * @return
      */
-    public JRKEntitaet getJrkentitaet() {
+    public OrganisationalEntity getJrkentitaet() {
         return jrkentitaet;
     }
 
@@ -168,7 +171,7 @@ public class JRKEntitaet implements Serializable {
      *
      * @param jrkentitaet
      */
-    public void setJrkentitaet(JRKEntitaet jrkentitaet) {
+    public void setJrkentitaet(OrganisationalEntity jrkentitaet) {
         this.jrkentitaet = jrkentitaet;
     }
 
@@ -176,7 +179,7 @@ public class JRKEntitaet implements Serializable {
      *
      * @return
      */
-    public List<JRKEntitaet> getJrkentitaet1() {
+    public List<OrganisationalEntity> getJrkentitaet1() {
         return jrkentitaet1;
     }
 
@@ -184,7 +187,7 @@ public class JRKEntitaet implements Serializable {
      *
      * @param jrkentitaet1
      */
-    public void setJrkentitaet1(List<JRKEntitaet> jrkentitaet1) {
+    public void setJrkentitaet1(List<OrganisationalEntity> jrkentitaet1) {
         this.jrkentitaet1 = jrkentitaet1;
     }
 
@@ -192,7 +195,7 @@ public class JRKEntitaet implements Serializable {
      *
      * @param newJRK
      */
-    public void addJRKEntitaet(JRKEntitaet newJRK) {
+    public void addJRKEntitaet(OrganisationalEntity newJRK) {
         if (!this.jrkentitaet1.contains(newJRK)) {
             this.jrkentitaet1.add(newJRK);
             newJRK.setJrkentitaet(this);
@@ -203,7 +206,7 @@ public class JRKEntitaet implements Serializable {
      *
      * @param old
      */
-    public void removeJRKEntitaet(JRKEntitaet old) {
+    public void removeJRKEntitaet(OrganisationalEntity old) {
         if (this.jrkentitaet1.contains(old)) {
             this.jrkentitaet1.remove(old);
             old.setJrkentitaet(this);

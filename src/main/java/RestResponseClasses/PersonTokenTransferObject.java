@@ -1,7 +1,7 @@
 package RestResponseClasses;
 
 /**
- * C.G
+ * For transfering a Person and a Token
  */
 public class PersonTokenTransferObject {
 

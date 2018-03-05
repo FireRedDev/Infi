@@ -1,5 +1,5 @@
 /**
- * Termin
+ * Termin, has an optional Documentation class attached.
  */
 package entities;
 
@@ -12,9 +12,9 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t"),
-    @NamedQuery(name = "Termin.getOpenDoko", query = "SELECT t FROM Termin t where t.doko IS NULL"),
-})
+    @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t")
+    ,
+    @NamedQuery(name = "Termin.getOpenDoko", query = "SELECT t FROM Termin t where t.doko IS NULL"),})
 public class Termin implements Serializable {
 
     @Id
@@ -38,12 +38,12 @@ public class Termin implements Serializable {
 
     /**
      * Konstruktor ohne Dokumentation
-     * 
+     *
      * @param s_date
      * @param e_date
      * @param title
      * @param beschreibung
-     * @param ort 
+     * @param ort
      */
     public Termin(String s_date, String e_date, String title, String beschreibung, String ort) {
         this.s_date = s_date;
@@ -55,13 +55,13 @@ public class Termin implements Serializable {
 
     /**
      * Konstruktor mit allen Parametern
-     * 
+     *
      * @param s_date
      * @param e_date
      * @param title
      * @param beschreibung
      * @param ort
-     * @param doko 
+     * @param doko
      */
     public Termin(String s_date, String e_date, String title, String beschreibung, String ort, Dokumentation doko) {
         this.s_date = s_date;

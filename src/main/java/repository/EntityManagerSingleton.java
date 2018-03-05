@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
 /**
+ * Used to get the Entity Manager of this Project, prevents Errors
  *
  * @author Christopher G
  */

@@ -5,9 +5,10 @@ package entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import service.Role;
 
 /**
+ * A Person(Kind,Leiter,..) that is also a User in our System, with Password and
+ * Username
  *
  * @author Christopher G
  */
@@ -31,13 +32,14 @@ public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
+    //username
     private String personalnr;
     private String password;
     private String vorname;
     private String nachname;
     private Role rolle;
     @ManyToOne(fetch = FetchType.LAZY)
-    private JRKEntitaet jrkentitaet;
+    private OrganisationalEntity jrkentitaet;
 
     /**
      *
@@ -54,7 +56,7 @@ public class Person implements Serializable {
      * @param nachname
      * @param jrkentitaet
      */
-    public Person(String personalnr, String password, String vorname, String nachname, JRKEntitaet jrkentitaet) {
+    public Person(String personalnr, String password, String vorname, String nachname, OrganisationalEntity jrkentitaet) {
         this.personalnr = personalnr;
         this.password = password;
         this.vorname = vorname;
@@ -95,7 +97,7 @@ public class Person implements Serializable {
      * @param jrkentitaet
      * @param rolle
      */
-    public Person(String personalnr, String password, String vorname, String nachname, JRKEntitaet jrkentitaet, Role rolle) {
+    public Person(String personalnr, String password, String vorname, String nachname, OrganisationalEntity jrkentitaet, Role rolle) {
         this.personalnr = personalnr;
         this.password = password;
         this.vorname = vorname;
@@ -180,7 +182,7 @@ public class Person implements Serializable {
      *
      * @return
      */
-    public JRKEntitaet getJrkentitaet() {
+    public OrganisationalEntity getJrkentitaet() {
         return jrkentitaet;
     }
 
@@ -188,7 +190,7 @@ public class Person implements Serializable {
      *
      * @param jrkentitaet
      */
-    public void setJrkentitaet(JRKEntitaet jrkentitaet) {
+    public void setJrkentitaet(OrganisationalEntity jrkentitaet) {
         this.jrkentitaet = jrkentitaet;
     }
 

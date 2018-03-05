@@ -1,13 +1,13 @@
-package entities;
+package RestResponseClasses;
 
+import entities.Person;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-
 import javax.persistence.Id;
 
 /**
- * C.G
+ * C.G Transports a Token and a User to client or Server
  */
 @Entity
 public class JWTTokenUser implements Serializable {
