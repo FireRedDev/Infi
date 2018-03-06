@@ -319,7 +319,8 @@ public class Service {
     @Produces(MediaType.TEXT_PLAIN)
     public String changePassword(Person p) {
         repo.changePassword(p);
-        return "Passwort geändert";
+        //Hochkomma müssen manuell dazugegeben werden, sonst erkennt Angular den String nicht
+        return "\"Passwort geändert\"";
     }
     
     @POST

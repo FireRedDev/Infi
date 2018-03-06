@@ -142,7 +142,6 @@ export class DashboardComponent implements OnInit {
       });
     this.rest.needPwdChange(body)
     .subscribe(data => {
-      debugger;
       if(data!=true){
         $('#pwdModal').modal('show');
       }
@@ -156,8 +155,10 @@ export class DashboardComponent implements OnInit {
   changePwd(){
     if(this.password1==this.password2&&this.password1!=""){
       const body = {'id': localStorage.getItem('currentUser'), 'password': this.password1};
-      this.rest.changePassword(body)
-      $('#pwdModal').modal('hide');
+      this.rest.changePassword(body).subscribe(data => {
+        console.log("message: "+data);
+        $('#pwdModal').modal('hide');
+      });
     }
     else{
       alert("Die beiden Passwörter sind nicht ident, versuche es nochmal!");
