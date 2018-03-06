@@ -21,13 +21,13 @@ import javax.persistence.*;
     ,
     @NamedQuery(name = "JRKEntitaet.layerUp", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet1=:jrkentitaet")
 })
-public class OrganisationalEntity implements Serializable {
+public class JRKEntitaet implements Serializable {
 
     @Id
     int id;
     private String name;
     private String ort;
-    private OrganisationEntityType typ;
+    private JRKEntitaetType typ;
     //each JRKENTITÄT has its own list of Termine and info
     @OneToMany
     private List<Termin> termine = new LinkedList<Termin>();
@@ -36,16 +36,16 @@ public class OrganisationalEntity implements Serializable {
 
     //übergeordnet
     @ManyToOne
-    private OrganisationalEntity jrkentitaet;
+    private JRKEntitaet jrkentitaet;
 
     //untergeordnet
     @OneToMany(mappedBy = "jrkentitaet")
-    private List<OrganisationalEntity> jrkentitaet1;
+    private List<JRKEntitaet> jrkentitaet1;
 
     /**
      *
      */
-    public OrganisationalEntity() {
+    public JRKEntitaet() {
 
     }
 
@@ -56,7 +56,7 @@ public class OrganisationalEntity implements Serializable {
      * @param typ
      * @param jrkentitaet
      */
-    public OrganisationalEntity(int id, String name, OrganisationEntityType typ, OrganisationalEntity jrkentitaet) {
+    public JRKEntitaet(int id, String name, JRKEntitaetType typ, JRKEntitaet jrkentitaet) {
         this.id = id;
         this.name = name;
         this.typ = typ;
@@ -91,7 +91,7 @@ public class OrganisationalEntity implements Serializable {
      *
      * @return
      */
-    public OrganisationEntityType getTyp() {
+    public JRKEntitaetType getTyp() {
         return typ;
     }
 
@@ -99,7 +99,7 @@ public class OrganisationalEntity implements Serializable {
      *
      * @param typ
      */
-    public void setTyp(OrganisationEntityType typ) {
+    public void setTyp(JRKEntitaetType typ) {
         this.typ = typ;
     }
 
@@ -163,7 +163,7 @@ public class OrganisationalEntity implements Serializable {
      *
      * @return
      */
-    public OrganisationalEntity getJrkentitaet() {
+    public JRKEntitaet getJrkentitaet() {
         return jrkentitaet;
     }
 
@@ -171,7 +171,7 @@ public class OrganisationalEntity implements Serializable {
      *
      * @param jrkentitaet
      */
-    public void setJrkentitaet(OrganisationalEntity jrkentitaet) {
+    public void setJrkentitaet(JRKEntitaet jrkentitaet) {
         this.jrkentitaet = jrkentitaet;
     }
 
@@ -179,7 +179,7 @@ public class OrganisationalEntity implements Serializable {
      *
      * @return
      */
-    public List<OrganisationalEntity> getJrkentitaet1() {
+    public List<JRKEntitaet> getJrkentitaet1() {
         return jrkentitaet1;
     }
 
@@ -187,7 +187,7 @@ public class OrganisationalEntity implements Serializable {
      *
      * @param jrkentitaet1
      */
-    public void setJrkentitaet1(List<OrganisationalEntity> jrkentitaet1) {
+    public void setJrkentitaet1(List<JRKEntitaet> jrkentitaet1) {
         this.jrkentitaet1 = jrkentitaet1;
     }
 
@@ -195,7 +195,7 @@ public class OrganisationalEntity implements Serializable {
      *
      * @param newJRK
      */
-    public void addJRKEntitaet(OrganisationalEntity newJRK) {
+    public void addJRKEntitaet(JRKEntitaet newJRK) {
         if (!this.jrkentitaet1.contains(newJRK)) {
             this.jrkentitaet1.add(newJRK);
             newJRK.setJrkentitaet(this);
@@ -206,7 +206,7 @@ public class OrganisationalEntity implements Serializable {
      *
      * @param old
      */
-    public void removeJRKEntitaet(OrganisationalEntity old) {
+    public void removeJRKEntitaet(JRKEntitaet old) {
         if (this.jrkentitaet1.contains(old)) {
             this.jrkentitaet1.remove(old);
             old.setJrkentitaet(this);

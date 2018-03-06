@@ -3,6 +3,8 @@ package service;
 import entities.Role;
 import RestResponseClasses.JWTTokenUser;
 import entities.Person;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -16,6 +18,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +32,7 @@ import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Context;
 import static javax.ws.rs.core.Response.ResponseBuilder;
 import static javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.SecurityContext;
 import repository.DatenbankRepository;
 import repository.EntityManagerSingleton;
 
@@ -75,17 +79,16 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
             //trim token
             authorization = authorization.substring("Bearer".length()).trim();
             authorization = authorization.replace("\"", "");
-            String credentials;
+           Jws<Claims> credentials;
             try {
-                credentials = authorization;//decodeJWT(authorization);
+                credentials = decodeJWT(authorization);
             } catch (IllegalArgumentException e) {
-                credentials = "";
+                credentials = null;
             }
 
-            Query query = em.createQuery("select t from JWTTokenUser t where t.token = :token").setParameter("token", credentials);
 
-            JWTTokenUser jwt = (JWTTokenUser) query.getSingleResult();
-            Person user = jwt.getPerson();
+            
+           
             //get the tokens user from the database to check his permissions(can he access this method?) in the checkPermissions Method
             //get permitted roles from the accessed method
             Class<?> resourceClass = resourceInfo.getResourceClass();
@@ -95,15 +98,19 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
             // Extract the roles declared by it
             Method resourceMethod = resourceInfo.getResourceMethod();
             List<Role> methodRoles = extractRoles(resourceMethod);
-
+   // or simple but not the best
+   int id =credentials.getBody().get("id", Integer.class);
+     Role role =credentials.getBody().get("role", Role.class);
+    requestContext.setSecurityContext( new MySecurityContext(id,role));
+                
             try {
 
                 // Check if the user is allowed to execute the method
                 // The method annotations override the class annotations
                 if (methodRoles.isEmpty()) {
-                    checkPermissions(classRoles, user);
+                    checkPermissions(classRoles, role);
                 } else {
-                    checkPermissions(methodRoles, user);
+                    checkPermissions(methodRoles, role);
                 }
 
             } catch (Exception e) {
@@ -147,14 +154,13 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
      * @param jwt
      * @return
      */
-    public String decodeJWT(String jwt) {
+    public Jws<Claims> decodeJWT(String jwt) {
         try {
 
             try {
                 return Jwts.parser()
                         .setSigningKey("secretswaggy132".getBytes("UTF-8"))
-                        .parseClaimsJws(jwt
-                        ).getSignature();
+                        .parseClaimsJws(jwt);
 
                 //OK, we can trust this JWT
             } catch (UnsupportedEncodingException ex) {
@@ -168,12 +174,13 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
         return null;
     }
 
-    private void checkPermissions(List<Role> allowedRoles, Person user) throws Exception {
+    private void checkPermissions(List<Role> allowedRoles, Role userRole) throws Exception {
         // Check if the user contains one of the allowed roles
         // Throw an Exception if the user has not permission to execute the method
         boolean VALID = false;
         for (Role role : allowedRoles) {
-            if (role == user.getRolle()) {
+            if (role != userRole) {
+            } else {
                 VALID = true;
             }
 

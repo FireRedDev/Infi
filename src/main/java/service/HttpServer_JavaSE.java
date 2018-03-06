@@ -2,14 +2,14 @@ package service;
 
 import entities.Role;
 import entities.Dokumentation;
-import entities.OrganisationalEntity;
+import entities.JRKEntitaet;
 import entities.Person;
 import entities.Termin;
-import entities.OrganisationEntityType;
-import static entities.OrganisationEntityType.Bezirkstelle;
-import static entities.OrganisationEntityType.Gruppe;
-import static entities.OrganisationEntityType.Landstelle;
-import static entities.OrganisationEntityType.Ortstelle;
+import entities.JRKEntitaetType;
+import static entities.JRKEntitaetType.Bezirkstelle;
+import static entities.JRKEntitaetType.Gruppe;
+import static entities.JRKEntitaetType.Landstelle;
+import static entities.JRKEntitaetType.Ortstelle;
 import java.net.URI;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
@@ -65,16 +65,16 @@ public class HttpServer_JavaSE {
      * @return
      */
     public String init(EntityManager repo) {
-        OrganisationEntityType gruppe = Gruppe;
-        OrganisationEntityType ortstelle = Ortstelle;
-        OrganisationEntityType bezirkstelle = Bezirkstelle;
-        OrganisationEntityType landesstelle = Landstelle;
-        OrganisationalEntity ooe = new OrganisationalEntity(5, "Oberösterreich", landesstelle, null);
-        OrganisationalEntity wels = new OrganisationalEntity(4, "Wels", bezirkstelle, ooe);
-        OrganisationalEntity sattledt = new OrganisationalEntity(1, "Sattledt", ortstelle, wels);
-        OrganisationalEntity sattledt1 = new OrganisationalEntity(2, "Gruppe1", gruppe, sattledt);
-        OrganisationalEntity marchtrenk = new OrganisationalEntity(3, "Sattledt", ortstelle, wels);
-        OrganisationalEntity marchtrenk1 = new OrganisationalEntity(6, "Gruppe1", gruppe, marchtrenk);
+        JRKEntitaetType gruppe = Gruppe;
+        JRKEntitaetType ortstelle = Ortstelle;
+        JRKEntitaetType bezirkstelle = Bezirkstelle;
+        JRKEntitaetType landesstelle = Landstelle;
+        JRKEntitaet ooe = new JRKEntitaet(5, "Oberösterreich", landesstelle, null);
+        JRKEntitaet wels = new JRKEntitaet(4, "Wels", bezirkstelle, ooe);
+        JRKEntitaet sattledt = new JRKEntitaet(1, "Sattledt", ortstelle, wels);
+        JRKEntitaet sattledt1 = new JRKEntitaet(2, "Gruppe1", gruppe, sattledt);
+        JRKEntitaet marchtrenk = new JRKEntitaet(3, "Sattledt", ortstelle, wels);
+        JRKEntitaet marchtrenk1 = new JRKEntitaet(6, "Gruppe1", gruppe, marchtrenk);
 
         //Dokumentation
         Termin sattledttermin = new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
