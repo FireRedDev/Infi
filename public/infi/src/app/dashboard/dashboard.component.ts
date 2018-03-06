@@ -32,6 +32,8 @@ export class DashboardComponent implements OnInit {
   isEditor= true;
   jrkEntitaet: any;
   view = 'month';
+  password1="";
+  password2="";
 
   private _opened = false;
   private _modeNum = 0;
@@ -138,15 +140,29 @@ export class DashboardComponent implements OnInit {
       .subscribe(data => {
         this.isEditor = (data === true);
       });
-    $('#exampleModal').modal('show');
+    this.rest.needPwdChange(body)
+    .subscribe(data => {
+      debugger;
+      if(data!=true){
+        $('#pwdModal').modal('show');
+      }
+    }); 
   }
 
   changeView(message: string){
-    debugger;
     this.view = message;
   }
 
-  
+  changePwd(){
+    if(this.password1==this.password2&&this.password1!=""){
+      const body = {'id': localStorage.getItem('currentUser'), 'password': this.password1};
+      this.rest.changePassword(body)
+      $('#pwdModal').modal('hide');
+    }
+    else{
+      alert("Die beiden Passwörter sind nicht ident, versuche es nochmal!");
+    }
+  }
 }
 
 

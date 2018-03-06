@@ -76,4 +76,14 @@ export class RestService {
     return this.http
     .post('http://localhost:8080/api/service/getUserTermine', body);
   }
+
+  changePassword(body){
+    return this.http
+    .post('http://localhost:8080/api/service/changePassword', body);
+  }
+
+  needPwdChange(body){
+    return this.http
+    .post('http://localhost:8080/api/service/needPwdChange', body);
+  }
 }

@@ -18,6 +18,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.*;
+import org.json.JSONObject;
 
 public class DatenbankRepository {
 
@@ -373,19 +374,19 @@ public class DatenbankRepository {
         int[] katcount = new int[3];
         for (Termin termin : list) {
             Dokumentation doku = termin.getDoko();
-            if(doku!=null){
-            switch (doku.getKategorie()) {
-                case "EH":
-                    katcount[0]++;
-                    break;
+            if (doku != null) {
+                switch (doku.getKategorie()) {
+                    case "EH":
+                        katcount[0]++;
+                        break;
 
-                case "Exkursion":
-                    katcount[1]++;
-                    break;
-                case "Soziales":
-                    katcount[2]++;
-                    break;
-            }
+                    case "Exkursion":
+                        katcount[1]++;
+                        break;
+                    case "Soziales":
+                        katcount[2]++;
+                        break;
+                }
             }
         }
         List<NameValue> returnlist = new LinkedList<NameValue>();
@@ -411,9 +412,9 @@ public class DatenbankRepository {
                     nv.setValue(nv.getValue() + (int) hours);
                 }
             }
-            if(nv.getValue()!=0){
+            if (nv.getValue() != 0) {
                 returnlist.add(nv);
-            }         
+            }
         }
 
         return returnlist;
@@ -449,14 +450,14 @@ public class DatenbankRepository {
 
         List<Termin> list = jrk.getTermine();
         int[] katcount = new int[3];
-        if(list!=null){
-        for (Termin termin : list) {
-            Dokumentation doku = termin.getDoko();
-            katcount[0] = (katcount[0] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getBetreuer().length;
-            katcount[1] = (katcount[1] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getKinderliste().length;
-            //POSSIBLE BUG: San ChronoUnit Hours gleichgroß wie deine Hours?
-            katcount[2] = (katcount[2] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) + (int) doku.getVzeit();
-        }
+        if (list != null) {
+            for (Termin termin : list) {
+                Dokumentation doku = termin.getDoko();
+                katcount[0] = (katcount[0] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getBetreuer().length;
+                katcount[1] = (katcount[1] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getKinderliste().length;
+                //POSSIBLE BUG: San ChronoUnit Hours gleichgroß wie deine Hours?
+                katcount[2] = (katcount[2] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) + (int) doku.getVzeit();
+            }
         }
         List<NameValue> returnlist = new LinkedList<NameValue>();
         returnlist.add(new NameValue("Betreuer", katcount[0]));
@@ -465,11 +466,11 @@ public class DatenbankRepository {
 
         return returnlist;
     }
-         
+
     /**
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
     public List<JRKEntitaet> getJRKEntitaetdown(int id) {
         Person currentPerson = em.find(Person.class, id);
@@ -479,6 +480,21 @@ public class DatenbankRepository {
 
     public Termin getTerminbyId(int id) {
         return em.find(Termin.class, id);
+    }
+
+    public void changePassword(Person p) {
+        String password = p.getPassword();
+        p = em.find(Person.class, p.getId());
+        if (!p.isPasswordChanged()) {
+            p.setPassword(password);
+            p.setPasswordChanged(true);
+        }
+    }
+
+    public boolean needPwdChange(int id) {
+        Person p = em.find(Person.class, id);
+        boolean isChanged= p.isPasswordChanged();
+        return isChanged;
     }
 
 }
