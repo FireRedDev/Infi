@@ -261,5 +261,25 @@ public class Service {
     public List<JRKEntitaet> getJRKEntitaetdown(int id) {
         return repo.getJRKEntitaetdown(id);
     }
+    
+    @POST
+    @Path("changePassword")
+    @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER,Role.KIND,Role.GRUPPENLEITER})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String changePassword(Person p) {
+        repo.changePassword(p);
+        //Hochkomma müssen manuell dazugegeben werden, sonst erkennt Angular den String nicht
+        return "\"Passwort geändert\"";
+    }
+    
+    @POST
+    @Path("needPwdChange")
+    @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER,Role.KIND,Role.GRUPPENLEITER})
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean needPwdChange(int id) {
+        return repo.needPwdChange(id);
+    }
 
 }

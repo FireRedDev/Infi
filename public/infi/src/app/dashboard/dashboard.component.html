@@ -45,77 +45,47 @@
         </header>
         <section class="dashboard-contents">
             <div *ngIf="view=='month'||view=='week'">
-                <div class="row text-center">
-                    <div class="col-md-4">
-                        <div class="btn-group">
-                            <div
-                                class="btn btn-outline-secondary"
-                                mwlCalendarPreviousView
-                                [view]="view"
-                                [(viewDate)]="viewDate"
-                                (viewDateChange)="activeDayIsOpen = false">
-                                Vorheriger
-                        </div>
-                        <div
-                            class="btn btn-outline-secondary"
-                            mwlCalendarToday
-                            [(viewDate)]="viewDate">
-                            Aktueller
-                    </div>
-                    <div
-                        class="btn btn-outline-secondary"
-                        mwlCalendarNextView
-                        [view]="view"
-                        [(viewDate)]="viewDate"
-                        (viewDateChange)="activeDayIsOpen = false">
-                        Nächster
-                </div>
+                <app-calendar [view]="view"></app-calendar>  
             </div>
-        </div>
-        <div class="col-md-4">
-            <h1>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h1>
-        </div>
+            <div *ngIf="view=='termin'">
+                <app-termin [jrkEntitaet]="jrkEntitaet" (changeView)="changeView(i)" ></app-termin>
+            </div>
+            <div *ngIf="view =='protocol'">
+                <app-protocol (changeView)="changeView(i)"></app-protocol>
+            </div>
+            <div *ngIf="view =='diagram'">
+                <app-diagrams></app-diagrams>
+            </div>
+            <div *ngIf="view =='home'">
+                <app-home></app-home>
+            </div>
+        </section>
     </div>
-    <div *ngIf="events$ | async; else loading; let events">
-        <div [ngSwitch]="view">
-            <mwl-calendar-month-view
-                *ngSwitchCase="'month'"      
-                [refresh]="refresh"
-                [viewDate]="viewDate"
-                [events]="events"
-                [locale]="locale"
-                [weekStartsOn]="weekStartsOn"
-                [weekendDays]="weekendDays"
-                [activeDayIsOpen]="activeDayIsOpen"
-                (dayClicked)="dayClicked($event.day)"
-                (eventTimesChanged)="eventTimesChanged($event)">
-            </mwl-calendar-month-view>
-            <mwl-calendar-week-view
-                *ngSwitchCase="'week'"
-                precision="minutes"
-                [viewDate]="viewDate"
-                [events]="events"
-                [locale]="locale"
-                [weekStartsOn]="weekStartsOn"
-                [weekendDays]="weekendDays"
-                [refresh]="refresh"
-                (eventTimesChanged)="eventTimesChanged($event)">
-            </mwl-calendar-week-view>
-        </div>
-    </div>
-</div>
-<div *ngIf="view=='termin'">
-    <app-termin [jrkEntitaet]="jrkEntitaet" (changeView)="changeView(i)" ></app-termin>
-</div>
-<div *ngIf="view =='protocol'">
-    <app-protocol (changeView)="changeView(i)"></app-protocol>
-</div>
-<div *ngIf="view =='diagram'">
-    <app-diagrams></app-diagrams>
-</div>
-<div *ngIf="view =='home'">
-    <app-home></app-home>
-</div>
-</section>
-</div>
 </ng-sidebar-container>
+
+
+<!-- Modal -->
+<div class="modal fade" id="pwdModal" tabindex="-1" role="dialog" aria-labelledby="pwdModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="pwdModalLabel">Geben Sie ein neues Passwort ein!</h5>
+    </div>
+    <div class="modal-body">
+    <table>
+        <tr>
+        <td>Neues Passwort:</td>
+        <td><input type="password" [(ngModel)]="password1"></td>
+        </tr>
+        <tr>
+        <td>Passwort wiederholen:</td>
+        <td><input type="password" [(ngModel)]="password2"></td>
+        </tr>
+    </table>     
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="changePwd()">ändern</button>
+    </div>
+    </div>
+</div>
+</div>

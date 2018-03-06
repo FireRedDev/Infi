@@ -218,6 +218,7 @@ body {
     font-size: 32px;
     top: 190%;
 }
+
 .button:hover:before {
     top: 50%;
 }

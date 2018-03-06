@@ -1,15 +1,7 @@
 package service;
 
-import entities.Role;
-import entities.Dokumentation;
-import entities.JRKEntitaet;
-import entities.Person;
-import entities.Termin;
-import entities.JRKEntitaetType;
-import static entities.JRKEntitaetType.Bezirkstelle;
-import static entities.JRKEntitaetType.Gruppe;
-import static entities.JRKEntitaetType.Landstelle;
-import static entities.JRKEntitaetType.Ortstelle;
+import entities.*;
+import static entities.JRKEntitaetType.*;
 import java.net.URI;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
@@ -32,7 +24,7 @@ public class HttpServer_JavaSE {
      *
      */
     public static final String BASE_URI = "http://localhost:8080/api/";
-    private EntityManager em = EntityManagerSingleton.getInstance().getEm();
+    private static final EntityManager em = EntityManagerSingleton.getInstance().getEm();
 
     /**
      *
@@ -47,14 +39,14 @@ public class HttpServer_JavaSE {
         final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
         server.getServerConfiguration().addHttpHandler(new StaticHttpHandler("public"), "/");
         System.out.println(String.format("Server startet at %s\nHit enter to stop ...", BASE_URI));
-        Logger l
-                = Logger.getLogger("org.glassfish.grizzly.http.server.HttpHandler");
+        
+        Logger l = Logger.getLogger("org.glassfish.grizzly.http.server.HttpHandler");
         l.setLevel(Level.FINE);
         l.setUseParentHandlers(false);
         ConsoleHandler ch = new ConsoleHandler();
         ch.setLevel(Level.ALL);
         l.addHandler(ch);
-        EntityManager em = EntityManagerSingleton.getInstance().getEm();
+        init();
         System.in.read();
         server.shutdown();
     }
@@ -64,7 +56,7 @@ public class HttpServer_JavaSE {
      * @param repo
      * @return
      */
-    public String init(EntityManager repo) {
+    public static String init() {
         JRKEntitaetType gruppe = Gruppe;
         JRKEntitaetType ortstelle = Ortstelle;
         JRKEntitaetType bezirkstelle = Bezirkstelle;
@@ -111,7 +103,7 @@ public class HttpServer_JavaSE {
      * @param b
      * @return
      */
-    public Person insert(Person b) {
+    public static Person insert(Person b) {
         em.getTransaction().begin();
         em.merge(b);
         em.getTransaction().commit();

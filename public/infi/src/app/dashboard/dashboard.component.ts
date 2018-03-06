@@ -11,82 +11,19 @@ Provider,
 OnDestroy,
 TemplateRef } from '@angular/core';
 import {UserService} from '../user.service';
-import {
-CalendarEvent,
-CalendarDateFormatter,
-DAYS_OF_WEEK,
-CalendarEventAction,
-CalendarEventTimesChangedEvent,
-CalendarEventTitleFormatter,
-CalendarModule
-} from 'angular-calendar';
-import { CustomDateFormatter } from './custom-date-formatter.provider';
-import { DateTimePickerComponent } from './date-time-picker.component';
-import { colors } from './colors';
-import { RestService } from '../rest.service';
-import 'rxjs/add/operator/map';
-import {
-isSameMonth,
-isSameDay,
-startOfMonth,
-endOfMonth,
-startOfWeek,
-endOfWeek,
-startOfDay,
-endOfDay,
-format,
-subDays,
-addDays,
-addHours
-} from 'date-fns';
-import { Observable } from 'rxjs/Observable';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-NgbDatepickerModule,
-NgbTimepickerModule, NgbModal
-} from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs/Subject';
-import { CustomEventTitleFormatter } from './custom-event-title-formatter.provider';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Benutzer } from '../login-form/benutzer.model';
-
-interface Termin {
-id: number;
-title: string;
-s_date: string;
-e_date: string;
-beschreibung: string;
-benutzer: Benutzer;
-ort: String;
-}
-@NgModule({
-imports: [
-CommonModule,
-FormsModule,
-NgbDatepickerModule.forRoot(),
-NgbTimepickerModule.forRoot(),
-CalendarModule
-],
-declarations: [ DateTimePickerComponent],
-exports: [DateTimePickerComponent]
-})
+import { ActivatedRoute, Router } from '@angular/router';
+import { RestService } from '../rest.service';
+declare var jquery: any;
+declare var $: any;
 
 @Component({
-selector: 'app-dashboard',
-templateUrl: './dashboard.component.html',
-styleUrls: ['./dashboard.component.css'],
-providers: [
-{
-provide: CalendarDateFormatter,
-useClass: CustomDateFormatter
-},
-{
-provide: CalendarEventTitleFormatter,
-useClass: CustomEventTitleFormatter
-}
-]
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
 
 export class DashboardComponent implements OnInit {
@@ -94,21 +31,9 @@ export class DashboardComponent implements OnInit {
   username: String;
   isEditor= true;
   jrkEntitaet: any;
-  @ViewChild('modalContent') modalContent: TemplateRef<any>;
-
-  viewDate: Date = new Date();
-  title = 'app';
-  locale = 'de';
   view = 'month';
-  weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
-  weekendDays: number[] = [DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
-
-  events$: Observable<Array<CalendarEvent<{ termin: Termin }>>>;
-
-  activeDayIsOpen = false;
-
-  @Output() viewChange: EventEmitter<string> = new EventEmitter();
-  @Output() viewDateChange: EventEmitter<Date> = new EventEmitter();
+  password1="";
+  password2="";
 
   private _opened = false;
   private _modeNum = 0;
@@ -211,71 +136,32 @@ export class DashboardComponent implements OnInit {
       .subscribe(data => {
         this.username = JSON.stringify(data).replace("\"","").replace("\"","");
       });
-      this.rest.isEditor(body)
+    this.rest.isEditor(body)
       .subscribe(data => {
         this.isEditor = (data === true);
       });
-    this.rest.getJRKEntitaet(body)
-      .subscribe(data => {
-        this.jrkEntitaet = data;
-      });
-    this.fetchEvents();
+    this.rest.needPwdChange(body)
+    .subscribe(data => {
+      if(data!=true){
+        $('#pwdModal').modal('show');
+      }
+    }); 
   }
 
   changeView(message: string){
-    this.view = 'month';
+    this.view = message;
   }
 
-  fetchEvents(): void {
-    const getStart: any = {
-      month: startOfMonth,
-      week: startOfWeek,
-      day: startOfDay
-    }[this.view];
-
-    const getEnd: any = {
-      month: endOfMonth,
-      week: endOfWeek,
-      day: endOfDay
-    }[this.view];
-
-    const body = localStorage.getItem('currentUser');
-    this.events$ = this.rest.getUserTermine(body)
-      .map(json => {
-        return this.convertEvents(json as Termin[]);
+  changePwd(){
+    if(this.password1==this.password2&&this.password1!=""){
+      const body = {'id': localStorage.getItem('currentUser'), 'password': this.password1};
+      this.rest.changePassword(body).subscribe(data => {
+        console.log("message: "+data);
+        $('#pwdModal').modal('hide');
       });
-  }
-
-  convertEvents(events: Array<Termin>): Array<any>{
-    const calendarEvents = [];
-    events.forEach(function(event){
-      calendarEvents.push({
-        title: 'Titel: ' + event.title + '<br>Beschreibung: ' + event.beschreibung + '<br>Ort: ' + event.ort,
-        start: new Date(event.s_date),
-        end: new Date(event.e_date),
-        color: colors.red,
-        cssClass: 'my-custom-class'
-        });
-    });
-    return calendarEvents;
-  }
-  dayClicked({
-    date,
-    events
-  }: {
-    date: Date;
-    events: Array<CalendarEvent<{ termin: Termin }>>;
-  }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-        this.viewDate = date;
-      }
+    }
+    else{
+      alert("Die beiden Passwörter sind nicht ident, versuche es nochmal!");
     }
   }
 }

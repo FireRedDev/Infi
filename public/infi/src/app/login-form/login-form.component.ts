@@ -15,6 +15,7 @@ styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
   public benutzer: Benutzer;
+
   constructor(public rest: RestService,private router: Router, private user: UserService) {
     this.rest=rest;
    }
@@ -52,5 +53,4 @@ const password = e.target.elements[1].value;
         }
       });    
   }
-
 }

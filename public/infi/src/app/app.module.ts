@@ -25,6 +25,7 @@ import { DiagramsComponent } from './diagrams/diagrams.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { RestService } from './rest.service';
 import { HomeComponent } from './home/home.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const appRoutes:Routes = [
 {
@@ -47,7 +48,8 @@ component: DashboardComponent
     TerminComponent,
     ProtocolComponent,
     DiagramsComponent,
-    HomeComponent
+    HomeComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

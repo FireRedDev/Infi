@@ -40,10 +40,8 @@ public class Person implements Serializable {
     private Role rolle;
     @ManyToOne(fetch = FetchType.LAZY)
     private JRKEntitaet jrkentitaet;
- 
-    /**
-     *
-     */
+    private boolean passwordChanged;
+
     public Person() {
     }
 
@@ -62,6 +60,7 @@ public class Person implements Serializable {
         this.vorname = vorname;
         this.nachname = nachname;
         this.jrkentitaet = jrkentitaet;
+        this.passwordChanged = false;
     }
 
     /**
@@ -194,4 +193,11 @@ public class Person implements Serializable {
         this.jrkentitaet = jrkentitaet;
     }
 
+    public boolean isPasswordChanged() {
+        return passwordChanged;
+    }
+
+    public void setPasswordChanged(boolean passwordChanged) {
+        this.passwordChanged = passwordChanged;
+    }
 }

@@ -2,23 +2,11 @@
 import { CalendarEventTitleFormatter, CalendarEvent } from 'angular-calendar';
 
 export class CustomEventTitleFormatter extends CalendarEventTitleFormatter {
-constructor() {
-super();
-}
+  constructor() {
+    super();
+  }
 
-locale: string = 'de';
-
-month(event: CalendarEvent): string {
-return `<div class="black">
-    <b>${new Intl.DateTimeFormat(this.locale, {
-        hour: 'numeric',
-        minute: 'numeric'
-        }).format(event.start)}</b> - <b>${new Intl.DateTimeFormat(this.locale, {
-        hour: 'numeric',
-        minute: 'numeric'
-        }).format(event.end)} </b>
-    <br>${event.title}</div>`;
-}
+  locale: string = 'de';
 
   month(event: CalendarEvent): string {
     return `<div class="black"><b>${new Intl.DateTimeFormat(this.locale, {
@@ -36,7 +24,7 @@ return `<div class="black">
     }).format(event.end)} </b><br>${event.title}</div>`;
   }
 
-    day(event: CalendarEvent): string {
+  week(event: CalendarEvent): string {
     return `<b>${new Intl.DateTimeFormat(this.locale, {
         month: 'numeric',
         day:'numeric',
