@@ -79,7 +79,7 @@ public class Service {
     @Path("listAllJRKEntitaeten")
     @Secured({Role.LANDESLEITER})
     @Produces(MediaType.APPLICATION_JSON)
-    public List<OrganisationalEntity> listAllJRKEntitaeten() {
+    public List<JRKEntitaet> listAllJRKEntitaeten() {
         return repo.listAllJRK();
     }
 
@@ -139,7 +139,7 @@ public class Service {
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
-    public OrganisationalEntity getJRKEntitaet(int id) {
+    public JRKEntitaet getJRKEntitaet(int id) {
         return repo.getJRKEntitaet(id);
     }
 
@@ -258,7 +258,7 @@ public class Service {
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
-    public List<OrganisationalEntity> getJRKEntitaetdown(int id) {
+    public List<JRKEntitaet> getJRKEntitaetdown(int id) {
         return repo.getJRKEntitaetdown(id);
     }
 

@@ -39,8 +39,8 @@ public class Person implements Serializable {
     private String nachname;
     private Role rolle;
     @ManyToOne(fetch = FetchType.LAZY)
-    private OrganisationalEntity jrkentitaet;
-
+    private JRKEntitaet jrkentitaet;
+ 
     /**
      *
      */
@@ -56,7 +56,7 @@ public class Person implements Serializable {
      * @param nachname
      * @param jrkentitaet
      */
-    public Person(String personalnr, String password, String vorname, String nachname, OrganisationalEntity jrkentitaet) {
+    public Person(String personalnr, String password, String vorname, String nachname, JRKEntitaet jrkentitaet) {
         this.personalnr = personalnr;
         this.password = password;
         this.vorname = vorname;
@@ -97,7 +97,7 @@ public class Person implements Serializable {
      * @param jrkentitaet
      * @param rolle
      */
-    public Person(String personalnr, String password, String vorname, String nachname, OrganisationalEntity jrkentitaet, Role rolle) {
+    public Person(String personalnr, String password, String vorname, String nachname, JRKEntitaet jrkentitaet, Role rolle) {
         this.personalnr = personalnr;
         this.password = password;
         this.vorname = vorname;
@@ -182,7 +182,7 @@ public class Person implements Serializable {
      *
      * @return
      */
-    public OrganisationalEntity getJrkentitaet() {
+    public JRKEntitaet getJrkentitaet() {
         return jrkentitaet;
     }
 
@@ -190,7 +190,7 @@ public class Person implements Serializable {
      *
      * @param jrkentitaet
      */
-    public void setJrkentitaet(OrganisationalEntity jrkentitaet) {
+    public void setJrkentitaet(JRKEntitaet jrkentitaet) {
         this.jrkentitaet = jrkentitaet;
     }
 

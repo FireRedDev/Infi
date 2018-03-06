@@ -5,7 +5,7 @@ package entities;
  *
  * @author Christopher G
  */
-public enum OrganisationEntityType {
+public enum JRKEntitaetType {
 
     /**
      *
