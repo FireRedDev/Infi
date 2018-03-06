@@ -258,7 +258,7 @@ public class Service {
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
-    public List<JRKEntitaet> getJRKEntitaetdown(int id) {
+    public List<OrganisationalEntity> getJRKEntitaetdown(int id) {
         return repo.getJRKEntitaetdown(id);
     }
 
