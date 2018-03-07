@@ -79,16 +79,13 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
             //trim token
             authorization = authorization.substring("Bearer".length()).trim();
             authorization = authorization.replace("\"", "");
-           Jws<Claims> credentials;
+            Jws<Claims> credentials;
             try {
                 credentials = decodeJWT(authorization);
             } catch (IllegalArgumentException e) {
                 credentials = null;
             }
 
-
-            
-           
             //get the tokens user from the database to check his permissions(can he access this method?) in the checkPermissions Method
             //get permitted roles from the accessed method
             Class<?> resourceClass = resourceInfo.getResourceClass();
@@ -98,11 +95,11 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
             // Extract the roles declared by it
             Method resourceMethod = resourceInfo.getResourceMethod();
             List<Role> methodRoles = extractRoles(resourceMethod);
-   // or simple but not the best
-   int id =credentials.getBody().get("id", Integer.class);
-     Role role =credentials.getBody().get("role", Role.class);
-    requestContext.setSecurityContext( new MySecurityContext(id,role));
-                
+            // or simple but not the best
+            int id = credentials.getBody().get("id", Integer.class);
+            Role role = Role.valueOf(credentials.getBody().get("role", String.class));
+            requestContext.setSecurityContext(new MySecurityContext(id, role));
+
             try {
 
                 // Check if the user is allowed to execute the method

@@ -181,7 +181,7 @@ public class DatenbankRepository {
         List<Termin> termine = new LinkedList();
         Person currentPerson = em.find(Person.class, id);
         //Check for Duplicates, prepare Termin list
-        addList(termine, currentPerson.getJrkentitaet().getTermine());
+        termine = addList(termine, currentPerson.getJrkentitaet().getTermine());
         //Recursivly get Termine hierarchic upwards
         termine = this.termineLayerDown(currentPerson.getJrkentitaet(), termine);
         //Recursivly get Termine hierarchic downwards
@@ -219,9 +219,9 @@ public class DatenbankRepository {
             //Go through all entitys
             for (JRKEntitaet entity : jrkentitaet) {
                 //Prepare Termin List, check for duplicates
-                addList(termine, entity.getTermine());
+                termine = addList(termine, entity.getTermine());
                 List<Termin> term = termineLayerUp(entity, termine);
-                addList(termine, term);
+                termine = addList(termine, term);
             }
         }
         return termine;
@@ -237,9 +237,9 @@ public class DatenbankRepository {
         List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
         if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
             for (JRKEntitaet entity : jrkentitaet) {
-                addList(termine, entity.getTermine());
+                termine = addList(termine, entity.getTermine());
                 List<Termin> term = termineLayerDown(entity, termine);
-                addList(termine, term);
+                termine = addList(termine, term);
             }
         }
         return termine;
@@ -281,7 +281,7 @@ public class DatenbankRepository {
         return info;
     }
 
-    /**
+   /**
      *
      * @param termine
      * @param tt
@@ -304,12 +304,13 @@ public class DatenbankRepository {
      */
     private List<Termin> addList(List<Termin> termine, List<Termin> tt) {
         if (!termine.equals(tt)) {
-            tt.forEach((te) -> {
+            for (Termin te : tt) {
                 termine.add(te);
-            });
+            }
         }
         return termine;
     }
+
 
     /**
      *
