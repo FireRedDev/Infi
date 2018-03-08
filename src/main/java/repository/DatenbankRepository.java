@@ -281,7 +281,7 @@ public class DatenbankRepository {
         return info;
     }
 
-   /**
+    /**
      *
      * @param termine
      * @param tt
@@ -310,7 +310,6 @@ public class DatenbankRepository {
         }
         return termine;
     }
-
 
     /**
      *
@@ -402,11 +401,10 @@ public class DatenbankRepository {
 
     /**
      *
-     * @param id
+     * @param jrk
      * @return
      */
-    public List<NameValue> getChartValues(int id) {
-        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+    public List<NameValue> getChartValues(JRKEntitaet jrk) {
         List<Termin> list = jrk.getTermine();
         //to count the categories
         int[] katcount = new int[3];
@@ -438,13 +436,12 @@ public class DatenbankRepository {
 
     /**
      *
-     * @param id
+     * @param jrk
      * @return
      */
-    public List<NameValue> getTimelineValues(int id) {
+    public List<NameValue> getTimelineValues(JRKEntitaet jrk) {
         //to count the categories
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
         List<Termin> list = jrk.getTermine();
         List<NameValue> returnlist = new LinkedList<>();
         //go through all 12 Months
@@ -470,12 +467,11 @@ public class DatenbankRepository {
 
     /**
      *
-     * @param id
+     * @param jrk
      * @return
      */
-    public List<NameValue> getLowerEntityHourList(int id) {
+    public List<NameValue> getLowerEntityHourList(JRKEntitaet jrk) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
 
         List<NameValue> returnlist = new LinkedList<>();
         List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
@@ -483,6 +479,7 @@ public class DatenbankRepository {
         for (JRKEntitaet jr : jrks) {
             //get current jrks termine
             List<Termin> list = jr.getTermine();
+            
             NameValue nv = new NameValue(jr.getName(), 2);
             //count the time of each termin for the jrk entity
             for (Termin termin : list) {
@@ -501,26 +498,28 @@ public class DatenbankRepository {
 
     /**
      *
-     * @param id
+     * @param jrk
      * @return
      */
-    public List<NameValue> getYearlyHoursPerPeople(int id) {
-        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+    public List<NameValue> getYearlyHoursPerPeople(JRKEntitaet jrk) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         List<Termin> list = jrk.getTermine();
+        list = termineLayerDown(jrk,list);
         int[] katcount = new int[3];
 
         if (list != null) {
             for (Termin termin : list) {
                 Dokumentation doku = termin.getDoko();
-                // get the betreues time
-                katcount[0] = (katcount[0] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getBetreuer().length;
-                //get the kinders time
-                katcount[1] = (katcount[1] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getKinderliste().length;
-                //POSSIBLE BUG: San ChronoUnit Hours gleichgroß wie deine Hours?
-                //get the Preparationtime
-                katcount[2] = (katcount[2] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) + (int) doku.getVzeit();
+                if (doku != null) {
+                    // get the betreues time
+                    katcount[0] = (katcount[0] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getBetreuer().length;
+                    //get the kinders time
+                    katcount[1] = (katcount[1] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getKinderliste().length;
+                    //POSSIBLE BUG: San ChronoUnit Hours gleichgroß wie deine Hours?
+                    //get the Preparationtime
+                    katcount[2] = (katcount[2] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) + (int) doku.getVzeit();
+                }
             }
 
         }
@@ -552,15 +551,27 @@ public class DatenbankRepository {
         return em.find(Termin.class, id);
     }
 
+    /**
+     * 
+     * @param p 
+     */
     public void changePassword(Person p) {
         String password = p.getPassword();
         p = em.find(Person.class, p.getId());
         if (!p.isPasswordChanged()) {
             p.setPassword(password);
             p.setPasswordChanged(true);
+            em.getTransaction().begin();
+            em.persist(p);
+            em.getTransaction().commit();
         }
     }
 
+    /**
+     * 
+     * @param id
+     * @return 
+     */
     public boolean needPwdChange(int id) {
         Person p = em.find(Person.class, id);
         boolean isChanged = p.isPasswordChanged();

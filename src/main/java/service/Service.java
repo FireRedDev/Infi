@@ -203,56 +203,66 @@ public class Service {
     /**
      * Häufigkeit von Kategorie in einer JRKEntity
      *
-     * @param id
+     * @param jrk
      * @return
      */
     @POST
     @Path("getChartValues")
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.TEXT_PLAIN)
-    public List<NameValue> getChartValues(int id) {
-        return repo.getChartValues(id);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<NameValue> getChartValues(JRKEntitaet jrk) {
+        return repo.getChartValues(jrk);
     }
 
     /**
      * Anzahl von den Stunden pro Monat im letzten Jahr
      *
-     * @param id
+     * @param jrk
      * @return
      */
     @POST
     @Path("getLowerEntityHourList")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.TEXT_PLAIN)
-    public List<NameValue> getLowerEntityHourList(int id) {
-        return repo.getLowerEntityHourList(id);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<NameValue> getLowerEntityHourList(JRKEntitaet jrk) {
+        return repo.getLowerEntityHourList(jrk);
     }
 
+    /**
+     * 
+     * @param jrk
+     * @return 
+     */
     @POST
     @Path("getTimelineValues")
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.TEXT_PLAIN)
-    public List<NameValue> getTimelinesValues(int id) {
-        return repo.getTimelineValues(id);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<NameValue> getTimelinesValues(JRKEntitaet jrk) {
+        return repo.getTimelineValues(jrk);
     }
 
     /**
      * get Anzahl der Stunden pro Persongruppe
      *
-     * @param id
+     * @param jrk
      * @return
      */
     @POST
     @Path("getYearlyHoursPerPeople")
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.TEXT_PLAIN)
-    public List<NameValue> getYearlyHoursPerPeople(int id) {
-        return repo.getYearlyHoursPerPeople(id);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<NameValue> getYearlyHoursPerPeople(JRKEntitaet jrk) {
+        return repo.getYearlyHoursPerPeople(jrk);
     }
 
+    /**
+     * 
+     * @param id
+     * @return 
+     */
     @POST
     @Path("getJRKEntitaetdown")
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
@@ -262,6 +272,11 @@ public class Service {
         return repo.getJRKEntitaetdown(id);
     }
 
+    /**
+     * 
+     * @param p
+     * @return 
+     */
     @POST
     @Path("changePassword")
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER, Role.KIND, Role.GRUPPENLEITER})
@@ -273,6 +288,11 @@ public class Service {
         return "\"Passwort geändert\"";
     }
 
+    /**
+     * 
+     * @param id
+     * @return 
+     */
     @POST
     @Path("needPwdChange")
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER, Role.KIND, Role.GRUPPENLEITER})

@@ -15,7 +15,7 @@
 [gradient]="gradient"
 (select)="onSelect($event)">
 </ngx-charts-pie-chart>
-<h2>Aufteilung auf Gruppen</h2>
+<h2 class="abstand">Aufteilung auf Gruppen</h2>
 <ngx-charts-pie-chart
 [view]="view"
 [scheme]="colorScheme"
@@ -27,9 +27,9 @@
 [gradient]="gradient"
 (select)="onSelect($event)">
 </ngx-charts-pie-chart>
-<h2>Zeitleiste</h2>
+<h2 class="abstand">Zeitleiste</h2>
 <ngx-charts-bar-vertical
-[view]="diagrams"
+[view]="view"
 [scheme]="colorScheme"
 [results]="singleChartBar"
 [gradient]="gradient"
@@ -42,7 +42,7 @@
 [yAxisLabel]="Stunden"
 (select)="onSelect($event)">
 </ngx-charts-bar-vertical>
-<h2>geleistete Stunden</h2>
+<h2 class="abstand">geleistete Stunden</h2>
 <ngx-charts-bar-horizontal
 [view]="view"
 [scheme]="colorScheme"

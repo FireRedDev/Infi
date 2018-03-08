@@ -66,7 +66,7 @@ public class HttpServer_JavaSE {
         JRKEntitaet wels = new JRKEntitaet(4, "Wels", bezirkstelle, ooe);
         JRKEntitaet sattledt = new JRKEntitaet(1, "Sattledt", ortstelle, wels);
         JRKEntitaet sattledt1 = new JRKEntitaet(2, "Gruppe1", gruppe, sattledt);
-        JRKEntitaet marchtrenk = new JRKEntitaet(3, "Sattledt", ortstelle, wels);
+        JRKEntitaet marchtrenk = new JRKEntitaet(3, "Marchtrenk", ortstelle, wels);
         JRKEntitaet marchtrenk1 = new JRKEntitaet(6, "Gruppe1", gruppe, marchtrenk);
 
         //Dokumentation
@@ -75,6 +75,14 @@ public class HttpServer_JavaSE {
         String[] kinder = {"Meli", "Antonia", "Luki"};
         sattledttermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "Soziales"));
         sattledt1.addTermin(sattledttermin);
+
+        Termin welstermin = new Termin("2018-03-04 15:30:00", "2018-03-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Wels");
+        welstermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "EH"));
+        wels.addTermin(welstermin);
+
+        Termin sattermin = new Termin("2018-03-05 15:30:00", "2018-03-05 17:30:00", "Generalversammlung", "Ortsstellenversammlung", "Dienststelle Sattledt");
+        sattermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "Exkursion"));
+        sattledt.addTermin(sattermin);
 
         marchtrenk1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Eislaufen", "Bitte Eislaufschuhe, Winterkleidung und 3€ Eintritt mitnehmen", "Eislaufplatz Marchtrenk"));
         wels.addTermin(new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk"));
