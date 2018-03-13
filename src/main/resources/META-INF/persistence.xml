@@ -3,11 +3,11 @@
   <persistence-unit name="infiPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>entities.Termin</class>
-    <class>entities.Person</class>
     <class>entities.JRKEntitaet</class>
     <class>entities.Dokumentation</class>
-    <class>entities.JWTTokenUser</class>
     <class>entities.Info</class>
+    <class>RestResponseClasses.JWTTokenUser</class>
+    <class>entities.Person</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/infiDB"/>
       <property name="javax.persistence.jdbc.user" value="infi"/>

@@ -25,6 +25,7 @@ import { DiagramsComponent } from './diagrams/diagrams.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { RestService } from './rest.service';
 import { HomeComponent } from './home/home.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DateTimePickerComponent } from './dashboard/date-time-picker.component';
@@ -34,15 +35,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OwlDateTimeIntl } from 'ng-pick-datetime';
 
 const appRoutes:Routes = [
-  {
-    path: '',
-    component: LoginFormComponent
-  },
-  {
-    path: 'dashboard',
-    canActivate: [AuthguardGuard],
-    component: DashboardComponent
-  }
+{
+path: '',
+component: LoginFormComponent
+},
+{
+path: 'dashboard',
+canActivate: [AuthguardGuard],
+component: DashboardComponent
+}
 ]
 @NgModule({
   declarations: [
@@ -55,7 +56,7 @@ const appRoutes:Routes = [
     ProtocolComponent,
     DiagramsComponent,
     DateTimePickerComponent,
-    HomeComponent
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

@@ -169,57 +169,58 @@ i.fa.fa-plus {
 }
 
 .material-icons{
-  padding-bottom: 0%;
-  font-size: 90%;
+    padding-bottom: 0%;
+    font-size: 90%;
 }
 
 .einfuegen{
-  padding-left: 5%;
-  padding-right: 30%;
-  font-size: 125%;
+    padding-left: 5%;
+    padding-right: 30%;
+    font-size: 125%;
 }
 
 @import url('http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
 body {
-  background: #eee;
-  font-family: 'helvetica Neue';
+    background: #eee;
+    font-family: 'helvetica Neue';
 }
 .button {
-  width: 100%;
-  height: 50px;
-  background-color: red;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -70%);
-  overflow: hidden;
-  cursor: pointer;
-  color: #fff;
-  text-align: center;
+    width: 100%;
+    height: 50px;
+    background-color: red;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -70%);
+    overflow: hidden;
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
 }
 .button:after, .button:before {
-  content: 'LOG OUT';
-  letter-spacing: 5px;
-  position: absolute;
-  width: 100%;
-  font-weight:bold;
-  font-size: 100%;
-  left: 50%;
-  top: 50%;
-  transition: all 0.3s;
-  transform: translate(-50%, -90%);
+    content: 'LOG OUT';
+    letter-spacing: 5px;
+    position: absolute;
+    width: 100%;
+    font-weight:bold;
+    font-size: 100%;
+    left: 50%;
+    top: 50%;
+    transition: all 0.3s;
+    transform: translate(-50%, -90%);
 }
 .button:hover:after {
-  top: -50%;
+    top: -50%;
 }
 .button:before {
-  font-family: 'Ionicons';
-  content: '\f385';
-  font-size: 32px;
-  top: 190%;
+    font-family: 'Ionicons';
+    content: '\f385';
+    font-size: 32px;
+    top: 190%;
 }
+
 .button:hover:before {
-  top: 50%;
+    top: 50%;
 }
 
 #platzierung{
@@ -248,8 +249,8 @@ body {
 }
 
 @media screen and (max-width: 500px) {
-  .dashboard-contents[_ngcontent-c3] {
-    padding: 0px !important;
+    .dashboard-contents[_ngcontent-c3] {
+        padding: 0px !important;
     }
 }
 .black{

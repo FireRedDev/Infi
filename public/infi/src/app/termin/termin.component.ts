@@ -15,9 +15,9 @@ export const DefaultIntl = {
 };
 
 @Component({
-  selector: 'app-termin',
-  templateUrl: './termin.component.html',
-  styleUrls: ['./termin.component.css']
+selector: 'app-termin',
+templateUrl: './termin.component.html',
+styleUrls: ['./termin.component.css']
 })
 
 
@@ -49,11 +49,8 @@ success=false;
   
   
   
-  actTermin:Termin = new Termin(0,'','','','','');
-  submitted = false;
-
-  
-
+    actTermin:Termin = new Termin(0,'','','','','');
+    submitted = false;
  
-  onSubmit() { this.submitted = true; }
-}
+    onSubmit() { this.submitted = true; }
+    }

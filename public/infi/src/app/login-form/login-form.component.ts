@@ -9,25 +9,26 @@ import {Observable} from 'rxjs/Rx';
 import { RestService } from '../rest.service';
 
 @Component({
-  selector: 'app-login-form',
-  templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css']
+selector: 'app-login-form',
+templateUrl: './login-form.component.html',
+styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
   public benutzer: Benutzer;
+
   constructor(public rest: RestService,private router: Router, private user: UserService) {
     this.rest=rest;
    }
 
-  results: string[];
+results: string[];
 
   ngOnInit() {
   }
 
-  loginUser(e) {
-    e.preventDefault();
-    const personalnr = e.target.elements[0].value;
-    const password = e.target.elements[1].value;
+loginUser(e) {
+e.preventDefault();
+const personalnr = e.target.elements[0].value;
+const password = e.target.elements[1].value;
 
      const body = {'personalnr': personalnr, 'password': password};
 
@@ -43,14 +44,15 @@ export class LoginFormComponent implements OnInit {
         }
     })
        .subscribe(data => { 
+         if(data!=null){
         this.user.setUserLoggedIn();
         localStorage.setItem('currentUser',JSON.parse(data.userID));
         localStorage.setItem('token',JSON.stringify(data.token));
         this.router.navigate(['dashboard']);
+         }
         err=>{
           alert("Falsche Personalnummer oder falsches Passwort eingegeben!");
         }
       });    
   }
-
 }

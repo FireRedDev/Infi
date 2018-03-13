@@ -1,7 +1,10 @@
 package service;
 
-import entities.JWTTokenUser;
+import entities.Role;
+import RestResponseClasses.JWTTokenUser;
 import entities.Person;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -15,68 +18,76 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
-import java.nio.charset.Charset;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Priority;
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Context;
-
 import static javax.ws.rs.core.Response.ResponseBuilder;
 import static javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.SecurityContext;
 import repository.DatenbankRepository;
+import repository.EntityManagerSingleton;
 
+/**
+ *
+ * @author Christopher G
+ */
 @Secured
 @Provider
 @Priority(Priorities.AUTHORIZATION)
-//
+/**
+ * Blocks Unauthorized Access of Rest Methods Checks Permissions
+ */
 public class UserAuthenticationFilter implements ContainerRequestFilter,
         ContainerResponseFilter {
 
     @Context
     private ResourceInfo resourceInfo;
 
-    private EntityManager em;
+    private final EntityManager em;
 
+    /**
+     *
+     */
     public UserAuthenticationFilter() {
-        em = Persistence.createEntityManagerFactory("infiPU").createEntityManager();
+        em = EntityManagerSingleton.getInstance().getEm();
     }
 
     @Override
     public void filter(ContainerRequestContext requestContext)
             throws IOException {
-
+        //TODO: get user/pass from token instead of database
+        //print header and method
         MultivaluedMap<String, String> headers = requestContext.getHeaders();
         System.out.println(" ================ Header start ================");
-        for (String key : headers.keySet()) {
+        headers.keySet().forEach((key) -> {
             System.out.println(key + " " + headers.getFirst(key));
-        }
+        });
         System.out.println(" ================ Header stop ================");
 
         String authorization = requestContext.getHeaderString("Authorization");
-
+        //is there a token?
         if (authorization != null && authorization.startsWith("Bearer")) {
+            //trim token
             authorization = authorization.substring("Bearer".length()).trim();
             authorization = authorization.replace("\"", "");
-            String credentials;
+            Jws<Claims> credentials;
             try {
-                credentials = authorization;//decodeJWT(authorization);
+                credentials = decodeJWT(authorization);
             } catch (IllegalArgumentException e) {
-                credentials = "";
+                credentials = null;
             }
 
-            Query query = em.createQuery("select t from JWTTokenUser t where t.token = :token").setParameter("token", credentials);
-
-            JWTTokenUser jwt = (JWTTokenUser) query.getSingleResult();
-            Person user = jwt.getPerson();
+            //get the tokens user from the database to check his permissions(can he access this method?) in the checkPermissions Method
+            //get permitted roles from the accessed method
             Class<?> resourceClass = resourceInfo.getResourceClass();
             List<Role> classRoles = extractRoles(resourceClass);
 
@@ -84,26 +95,26 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
             // Extract the roles declared by it
             Method resourceMethod = resourceInfo.getResourceMethod();
             List<Role> methodRoles = extractRoles(resourceMethod);
+            // or simple but not the best
+            int id = credentials.getBody().get("id", Integer.class);
+            Role role = Role.valueOf(credentials.getBody().get("role", String.class));
+            requestContext.setSecurityContext(new MySecurityContext(id, role));
 
             try {
 
                 // Check if the user is allowed to execute the method
                 // The method annotations override the class annotations
                 if (methodRoles.isEmpty()) {
-                    checkPermissions(classRoles,user);
+                    checkPermissions(classRoles, role);
                 } else {
-                    checkPermissions(methodRoles, user);
+                    checkPermissions(methodRoles, role);
                 }
 
             } catch (Exception e) {
                 requestContext.abortWith(
                         Response.status(Response.Status.FORBIDDEN).build());
             }
-            if (false) {// an der stelle schaun ob der token in der tabelle gespeichert is
-                //TODO
-                //em.find (jwttokenuser klasse,token is der primary key)!
-                // Eintrag in Http-Header:
-                // Authorization: Basic cGFzc21l
+            if (false) {
                 System.out.println("Authentication failed!");
                 ResponseBuilder responseBuilder = Response.status(Status.UNAUTHORIZED);
                 Response response = responseBuilder.build();
@@ -122,11 +133,11 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
 
     private List<Role> extractRoles(AnnotatedElement annotatedElement) {
         if (annotatedElement == null) {
-            return new ArrayList<Role>();
+            return new ArrayList<>();
         } else {
             Secured secured = annotatedElement.getAnnotation(Secured.class);
             if (secured == null) {
-                return new ArrayList<Role>();
+                return new ArrayList<>();
             } else {
                 Role[] allowedRoles = secured.value();
                 return Arrays.asList(allowedRoles);
@@ -134,14 +145,19 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
         }
     }
 
-    public String decodeJWT(String jwt) {
+    /**
+     * Decode JWT Token with JWTS Libary
+     *
+     * @param jwt
+     * @return
+     */
+    public Jws<Claims> decodeJWT(String jwt) {
         try {
 
             try {
                 return Jwts.parser()
-                        .setSigningKey("secret".getBytes("UTF-8"))
-                        .parseClaimsJws(jwt
-                        ).getSignature();
+                        .setSigningKey("secretswaggy132".getBytes("UTF-8"))
+                        .parseClaimsJws(jwt);
 
                 //OK, we can trust this JWT
             } catch (UnsupportedEncodingException ex) {
@@ -155,19 +171,16 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
         return null;
     }
 
-    private void checkPermissions(List<Role> allowedRoles, Person user) throws Exception {
+    private void checkPermissions(List<Role> allowedRoles, Role userRole) throws Exception {
         // Check if the user contains one of the allowed roles
         // Throw an Exception if the user has not permission to execute the method
         boolean VALID = false;
         for (Role role : allowedRoles) {
-            if (role == user.getRolle()) {
+            if (role != userRole) {
+            } else {
                 VALID = true;
             }
-//            for (Role value : Role.values()) {
-//                if ((role == value)) {
-//                    VALID = true;
-//                }
-            //       }
+
         }
         if (!VALID) {
             throw new Exception();

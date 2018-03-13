@@ -3,6 +3,9 @@
  */
 package repository;
 
+import RestResponseClasses.PersonTransferObject;
+import RestResponseClasses.JWTTokenUser;
+import RestResponseClasses.PersonTokenTransferObject;
 import RestResponseClasses.NameValue;
 import entities.*;
 import java.time.LocalDate;
@@ -13,21 +16,30 @@ import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import io.jsonwebtoken.*;
 import java.io.UnsupportedEncodingException;
-import java.time.Instant;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.SecurityContext;
 
+/**
+ * Repository
+ *
+ * @author Christopher G
+ */
 public class DatenbankRepository {
 
-    private EntityManager em;
+    private final EntityManager em;
+    @Context
+    protected SecurityContext securityContext;
 
     /**
      * Konstruktor
      */
     public DatenbankRepository() {
-        em = Persistence.createEntityManagerFactory("infiPU").createEntityManager();
+//get database
+        em = EntityManagerSingleton.getInstance().getEm();
     }
 
     /**
@@ -44,6 +56,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Returns all Users
      *
      * @return
      */
@@ -52,32 +65,38 @@ public class DatenbankRepository {
     }
 
     /**
+     * Login
      *
-     * @param user
+     * @param pto
      * @return
      */
     public PersonTokenTransferObject login(PersonTransferObject pto) {
+        //Find User and create Person Object
         Query query = em.createNamedQuery("Benutzer.login", Person.class);
         query.setParameter("personalnr", pto.personalnr);
         Person b = (Person) query.getSingleResult();
-
+//generate token
         String token = generateJWT(b);
+        //check password
         if (b.getPassword().equals(pto.password)) {
             PersonTokenTransferObject pt = new PersonTokenTransferObject(String.valueOf(b.getId()), token);
-
-            em.getTransaction().begin();
-            em.merge(new JWTTokenUser(token, b));
-            em.getTransaction().commit();
+//return user and token
             return pt;
         }
         return null;
     }
 
+    /**
+     * Generate JWT String with JWTs Libary, encrypted
+     *
+     * @param b
+     * @return
+     */
     public String generateJWT(Person b) {
         try {
             String jwt = Jwts.builder().setSubject("1234567890")
                     .setId(String.valueOf(b.getId()))
-                    .claim("admin", true).signWith(SignatureAlgorithm.HS256, "secret".getBytes("UTF-8")).compact();
+                    .claim("id", b.getId()).claim("role", b.getRolle()).signWith(SignatureAlgorithm.HS256, "secretswaggy132".getBytes("UTF-8")).compact();
 
             return jwt;
         } catch (UnsupportedEncodingException ex) {
@@ -87,6 +106,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Insert Person into Database
      *
      * @param b
      * @return
@@ -98,6 +118,11 @@ public class DatenbankRepository {
         return b;
     }
 
+    /**
+     *
+     * @param b
+     * @return
+     */
     public JWTTokenUser insert(JWTTokenUser b) {
         em.getTransaction().begin();
         em.merge(b);
@@ -138,6 +163,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Lists all Termine
      *
      * @return
      */
@@ -154,8 +180,11 @@ public class DatenbankRepository {
     public List<Termin> getUsertermine(int id) {
         List<Termin> termine = new LinkedList();
         Person currentPerson = em.find(Person.class, id);
-        addList(termine, currentPerson.getJrkentitaet().getTermine());
+        //Check for Duplicates, prepare Termin list
+        termine = addList(termine, currentPerson.getJrkentitaet().getTermine());
+        //Recursivly get Termine hierarchic upwards
         termine = this.termineLayerDown(currentPerson.getJrkentitaet(), termine);
+        //Recursivly get Termine hierarchic downwards
         termine = this.termineLayerUp(currentPerson.getJrkentitaet(), termine);
         return termine;
     }
@@ -167,8 +196,11 @@ public class DatenbankRepository {
      */
     public List<Info> getUserInfos(int id) {
         List<Info> info = new LinkedList();
+        //find Person with primary key
         Person currentPerson = em.find(Person.class, id);
         addListInfo(info, currentPerson.getJrkentitaet().getInfo());
+        //Recursivly get Info hierarchic upwards
+        //Recursivly get Info hierarchic downwards
         info = this.infoLayerDown(currentPerson.getJrkentitaet(), info);
         info = this.infoLayerUp(currentPerson.getJrkentitaet(), info);
         return info;
@@ -182,11 +214,14 @@ public class DatenbankRepository {
      */
     private List<Termin> termineLayerUp(JRKEntitaet jrk, List<Termin> termine) {
         List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerUp", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+        //Does List exist and is it filled
         if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
+            //Go through all entitys
             for (JRKEntitaet entity : jrkentitaet) {
-                addList(termine, entity.getTermine());
+                //Prepare Termin List, check for duplicates
+                termine = addList(termine, entity.getTermine());
                 List<Termin> term = termineLayerUp(entity, termine);
-                addList(termine, term);
+                termine = addList(termine, term);
             }
         }
         return termine;
@@ -202,9 +237,9 @@ public class DatenbankRepository {
         List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
         if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
             for (JRKEntitaet entity : jrkentitaet) {
-                addList(termine, entity.getTermine());
+                termine = addList(termine, entity.getTermine());
                 List<Termin> term = termineLayerDown(entity, termine);
-                addList(termine, term);
+                termine = addList(termine, term);
             }
         }
         return termine;
@@ -322,7 +357,7 @@ public class DatenbankRepository {
      */
     public boolean isEditor(int id) {
         Person p = em.find(Person.class, id);
-        return p.getJrkentitaet().getTyp() != Typ.Gruppe;
+        return p.getJrkentitaet().getTyp() != JRKEntitaetType.Gruppe;
     }
 
     /**
@@ -333,8 +368,10 @@ public class DatenbankRepository {
     public List<Termin> getOpenDoko(int id) {
         List<Termin> termine = this.getUsertermine(id);
         List<Termin> te = new LinkedList<>();
+        //Parser for our Date Format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         for (Termin t : termine) {
+            //Where is no documentation and the Date is before right now
             if (t.getDoko() == null && LocalDate.parse(t.getE_date(), formatter).isBefore(LocalDate.now())) {
                 te.add(t);
             }
@@ -364,28 +401,29 @@ public class DatenbankRepository {
 
     /**
      *
-     * @param id
+     * @param jrk
      * @return
      */
-    public List<NameValue> getChartValues(int id) {
-        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+    public List<NameValue> getChartValues(JRKEntitaet jrk) {
         List<Termin> list = jrk.getTermine();
+        //to count the categories
         int[] katcount = new int[3];
+        //go through the terminlist and count its categories
         for (Termin termin : list) {
             Dokumentation doku = termin.getDoko();
-            if(doku!=null){
-            switch (doku.getKategorie()) {
-                case "EH":
-                    katcount[0]++;
-                    break;
+            if (doku != null) {
+                switch (doku.getKategorie()) {
+                    case "EH":
+                        katcount[0]++;
+                        break;
 
-                case "Exkursion":
-                    katcount[1]++;
-                    break;
-                case "Soziales":
-                    katcount[2]++;
-                    break;
-            }
+                    case "Exkursion":
+                        katcount[1]++;
+                        break;
+                    case "Soziales":
+                        katcount[2]++;
+                        break;
+                }
             }
         }
         List<NameValue> returnlist = new LinkedList<NameValue>();
@@ -396,14 +434,22 @@ public class DatenbankRepository {
         return returnlist;
     }
 
-    public List<NameValue> getTimelineValues(int id) {
+    /**
+     *
+     * @param jrk
+     * @return
+     */
+    public List<NameValue> getTimelineValues(JRKEntitaet jrk) {
+        //to count the categories
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
         List<Termin> list = jrk.getTermine();
-        List<NameValue> returnlist = new LinkedList<NameValue>();
+        List<NameValue> returnlist = new LinkedList<>();
+        //go through all 12 Months
         for (Month month : Month.values()) {
+            //for each month create a namevalue class(name is the month)
             NameValue nv = new NameValue(month.getDisplayName(TextStyle.FULL, Locale.getDefault()), 0);
             for (Termin termin : list) {
+                //get the value attribute by adding the hours to the value attribute(with help of hours) if the month is our current month
                 LocalDateTime.parse(termin.getS_date(), formatter);
                 if (LocalDateTime.parse(termin.getS_date(), formatter).getMonth() == month) {
                     LocalDateTime.parse(termin.getE_date(), formatter);
@@ -411,24 +457,31 @@ public class DatenbankRepository {
                     nv.setValue(nv.getValue() + (int) hours);
                 }
             }
-            if(nv.getValue()!=0){
+            if (nv.getValue() != 0) {
                 returnlist.add(nv);
-            }         
+            }
         }
 
         return returnlist;
     }
 
-    public List<NameValue> getLowerEntityHourList(int id) {
+    /**
+     *
+     * @param jrk
+     * @return
+     */
+    public List<NameValue> getLowerEntityHourList(JRKEntitaet jrk) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
 
-        List<NameValue> returnlist = new LinkedList<NameValue>();
+        List<NameValue> returnlist = new LinkedList<>();
         List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+        // go through all hierarchicly lower jrk entities
         for (JRKEntitaet jr : jrks) {
-
+            //get current jrks termine
             List<Termin> list = jr.getTermine();
+            
             NameValue nv = new NameValue(jr.getName(), 2);
+            //count the time of each termin for the jrk entity
             for (Termin termin : list) {
                 LocalDateTime.parse(termin.getS_date(), formatter);
 
@@ -443,33 +496,45 @@ public class DatenbankRepository {
         return returnlist;
     }
 
-    public List<NameValue> getYearlyHoursPerPeople(int id) {
-        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+    /**
+     *
+     * @param jrk
+     * @return
+     */
+    public List<NameValue> getYearlyHoursPerPeople(JRKEntitaet jrk) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         List<Termin> list = jrk.getTermine();
+        list = termineLayerDown(jrk,list);
         int[] katcount = new int[3];
-        if(list!=null){
-        for (Termin termin : list) {
-            Dokumentation doku = termin.getDoko();
-            katcount[0] = (katcount[0] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getBetreuer().length;
-            katcount[1] = (katcount[1] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getKinderliste().length;
-            //POSSIBLE BUG: San ChronoUnit Hours gleichgroß wie deine Hours?
-            katcount[2] = (katcount[2] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) + (int) doku.getVzeit();
+
+        if (list != null) {
+            for (Termin termin : list) {
+                Dokumentation doku = termin.getDoko();
+                if (doku != null) {
+                    // get the betreues time
+                    katcount[0] = (katcount[0] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getBetreuer().length;
+                    //get the kinders time
+                    katcount[1] = (katcount[1] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getKinderliste().length;
+                    //POSSIBLE BUG: San ChronoUnit Hours gleichgroß wie deine Hours?
+                    //get the Preparationtime
+                    katcount[2] = (katcount[2] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) + (int) doku.getVzeit();
+                }
+            }
+
         }
-        }
-        List<NameValue> returnlist = new LinkedList<NameValue>();
+        List<NameValue> returnlist = new LinkedList<>();
         returnlist.add(new NameValue("Betreuer", katcount[0]));
         returnlist.add(new NameValue("Kinder", katcount[1]));
         returnlist.add(new NameValue("Vorbereitungszeit", katcount[2]));
 
         return returnlist;
     }
-         
+
     /**
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
     public List<JRKEntitaet> getJRKEntitaetdown(int id) {
         Person currentPerson = em.find(Person.class, id);
@@ -477,8 +542,40 @@ public class DatenbankRepository {
         return em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Termin getTerminbyId(int id) {
         return em.find(Termin.class, id);
+    }
+
+    /**
+     * 
+     * @param p 
+     */
+    public void changePassword(Person p) {
+        String password = p.getPassword();
+        p = em.find(Person.class, p.getId());
+        if (!p.isPasswordChanged()) {
+            p.setPassword(password);
+            p.setPasswordChanged(true);
+            em.getTransaction().begin();
+            em.persist(p);
+            em.getTransaction().commit();
+        }
+    }
+
+    /**
+     * 
+     * @param id
+     * @return 
+     */
+    public boolean needPwdChange(int id) {
+        Person p = em.find(Person.class, id);
+        boolean isChanged = p.isPasswordChanged();
+        return isChanged;
     }
 
 }

@@ -3,23 +3,23 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TerminComponent } from './termin.component';
 
 describe('TerminComponent', () => {
-  let component: TerminComponent;
-  let fixture: ComponentFixture<TerminComponent>;
+let component: TerminComponent;
+let fixture: ComponentFixture<TerminComponent>;
 
-  beforeEach(async(() => {
+    beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TerminComponent ]
+    declarations: [ TerminComponent ]
     })
     .compileComponents();
-  }));
+    }));
 
-  beforeEach(() => {
+    beforeEach(() => {
     fixture = TestBed.createComponent(TerminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+    });
 
-  it('should create', () => {
+    it('should create', () => {
     expect(component).toBeTruthy();
-  });
-});
+    });
+    });
