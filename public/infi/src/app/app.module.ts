@@ -16,16 +16,23 @@ import {AuthguardGuard} from './authguard.guard';
 import {AuthService} from './auth/auth.service';
 import { SidebarModule } from 'ng-sidebar';
 import {HttpClientModule} from '@angular/common/http';
-import { TerminComponent } from './termin/termin.component';
+import { TerminComponent, DefaultIntl } from './termin/termin.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/token.interceptor';
-import { DateTimePickerModule } from 'ng-pick-datetime';
+//import { DateTimePickerModule } from 'ng-pick-datetime';
 import { ProtocolComponent } from './protocol/protocol.component';
 import { DiagramsComponent } from './diagrams/diagrams.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { RestService } from './rest.service';
 import { HomeComponent } from './home/home.component';
 import { CalendarComponent } from './calendar/calendar.component';
+
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { DateTimePickerComponent } from './dashboard/date-time-picker.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+//import { OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
+
+import { OwlDateTimeIntl } from 'ng-pick-datetime';
 
 const appRoutes:Routes = [
 {
@@ -48,7 +55,7 @@ component: DashboardComponent
     TerminComponent,
     ProtocolComponent,
     DiagramsComponent,
-    HomeComponent,
+    DateTimePickerComponent,
     CalendarComponent
   ],
   imports: [
@@ -60,14 +67,15 @@ component: DashboardComponent
     RouterModule.forRoot(appRoutes),
     CalendarModule.forRoot(),
     SidebarModule.forRoot(),
-    DateTimePickerModule,
+    NgbModule.forRoot(),
+    OwlDateTimeModule, 
+    OwlNativeDateTimeModule,
     NgxChartsModule
   ],
-  providers: [UserService, RestService, AuthguardGuard, AuthService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptor,
-    multi: true
-  }],
+  providers: [UserService, RestService, AuthguardGuard, AuthService, 
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    {provide: OwlDateTimeIntl, useValue: DefaultIntl}
+],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
