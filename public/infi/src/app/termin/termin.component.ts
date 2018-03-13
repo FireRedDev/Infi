@@ -24,6 +24,7 @@ export const DefaultIntl = {
 export class TerminComponent implements OnInit {
 @Input() jrkEntitaet: jrkEntitaet;
 @Output() changeView: EventEmitter<string> = new EventEmitter();
+
 success=false;
 
 
@@ -44,6 +45,9 @@ success=false;
       this.success=true;
       
   }
+
+  
+  
   
   actTermin:Termin = new Termin(0,'','','','','');
   submitted = false;
