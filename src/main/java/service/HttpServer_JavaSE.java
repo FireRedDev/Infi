@@ -73,6 +73,8 @@ public class HttpServer_JavaSE {
         Termin sattledttermin = new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
         String[] betreuer = {"Gusi", "Isi"};
         String[] kinder = {"Meli", "Antonia", "Luki"};
+        String[] betreuer1 = {"Daniel", "Jakob"};
+        String[] kinder1 = {"Luisa", "Jonas", "Harald"};
         sattledttermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "Soziales"));
         sattledt1.addTermin(sattledttermin);
 
@@ -83,6 +85,31 @@ public class HttpServer_JavaSE {
         Termin sattermin = new Termin("2018-03-05 15:30:00", "2018-03-05 17:30:00", "Generalversammlung", "Ortsstellenversammlung", "Dienststelle Sattledt");
         sattermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "Exkursion"));
         sattledt.addTermin(sattermin);
+
+        //
+        Termin sattledttermin1 = new Termin("2018-02-04 15:30:00", "2018-02-04 17:30:00", "Generalversammlung", "Ortsstellenversammlung", "Dienststelle Sattledt");
+        sattledttermin1.setDoko(new Dokumentation(kinder1, betreuer1, "basteln", 2.0, "Exkursion"));
+        sattledt1.addTermin(sattledttermin1);
+
+        Termin welstermin1 = new Termin("2018-04-04 15:30:00", "2018-04-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
+        welstermin1.setDoko(new Dokumentation(kinder, betreuer1, "basteln", 2.0, "Soziales"));
+        wels.addTermin(welstermin1);
+
+        Termin welstermin2 = new Termin("2018-06-15 14:00:00", "2018-06-15 21:00:00", "Klettern", "Bitte feste Schuhe anziehen", "Klettergarten");
+        welstermin2.setDoko(new Dokumentation(kinder, betreuer1, "basteln", 7.0, "Soziales"));
+        wels.addTermin(welstermin2);
+
+        Termin sattermin1 = new Termin("2018-04-05 15:30:00", "2018-04-05 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
+        sattermin1.setDoko(new Dokumentation(kinder1, betreuer, "basteln", 2.0, "Soziales"));
+        sattledt.addTermin(sattermin1);
+
+        Termin marchtrenktermin = new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk");
+        marchtrenktermin.setDoko(new Dokumentation(kinder1, betreuer1, "grillen", 3.0, "Soziales"));
+        marchtrenk1.addTermin(marchtrenktermin);
+
+        Termin marchtrenktermin1 = new Termin("2018-04-04 15:30:00", "2018-04-04 17:30:00", "Film schauen", "Bitte Decken und Polster mit nehmen", "Dienststelle Marchtrenk");
+        marchtrenktermin1.setDoko(new Dokumentation(kinder1, betreuer1, "schauen", 2.0, "Soziales"));
+        marchtrenk1.addTermin(marchtrenktermin);
 
         marchtrenk1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Eislaufen", "Bitte Eislaufschuhe, Winterkleidung und 3€ Eintritt mitnehmen", "Eislaufplatz Marchtrenk"));
         wels.addTermin(new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk"));
