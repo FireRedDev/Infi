@@ -39,16 +39,19 @@
         <header class="dashboard-header">
             <button (click)="_toggleOpened()" class="dashboard-header__toggle">Toggle sidebar</button>
             <span>Infi</span>
-            <div class="addTermin" *ngIf="isEditor && view !='termin'" (click)="view = 'termin'">
+            <div class="add" *ngIf="isEditor && (view =='month'||view =='week')" (click)="view = 'termin'">
                  <i class="fa fa-plus" aria-hidden="true"></i> Termin einfügen
             </div>
+            <div class="add" *ngIf="isEditor && view=='home'" (click)="view = 'info'">
+                <i class="fa fa-plus" aria-hidden="true"></i> Information einfügen
+           </div>
         </header>
         <section class="dashboard-contents">
             <div *ngIf="view=='month'||view=='week'">
                 <app-calendar [view]="view"></app-calendar>  
             </div>
             <div *ngIf="view=='termin'">
-                <app-termin [jrkEntitaet]="jrkEntitaet" (changeView)="changeView(i)" ></app-termin>
+                <app-termin [jrkEntitaet]="jrkEntitaet" (changeView)="changeView(i)"></app-termin>
             </div>
             <div *ngIf="view =='protocol'">
                 <app-protocol (changeView)="changeView(i)"></app-protocol>
@@ -58,6 +61,9 @@
             </div>
             <div *ngIf="view =='home'">
                 <app-home></app-home>
+            </div>
+            <div *ngIf="view =='info'">
+                <app-information [jrkEntitaet]="jrkEntitaet" (changeView)="changeView(i)"></app-information>
             </div>
         </section>
     </div>

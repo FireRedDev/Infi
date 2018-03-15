@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { RestService } from '../rest.service';
 import { Protokoll } from './protocol';
-import { jrkEntitaet } from '../termin/jrkEntitaet.model';
+import { jrkEntitaet } from '../models/jrkEntitaet.model';
 import { Termin } from './termin';
 import { EventEmitter } from '@angular/core';
 

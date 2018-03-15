@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'angular-calendar';
 import { HeaderComponent } from './header/header.component';
@@ -26,6 +25,7 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { RestService } from './rest.service';
 import { HomeComponent } from './home/home.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { InformationComponent } from './information/information.component';
 
 const appRoutes:Routes = [
 {
@@ -49,7 +49,8 @@ component: DashboardComponent
     ProtocolComponent,
     DiagramsComponent,
     HomeComponent,
-    CalendarComponent
+    CalendarComponent,
+    InformationComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +62,8 @@ component: DashboardComponent
     CalendarModule.forRoot(),
     SidebarModule.forRoot(),
     DateTimePickerModule,
-    NgxChartsModule
+    NgxChartsModule,    
+    ReactiveFormsModule
   ],
   providers: [UserService, RestService, AuthguardGuard, AuthService, {
     provide: HTTP_INTERCEPTORS,

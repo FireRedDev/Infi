@@ -45,10 +45,13 @@ const password = e.target.elements[1].value;
     })
        .subscribe(data => { 
          if(data!=null){
-        this.user.setUserLoggedIn();
-        localStorage.setItem('currentUser',JSON.parse(data.userID));
-        localStorage.setItem('token',JSON.stringify(data.token));
-        this.router.navigate(['dashboard']);
+          this.user.setUserLoggedIn();
+          localStorage.setItem('currentUser',JSON.parse(data.userID));
+          localStorage.setItem('token',JSON.stringify(data.token));
+          this.router.navigate(['dashboard']);
+         }
+         else{
+          alert("Falsche Personalnummer oder falsches Passwort eingegeben!");
          }
         err=>{
           alert("Falsche Personalnummer oder falsches Passwort eingegeben!");

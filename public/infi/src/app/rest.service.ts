@@ -42,6 +42,11 @@ export class RestService {
     .post('http://localhost:8080/api/service/insertTermin/'+jrkEntitaet.id, actTermin);
   }
 
+  insertInfo(jrkEntitaet,actInfo){
+    return this.http
+    .post('http://localhost:8080/api/service/insertInfo/'+jrkEntitaet.id, actInfo);
+  }
+
   getOpenDoko(body){
     return this.http
     .post('http://localhost:8080/api/service/getOpenDoko', body);

@@ -1,0 +1,39 @@
+<form (ngSubmit)="onSubmit()" #terminForm="ngForm">
+  <div class="form-group">
+      <label for="ueberschrift">Überschrift</label>
+      <input type="text" class="form-control" id="ueberschrift"
+             required
+             [(ngModel)]="actInformation.ueberschrift" name="ueberschrift"
+             #ueberschrift="ngModel">
+             <div [hidden]="ueberschrift.valid || ueberschrift.pristine"
+             class="alert alert-danger">
+             Überschrift muss eingegeben werden!
+           </div>
+       <br>
+      <label for="beschreibung">Beschreibung</label>
+      <input type="text" class="form-control" id="beschreibung"
+          required
+          [(ngModel)]="actInformation.beschreibung" name="beschreibung"
+          #beschreibung="ngModel">
+          <div [hidden]="beschreibung.valid || beschreibung.pristine"
+          class="alert alert-danger">
+          Beschreibung muss eingegeben werden!
+      </div>
+      <br>
+      <label for="media">Bilder und Videos auswählen</label>
+      <input accept="image/*,video/mp4,video/x-m4v,video/*" type= "file"  multiple  class="form-control" id="media" multiple
+       name="media" [(ngModel)]="actInformation.media"
+      #media="ngModel">
+  </div>
+  <button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save()">einfügen</button>
+</form>
+
+
+<form method="POST" action="http://localhost:8080/api/upload" enctype="multipart/form-data" >
+  File:
+  <input type="file" name="file" id="file" /> <br>
+  Destination:
+  <input type="text" value="/tmp" name="destination"/>
+  <br>
+  <input type="submit" value="Upload" name="upload" id="upload" />
+</form>
