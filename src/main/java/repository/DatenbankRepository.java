@@ -506,19 +506,19 @@ public class DatenbankRepository {
 
         List<Termin> list = jrk.getTermine();
         list = termineLayerDown(jrk,list);
-        int[] katcount = new int[3];
+        double[] katcount = new double[3];
 
         if (list != null) {
             for (Termin termin : list) {
                 Dokumentation doku = termin.getDoko();
                 if (doku != null) {
                     // get the betreues time
-                    katcount[0] = (katcount[0] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getBetreuer().length;
+                    katcount[0] = (katcount[0] +  ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getBetreuer().length;
                     //get the kinders time
-                    katcount[1] = (katcount[1] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getKinderliste().length;
+                    katcount[1] = (katcount[1] + ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) * doku.getKinderliste().length;
                     //POSSIBLE BUG: San ChronoUnit Hours gleichgroß wie deine Hours?
                     //get the Preparationtime
-                    katcount[2] = (katcount[2] + (int) ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter))) + (int) doku.getVzeit();
+                    katcount[2] = doku.getVzeit();
                 }
             }
 

@@ -95,7 +95,6 @@ export class CalendarComponent implements OnInit {
   events$: Observable<Array<CalendarEvent<{ termin: Termin }>>>;
 
   activeDayIsOpen = false;
-  jrkEntitaet: any;
 
   @Output() viewChange: EventEmitter<string> = new EventEmitter();
   @Output() viewDateChange: EventEmitter<Date> = new EventEmitter();
@@ -105,11 +104,6 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit() {
-    const body = localStorage.getItem('currentUser');
-    this.rest.getJRKEntitaet(body)
-      .subscribe(data => {
-        this.jrkEntitaet = data;
-      });
     this.fetchEvents();
   }
 

@@ -27,8 +27,6 @@ export class TerminComponent implements OnInit {
 
 success=false;
 
-
-
   constructor(private rest: RestService, dateTimeAdapter: DateTimeAdapter<any>) {
     this.rest=rest;
     dateTimeAdapter.setLocale('de-De');
@@ -38,6 +36,8 @@ success=false;
     
   }
   save(){
+    this.actTermin.s_date=new Date(this.actTermin.s_date).toISOString().substr(0, 19).replace('T', ' ');
+    this.actTermin.e_date=new Date(this.actTermin.e_date).toISOString().substr(0, 19).replace('T', ' ');
       this.rest.insertTermin(this.jrkEntitaet,this.actTermin)
         .subscribe(data => {
           this.changeView.emit("month");
@@ -46,9 +46,6 @@ success=false;
       
   }
 
-  
-  
-  
     actTermin:Termin = new Termin(0,'','','','','');
     submitted = false;
  

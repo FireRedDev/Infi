@@ -8,14 +8,14 @@ package RestResponseClasses;
 public class NameValue {
 
     private String name;
-    private int value;
+    private double value;
 
     /**
      *
      * @param name
      * @param value
      */
-    public NameValue(String name, int value) {
+    public NameValue(String name, double value) {
         this.name = name;
         this.value = value;
     }
@@ -46,7 +46,7 @@ public class NameValue {
      *
      * @return
      */
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 
@@ -54,7 +54,7 @@ public class NameValue {
      *
      * @param value
      */
-    public void setValue(int value) {
+    public void setValue(double value) {
         this.value = value;
     }
 

@@ -145,11 +145,15 @@ export class DashboardComponent implements OnInit {
       if(data!=true){
         $('#pwdModal').modal('show');
       }
-    }); 
+    });
+    this.rest.getJRKEntitaet(body)
+      .subscribe(data => {
+        this.jrkEntitaet = data;
+      }); 
   }
 
-  changeView(message: string){
-    this.view = message;
+  changeView(i){
+    this.view = i;
   }
 
   changePwd(){
