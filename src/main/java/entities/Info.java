@@ -22,16 +22,18 @@ public class Info {
     int id;
     private String ueberschrift;
     private String beschreibung;
-    private String imgpath;
+    private String[] mediapath;
 
     public Info() {
     }
 
-    public Info(String ueberschrift, String beschreibung, String imgpath) {
+    public Info(String ueberschrift, String beschreibung, String[] mediapath) {
         this.ueberschrift = ueberschrift;
         this.beschreibung = beschreibung;
-        this.imgpath = imgpath;
+        this.mediapath = mediapath;
     }
+
+
 
     public int getId() {
         return id;
@@ -57,12 +59,12 @@ public class Info {
         this.beschreibung = beschreibung;
     }
 
-    public String getImgpath() {
-        return imgpath;
+    public String[] getMediapath() {
+        return mediapath;
     }
 
-    public void setImgpath(String imgpath) {
-        this.imgpath = imgpath;
+    public void setMediapath(String[] mediapath) {
+        this.mediapath = mediapath;
     }
 
 }

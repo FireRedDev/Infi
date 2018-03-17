@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
         .subscribe(data => {
           // Read the result field from the JSON response.
           this.infos=JSON.parse(data["_body"]);
+          console.log(this.infos);
       });
   }
 

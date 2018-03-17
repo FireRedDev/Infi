@@ -21,6 +21,7 @@ import { ProtocolComponent } from './protocol/protocol.component';
 import { DiagramsComponent } from './diagrams/diagrams.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { HomeComponent } from './home/home.component';
+import { CarouselModule } from "angular2-carousel";
 
 const appRoutes:Routes = [
   {
@@ -55,7 +56,8 @@ const appRoutes:Routes = [
     CalendarModule.forRoot(),
     SidebarModule.forRoot(),
     DateTimePickerModule,
-    NgxChartsModule
+    NgxChartsModule,
+    CarouselModule
   ],
   providers: [UserService, AuthguardGuard],
   bootstrap: [AppComponent]
