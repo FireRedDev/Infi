@@ -135,10 +135,16 @@ public class HttpServer_JavaSE {
         ooe.addTermin(new Termin("2018-04-19 13:00:00", "2018-04-19 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
         wels.addTermin(new Termin("2018-07-15 09:00:00", "2018-07-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
 
-        sattledt1.addInfo(new Info("Terminfindung für Fotoshooting", "Bitte Abstimmen Doodle-Link", "assets/lager.jpg"));
-        ooe.addInfo(new Info("Fotos", "fotos sind online oö", "assets/teambuilding.jpg"));
-        wels.addInfo(new Info("Bezirkslager", "Bilder sind endlich auf Dropbox Link:", "assets/lager.jpg"));
-
+        String[] a = {"assets/teambuilding.jpg"};
+        String[] b = {"assets/bezirkslager2_1.jpg" ,"assets/bezirkslager3.jpg", "assets/bezirkslager1.jpg"};
+        String[] c = {"assets/halloween.jpg"};
+        String[] d = {"assets/fotoOnline.jpg","assets/lager.jpg"};
+        
+        sattledt1.addInfo(new Info("Terminfindung für Fotoshooting", "Bitte Abstimmen Doodle-Link", a));
+        ooe.addInfo(new Info("Fotos", "fotos sind online oö", d));
+        wels.addInfo(new Info("Bezirkslager", "Bilder sind endlich auf Dropbox Link:", b));
+        wels.addInfo(new Info("Halloween", "Ergebnisse von der Halloweenstunde", c));
+        
         Person tom = new Person("00001", "passme", "Tom", "Tester", ooe, Role.LANDESLEITER);
         Person karin = new Person("00002", "passme", "Karin", "Tester", wels, Role.BEZIRKSLEITER);
         Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt, Role.GRUPPENLEITER);

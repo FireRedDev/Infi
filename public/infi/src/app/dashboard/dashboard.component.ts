@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
   username: String;
   isEditor= true;
   jrkEntitaet: any;
-  view = 'month';
+  view = 'home';
   password1="";
   password2="";
 

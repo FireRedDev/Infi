@@ -29,7 +29,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { DateTimePickerComponent } from './calendar/date-time-picker.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
-
+import { CarouselModule } from "angular2-carousel";
 
 const appRoutes:Routes = [
 {
@@ -68,7 +68,8 @@ component: DashboardComponent
     NgbModule.forRoot(),
     OwlDateTimeModule, 
     OwlNativeDateTimeModule,
-    NgxChartsModule
+    NgxChartsModule,
+    CarouselModule
   ],
   providers: [UserService, RestService, AuthguardGuard, AuthService, 
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
