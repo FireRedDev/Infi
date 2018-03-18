@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <div class="card-deck">
   <div *ngFor="let i of infos, let zahl=index">
       <div class="card">
@@ -14,14 +15,14 @@
                   <!-- Wrapper for slides -->
                   <div class="carousel-inner">
                        <div class="item active">
-                                <img id="imageSize" [src]="i.mediapath[0]" alt="Los Angeles" style="width:100%;">
+                                <img id="imageSize" [src]="i.mediapath[0]" alt="Los Angeles">
                                 <div class="carousel-caption">
                                   <!--<h3>Los Angeles</h3>
                                   <p>LA is always so much fun!</p>-->
                                 </div>
                           </div> 
                           <div class="item" *ngFor="let path of i.mediapath.slice(1), let izahl = index">                 
-                              <img id="imageSize" [src]="path" alt="Chicago" style="width:100%;">
+                              <img id="imageSize" [src]="path" alt="Chicago">
                                <!-- <div class="carousel-caption">
                                   <h3>{{i.ueberschrift}}</h3>
                                   <p>{{i.beschreibung}}</p>

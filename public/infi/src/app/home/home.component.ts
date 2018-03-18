@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
     this.rest.getUserInfos(body)
         .subscribe(data => {
           this.infos=data;
+          console.log(this.infos);
       });
   }
 

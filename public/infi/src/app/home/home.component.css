@@ -5,11 +5,10 @@
 }
 
 #imageSize{
-    width: 100%;
+    max-width: 400px;
 }
 
 .card-block{
-    border: 1px solid red;
     background-color: white;
     color: black;
     z-index: 1000;
@@ -18,5 +17,5 @@
 }
 
 .card{   
-    border: 1px solid white;
+    border: 1px solid red;
 }
