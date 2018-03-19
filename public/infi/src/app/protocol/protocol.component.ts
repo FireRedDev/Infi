@@ -4,19 +4,29 @@ import { Protokoll } from './protocol';
 import { jrkEntitaet } from '../termin/jrkEntitaet.model';
 import { Termin } from './termin';
 import { EventEmitter } from '@angular/core';
+import { DateTimeAdapter } from 'ng-pick-datetime';
 
+export const DefaultIntl = {
+  /** A label for the cancel button */
+  cancelBtnLabel: 'Abbrechen',
+
+  /** A label for the set button */
+  setBtnLabel: 'Setzten',
+
+};
 @Component({
   selector: 'app-protocol',
   templateUrl: './protocol.component.html',
   styleUrls: ['./protocol.component.css']
 })
 export class ProtocolComponent implements OnInit {
-  constructor(private rest: RestService) {
+  constructor(private rest: RestService, dateTimeAdapter: DateTimeAdapter<any>) {
       this.newChild = '';
       this.children = [];
       this.newBetreuer = '';
       this.betreuer = [];
       this.rest=rest;
+      dateTimeAdapter.setLocale('de-De');
    }
 
   @Output() changeView: EventEmitter<string> = new EventEmitter();

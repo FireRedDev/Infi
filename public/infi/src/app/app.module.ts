@@ -16,7 +16,7 @@ import {AuthguardGuard} from './authguard.guard';
 import {AuthService} from './auth/auth.service';
 import { SidebarModule } from 'ng-sidebar';
 import {HttpClientModule} from '@angular/common/http';
-import { TerminComponent} from './termin/termin.component';
+import { TerminComponent, DefaultIntl} from './termin/termin.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { ProtocolComponent } from './protocol/protocol.component';
@@ -30,6 +30,7 @@ import { DateTimePickerComponent } from './calendar/date-time-picker.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
 import { CarouselModule } from "angular2-carousel";
+import { OwlDateTimeIntl } from 'ng-pick-datetime/date-time/date-time-picker-intl.service';
 
 const appRoutes:Routes = [
 {
@@ -73,7 +74,8 @@ component: DashboardComponent
   ],
   providers: [UserService, RestService, AuthguardGuard, AuthService, 
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'}
+    {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'},
+    {provide: OwlDateTimeIntl, useValue: DefaultIntl}
 ],
   bootstrap: [AppComponent]
 })
