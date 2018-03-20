@@ -51,10 +51,10 @@
                 <app-calendar [view]="view"></app-calendar>  
             </div>
             <div *ngIf="view=='termin'">
-                <app-termin [jrkEntitaet]="jrkEntitaet" (changeView)="changeView(i)"></app-termin>
+                <app-termin [jrkEntitaet]="jrkEntitaet" (changeView)="changeView($event)"></app-termin>
             </div>
             <div *ngIf="view =='protocol'">
-                <app-protocol (changeView)="changeView(i)"></app-protocol>
+                <app-protocol (changeView)="changeView($event)"></app-protocol>
             </div>
             <div *ngIf="view =='diagram'">
                 <app-diagrams></app-diagrams>
@@ -63,7 +63,7 @@
                 <app-home></app-home>
             </div>
             <div *ngIf="view =='info'">
-                <app-information [jrkEntitaet]="jrkEntitaet" (changeView)="changeView(i)"></app-information>
+                <app-information [jrkEntitaet]="jrkEntitaet" (changeView)="changeView($event)"></app-information>
             </div>
         </section>
     </div>
