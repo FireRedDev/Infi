@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
   private _modeNum = 0;
   private _positionNum = 0;
   private _dock = false;
-  private _closeOnClickOutside = false;
+  private _closeOnClickOutside = true;
   private _closeOnClickBackdrop = false;
   private _showBackdrop = false;
   private _animate = true;
@@ -143,6 +143,14 @@ export class DashboardComponent implements OnInit {
     this.rest.needPwdChange(body)
     .subscribe(data => {
       if(data!=true){
+        $('#pwdModal').modal({
+          backdrop: 'static',
+          keyboard: false
+      });
+          //this remove the close button on top if you need
+    $('#pwdModal').find('.close').remove();
+    //this unbind the event click on the shadow zone
+    $('#pwdModal').unbind('click');
         $('#pwdModal').modal('show');
       }
     });

@@ -8,6 +8,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import repository.DatenbankRepository;
 import RestResponseClasses.PersonTokenTransferObject;
+import java.text.Collator;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  *
@@ -109,7 +112,14 @@ public class Service {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<Info> getUserInfos(int id) {
-        return repo.getUserInfos(id);
+        List<Info> list = repo.getUserInfos(id);
+        Collections.sort(list, new Comparator<Info>() {
+            @Override
+            public int compare(Info o1, Info o2) {
+                return Collator.getInstance().compare(o1.getDatum(), o2.getDatum());
+            }
+        });
+        return list;
     }
 
     /**
@@ -230,9 +240,9 @@ public class Service {
     }
 
     /**
-     * 
+     *
      * @param jrk
-     * @return 
+     * @return
      */
     @POST
     @Path("getTimelineValues")
@@ -259,9 +269,9 @@ public class Service {
     }
 
     /**
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
     @POST
     @Path("getJRKEntitaetdown")
@@ -273,9 +283,9 @@ public class Service {
     }
 
     /**
-     * 
+     *
      * @param p
-     * @return 
+     * @return
      */
     @POST
     @Path("changePassword")
@@ -289,9 +299,9 @@ public class Service {
     }
 
     /**
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
     @POST
     @Path("needPwdChange")

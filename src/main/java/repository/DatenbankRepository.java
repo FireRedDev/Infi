@@ -457,9 +457,11 @@ public class DatenbankRepository {
                     nv.setValue(nv.getValue() + (int) hours);
                 }
             }
-            if (nv.getValue() != 0) {
-                returnlist.add(nv);
+
+            if (nv.getValue() == 0) {
+                nv.setValue(0.1);
             }
+            returnlist.add(nv);
         }
 
         return returnlist;
@@ -479,7 +481,7 @@ public class DatenbankRepository {
         for (JRKEntitaet jr : jrks) {
             //get current jrks termine
             List<Termin> list = jr.getTermine();
-            
+
             NameValue nv = new NameValue(jr.getName(), 2);
             //count the time of each termin for the jrk entity
             for (Termin termin : list) {
@@ -503,30 +505,39 @@ public class DatenbankRepository {
      */
     public List<NameValue> getYearlyHoursPerPeople(JRKEntitaet jrk) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        /* This is how to declare HashMap */
+        HashMap<String, Integer> hmap = new HashMap<>();
+
+        List<NameValue> kat = new LinkedList<>();
 
         List<Termin> list = jrk.getTermine();
-        list = termineLayerDown(jrk,list);
-        double[] katcount = new double[3];
 
         if (list != null) {
             for (Termin termin : list) {
                 Dokumentation doku = termin.getDoko();
                 if (doku != null) {
+                    LocalDateTime start = LocalDateTime.parse(termin.getS_date(), formatter);
+                    LocalDateTime ende = LocalDateTime.parse(termin.getE_date(), formatter);
                     // get the betreues time
-                    katcount[0] = katcount[0] +  ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter)) * doku.getBetreuer().length;
+                    hmap.put("Betreuer" + start.getYear(), ((hmap.get("Betreuer" + start.getYear()) == null ? 0 : hmap.get("Betreuer" + start.getYear())) + (int) ChronoUnit.HOURS.between(start, ende)) * doku.getBetreuer().length);
                     //get the kinders time
-                    katcount[1] = katcount[1] + ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter)) * doku.getKinderliste().length;
+                    hmap.put("Kinder" + start.getYear(), ((hmap.get("Kinder" + start.getYear()) == null ? 0 : hmap.get("Kinder" + start.getYear())) + (int) ChronoUnit.HOURS.between(start, ende)) * doku.getKinderliste().length);
                     //POSSIBLE BUG: San ChronoUnit Hours gleichgroß wie deine Hours?
                     //get the Preparationtime
-                    katcount[2] = katcount[2]+doku.getVzeit();
+                    hmap.put("Vorbereitungszeit" + start.getYear(), (hmap.get("Vorbereitungszeit" + start.getYear()) == null ? 0 : hmap.get("Vorbereitungszeit" + start.getYear())) + (int) doku.getVzeit());
                 }
             }
 
         }
         List<NameValue> returnlist = new LinkedList<>();
-        returnlist.add(new NameValue("Betreuer", katcount[0]));
-        returnlist.add(new NameValue("Kinder", katcount[1]));
-        returnlist.add(new NameValue("Vorbereitungszeit", katcount[2]));
+        Set set = hmap.entrySet();
+        Iterator iterator = set.iterator();
+        while (iterator.hasNext()) {
+            Map.Entry mentry = (Map.Entry) iterator.next();
+            System.out.print("key is: " + mentry.getKey() + " & Value is: ");
+            System.out.println(mentry.getValue());
+            returnlist.add(new NameValue(mentry.getKey().toString(), Integer.valueOf(mentry.getValue().toString())));
+        }
 
         return returnlist;
     }
@@ -552,8 +563,8 @@ public class DatenbankRepository {
     }
 
     /**
-     * 
-     * @param p 
+     *
+     * @param p
      */
     public void changePassword(Person p) {
         String password = p.getPassword();
@@ -568,9 +579,9 @@ public class DatenbankRepository {
     }
 
     /**
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
     public boolean needPwdChange(int id) {
         Person p = em.find(Person.class, id);

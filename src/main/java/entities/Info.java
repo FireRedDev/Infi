@@ -19,6 +19,7 @@ public class Info {
     private String ueberschrift;
     private String beschreibung;
     private String[] mediapath;
+    private String datum;
 
     /**
      *
@@ -33,10 +34,19 @@ public class Info {
      * @param imgpath
      */
 
-    public Info(String ueberschrift, String beschreibung, String[] mediapath) {
+    public Info(String ueberschrift, String beschreibung, String[] mediapath, String datum) {
         this.ueberschrift = ueberschrift;
         this.beschreibung = beschreibung;
         this.mediapath = mediapath;
+        this.datum = datum;
+    }
+
+    public String getDatum() {
+        return datum;
+    }
+
+    public void setDatum(String datum) {
+        this.datum = datum;
     }
 
     /**
