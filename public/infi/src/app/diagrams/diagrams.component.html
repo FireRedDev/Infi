@@ -12,7 +12,6 @@
 [explodeSlices]="explodeSlices"
 [labels]="showLabels"
 [doughnut]="doughnut"
-[gradient]="gradient"
 (select)="onSelect($event)">
 </ngx-charts-pie-chart>
 <h2 class="abstand">Aufteilung auf Gruppen</h2>
@@ -24,7 +23,6 @@
 [explodeSlices]="explodeSlices"
 [labels]="showLabels"
 [doughnut]="doughnut"
-[gradient]="gradient"
 (select)="onSelect($event)">
 </ngx-charts-pie-chart>
 <h2 class="abstand">Zeitleiste</h2>
@@ -32,14 +30,11 @@
 [view]="view"
 [scheme]="colorScheme"
 [results]="singleChartBar"
-[gradient]="gradient"
 [xAxis]=true
 [yAxis]=true
 [legend]=false
 [showXAxisLabel]=true
 [showYAxisLabel]=true
-[xAxisLabel]="Monat"
-[yAxisLabel]="Stunden"
 (select)="onSelect($event)">
 </ngx-charts-bar-vertical>
 <h2 class="abstand">geleistete Stunden</h2>
@@ -47,13 +42,8 @@
 [view]="view"
 [scheme]="colorScheme"
 [results]="single3"
-[gradient]="gradient"
 [xAxis]=true
 [yAxis]=true
 [legend]=false
-[showXAxisLabel]="showXAxisLabel"
-[showYAxisLabel]="showYAxisLabel"
-[xAxisLabel]="xAxisLabel"
-[yAxisLabel]="yAxisLabel"
 (select)="onSelect($event)">
 </ngx-charts-bar-horizontal>

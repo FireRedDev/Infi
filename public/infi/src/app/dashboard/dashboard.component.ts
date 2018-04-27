@@ -35,30 +35,30 @@ export class DashboardComponent implements OnInit {
   password1="";
   password2="";
 
-  private _opened = false;
-  private _modeNum = 0;
-  private _positionNum = 0;
-  private _dock = false;
-  private _closeOnClickOutside = true;
-  private _closeOnClickBackdrop = false;
-  private _showBackdrop = false;
-  private _animate = true;
-  private _trapFocus = true;
-  private _autoFocus = true;
-  private _keyClose = false;
-  private _autoCollapseHeight: number = null;
-  private _autoCollapseWidth: number = null;
+  public _opened = false;
+  public _modeNum = 0;
+  public _positionNum = 0;
+  public _dock = false;
+  public _closeOnClickOutside = true;
+  public _closeOnClickBackdrop = false;
+  public _showBackdrop = false;
+  public _animate = true;
+  public _trapFocus = true;
+  public _autoFocus = true;
+  public _keyClose = false;
+  public _autoCollapseHeight: number = null;
+  public _autoCollapseWidth: number = null;
   id: number;
-  private sub: any;
+  public sub: any;
 
-  private _MODES: Array<string> = ['over', 'push', 'slide'];
-  private _POSITIONS: Array<string> = ['left', 'right', 'top', 'bottom'];
+  public _MODES: Array<string> = ['over', 'push', 'slide'];
+  public _POSITIONS: Array<string> = ['left', 'right', 'top', 'bottom'];
 
-  private _toggleOpened(): void {
+  public _toggleOpened(): void {
     this._opened = !this._opened;
   }
 
-  private _toggleMode(): void {
+  public _toggleMode(): void {
     this._modeNum++;
 
     if (this._modeNum === this._MODES.length) {
@@ -66,15 +66,15 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  private _toggleAutoCollapseHeight(): void {
+  public _toggleAutoCollapseHeight(): void {
     this._autoCollapseHeight = this._autoCollapseHeight ? null : 500;
   }
 
-  private _toggleAutoCollapseWidth(): void {
+  public _toggleAutoCollapseWidth(): void {
     this._autoCollapseWidth = this._autoCollapseWidth ? null : 500;
   }
 
-  private _togglePosition(): void {
+  public _togglePosition(): void {
     this._positionNum++;
 
     if (this._positionNum === this._POSITIONS.length) {
@@ -82,51 +82,51 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  private _toggleDock(): void {
+  public _toggleDock(): void {
     this._dock = !this._dock;
   }
 
-  private _toggleCloseOnClickOutside(): void {
+  public _toggleCloseOnClickOutside(): void {
     this._closeOnClickOutside = !this._closeOnClickOutside;
   }
 
-  private _toggleCloseOnClickBackdrop(): void {
+  public _toggleCloseOnClickBackdrop(): void {
     this._closeOnClickBackdrop = !this._closeOnClickBackdrop;
   }
 
-  private _toggleShowBackdrop(): void {
+  public _toggleShowBackdrop(): void {
     this._showBackdrop = !this._showBackdrop;
   }
 
-  private _toggleAnimate(): void {
+  public _toggleAnimate(): void {
     this._animate = !this._animate;
   }
 
-  private _toggleTrapFocus(): void {
+  public _toggleTrapFocus(): void {
     this._trapFocus = !this._trapFocus;
   }
 
-  private _toggleAutoFocus(): void {
+  public _toggleAutoFocus(): void {
     this._autoFocus = !this._autoFocus;
   }
 
-  private _toggleKeyClose(): void {
+  public _toggleKeyClose(): void {
     this._keyClose = !this._keyClose;
   }
 
-  private _onOpenStart(): void {
+  public _onOpenStart(): void {
   }
 
-  private _onOpened(): void {
+  public _onOpened(): void {
   }
 
-  private _onCloseStart(): void {
+  public _onCloseStart(): void {
   }
 
-  private _onClosed(): void {
+  public _onClosed(): void {
   }
 
-  constructor(public rest: RestService,private user: UserService, private route: ActivatedRoute, private router: Router) {
+  constructor(public rest: RestService,public user: UserService, public route: ActivatedRoute, public router: Router) {
     this.rest=rest;
   }
 

@@ -20,7 +20,7 @@ export const DefaultIntl = {
   styleUrls: ['./protocol.component.css']
 })
 export class ProtocolComponent implements OnInit {
-  constructor(private rest: RestService, dateTimeAdapter: DateTimeAdapter<any>) {
+  constructor(public rest: RestService, dateTimeAdapter: DateTimeAdapter<any>) {
       this.newChild = '';
       this.children = [];
       this.newBetreuer = '';
@@ -31,7 +31,7 @@ export class ProtocolComponent implements OnInit {
 
   @Output() changeView: EventEmitter<string> = new EventEmitter();
   de: any;
-  private term: Termin[];
+  public term: Termin[];
   
   ngOnInit() {
     const body = localStorage.getItem('currentUser');

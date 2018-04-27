@@ -99,7 +99,7 @@ export class CalendarComponent implements OnInit {
   @Output() viewChange: EventEmitter<string> = new EventEmitter();
   @Output() viewDateChange: EventEmitter<Date> = new EventEmitter();
 
-  constructor(public rest: RestService,private route: ActivatedRoute, private router: Router) {
+  constructor(public rest: RestService,public route: ActivatedRoute, public router: Router) {
     this.rest=rest;
   }
 

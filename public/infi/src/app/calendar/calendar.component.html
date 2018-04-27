@@ -29,7 +29,7 @@
     <h1>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h1>
   </div>
 </div>
-<div *ngIf="events$ | async; else loading; let events">
+<div *ngIf="events$ | async; let events">
   <div [ngSwitch]="view">
     <mwl-calendar-month-view
     *ngSwitchCase="'month'"      

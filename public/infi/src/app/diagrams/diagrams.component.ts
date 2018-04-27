@@ -9,8 +9,8 @@ styleUrls: ['./diagrams.component.css']
 })
 export class DiagramsComponent implements OnInit{
 
-private jrkEnitaet = 2;
-private JRKEntitaeten;
+public jrkEnitaet = 2;
+public JRKEntitaeten;
 data: any;
 single=[];
 single2=[];
@@ -25,7 +25,7 @@ colorScheme = {
 domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
 };
 
-  constructor(private rest: RestService) {
+  constructor(public rest: RestService) {
     this.rest = rest;  
   }
   

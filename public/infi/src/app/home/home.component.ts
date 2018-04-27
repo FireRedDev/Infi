@@ -7,8 +7,8 @@ templateUrl: './home.component.html',
 styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private infos;
-  constructor(private rest: RestService) {
+  public infos;
+  constructor(public rest: RestService) {
     this.rest=rest;
    }
 
