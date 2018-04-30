@@ -1,0 +1,91 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel='stylesheet prefetch' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.5/angular-material.css'>
+<ng-sidebar-container>
+    <ng-sidebar
+        [(opened)]="_opened"
+        [mode]="_MODES[_modeNum]"
+        [keyClose]="_keyClose"
+        [position]="_POSITIONS[_positionNum]"
+        [dock]="_dock"
+        [dockedSize]="'50px'"
+        [autoCollapseHeight]="_autoCollapseHeight"
+        [autoCollapseWidth]="_autoCollapseWidth"
+        [closeOnClickOutside]="_closeOnClickOutside"
+        [closeOnClickBackdrop]="_closeOnClickBackdrop"
+        [showBackdrop]="_showBackdrop"
+        [animate]="_animate"
+        [trapFocus]="_trapFocus"
+        [autoFocus]="_autoFocus"
+        [sidebarClass]="'dashboard-sidebar'"
+        [ariaLabel]="'My sidebar'"
+        (onOpenStart)="_onOpenStart()"
+        (onOpened)="_onOpened()"
+        (onCloseStart)="_onCloseStart()"s
+        (onClosed)="_onClosed()">
+
+        <div class="dashboard-control" (click)="_toggleOpened()"><i class="material-icons">close</i></div>
+        <div id="imagePlatzhalter"></div><br>
+        <p class="einfuegen"><i class="fa fa-user" aria-hidden="true"></i><b> {{username}} </b></p><hr>
+        <div (click)="_toggleOpened()">
+            <div href="#" id="hover" (click)="view = 'home'" [class.active]="view === 'home'"><p class="einfuegen"><i class="material-icons">home</i> Startseite</p></div><hr>
+            <div href="#" id="hover" (click)="view = 'month'" [class.active]="view === 'month'" ><p class="einfuegen"><i class="material-icons">date_range</i> Monatsansicht</p></div>
+            <div href="#" id="hover" (click)="view = 'week'" [class.active]="view === 'week'"><p class="einfuegen"><i class="material-icons">line_style</i> Wochenansicht</p></div>
+            <div href="#" id="hover" (click)="view = 'protocol'" *ngIf="isEditor"><hr><p class="einfuegen"><i class="material-icons">subject</i> Protokoll</p></div>
+            <div href="#" id="hover" (click)="view = 'diagram'" *ngIf="isEditor"><p class="einfuegen"><i class="material-icons">pie_chart</i> Statistiken</p></div>
+        </div>
+        <a routerLink="/"><div id="platzierung"><div class="button"></div></div></a>
+    </ng-sidebar>
+    <div ng-sidebar-content>
+        <header class="dashboard-header">
+            <button (click)="_toggleOpened()" class="dashboard-header__toggle">Toggle sidebar</button>
+            <span>Infi</span>
+            <div class="addTermin" *ngIf="isEditor && (view =='month'||view == 'week')" (click)="view = 'termin'">
+                 <i class="fa fa-plus" aria-hidden="true"></i> Termin einfügen
+            </div>
+        </header>
+        <section class="dashboard-contents">
+            <div *ngIf="view=='month'||view=='week'">
+                <app-calendar [view]="view"></app-calendar>  
+            </div>
+            <div *ngIf="view=='termin'">
+                <app-termin [jrkEntitaet]="jrkEntitaet" (changeView)="changeView($event)"></app-termin>
+            </div>
+            <div *ngIf="view =='protocol'">
+                <app-protocol (changeView)="changeView($event)"></app-protocol>
+            </div>
+            <div *ngIf="view =='diagram'">
+                <app-diagrams></app-diagrams>
+            </div>
+            <div *ngIf="view =='home'">
+                <app-home></app-home>
+            </div>
+        </section>
+    </div>
+</ng-sidebar-container>
+
+
+<!-- Modal -->
+<div class="modal fade" id="pwdModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="pwdModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="pwdModalLabel">Geben Sie ein neues Passwort ein!</h5>
+    </div>
+    <div class="modal-body">
+    <table>
+        <tr>
+        <td>Neues Passwort:</td>
+        <td><input type="password" [(ngModel)]="password1"></td>
+        </tr>
+        <tr>
+        <td>Passwort wiederholen:</td>
+        <td><input type="password" [(ngModel)]="password2"></td>
+        </tr>
+    </table>     
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="changePwd()">ändern</button>
+    </div>
+    </div>
+</div>
+</div>

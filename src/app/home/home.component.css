@@ -1,0 +1,21 @@
+.container{
+    text-align: left;
+    width: 100%;
+    height: auto;
+}
+
+#imageSize{
+    max-width: 400px;
+}
+
+.card-block{
+    background-color: white;
+    color: black;
+    z-index: 1000;
+    padding: 1%;
+    margin: 2%;
+}
+
+.card{   
+    border: 1px solid red;
+}

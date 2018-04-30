@@ -1,0 +1,268 @@
+@import url('http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
+@import url('http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
+
+ng-sidebar-container{
+    min-height: 90vh
+}
+
+.loading {
+    padding: 1em;
+}
+
+dashboard {
+    height: 100%;
+    width: 100%;
+}
+
+i.fa.fa-plus {
+    color: white;
+    font-size: 30px;
+}
+
+.addTermin{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 40px;
+    margin-top: 11px;
+}
+
+.dashboard-header {
+    align-items: center;
+    background: red;
+    color: white;
+    display: flex;
+    padding: 1em;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.dashboard-header__toggle {
+    background: transparent;
+    border: 0.15rem solid white;
+    border-left: 0;
+    border-right: 0;
+    cursor: pointer;
+    font-size: 0;
+    height: 1.5rem;
+    margin-right: 1rem;
+    position: relative;
+    width: 2rem;
+}
+
+.dashboard-header__toggle::after {
+    background: white;
+    content: '';
+    height: 0.15rem;
+    left: 0;
+    margin-top: -0.075rem;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
+
+.dashboard-sidebar {
+    background-color: #fff;
+    padding: 2em 1em;
+}
+.dashboard-sidebar.ng-sidebar--opened.ng-sidebar--over {
+    box-shadow: 0 0 2.5em rgba(85, 85, 85, 0.5);
+    background-color: white;
+}
+
+.dashboard-contents {
+    padding: 0 2em;
+}
+
+.dashboard-control {
+    background-color: grey;
+    border: 1px solid grey;
+    cursor: pointer;
+    padding-right: 5%;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    transition: background-color 0.15s;
+    text-align: right;
+    font-size: 200%;
+    height:50px;
+}
+.dashboard-control:hover {
+    background-color: grey;
+    color: white;
+}
+
+.material-icons{
+    padding-bottom: 0%;
+    font-size: 90%;
+}
+
+.einfuegen{
+    padding-left: 5%;
+    padding-right: 30%;
+    font-size: 125%;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.button {
+    width: 100%;
+    height: 50px;
+    background-color: red;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
+}
+.button:after, .button:before {
+    content: 'LOG OUT';
+    letter-spacing: 5px;
+    position: absolute;
+    width: 100%;
+    font-weight:bold;
+    font-size: 100%;
+    left: 50%;
+    bottom: 0;
+    transition: all 0.3s;
+    transform: translate(-50%, -50%);
+}
+.button:hover:after {
+    top: -50%;
+}
+.button:before {
+    font-family: 'Ionicons';
+    content: '\f385';
+    font-size: 32px;
+    top: 190%;
+}
+.button:hover:before {
+    top: 50%;
+}
+
+#platzierung{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: 0px;
+}
+
+#imagePlatzhalter{
+    background: url(../../assets/sidebar.png) no-repeat;
+    background-size: 100%;
+    width: 100%;
+    background-color: lightgrey;
+    height: 18%;
+}
+
+#hover:hover{
+    background-color: lightgrey;
+    transition: all ease 1.5s;
+}
+
+#hover{
+    color:black;
+    width: 100%;
+    height: 7%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.material-icons{
+    padding-bottom: 0%;
+    font-size: 90%;
+}
+
+.einfuegen{
+    padding-left: 5%;
+    padding-right: 30%;
+    font-size: 125%;
+}
+
+body {
+    background: #eee;
+    font-family: 'helvetica Neue';
+}
+.button {
+    width: 100%;
+    height: 50px;
+    background-color: red;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -70%);
+    overflow: hidden;
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
+}
+.button:after, .button:before {
+    content: 'LOG OUT';
+    letter-spacing: 5px;
+    position: absolute;
+    width: 100%;
+    font-weight:bold;
+    font-size: 100%;
+    left: 50%;
+    top: 50%;
+    transition: all 0.3s;
+    transform: translate(-50%, -90%);
+}
+.button:hover:after {
+    top: -50%;
+}
+.button:before {
+    font-family: 'Ionicons';
+    content: '\f385';
+    font-size: 32px;
+    top: 190%;
+}
+
+.button:hover:before {
+    top: 50%;
+}
+
+#platzierung{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 20%;
+    margin-bottom: 0px;
+}
+
+#hover:hover{
+    background-color: lightgrey;
+    transition: all ease 1.5s;
+}
+
+#hover{
+    color:black;
+    width: 100%;
+    height: 7%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.my-custom-class a {
+    color: #FF3D7F !important;
+}
+
+@media screen and (max-width: 500px) {
+    .dashboard-contents[_ngcontent-c3] {
+        padding: 0px !important;
+    }
+}
+.black{
+    color:black !important;
+    background-color: white !important;
+}
+
+hr{
+    margin: 0;
+}
+
+input{
+    margin-bottom: 5px;
+}

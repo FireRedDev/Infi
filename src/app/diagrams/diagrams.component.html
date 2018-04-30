@@ -1,0 +1,49 @@
+<div align="center">
+    <select class="form-control" #selectElem (change)="set(selectElem.value)" name="jrkselect">
+        <option *ngFor="let JRKEntitaet of JRKEntitaeten, let i=index" [selected]="i==0" [value]="JRKEntitaet.id">{{JRKEntitaet.name}}</option>
+    </select>
+</div>
+<h2>Kategorien</h2>
+<ngx-charts-pie-chart
+[view]="view"
+[scheme]="colorScheme"
+[results]="single"
+[legend]=false
+[explodeSlices]="explodeSlices"
+[labels]="showLabels"
+[doughnut]="doughnut"
+(select)="onSelect($event)">
+</ngx-charts-pie-chart>
+<h2 class="abstand">Aufteilung auf Gruppen</h2>
+<ngx-charts-pie-chart
+[view]="view"
+[scheme]="colorScheme"
+[results]="single2"
+[legend]=false
+[explodeSlices]="explodeSlices"
+[labels]="showLabels"
+[doughnut]="doughnut"
+(select)="onSelect($event)">
+</ngx-charts-pie-chart>
+<h2 class="abstand">Zeitleiste</h2>
+<ngx-charts-bar-vertical
+[view]="view"
+[scheme]="colorScheme"
+[results]="singleChartBar"
+[xAxis]=true
+[yAxis]=true
+[legend]=false
+[showXAxisLabel]=true
+[showYAxisLabel]=true
+(select)="onSelect($event)">
+</ngx-charts-bar-vertical>
+<h2 class="abstand">geleistete Stunden</h2>
+<ngx-charts-bar-horizontal
+[view]="view"
+[scheme]="colorScheme"
+[results]="single3"
+[xAxis]=true
+[yAxis]=true
+[legend]=false
+(select)="onSelect($event)">
+</ngx-charts-bar-horizontal>

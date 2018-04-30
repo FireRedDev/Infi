@@ -1,0 +1,58 @@
+<div class="row text-center">
+  <div class="col-md-4">
+      <div class="btn-group">
+          <div
+              class="btn btn-outline-secondary"
+              mwlCalendarPreviousView
+              [view]="view"
+              [(viewDate)]="viewDate"
+              (viewDateChange)="activeDayIsOpen = false">
+              Vorheriger
+          </div>
+          <div
+              class="btn btn-outline-secondary"
+              mwlCalendarToday
+              [(viewDate)]="viewDate">
+              Aktueller
+          </div>
+          <div
+              class="btn btn-outline-secondary"
+              mwlCalendarNextView
+              [view]="view"
+              [(viewDate)]="viewDate"
+              (viewDateChange)="activeDayIsOpen = false">
+              Nächster
+          </div>
+      </div>
+  </div>
+  <div class="col-md-4">
+    <h1>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h1>
+  </div>
+</div>
+<div *ngIf="events$ | async; let events">
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+    *ngSwitchCase="'month'"      
+    [refresh]="refresh"
+    [viewDate]="viewDate"
+    [events]="events"
+    [locale]="locale"
+    [weekStartsOn]="weekStartsOn"
+    [weekendDays]="weekendDays"
+    [activeDayIsOpen]="activeDayIsOpen"
+    (dayClicked)="dayClicked($event.day)"
+    (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+    *ngSwitchCase="'week'"
+    precision="minutes"
+    [viewDate]="viewDate"
+    [events]="events"
+    [locale]="locale"
+    [weekStartsOn]="weekStartsOn"
+    [weekendDays]="weekendDays"
+    [refresh]="refresh"
+    (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-week-view>
+  </div>
+</div>
