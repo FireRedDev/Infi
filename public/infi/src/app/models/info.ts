@@ -5,7 +5,8 @@ export class Info {
     public id=0,
     public ueberschrift='',
     public beschreibung='',
-    public media=''
+    public mediapath=[],
+    public datum=''
     )
     {}
 }

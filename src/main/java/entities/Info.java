@@ -18,7 +18,8 @@ public class Info {
     int id;
     private String ueberschrift;
     private String beschreibung;
-    private String imgpath;
+    private String[] mediapath;
+    private String datum;
 
     /**
      *
@@ -32,10 +33,20 @@ public class Info {
      * @param beschreibung
      * @param imgpath
      */
-    public Info(String ueberschrift, String beschreibung, String imgpath) {
+
+    public Info(String ueberschrift, String beschreibung, String[] mediapath, String datum) {
         this.ueberschrift = ueberschrift;
         this.beschreibung = beschreibung;
-        this.imgpath = imgpath;
+        this.mediapath = mediapath;
+        this.datum = datum;
+    }
+
+    public String getDatum() {
+        return datum;
+    }
+
+    public void setDatum(String datum) {
+        this.datum = datum;
     }
 
     /**
@@ -86,20 +97,12 @@ public class Info {
         this.beschreibung = beschreibung;
     }
 
-    /**
-     *
-     * @return
-     */
-    public String getImgpath() {
-        return imgpath;
+    public String[] getMediapath() {
+        return mediapath;
     }
 
-    /**
-     *
-     * @param imgpath
-     */
-    public void setImgpath(String imgpath) {
-        this.imgpath = imgpath;
+    public void setMediapath(String[] mediapath) {
+        this.mediapath = mediapath;
     }
 
 }

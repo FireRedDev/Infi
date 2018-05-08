@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()" #terminForm="ngForm">
+<form (ngSubmit)="onSubmit()" #infoForm="ngForm">
   <div class="form-group">
       <label for="ueberschrift">Überschrift</label>
       <input type="text" class="form-control" id="ueberschrift"
@@ -20,20 +20,8 @@
           Beschreibung muss eingegeben werden!
       </div>
       <br>
-      <label for="media">Bilder und Videos auswählen</label>
-      <input accept="image/*,video/mp4,video/x-m4v,video/*" type= "file"  multiple  class="form-control" id="media" multiple
-       name="media" [(ngModel)]="actInformation.media"
-      #media="ngModel">
+      <input type="file" class="form-control" id="fileInput" name="fileUpload" (change)="fileUpload($event)">
+      <!--<div [(ngModel)]="fileDisplayArea" name="fileDisplayArea"></div>-->
   </div>
-  <button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save()">einfügen</button>
-</form>
-
-
-<form method="POST" action="http://localhost:8080/api/upload" enctype="multipart/form-data" >
-  File:
-  <input type="file" name="file" id="file" /> <br>
-  Destination:
-  <input type="text" value="/tmp" name="destination"/>
-  <br>
-  <input type="submit" value="Upload" name="upload" id="upload" />
+  <button type="submit" class="btn btn-success" [disabled]="!infoForm.form.valid" (click)="save()">einfügen</button>
 </form>

@@ -301,5 +301,18 @@ public class Service {
     public boolean needPwdChange(int id) {
         return repo.needPwdChange(id);
     }
-
+    
+    /**
+     * Inserts a Info and assigns it to a JRKEntitaet
+     *
+     * @param id
+     * @param t
+     */
+    @Path("insertInfo/{id}")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @POST
+    public void insertInfo(@PathParam("id") int id, Info i) {
+        repo.insertInfo(id, i);
+    }
 }

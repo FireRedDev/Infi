@@ -154,11 +154,11 @@ public class DatenbankRepository {
 
     /**
      *
-     * @param ortsstelle
+     * @param jrk
      */
-    public void insert(JRKEntitaet ortsstelle) {
+    public void insert(JRKEntitaet jrk) {
         em.getTransaction().begin();
-        em.merge(ortsstelle);
+        em.merge(jrk);
         em.getTransaction().commit();
     }
 
@@ -577,5 +577,14 @@ public class DatenbankRepository {
         boolean isChanged = p.isPasswordChanged();
         return isChanged;
     }
-
+    /**
+     * 
+     * @param id
+     * @param i 
+     */
+    public void insertInfo(int id, Info i) {
+        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+        jrk.addInfo(i);
+        insert(jrk);
+    }
 }

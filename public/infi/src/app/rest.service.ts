@@ -91,4 +91,7 @@ export class RestService {
     return this.http
     .post('http://localhost:8080/api/service/needPwdChange', body);
   }
+  uploadImage(body,filename){
+    return this.http.post("http://localhost:8080/upload?filename="+filename,body);
+  }
 }

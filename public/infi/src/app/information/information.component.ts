@@ -17,6 +17,7 @@ export class InformationComponent implements OnInit {
   fileInput;
   fileDisplayArea;
   imgpath;
+  file;
 
   success=false;
     constructor(private rest: RestService) {
@@ -24,27 +25,91 @@ export class InformationComponent implements OnInit {
      }
     de: any;
   
-      ngOnInit() {
-      this.de = {
-              firstDayOfWeek: 0,
-              dayNames: ["Sonntag", "Montag", "Dienstag","Mittwoch", "Donnerstag", "Freitag", "Samstag"],
-              dayNamesShort: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
-              monthNames: [ "Jänner","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember" ],
-              monthNamesShort: [ "Jän", "Feb", "Mär", "Apr", "Mai", "Jun","Jul", "Aug", "Sep", "Okt", "Nov", "Dez" ]
-          };
+      ngOnInit() {  
+        this.fileDisplayArea="";  
+
     }
+
     save(){
-      debugger;
+      this.actInformation.mediapath.push("assets/upload/"+this.file.name);
         this.rest.insertInfo(this.jrkEntitaet,this.actInformation)
           .subscribe(data => {
-            this.changeView.emit("month");
+            console.log("home");
+            this.changeView.emit("home");
         });
         this.success=true;
     }
     
-      actInformation:Info = new Info(0,'','','');
+      actInformation:Info = new Info(0,'','',[],'');
       submitted = false;
    
       onSubmit() { this.submitted = true; }
+      
+          
+      fileUpload(e) {
+        this.fileInput = document.getElementById('fileInput');
+        this.file = this.fileInput.files[0];
+        var file = this.file;
+        var rest = this.rest;
+        var imageType = /image.*/;
+  
+        if (this.file.type.match(imageType)) {
+          var reader = new FileReader();
+  
+          reader.onload = function(e) {
+            var dataURI =reader .result;
+            console.log(dataURI);
+            //https://stackoverflow.com/questions/12168909/blob-from-dataurl
+            // convert base64 to raw binary data held in a string
+            // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+            var byteString = atob(dataURI.split(',')[1]);
+
+            // separate out the mime component
+            var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+
+            // write the bytes of the string to an ArrayBuffer
+            var ab = new ArrayBuffer(byteString.length);
+
+            // create a view into the buffer
+            var ia = new Uint8Array(ab);
+
+            // set the bytes of the buffer to the correct values
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+
+            // write the ArrayBuffer to a blob, and you're done
+            var blob = new Blob([ab], {type: mimeString});
+
+            console.log(blob);
+            rest.uploadImage(blob,file.name)
+              .subscribe(data => {
+                debugger;
+                console.log("insertImage")
+            });
+            /*var http = new XMLHttpRequest();
+            var url = "http://localhost:8080/upload?filename="+file.name;
+            var params = blob;
+            http.open("POST", url, true);
+          
+            //Send the proper header information along with the request
+            http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          
+            http.onreadystatechange = function() {//Call a function when the state changes.
+              if(http.readyState == 4 && http.status == 200) {
+                debugger;
+                console.log(http.responseText);
+              }
+            }
+            http.send(params);*/            
+          }
+  
+          reader.readAsDataURL(this.file);
+        } else {
+          this.fileDisplayArea = "File not supported!";
+          console.log(this.fileDisplayArea);
+        }
+      }
  
+
 }
