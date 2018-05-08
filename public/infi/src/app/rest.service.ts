@@ -9,6 +9,27 @@ export class RestService {
     this.http=http;
   }
 
+  getAllRoles(){
+    return this.http.get('http://localhost:8080/api/service/getAllRoles');
+  }
+  insertPerson(person){
+    //insert Person machen
+    return this.http.post('http://localhost:8080/api/service/insertPerson', person);
+  }
+
+  savePerson(person){
+    alert("Halllo");
+    return this.http.post('http://localhost:8080/api/service/savePerson', person);
+  }
+
+  deletePerson(id){
+    return this.http.post('http://localhost:8080/api/service/deletePerson', id);
+  }
+
+  getUsersLayerDown(id){
+    return this.http.post('http://localhost:8080/api/service/getUsersLayerDown',id);
+  }
+
   login(body){
     return this.http.post('http://localhost:8080/api/service/login', body);
   }
@@ -65,6 +86,11 @@ export class RestService {
   isEditor(body){
     return this.http
     .post('http://localhost:8080/api/service/isEditor', body);
+  }
+
+  isAdmin(body){
+    return this.http
+    .post('http://localhost:8080/api/service/isAdmin', body);
   }
 
   getJRKEntitaet(body){

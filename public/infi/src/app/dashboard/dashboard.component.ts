@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
 
   username: String;
   isEditor= true;
+  isAdmin=false;
   jrkEntitaet: any;
   view = 'home';
   password1="";
@@ -139,6 +140,10 @@ export class DashboardComponent implements OnInit {
     this.rest.isEditor(body)
       .subscribe(data => {
         this.isEditor = (data === true);
+      });
+      this.rest.isAdmin(body)
+      .subscribe(data => {
+        this.isAdmin = (data === true);
       });
     this.rest.needPwdChange(body)
     .subscribe(data => {

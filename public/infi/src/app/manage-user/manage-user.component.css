@@ -1,0 +1,23 @@
+#jrkselect{
+    width: 200px;
+}
+
+#ADDButton{
+    float: right;
+}
+
+#selectJRK{
+    margin-top: 40px;
+    position: absolute;
+    margin-left: 100px;
+    width: 210px;
+}
+
+
+
+#editSection{
+    margin-left:28%;
+    position: absolute;
+    margin-top: 150px;
+}
+

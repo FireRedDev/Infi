@@ -13,19 +13,19 @@ public class PersonTransferObject {
     /**
      *
      */
-    public String personalnr;
+    public String email;
 
     /**
      *
      */
     public String password;
 
-    public String getPersonalnr() {
-        return personalnr;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPersonalnr(String personalnr) {
-        this.personalnr = personalnr;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -36,8 +36,8 @@ public class PersonTransferObject {
         this.password = password;
     }
 
-    public PersonTransferObject(String personalnr, String password) {
-        this.personalnr = personalnr;
+    public PersonTransferObject(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 

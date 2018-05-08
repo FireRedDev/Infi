@@ -32,6 +32,14 @@ public class Service {
         System.out.println("messagefunction");
         return "INFI Jugendrotkreuz Server up and running..";
     }
+    
+    @POST
+    @Secured({Role.LANDESLEITER, Role.BEZIRKSLEITER})
+    @Path("deletePerson")
+    public List<Person> deletePerson(int id) {
+        return (repo.listAllNeu(id));
+    }
+    
 
     /**
      * Login to Server with Username/Password and get a Token
@@ -74,6 +82,21 @@ public class Service {
     }
 
     /**
+     * Lists all Persons/Users
+     *
+     * @param id
+     * @return
+     */
+    @POST
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Path("getUsersLayerDown")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public List<Person> getUsersLayerDown(int id) {
+        return repo.getUsersLayerDown(id);
+    }
+    
+    /**
      * Lists all JRKENTITYS
      *
      * @return
@@ -109,6 +132,7 @@ public class Service {
      */
     @POST
     @Path("getUserInfos")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<Info> getUserInfos(int id) {
@@ -179,6 +203,32 @@ public class Service {
     public void insertDoko(Termin d) {
         repo.insertDoko(d);
     }
+    
+    /**
+     * Gibt alle Rollen zurück.
+     *
+     * @return Rollen
+     */
+    @GET
+    @Path("getAllRoles")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    public Role[] getAllRoles() {
+        return repo.getAllRoles();
+    }
+    
+        /**
+     * insert Dokumentation and create Relationship with its Termin
+     *
+     * @param b
+     */
+    @Path("insertPerson")
+    @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @POST
+    public void insertPerson(Person b) {
+        repo.insert(b);
+    }
 
     /**
      * Darf dieser User Termine und Protokolle einfügen?
@@ -195,6 +245,21 @@ public class Service {
         return repo.isEditor(id);
     }
 
+    /**
+     * Darf dieser User Benutzer verwalten?
+     *
+     * @param id
+     * @return
+     */
+    @Path("isAdmin")
+    @Secured({Role.BEZIRKSLEITER, Role.KIND, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @POST
+    public boolean isAdmin(int id) {
+        return repo.isAdmin(id);
+    }
+    
     /**
      * Noch nicht dokumentierte Termine zurückgeben
      *
@@ -310,6 +375,21 @@ public class Service {
     @Produces(MediaType.TEXT_PLAIN)
     public boolean needPwdChange(int id) {
         return repo.needPwdChange(id);
+    }
+    
+    /**
+     *
+     * @param p
+     * @return
+     */
+    @POST
+    @Path("savePerson")
+    @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String savePerson(Person p) {
+        repo.savePerson(p);
+        return "\"Person geändert\"";
     }
 
 }

@@ -14,17 +14,23 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({
+    @NamedQuery(name = "Benutzer.deletePerson", query = "DELETE FROM Person p WHERE p.id =:id")
+    ,
+    //@NamedQuery(name = "Benutzer.savePerson", query = "ALTER TABLE Person p WHERE p.id =:id")
+    //,
     @NamedQuery(name = "Benutzer.listAll", query = "SELECT b FROM Person b")
     ,
     @NamedQuery(name = "Benutzer.list", query = "SELECT b FROM Person b where b.id=:id")
     ,
-    @NamedQuery(name = "Benutzer.personalnr", query = "SELECT b.personalnr FROM Person b where b.id=:id")
+    @NamedQuery(name = "Benutzer.email", query = "SELECT b.email FROM Person b where b.id=:id")
     ,
-    @NamedQuery(name = "Benutzer.login", query = "SELECT b FROM Person b where b.personalnr=:personalnr")
+    @NamedQuery(name = "Benutzer.login", query = "SELECT b FROM Person b where b.email=:email")
     ,
     @NamedQuery(name = "Benutzer.name", query = "SELECT concat(b.vorname,' ',b.nachname) FROM Person b where b.id=:id")
     ,
     @NamedQuery(name = "Benutzer.jrkEntitaet", query = "SELECT b.jrkentitaet FROM Person b where b.id=:id")
+        ,
+    @NamedQuery(name = "Benutzer.byjrkEntitaet", query = "SELECT b FROM Person b where b.jrkentitaet=:id")
 
 })
 public class Person implements Serializable {
@@ -33,7 +39,7 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
     //username
-    private String personalnr;
+    private String email;
     private String password;
     private String vorname;
     private String nachname;
@@ -54,8 +60,8 @@ public class Person implements Serializable {
      * @param nachname
      * @param jrkentitaet
      */
-    public Person(String personalnr, String password, String vorname, String nachname, JRKEntitaet jrkentitaet) {
-        this.personalnr = personalnr;
+    public Person(String email, String password, String vorname, String nachname, JRKEntitaet jrkentitaet) {
+        this.email = email;
         this.password = password;
         this.vorname = vorname;
         this.nachname = nachname;
@@ -89,15 +95,15 @@ public class Person implements Serializable {
 
     /**
      *
-     * @param personalnr
+     * @param email
      * @param password
      * @param vorname
      * @param nachname
      * @param jrkentitaet
      * @param rolle
      */
-    public Person(String personalnr, String password, String vorname, String nachname, JRKEntitaet jrkentitaet, Role rolle) {
-        this.personalnr = personalnr;
+    public Person(String email, String password, String vorname, String nachname, JRKEntitaet jrkentitaet, Role rolle) {
+        this.email = email;
         this.password = password;
         this.vorname = vorname;
         this.nachname = nachname;
@@ -133,18 +139,18 @@ public class Person implements Serializable {
      *
      * @return
      */
-    public String getPersonalnr() {
-        return personalnr;
+    public String getEmail() {
+        return email;
     }
 
     /**
      *
-     * @param personalnr
+     * @param email
      */
-    public void setPersonalnr(String personalnr) {
-        this.personalnr = personalnr;
+    public void setEmail(String email) {
+        this.email = email;
     }
-
+    
     /**
      *
      * @return
