@@ -9,6 +9,7 @@
             "outDir": "dist",
             "assets": [
                 "assets",
+				"upload",
                 "favicon.ico"
             ],
             "index": "index.html",

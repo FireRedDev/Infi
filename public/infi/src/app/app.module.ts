@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'angular-calendar';
 import { HeaderComponent } from './header/header.component';
@@ -16,21 +15,17 @@ import {AuthguardGuard} from './authguard.guard';
 import {AuthService} from './auth/auth.service';
 import { SidebarModule } from 'ng-sidebar';
 import {HttpClientModule} from '@angular/common/http';
-import { TerminComponent, DefaultIntl} from './termin/termin.component';
+import { TerminComponent } from './termin/termin.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/token.interceptor';
+import { DateTimePickerModule } from 'ng-pick-datetime';
 import { ProtocolComponent } from './protocol/protocol.component';
 import { DiagramsComponent } from './diagrams/diagrams.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { RestService } from './rest.service';
 import { HomeComponent } from './home/home.component';
 import { CalendarComponent } from './calendar/calendar.component';
-
-import { DateTimePickerComponent } from './calendar/date-time-picker.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
-import { CarouselModule } from "angular2-carousel";
-import { OwlDateTimeIntl } from 'ng-pick-datetime/date-time/date-time-picker-intl.service';
+import { InformationComponent } from './information/information.component';
 
 const appRoutes:Routes = [
 {
@@ -53,9 +48,9 @@ component: DashboardComponent
     TerminComponent,
     ProtocolComponent,
     DiagramsComponent,
-    DateTimePickerComponent,
+    HomeComponent,
     CalendarComponent,
-    HomeComponent
+    InformationComponent
   ],
   imports: [
     BrowserModule,
@@ -66,17 +61,15 @@ component: DashboardComponent
     RouterModule.forRoot(appRoutes),
     CalendarModule.forRoot(),
     SidebarModule.forRoot(),
-    NgbModule.forRoot(),
-    OwlDateTimeModule, 
-    OwlNativeDateTimeModule,
-    NgxChartsModule,
-    CarouselModule
+    DateTimePickerModule,
+    NgxChartsModule,    
+    ReactiveFormsModule
   ],
-  providers: [UserService, RestService, AuthguardGuard, AuthService, 
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'},
-    {provide: OwlDateTimeIntl, useValue: DefaultIntl}
-],
+  providers: [UserService, RestService, AuthguardGuard, AuthService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

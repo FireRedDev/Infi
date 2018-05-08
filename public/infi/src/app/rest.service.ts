@@ -42,6 +42,11 @@ export class RestService {
     .post('http://localhost:8080/api/service/insertTermin/'+jrkEntitaet.id, actTermin);
   }
 
+  insertInfo(jrkEntitaet,actInfo){
+    return this.http
+    .post('http://localhost:8080/api/service/insertInfo/'+jrkEntitaet.id, actInfo);
+  }
+
   getOpenDoko(body){
     return this.http
     .post('http://localhost:8080/api/service/getOpenDoko', body);
@@ -85,5 +90,8 @@ export class RestService {
   needPwdChange(body){
     return this.http
     .post('http://localhost:8080/api/service/needPwdChange', body);
+  }
+  uploadImage(body,filename){
+    return this.http.post("http://localhost:8080/upload?filename="+filename,body);
   }
 }

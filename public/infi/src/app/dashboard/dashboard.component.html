@@ -39,9 +39,12 @@
         <header class="dashboard-header">
             <button (click)="_toggleOpened()" class="dashboard-header__toggle">Toggle sidebar</button>
             <span>Infi</span>
-            <div class="addTermin" *ngIf="isEditor && (view =='month'||view == 'week')" (click)="view = 'termin'">
+            <div class="add" *ngIf="isEditor && (view =='month'||view =='week')" (click)="view = 'termin'">
                  <i class="fa fa-plus" aria-hidden="true"></i> Termin einfügen
             </div>
+            <div class="add" *ngIf="isEditor && view=='home'" (click)="view = 'info'">
+                <i class="fa fa-plus" aria-hidden="true"></i> Information einfügen
+           </div>
         </header>
         <section class="dashboard-contents">
             <div *ngIf="view=='month'||view=='week'">
@@ -59,13 +62,16 @@
             <div *ngIf="view =='home'">
                 <app-home></app-home>
             </div>
+            <div *ngIf="view =='info'">
+                <app-information [jrkEntitaet]="jrkEntitaet" (changeView)="changeView($event)"></app-information>
+            </div>
         </section>
     </div>
 </ng-sidebar-container>
 
 
 <!-- Modal -->
-<div class="modal fade" id="pwdModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="pwdModalLabel" aria-hidden="true">
+<div class="modal fade" id="pwdModal" tabindex="-1" role="dialog" aria-labelledby="pwdModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class="modal-header">

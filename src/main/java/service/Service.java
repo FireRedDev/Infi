@@ -8,9 +8,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import repository.DatenbankRepository;
 import RestResponseClasses.PersonTokenTransferObject;
-import java.text.Collator;
-import java.util.Collections;
-import java.util.Comparator;
 
 /**
  *
@@ -112,14 +109,7 @@ public class Service {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<Info> getUserInfos(int id) {
-        List<Info> list = repo.getUserInfos(id);
-        Collections.sort(list, new Comparator<Info>() {
-            @Override
-            public int compare(Info o1, Info o2) {
-                return Collator.getInstance().compare(o1.getDatum(), o2.getDatum());
-            }
-        });
-        return list;
+        return repo.getUserInfos(id);
     }
 
     /**
@@ -139,9 +129,9 @@ public class Service {
     }
 
     /**
-     * Get a JRKENTITÄT with its ID
+     * Get a JRKENTITÃ„T with its ID
      *
-     * @param id id der Entität
+     * @param id id der EntitÃ¤t
      * @return
      */
     @POST
@@ -181,7 +171,7 @@ public class Service {
     }
 
     /**
-     * Darf dieser User Termine und Protokolle einfügen?
+     * Darf dieser User Termine und Protokolle einfÃ¼gen?
      *
      * @param id
      * @return
@@ -196,7 +186,7 @@ public class Service {
     }
 
     /**
-     * Noch nicht dokumentierte Termine zurückgeben
+     * Noch nicht dokumentierte Termine zurÃ¼ckgeben
      *
      * @param id
      * @return
@@ -211,7 +201,7 @@ public class Service {
     }
 
     /**
-     * Häufigkeit von Kategorie in einer JRKEntity
+     * HÃ¤ufigkeit von Kategorie in einer JRKEntity
      *
      * @param jrk
      * @return
@@ -240,9 +230,9 @@ public class Service {
     }
 
     /**
-     *
+     * 
      * @param jrk
-     * @return
+     * @return 
      */
     @POST
     @Path("getTimelineValues")
@@ -269,9 +259,9 @@ public class Service {
     }
 
     /**
-     *
+     * 
      * @param id
-     * @return
+     * @return 
      */
     @POST
     @Path("getJRKEntitaetdown")
@@ -283,9 +273,9 @@ public class Service {
     }
 
     /**
-     *
+     * 
      * @param p
-     * @return
+     * @return 
      */
     @POST
     @Path("changePassword")
@@ -294,14 +284,14 @@ public class Service {
     @Produces(MediaType.TEXT_PLAIN)
     public String changePassword(Person p) {
         repo.changePassword(p);
-        //Hochkomma müssen manuell dazugegeben werden, sonst erkennt Angular den String nicht
-        return "\"Passwort geändert\"";
+        //Hochkomma mÃ¼ssen manuell dazugegeben werden, sonst erkennt Angular den String nicht
+        return "\"Passwort geÃ¤ndert\"";
     }
 
     /**
-     *
+     * 
      * @param id
-     * @return
+     * @return 
      */
     @POST
     @Path("needPwdChange")
@@ -311,5 +301,18 @@ public class Service {
     public boolean needPwdChange(int id) {
         return repo.needPwdChange(id);
     }
-
+    
+    /**
+     * Inserts a Info and assigns it to a JRKEntitaet
+     *
+     * @param id
+     * @param t
+     */
+    @Path("insertInfo/{id}")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @POST
+    public void insertInfo(@PathParam("id") int id, Info i) {
+        repo.insertInfo(id, i);
+    }
 }

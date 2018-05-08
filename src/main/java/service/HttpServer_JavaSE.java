@@ -2,6 +2,7 @@ package service;
 
 import entities.*;
 import static entities.JRKEntitaetType.*;
+import java.io.File;
 import java.net.URI;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
@@ -9,9 +10,11 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
+import org.glassfish.grizzly.utils.ArraySet;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import repository.EntityManagerSingleton;
+import upload.UploadService;
 
 /**
  * MAIN SERVER, INIT METHOD
@@ -37,7 +40,12 @@ public class HttpServer_JavaSE {
         // Server starten
         final ResourceConfig rc = new ResourceConfig().packages("service");
         final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
-        server.getServerConfiguration().addHttpHandler(new StaticHttpHandler("public"), "/");
+        StaticHttpHandler hh = new StaticHttpHandler("public");
+        ArraySet<File> docRoots = hh.getDocRoots();
+        server.getServerConfiguration().setMaxPostSize(16000000);
+        server.getServerConfiguration().addHttpHandler(hh, "/");
+
+        server.getServerConfiguration().addHttpHandler(new UploadService(docRoots.getArray()[0]), "/upload");
         System.out.println(String.format("Server startet at %s\nHit enter to stop ...", BASE_URI));
 
         Logger l = Logger.getLogger("org.glassfish.grizzly.http.server.HttpHandler");
@@ -61,7 +69,7 @@ public class HttpServer_JavaSE {
         JRKEntitaetType bezirkstelle = Bezirkstelle;
         JRKEntitaetType landesstelle = Landstelle;
 
-        JRKEntitaet ooe = new JRKEntitaet(5, "Oberösterreich", landesstelle, null);
+        JRKEntitaet ooe = new JRKEntitaet(5, "OberÃ¶sterreich", landesstelle, null);
         JRKEntitaet wels = new JRKEntitaet(4, "Wels", bezirkstelle, ooe);
         JRKEntitaet sattledt = new JRKEntitaet(1, "Sattledt", ortstelle, wels);
         JRKEntitaet sattledt1 = new JRKEntitaet(2, "Gruppe1", gruppe, sattledt);
@@ -105,7 +113,7 @@ public class HttpServer_JavaSE {
         sattermin1.setDoko(new Dokumentation(kinder1, betreuer, "basteln", 2.0, "Soziales"));
         sattledt.addTermin(sattermin1);
 
-        Termin marchtrenktermin = new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk");
+        Termin marchtrenktermin = new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei fÃ¼r alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk");
         marchtrenktermin.setDoko(new Dokumentation(kinder1, betreuer1, "grillen", 3.0, "Soziales"));
         marchtrenk1.addTermin(marchtrenktermin);
 
@@ -113,8 +121,8 @@ public class HttpServer_JavaSE {
         marchtrenktermin1.setDoko(new Dokumentation(kinder1, betreuer1, "schauen", 2.0, "Soziales"));
         marchtrenk1.addTermin(marchtrenktermin1);
 
-        marchtrenk1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Eislaufen", "Bitte Eislaufschuhe, Winterkleidung und 3€ Eintritt mitnehmen", "Eislaufplatz Marchtrenk"));
-        wels.addTermin(new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk"));
+        marchtrenk1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Eislaufen", "Bitte Eislaufschuhe, Winterkleidung und 3â‚¬ Eintritt mitnehmen", "Eislaufplatz Marchtrenk"));
+        wels.addTermin(new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei fÃ¼r alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk"));
         ooe.addTermin(new Termin("2018-02-02 18:00:00", "2018-02-02 21:00:00", "Faschingsumzug", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz"));
         wels.addTermin(new Termin("2018-02-15 14:00:00", "2018-02-15 21:00:00", "Basteln", "Bitte Schere und Kleber mitnehmen", "Dienststelle Marchtrenk"));
 
@@ -129,22 +137,22 @@ public class HttpServer_JavaSE {
         wels.addTermin(new Termin("2018-06-15 10:00:00", "2018-06-15 21:00:00", "Klettern", "Bitte feste Schuhe anziehen", "Klettergarten"));
 
         marchtrenk.addTermin(new Termin("2018-01-15 15:30:00", "2018-01-17 17:30:00", "Wandern", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
-        wels.addTermin(new Termin("2018-05-30 09:00:00", "2018-05-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
+        wels.addTermin(new Termin("2018-05-30 09:00:00", "2018-05-30 21:00:00", "Ausflug nach Salzburg", "Geld fÃ¼r Jause mitnehmen", "Linz Hauptbahnhof"));
         ooe.addTermin(new Termin("2018-12-19 13:00:00", "2018-12-19 21:00:00", "Adventmarkt", "warm anziehen", "Adventmarkt Wels"));
         wels.addTermin(new Termin("2018-08-15 09:00:00", "2018-08-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
 
         marchtrenk.addTermin(new Termin("2018-10-01 11:30:00", "2018-10-01 17:30:00", "Wandern auf der Reiteralm", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
-        wels.addTermin(new Termin("2018-12-30 09:00:00", "2018-12-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
+        wels.addTermin(new Termin("2018-12-30 09:00:00", "2018-12-30 21:00:00", "Ausflug nach Salzburg", "Geld fÃ¼r Jause mitnehmen", "Linz Hauptbahnhof"));
         ooe.addTermin(new Termin("2018-04-19 13:00:00", "2018-04-19 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
         wels.addTermin(new Termin("2018-07-15 09:00:00", "2018-07-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
 
         marchtrenk1.addTermin(new Termin("2019-01-015 15:30:00", "2019-01-17 17:30:00", "Wandern", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
-        wels.addTermin(new Termin("2019-05-30 09:00:00", "2019-05-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
+        wels.addTermin(new Termin("2019-05-30 09:00:00", "2019-05-30 21:00:00", "Ausflug nach Salzburg", "Geld fÃ¼r Jause mitnehmen", "Linz Hauptbahnhof"));
         ooe.addTermin(new Termin("2017-12-19 13:00:00", "2017-12-19 21:00:00", "Adventmarkt", "warm anziehen", "Adventmarkt Wels"));
         wels.addTermin(new Termin("2019-08-15 09:00:00", "2019-08-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
 
         marchtrenk1.addTermin(new Termin("2017-10-01 11:30:00", "2017-10-17 17:30:00", "Wandern", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
-        wels.addTermin(new Termin("2017-12-30 09:00:00", "2017-12-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
+        wels.addTermin(new Termin("2017-12-30 09:00:00", "2017-12-30 21:00:00", "Ausflug nach Salzburg", "Geld fÃ¼r Jause mitnehmen", "Linz Hauptbahnhof"));
         ooe.addTermin(new Termin("2019-04-19 13:00:00", "2019-04-19 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
         wels.addTermin(new Termin("2017-07-15 09:00:00", "2017-07-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
 
@@ -153,11 +161,11 @@ public class HttpServer_JavaSE {
         String[] c = {"assets/halloween.jpg"};
         String[] d = {"assets/fotoOnline.jpg", "assets/lager.jpg"};
 
-        sattledt1.addInfo(new Info("Terminfindung für Fotoshooting", "Bitte Abstimmen Doodle-Link", a,"2018-02-15 09:00:00"));
-        ooe.addInfo(new Info("Fotos", "fotos sind online oö", d,"2017-07-15 09:00:00"));
-        wels.addInfo(new Info("Bezirkslager", "Bilder sind endlich auf Dropbox Link:", b,"2017-08-15 09:00:00"));
-        wels.addInfo(new Info("Halloween", "Ergebnisse von der Halloweenstunde", c,"2018-01-15 09:00:00"));
-
+        sattledt1.addInfo(new Info("Terminfindung fÃ¼r Fotoshooting", "Bitte Abstimmen Doodle-Link", a, "2018-02-15 09:00:00"));
+        ooe.addInfo(new Info("Fotos", "fotos sind online oÃ¶", d, "2017-07-15 09:00:00"));
+        wels.addInfo(new Info("Bezirkslager", "Bilder sind endlich auf Dropbox Link:", b, "2017-08-15 09:00:00"));
+        wels.addInfo(new Info("Halloween", "Ergebnisse von der Halloweenstunde", c, "2018-01-15 09:00:00"));
+        
         Person tom = new Person("00001", "passme", "Tom", "Tester", ooe, Role.LANDESLEITER);
         Person karin = new Person("00002", "passme", "Karin", "Tester", wels, Role.BEZIRKSLEITER);
         Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt, Role.GRUPPENLEITER);
