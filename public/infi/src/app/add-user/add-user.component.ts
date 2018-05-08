@@ -22,7 +22,7 @@ export class AddUserComponent implements OnInit {
   save(){
       this.rest.insertPerson(this.actPerson)
         .subscribe(data => {
-          this.changeView.emit('month');
+          this.changeView.emit('manage-user');
       });
 
   }

@@ -40,7 +40,7 @@ edit(i:number){
 
 done(i:number){
   this.persons[i].isEditable = false;
-  console.log(this.rest.savePerson(this.persons[i]));
+  this.rest.savePerson(this.persons[i]);
 }
 
 deletePerson(i:number){

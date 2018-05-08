@@ -32,7 +32,7 @@
             <div href="#" id="hover" (click)="view = 'week'" [class.active]="view === 'week'"><p class="einfuegen"><i class="material-icons">line_style</i> Wochenansicht</p></div>
             <div href="#" id="hover" (click)="view = 'protocol'" *ngIf="isEditor"><hr><p class="einfuegen"><i class="material-icons">subject</i> Protokoll</p></div>
             <div href="#" id="hover" (click)="view = 'diagram'" *ngIf="isEditor"><p class="einfuegen"><i class="material-icons">pie_chart</i> Statistiken</p></div>
-            <div href="#" id="hover" (click)="view = 'manage-user'" *ngIf="isAdmin" [class.active]="view === 'manage-user'"><p class="einfuegen"><i class="material-icons">people</i> Benutzer verwalten</p></div><hr>
+            <div href="#" id="hover" (click)="view = 'manage-user'" *ngIf="isAdmin" [class.active]="view === 'manage-user'"><p class="einfuegen"><i class="material-icons">people</i> Profile verwalten</p></div><hr>
         </div>
         <a routerLink="/"><div id="platzierung"><div class="button"></div></div></a>
     </ng-sidebar>
