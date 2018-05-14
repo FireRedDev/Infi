@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { Termin } from './termin';
+import { Termin } from '../models/termin';
 import { RestService } from '../rest.service';
-import { jrkEntitaet } from './jrkEntitaet.model';
+import { jrkEntitaet } from '../models/jrkEntitaet.model';
 import { EventEmitter } from '@angular/core';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 

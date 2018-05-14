@@ -8,9 +8,11 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import repository.DatenbankRepository;
 import RestResponseClasses.PersonTokenTransferObject;
-import java.text.Collator;
-import java.util.Collections;
-import java.util.Comparator;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.StreamingOutput;
 
 /**
  *
@@ -136,14 +138,7 @@ public class Service {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public List<Info> getUserInfos(int id) {
-        List<Info> list = repo.getUserInfos(id);
-        Collections.sort(list, new Comparator<Info>() {
-            @Override
-            public int compare(Info o1, Info o2) {
-                return Collator.getInstance().compare(o1.getDatum(), o2.getDatum());
-            }
-        });
-        return list;
+        return repo.getUserInfos(id);
     }
 
     /**
@@ -305,9 +300,9 @@ public class Service {
     }
 
     /**
-     *
+     * 
      * @param jrk
-     * @return
+     * @return 
      */
     @POST
     @Path("getTimelineValues")
@@ -334,9 +329,9 @@ public class Service {
     }
 
     /**
-     *
+     * 
      * @param id
-     * @return
+     * @return 
      */
     @POST
     @Path("getJRKEntitaetdown")
@@ -348,9 +343,9 @@ public class Service {
     }
 
     /**
-     *
+     * 
      * @param p
-     * @return
+     * @return 
      */
     @POST
     @Path("changePassword")
@@ -364,9 +359,9 @@ public class Service {
     }
 
     /**
-     *
+     * 
      * @param id
-     * @return
+     * @return 
      */
     @POST
     @Path("needPwdChange")
@@ -392,4 +387,16 @@ public class Service {
         return "\"Person geändert\"";
     }
 
+     * Inserts a Info and assigns it to a JRKEntitaet
+     *
+     * @param id
+     * @param t
+     */
+    @Path("insertInfo/{id}")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @POST
+    public void insertInfo(@PathParam("id") int id, Info i) {
+        repo.insertInfo(id, i);
+    }
 }

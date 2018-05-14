@@ -1,6 +1,4 @@
 @import url('http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
-@import url('http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
-
 ng-sidebar-container{
     min-height: 90vh
 }
@@ -19,7 +17,7 @@ i.fa.fa-plus {
     font-size: 30px;
 }
 
-.addTermin{
+.add{
     position: absolute;
     top: 0;
     right: 0;
@@ -262,8 +260,4 @@ body {
 
 hr{
     margin: 0;
-}
-
-input{
-    margin-bottom: 5px;
 }

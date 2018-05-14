@@ -2,6 +2,7 @@ package service;
 
 import entities.*;
 import static entities.JRKEntitaetType.*;
+import java.io.File;
 import java.net.URI;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
@@ -9,9 +10,11 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
+import org.glassfish.grizzly.utils.ArraySet;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import repository.EntityManagerSingleton;
+import upload.UploadService;
 
 /**
  * MAIN SERVER, INIT METHOD
@@ -37,7 +40,12 @@ public class HttpServer_JavaSE {
         // Server starten
         final ResourceConfig rc = new ResourceConfig().packages("service");
         final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
-        server.getServerConfiguration().addHttpHandler(new StaticHttpHandler("public"), "/");
+        StaticHttpHandler hh = new StaticHttpHandler("public");
+        ArraySet<File> docRoots = hh.getDocRoots();
+        server.getServerConfiguration().setMaxPostSize(16000000);
+        server.getServerConfiguration().addHttpHandler(hh, "/");
+
+        server.getServerConfiguration().addHttpHandler(new UploadService(docRoots.getArray()[0]), "/upload");
         System.out.println(String.format("Server startet at %s\nHit enter to stop ...", BASE_URI));
 
         Logger l = Logger.getLogger("org.glassfish.grizzly.http.server.HttpHandler");
@@ -148,15 +156,15 @@ public class HttpServer_JavaSE {
         ooe.addTermin(new Termin("2019-04-19 13:00:00", "2019-04-19 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
         wels.addTermin(new Termin("2017-07-15 09:00:00", "2017-07-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
 
-        String[] a = {"assets/teambuilding.jpg"};
-        String[] b = {"assets/bezirkslager2_1.jpg", "assets/bezirkslager3.jpg", "assets/bezirkslager1.jpg"};
-        String[] c = {"assets/halloween.jpg"};
-        String[] d = {"assets/fotoOnline.jpg", "assets/lager.jpg"};
+        String[] a = {"http://localhost:8080/upload_image/teambuilding.jpg"};
+        String[] b = {"http://localhost:8080/upload_image/bezirkslager2.jpg", "http://localhost:8080/upload_image/bezirkslager3.jpg", "http://localhost:8080/upload_image/bezirkslager1.jpg"};
+        String[] c = {"http://localhost:8080/upload_image/halloween.jpg"};
+        String[] d = {"http://localhost:8080/upload_image/fotoOnline.jpg", "http://localhost:8080/upload_image/lager.jpg"};
 
-        sattledt1.addInfo(new Info("Terminfindung für Fotoshooting", "Bitte Abstimmen Doodle-Link", a,"2018-02-15 09:00:00"));
-        ooe.addInfo(new Info("Fotos", "fotos sind online oö", d,"2017-07-15 09:00:00"));
-        wels.addInfo(new Info("Bezirkslager", "Bilder sind endlich auf Dropbox Link:", b,"2017-08-15 09:00:00"));
-        wels.addInfo(new Info("Halloween", "Ergebnisse von der Halloweenstunde", c,"2018-01-15 09:00:00"));
+        sattledt1.addInfo(new Info("Terminfindung für Fotoshooting", "Bitte Abstimmen Doodle-Link", a, "2018-02-15 09:00:00"));
+        ooe.addInfo(new Info("Fotos", "fotos sind online oö", d, "2017-07-15 09:00:00"));
+        wels.addInfo(new Info("Bezirkslager", "Bilder sind endlich auf Dropbox Link:", b, "2017-08-15 09:00:00"));
+        wels.addInfo(new Info("Halloween", "Ergebnisse von der Halloweenstunde", c, "2018-01-15 09:00:00"));
 
         Person tom = new Person("00001", "passme", "Tom", "Tester", ooe, Role.LANDESLEITER);
         Person karin = new Person("00002", "passme", "Karin", "Tester", wels, Role.BEZIRKSLEITER);

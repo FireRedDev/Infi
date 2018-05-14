@@ -1,5 +1,5 @@
 import { Protokoll } from '../protocol/protocol';
-import { jrkEntitaet } from '../termin/jrkEntitaet.model';
+import { jrkEntitaet } from '../models/jrkEntitaet.model';
 export class Termin {
 constructor(
 public id=0,

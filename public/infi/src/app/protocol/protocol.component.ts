@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { RestService } from '../rest.service';
 import { Protokoll } from './protocol';
-import { jrkEntitaet } from '../termin/jrkEntitaet.model';
+import { jrkEntitaet } from '../models/jrkEntitaet.model';
 import { Termin } from './termin';
 import { EventEmitter } from '@angular/core';
 import { DateTimeAdapter } from 'ng-pick-datetime';
@@ -20,7 +20,7 @@ export const DefaultIntl = {
   styleUrls: ['./protocol.component.css']
 })
 export class ProtocolComponent implements OnInit {
-  constructor(private rest: RestService, dateTimeAdapter: DateTimeAdapter<any>) {
+  constructor(public rest: RestService, dateTimeAdapter: DateTimeAdapter<any>) {
       this.newChild = '';
       this.children = [];
       this.newBetreuer = '';
@@ -31,7 +31,7 @@ export class ProtocolComponent implements OnInit {
 
   @Output() changeView: EventEmitter<string> = new EventEmitter();
   de: any;
-  private term: Termin[];
+  public term: Termin[];
   
   ngOnInit() {
     const body = localStorage.getItem('currentUser');

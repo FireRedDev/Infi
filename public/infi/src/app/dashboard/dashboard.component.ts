@@ -1,4 +1,4 @@
-import { jrkEntitaet } from '../termin/jrkEntitaet.model';
+import { jrkEntitaet } from '../models/jrkEntitaet.model';
 import { forEach } from '@angular/router/src/utils/collection';
 import { Component,
 ChangeDetectionStrategy,
@@ -161,6 +161,7 @@ export class DashboardComponent implements OnInit {
     });
     this.rest.getJRKEntitaet(body)
       .subscribe(data => {
+        debugger
         this.jrkEntitaet = data;
       }); 
   }

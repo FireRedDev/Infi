@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
-
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'angular-calendar';
 import { HeaderComponent } from './header/header.component';
@@ -25,7 +26,7 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { RestService } from './rest.service';
 import { HomeComponent } from './home/home.component';
 import { CalendarComponent } from './calendar/calendar.component';
-
+import { ToastrModule } from 'ngx-toastr';
 import { DateTimePickerComponent } from './calendar/date-time-picker.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
@@ -33,6 +34,7 @@ import { CarouselModule } from "angular2-carousel";
 import { OwlDateTimeIntl } from 'ng-pick-datetime/date-time/date-time-picker-intl.service';
 import { ManageUserComponent } from './manage-user/manage-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { InformationComponent } from './information/information.component';
 
 const appRoutes:Routes = [
 {
@@ -60,6 +62,7 @@ component: DashboardComponent
     HomeComponent,
     ManageUserComponent,
     AddUserComponent
+    InformationComponent
   ],
   imports: [
     BrowserModule,
@@ -71,10 +74,12 @@ component: DashboardComponent
     CalendarModule.forRoot(),
     SidebarModule.forRoot(),
     NgbModule.forRoot(),
+    ToastrModule.forRoot(), 
     OwlDateTimeModule, 
     OwlNativeDateTimeModule,
     NgxChartsModule,
-    CarouselModule
+    CarouselModule,
+	  ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [UserService, RestService, AuthguardGuard, AuthService, 
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
