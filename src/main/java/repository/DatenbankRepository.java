@@ -213,6 +213,7 @@ public class DatenbankRepository {
         //Recursivly get Info hierarchic downwards
         info = this.infoLayerDown(currentPerson.getJrkentitaet(), info);
         info = this.infoLayerUp(currentPerson.getJrkentitaet(), info);
+        Collections.sort(info, (Info first, Info second) -> first.getDatum().compareTo(second.getDatum()));
         return info;
     }
 
