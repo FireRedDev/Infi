@@ -63,6 +63,12 @@ public class DatenbankRepository {
     public List<Person> listAllUsers() {
         return em.createNamedQuery("Benutzer.listAll", Person.class).getResultList();
     }
+    
+    public List<Person> listAllNeu(int id) {
+        em.createNamedQuery("Benutzer.deletePerson", Person.class).setParameter("id", id);
+
+        return listAllUsers();
+    }
 
     /**
      * Login
@@ -73,7 +79,7 @@ public class DatenbankRepository {
     public PersonTokenTransferObject login(PersonTransferObject pto) {
         //Find User and create Person Object
         Query query = em.createNamedQuery("Benutzer.login", Person.class);
-        query.setParameter("personalnr", pto.personalnr);
+        query.setParameter("email", pto.email);
         Person b = (Person) query.getSingleResult();
 //generate token
         String token = generateJWT(b);
@@ -116,6 +122,10 @@ public class DatenbankRepository {
         em.merge(b);
         em.getTransaction().commit();
         return b;
+    }
+    
+    public Role[] getAllRoles() {
+        return Role.values();
     }
 
     /**
@@ -310,6 +320,21 @@ public class DatenbankRepository {
         }
         return termine;
     }
+    
+    /**
+     *
+     * @param termine
+     * @param tt
+     * @return
+     */
+    private List<Person> addListPerson(List<Person> p, List<Person> pp) {
+        if (!p.equals(pp)) {
+            for (Person pers : pp) {
+                p.add(pers);
+            }
+        }
+        return p;
+    }
 
     /**
      *
@@ -358,6 +383,16 @@ public class DatenbankRepository {
     public boolean isEditor(int id) {
         Person p = em.find(Person.class, id);
         return p.getJrkentitaet().getTyp() != JRKEntitaetType.Gruppe;
+    }
+    
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public boolean isAdmin(int id) {
+        Person p = em.find(Person.class, id);
+        return p.getJrkentitaet().getTyp() == JRKEntitaetType.Landstelle||p.getJrkentitaet().getTyp() == JRKEntitaetType.Bezirkstelle;
     }
 
     /**
@@ -588,6 +623,29 @@ public class DatenbankRepository {
         boolean isChanged = p.isPasswordChanged();
         return isChanged;
     }
+
+    /**
+     * 
+     * @param id
+     * @return 
+     */
+    public List<Person> getUsersLayerDown(int id) {
+        Person currentPerson = em.find(Person.class, id);
+        JRKEntitaet jrk = currentPerson.getJrkentitaet();
+        this.getJRKEntitaetdown(id);
+        List<JRKEntitaet> jrks= em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+        List<Person> pers=new LinkedList<>();
+        for(JRKEntitaet j:jrks){
+            List<Person> p= em.createNamedQuery("Benutzer.byjrkEntitaet", Person.class).setParameter("id", jrk).getResultList();
+            this.addListPerson(pers, p);
+        }
+        return pers;
+    }
+
+    public void savePerson(Person p) {
+       insert(p); 
+    }
+
     /**
      * 
      * @param id

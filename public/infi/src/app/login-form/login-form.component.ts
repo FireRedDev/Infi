@@ -27,10 +27,10 @@ results: string[];
 
 loginUser(e) {
 e.preventDefault();
-const personalnr = e.target.elements[0].value;
+const email = e.target.elements[0].value;
 const password = e.target.elements[1].value;
 
-     const body = {'personalnr': personalnr, 'password': password};
+     const body = {'email': email, 'password': password};
 
      this.rest.login(body)
        .map((data: any) => {
@@ -39,7 +39,7 @@ const password = e.target.elements[1].value;
         }
     }).catch((error: any) => {
         if (error.status < 400 ||  error.status === 500) {
-          alert('Falsche Personalnummer oder falsches Passwort eingegeben!');
+          alert('Falsche Email oder falsches Passwort eingegeben!');
           return Observable.throw(new Error(error.status));
         }
     })
@@ -51,10 +51,10 @@ const password = e.target.elements[1].value;
           this.router.navigate(['dashboard']);
          }
          else{
-          alert("Falsche Personalnummer oder falsches Passwort eingegeben!");
+          alert("Falsche Email oder falsches Passwort eingegeben!");
          }
         err=>{
-          alert("Falsche Personalnummer oder falsches Passwort eingegeben!");
+          alert("Falsche Email oder falsches Passwort eingegeben!");
         }
       });    
   }

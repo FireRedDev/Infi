@@ -1,0 +1,50 @@
+<h2>Benutzer hinzufügen</h2>
+<form (ngSubmit)="onSubmit()" #terminForm="ngForm">
+    <div class="form-group">
+        <label for="auswahl">Rolle auswählen</label>
+       <!-- <select class="form-control" #selectElem (change)="setTermin(selectElem.value)" name="termSelect">
+            <option *ngFor="let t of term, let i=index" [selected]="i==0" [value]="t.id">{{t.title}}, am {{t.s_date | date:'dd.MM.yyyy'}}</option>
+        </select> -->
+        <br>
+        <label for="vorname">Vorname</label>
+        <input type="text" class="form-control" id="vorname"
+               required
+               [(ngModel)]="actPerson.vorname" name="vorname"
+               #vorname="ngModel">
+               <div [hidden]="vorname.valid || vorname.pristine"
+               class="alert alert-danger">
+               Vorname muss eingegeben werden!
+      </div>
+      <br>
+        <label for="nachname">Nachname</label>
+        <input type="text" class="form-control" id="nachname"
+               required
+               [(ngModel)]="actPerson.nachname" name="nachname"
+               #nachname="ngModel">
+               <div [hidden]="nachname.valid || nachname.pristine"
+               class="alert alert-danger">
+               Nachname muss eingegeben werden!
+      </div>
+      <br>
+        <label for="email">E-Mail</label>
+        <input type="email" class="form-control" id="email"
+               required
+               [(ngModel)]="actPerson.email" name="email"
+               #email="ngModel">
+               <div [hidden]="email.valid || email.pristine"
+               class="alert alert-danger">
+               E-Mail muss eingegeben werden!
+      </div>
+      <br>
+        <label for="password">Passwort</label>
+        <input type="text" class="form-control" id="password"
+               required
+               [(ngModel)]="actPerson.password" name="password"
+               #password="ngModel">
+               <div [hidden]="password.valid || password.pristine"
+               class="alert alert-danger">
+               Passwort muss eingegeben werden!
+      </div>
+  </div>
+<button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save(); view = 'manage-user'">einfügen</button>
+</form>

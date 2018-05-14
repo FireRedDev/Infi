@@ -32,6 +32,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
 import { CarouselModule } from "angular2-carousel";
 import { OwlDateTimeIntl } from 'ng-pick-datetime/date-time/date-time-picker-intl.service';
+import { ManageUserComponent } from './manage-user/manage-user.component';
+import { AddUserComponent } from './add-user/add-user.component';
 import { InformationComponent } from './information/information.component';
 
 const appRoutes:Routes = [
@@ -58,6 +60,8 @@ component: DashboardComponent
     DateTimePickerComponent,
     CalendarComponent,
     HomeComponent,
+    ManageUserComponent,
+    AddUserComponent
     InformationComponent
   ],
   imports: [
