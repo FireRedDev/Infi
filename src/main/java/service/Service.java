@@ -8,6 +8,11 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import repository.DatenbankRepository;
 import RestResponseClasses.PersonTokenTransferObject;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.StreamingOutput;
 
 /**
  *
@@ -129,9 +134,9 @@ public class Service {
     }
 
     /**
-     * Get a JRKENTITÃ„T with its ID
+     * Get a JRKENTITÄT with its ID
      *
-     * @param id id der EntitÃ¤t
+     * @param id id der Entität
      * @return
      */
     @POST
@@ -171,7 +176,7 @@ public class Service {
     }
 
     /**
-     * Darf dieser User Termine und Protokolle einfÃ¼gen?
+     * Darf dieser User Termine und Protokolle einfügen?
      *
      * @param id
      * @return
@@ -186,7 +191,7 @@ public class Service {
     }
 
     /**
-     * Noch nicht dokumentierte Termine zurÃ¼ckgeben
+     * Noch nicht dokumentierte Termine zurückgeben
      *
      * @param id
      * @return
@@ -201,7 +206,7 @@ public class Service {
     }
 
     /**
-     * HÃ¤ufigkeit von Kategorie in einer JRKEntity
+     * Häufigkeit von Kategorie in einer JRKEntity
      *
      * @param jrk
      * @return
@@ -284,8 +289,8 @@ public class Service {
     @Produces(MediaType.TEXT_PLAIN)
     public String changePassword(Person p) {
         repo.changePassword(p);
-        //Hochkomma mÃ¼ssen manuell dazugegeben werden, sonst erkennt Angular den String nicht
-        return "\"Passwort geÃ¤ndert\"";
+        //Hochkomma müssen manuell dazugegeben werden, sonst erkennt Angular den String nicht
+        return "\"Passwort geändert\"";
     }
 
     /**
@@ -315,4 +320,5 @@ public class Service {
     public void insertInfo(@PathParam("id") int id, Info i) {
         repo.insertInfo(id, i);
     }
+    
 }

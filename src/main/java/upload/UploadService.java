@@ -31,7 +31,7 @@ public class UploadService extends HttpHandler {
         InputStream is = request.getInputStream();
         String filename = request.getParameter("filename");
 
-        FileOutputStream fo = new FileOutputStream(root.getAbsolutePath() + File.separator + "infi" + File.separator + "src" + File.separator + "assets" + File.separator + "upload" + File.separator + filename);
+        FileOutputStream fo = new FileOutputStream(root.getAbsolutePath() + File.separator + "upload_image" + File.separator + filename);
         int read = -1;
         while ((read = is.read()) != -1) {
             fo.write(read);
@@ -44,3 +44,4 @@ public class UploadService extends HttpHandler {
     }
 
 }
+

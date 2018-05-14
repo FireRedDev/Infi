@@ -20,7 +20,8 @@
           Beschreibung muss eingegeben werden!
       </div>
       <br>
-      <input type="file" class="form-control" id="fileInput" name="fileUpload" (change)="fileUpload($event)">
+      <input type="file" class="form-control" id="fileInput" name="fileUpload" (change)="fileUpload($event)" multiple>
+      Der upload der Bilder kann länger dauern. 
       <!--<div [(ngModel)]="fileDisplayArea" name="fileDisplayArea"></div>-->
   </div>
   <button type="submit" class="btn btn-success" [disabled]="!infoForm.form.valid" (click)="save()">einfügen</button>

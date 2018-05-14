@@ -31,7 +31,8 @@ public class Info {
      *
      * @param ueberschrift
      * @param beschreibung
-     * @param imgpath
+     * @param mediapath
+     * @param datum
      */
 
     public Info(String ueberschrift, String beschreibung, String[] mediapath, String datum) {

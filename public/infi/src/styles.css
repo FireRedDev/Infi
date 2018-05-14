@@ -1,0 +1,107 @@
+@font-face { font-family: meine-schrift;
+             src: url('/assets/Dunant-Light.otf') }
+
+body { font-family: meine-schrift }
+
+.dashboard-contents{
+    margin-top: 25px !important;
+}
+.cal-month-view .cal-day-cell.cal-today {
+    background-color: lightgray !important;
+}
+
+.cal-week-view .cal-today {
+    background-color: lightgray !important;
+}
+
+.cal-month-view .cal-header .cal-cell{
+    text-overflow: clip !important;
+}
+
+.cal-month-view .cal-day-cell.cal-today .cal-day-number{
+    font-size: 1.2em;
+}
+
+aside{
+    background-color: white !important;
+    width:250px;
+}
+
+.ng-sidebar{
+    background-color: white !important;
+}
+
+.btn-group{
+    margin-bottom: 20px !important;
+}
+
+.cal-month-view .cal-day-cell{
+    border-color: lightgray !important;
+}
+
+a{
+    color: black !important;
+}
+@media screen and (min-height: 950px) {
+    .cal-open-day-events.ng-trigger.ng-trigger-collapse {
+        position: fixed;
+        background-color: white !important;
+        bottom: 50px;
+        width: 90%;
+    }
+    .black{
+        color:black !important;
+        background-color: white !important;
+    }
+    a.cal-event-title{
+        color: rgb(173, 33, 33) !important;
+    }
+}
+@media screen and (max-height: 949px) {
+    .black{
+        color:white !important;
+    }
+}
+.cal-month-view .cal-open-day-events{
+    box-shadow: none !important;
+}
+
+.cal-event{
+    background-color: rgb(173, 33, 33) !important;
+}
+
+a.cal-event-title{
+    font-size: 16px !important;
+}
+
+.btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+}
+@media screen and (max-width: 900px) {
+    .cal-month-view .cal-day-badge{
+        position:relative;
+        top: 50px;
+    }
+    .cal-month-view .cal-day-number{
+        margin-right: 0px !important;
+    }
+}
+
+ng-sidebar{
+    height:100% !important;
+}
+ng-sidebar-container{
+    height:100% !important;
+}
+input.owl-datetime-input.owl-datetime-main-input {
+    border: none !important;
+}
+
+a.cal-event-action {
+    text-decoration: none;
+}
+
+a.cal-event-title {
+    text-decoration: none;
+}

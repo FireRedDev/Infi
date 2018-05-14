@@ -18,6 +18,7 @@ export class InformationComponent implements OnInit {
   fileDisplayArea;
   imgpath;
   file;
+  uploaded=false
 
   success=false;
     constructor(private rest: RestService) {
@@ -31,7 +32,10 @@ export class InformationComponent implements OnInit {
     }
 
     save(){
-      this.actInformation.mediapath.push("assets/upload/"+this.file.name);
+      debugger;
+      for (var i=0; i<this.file.length;i++) {
+      this.actInformation.mediapath.push("http://localhost:8080/upload_image/"+this.file[i].name);
+      }
         this.rest.insertInfo(this.jrkEntitaet,this.actInformation)
           .subscribe(data => {
             console.log("home");
@@ -48,12 +52,14 @@ export class InformationComponent implements OnInit {
           
       fileUpload(e) {
         this.fileInput = document.getElementById('fileInput');
-        this.file = this.fileInput.files[0];
-        var file = this.file;
+        this.file=this.fileInput.files
+        for (var i=0; i<this.fileInput.files.length;i++) {
+          var file=this.fileInput.files[i]
+          console.log("File"+file)
         var rest = this.rest;
         var imageType = /image.*/;
   
-        if (this.file.type.match(imageType)) {
+        if (file.type.match(imageType)) {
           var reader = new FileReader();
   
           reader.onload = function(e) {
@@ -84,32 +90,17 @@ export class InformationComponent implements OnInit {
             console.log(blob);
             rest.uploadImage(blob,file.name)
               .subscribe(data => {
-                debugger;
                 console.log("insertImage")
             });
-            /*var http = new XMLHttpRequest();
-            var url = "http://localhost:8080/upload?filename="+file.name;
-            var params = blob;
-            http.open("POST", url, true);
-          
-            //Send the proper header information along with the request
-            http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-          
-            http.onreadystatechange = function() {//Call a function when the state changes.
-              if(http.readyState == 4 && http.status == 200) {
-                debugger;
-                console.log(http.responseText);
-              }
-            }
-            http.send(params);*/            
+         
           }
   
-          reader.readAsDataURL(this.file);
+          reader.readAsDataURL(file);
         } else {
           this.fileDisplayArea = "File not supported!";
           console.log(this.fileDisplayArea);
         }
       }
- 
+    }
 
 }

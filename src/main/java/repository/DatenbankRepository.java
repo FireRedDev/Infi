@@ -596,6 +596,7 @@ public class DatenbankRepository {
     public void insertInfo(int id, Info i) {
         JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
         jrk.addInfo(i);
+        
         insert(jrk);
     }
 }

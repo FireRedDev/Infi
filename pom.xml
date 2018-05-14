@@ -97,6 +97,12 @@
             <artifactId>grizzly-http-servlet</artifactId>
             <version>2.4.0</version>
        </dependency>
+        <dependency>
+            <groupId>org.glassfish.grizzly</groupId>
+            <artifactId>grizzly-http-server</artifactId>
+            <version>2.3.23</version>
+            <type>jar</type>
+        </dependency>
     </dependencies> 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
