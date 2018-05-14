@@ -4,24 +4,34 @@ import { Protokoll } from './protocol';
 import { jrkEntitaet } from '../models/jrkEntitaet.model';
 import { Termin } from './termin';
 import { EventEmitter } from '@angular/core';
+import { DateTimeAdapter } from 'ng-pick-datetime';
 
+export const DefaultIntl = {
+  /** A label for the cancel button */
+  cancelBtnLabel: 'Abbrechen',
+
+  /** A label for the set button */
+  setBtnLabel: 'Setzten',
+
+};
 @Component({
   selector: 'app-protocol',
   templateUrl: './protocol.component.html',
   styleUrls: ['./protocol.component.css']
 })
 export class ProtocolComponent implements OnInit {
-  constructor(private rest: RestService) {
+  constructor(public rest: RestService, dateTimeAdapter: DateTimeAdapter<any>) {
       this.newChild = '';
       this.children = [];
       this.newBetreuer = '';
       this.betreuer = [];
       this.rest=rest;
+      dateTimeAdapter.setLocale('de-De');
    }
 
   @Output() changeView: EventEmitter<string> = new EventEmitter();
   de: any;
-  private term: Termin[];
+  public term: Termin[];
   
   ngOnInit() {
     const body = localStorage.getItem('currentUser');
@@ -39,6 +49,8 @@ export class ProtocolComponent implements OnInit {
         };
   }
   save(){
+    this.actTermin.s_date=new Date(this.actTermin.s_date).toISOString().substr(0, 19).replace('T', ' ');
+    this.actTermin.e_date=new Date(this.actTermin.e_date).toISOString().substr(0, 19).replace('T', ' ');
     this.actProtokol.kinderliste = this.children;
     this.actProtokol.betreuer = this.betreuer;
       this.actTermin.doko = this.actProtokol;

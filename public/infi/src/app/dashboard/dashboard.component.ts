@@ -156,6 +156,7 @@ export class DashboardComponent implements OnInit {
     });
     this.rest.getJRKEntitaet(body)
       .subscribe(data => {
+        debugger
         this.jrkEntitaet = data;
       }); 
   }
