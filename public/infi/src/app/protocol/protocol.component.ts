@@ -49,12 +49,13 @@ export class ProtocolComponent implements OnInit {
         };
   }
   save(){
-    this.actTermin.s_date=new Date(this.actTermin.s_date).toISOString().substr(0, 19).replace('T', ' ');
-    this.actTermin.e_date=new Date(this.actTermin.e_date).toISOString().substr(0, 19).replace('T', ' ');
+    var actTermin=this.actTermin
+    actTermin.s_date=new Date(this.actTermin.s_date).toISOString().substr(0, 19).replace('T', ' ');
+    actTermin.e_date=new Date(this.actTermin.e_date).toISOString().substr(0, 19).replace('T', ' ');
     this.actProtokol.kinderliste = this.children;
     this.actProtokol.betreuer = this.betreuer;
-      this.actTermin.doko = this.actProtokol;
-      this.rest.insertDoku(this.actTermin)
+      actTermin.doko = this.actProtokol;
+      this.rest.insertDoku(actTermin)
         .subscribe(data => {
           this.changeView.emit('month');
       });

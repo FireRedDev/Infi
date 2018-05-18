@@ -37,7 +37,7 @@
       </div>
       <br>
         <label for="password">Passwort</label>
-        <input type="text" class="form-control" id="password"
+        <input type="password" class="form-control" id="password"
                required
                [(ngModel)]="actPerson.password" name="password"
                #password="ngModel">
@@ -45,6 +45,10 @@
                class="alert alert-danger">
                Passwort muss eingegeben werden!
       </div>
+
+    <select  class="form-control" #selectElem (change)="actPerson=selectElem.value">
+      <option *ngFor="let key of keys()" [value]="key">{{key}}</option>
+    </select>
   </div>
 <button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save(); view = 'manage-user'">einfügen</button>
 </form>

@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { RestService } from '../rest.service';
-import { Person } from './person';
+import { Person } from '../models/person';
+import { Role } from '../models/role.enum';
 
 
 @Component({
@@ -13,9 +14,17 @@ export class AddUserComponent implements OnInit {
 
   constructor(private rest: RestService) {
     this.rest=rest;
+    debugger
+
    }
 
-  
+   keys() : Array<string> {
+    var keys = Object.keys(this.role);
+    return keys.slice(keys.length / 2);
+  }
+
+   role = Role
+
   ngOnInit() {
   }
 
@@ -27,7 +36,7 @@ export class AddUserComponent implements OnInit {
 
   }
   
-  actPerson: Person = new Person(0,'','','','');
+  actPerson: Person = new Person(0,'','','','',Role.KIND);
   submitted = false;
  
   onSubmit() { this.submitted = true; }

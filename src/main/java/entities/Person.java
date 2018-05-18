@@ -14,10 +14,6 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Benutzer.deletePerson", query = "DELETE FROM Person p WHERE p.id =:id")
-    ,
-    //@NamedQuery(name = "Benutzer.savePerson", query = "ALTER TABLE Person p WHERE p.id =:id")
-    //,
     @NamedQuery(name = "Benutzer.listAll", query = "SELECT b FROM Person b")
     ,
     @NamedQuery(name = "Benutzer.list", query = "SELECT b FROM Person b where b.id=:id")

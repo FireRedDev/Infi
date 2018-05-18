@@ -18,7 +18,8 @@ export class RestService {
   }
 
   savePerson(person){
-    alert("Halllo");
+    alert("Hallo");
+    debugger
     return this.http.post('http://localhost:8080/api/service/savePerson', person);
   }
 

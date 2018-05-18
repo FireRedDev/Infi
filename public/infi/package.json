@@ -27,7 +27,7 @@
     "@angular/service-worker": "^5.2.10",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.5",
     "@swimlane/ngx-charts": "^7.1.1",
-    "angular-calendar": "^0.21.2",
+    "angular-calendar": "0.22.3",
     "angular-draggable-droppable": "^1.1.1",
     "angular-md5": "^0.1.10",
     "angular-resizable-element": "^1.2.5",

@@ -27,23 +27,24 @@
         <div id="imagePlatzhalter"></div><br>
         <p class="einfuegen"><i class="fa fa-user" aria-hidden="true"></i><b> {{username}} </b></p><hr>
         <div (click)="_toggleOpened()">
-            <div href="#" id="hover" (click)="view = 'home'" [class.active]="view === 'home'"><p class="einfuegen"><i class="material-icons">home</i> Startseite</p></div><hr>
+            <div href="#" id="hover" (click)="view = 'home'" [class.active]="view === 'home'"><p class="einfuegen"><i class="material-icons">home</i> Startseite</p></div>
             <div href="#" id="hover" (click)="view = 'month'" [class.active]="view === 'month'" ><p class="einfuegen"><i class="material-icons">date_range</i> Monatsansicht</p></div>
             <div href="#" id="hover" (click)="view = 'week'" [class.active]="view === 'week'"><p class="einfuegen"><i class="material-icons">line_style</i> Wochenansicht</p></div>
-            <div href="#" id="hover" (click)="view = 'protocol'" *ngIf="isEditor"><hr><p class="einfuegen"><i class="material-icons">subject</i> Protokoll</p></div>
+            <div href="#" id="hover" (click)="view = 'protocol'" *ngIf="isEditor"><p class="einfuegen"><i class="material-icons">subject</i> Protokoll</p></div>
+            <div href="#" id="hover" (click)="view = 'password'" *ngIf="isEditor"><p class="einfuegen"><i class="material-icons">pie_chart</i> Passwort ändern</p></div>
             <div href="#" id="hover" (click)="view = 'diagram'" *ngIf="isEditor"><p class="einfuegen"><i class="material-icons">pie_chart</i> Statistiken</p></div>
-            <div href="#" id="hover" (click)="view = 'manage-user'" *ngIf="isAdmin" [class.active]="view === 'manage-user'"><p class="einfuegen"><i class="material-icons">people</i> Profile verwalten</p></div><hr>
+            <div href="#" id="hover" (click)="view = 'manage-user'" *ngIf="isAdmin" [class.active]="view === 'manage-user'"><p class="einfuegen"><i class="material-icons">people</i> Profile verwalten</p></div>
         </div>
-        <a routerLink="/"><div id="platzierung"><div class="button"></div></div></a>
+        <div><a routerLink="/"><p class="einfuegen"><i class="fas fa-sign-out-alt"></i> Logout</p></a></div>
     </ng-sidebar>
     <div ng-sidebar-content>
         <header class="dashboard-header">
             <button (click)="_toggleOpened()" class="dashboard-header__toggle">Toggle sidebar</button>
             <span>Infi</span>
-            <div class="add" *ngIf="isEditor && (view =='month'||view =='week')" (click)="view = 'termin'">
+            <div class="addTermin" *ngIf="isEditor && (view =='month'||view =='week')" (click)="view = 'termin'">
                  <i class="fa fa-plus" aria-hidden="true"></i> Termin einfügen
             </div>
-            <div class="add" *ngIf="isEditor && view=='home'" (click)="view = 'info'">
+            <div class="addTermin" *ngIf="isEditor && view=='home'" (click)="view = 'info'">
                 <i class="fa fa-plus" aria-hidden="true"></i> Information einfügen
            </div>
         </header>
@@ -63,16 +64,17 @@
             <div *ngIf="view =='home'">
                 <app-home></app-home>
             </div>
-<<<<<<< public/infi/src/app/dashboard/dashboard.component.html
             <div *ngIf="view =='manage-user'">
                 <manage-user (changeView)="changeView($event)"></manage-user>
             </div>
             <div *ngIf="view =='add-user'">
                 <add-user (changeView)="changeView($event)"></add-user>
-=======
+            </div>
             <div *ngIf="view =='info'">
                 <app-information [jrkEntitaet]="jrkEntitaet" (changeView)="changeView($event)"></app-information>
->>>>>>> public/infi/src/app/dashboard/dashboard.component.html
+            </div>
+            <div *ngIf="view =='password'">
+                <app-password (changeView)="changeView($event)"></app-password>
             </div>
         </section>
     </div>

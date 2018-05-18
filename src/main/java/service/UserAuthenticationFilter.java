@@ -1,16 +1,8 @@
 package service;
 
 import entities.Role;
-import RestResponseClasses.JWTTokenUser;
-import entities.Person;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureException;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.container.ContainerResponseFilter;
+import io.jsonwebtoken.*;
+import javax.ws.rs.container.*;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
@@ -18,23 +10,17 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Priority;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Context;
 import static javax.ws.rs.core.Response.ResponseBuilder;
 import static javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.SecurityContext;
-import repository.DatenbankRepository;
-import repository.EntityManagerSingleton;
+import repository.*;
 
 /**
  *

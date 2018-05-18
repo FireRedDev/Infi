@@ -40,7 +40,11 @@ edit(i:number){
 
 done(i:number){
   this.persons[i].isEditable = false;
-  this.rest.savePerson(this.persons[i]);
+  var person = this.persons[i]
+  delete person.isEditable
+  this.rest.savePerson(person).subscribe(data => {
+    console.log("User updated!");
+  }); 
 }
 
 deletePerson(i:number){

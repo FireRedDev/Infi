@@ -35,6 +35,7 @@ import { OwlDateTimeIntl } from 'ng-pick-datetime/date-time/date-time-picker-int
 import { ManageUserComponent } from './manage-user/manage-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { InformationComponent } from './information/information.component';
+import { PasswordComponent } from './password/password.component';
 
 const appRoutes:Routes = [
 {
@@ -61,8 +62,9 @@ component: DashboardComponent
     CalendarComponent,
     HomeComponent,
     ManageUserComponent,
-    AddUserComponent
-    InformationComponent
+    AddUserComponent,
+    InformationComponent,
+    PasswordComponent
   ],
   imports: [
     BrowserModule,
