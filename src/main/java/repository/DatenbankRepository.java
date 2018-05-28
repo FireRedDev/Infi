@@ -130,6 +130,21 @@ public class DatenbankRepository {
      * @param b
      * @return
      */
+    public Person insert(int id, Person b) {
+        JRKEntitaet j = em.find(JRKEntitaet.class, id);
+        b.setJrkentitaet(j);
+        em.getTransaction().begin();
+        em.merge(b);
+        em.getTransaction().commit();
+        return b;
+    }
+
+    /**
+     * Insert Person into Database
+     *
+     * @param b
+     * @return
+     */
     public Person insert(Person b) {
         em.getTransaction().begin();
         em.merge(b);
@@ -648,7 +663,18 @@ public class DatenbankRepository {
         List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
         List<Person> pers = new LinkedList<>();
         for (JRKEntitaet j : jrks) {
-            List<Person> p = em.createNamedQuery("Benutzer.byjrkEntitaet", Person.class).setParameter("id", jrk).getResultList();
+            List<Person> p = em.createNamedQuery("Benutzer.byjrkEntitaet", Person.class).setParameter("id", j).getResultList();
+            this.addListPerson(pers, p);
+        }
+        return pers;
+    }
+
+    public List<Person> getUsersLayerDownJRK(int id) {
+        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+        List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+        List<Person> pers = new LinkedList<>();
+        for (JRKEntitaet j : jrks) {
+            List<Person> p = em.createNamedQuery("Benutzer.byjrkEntitaet", Person.class).setParameter("id", j).getResultList();
             this.addListPerson(pers, p);
         }
         return pers;

@@ -57,6 +57,7 @@ interface Termin {
   beschreibung: string;
   benutzer: Benutzer;
   ort: String;
+  imgpath: String;
 }
 @NgModule({
   imports: [
@@ -130,8 +131,12 @@ export class CalendarComponent implements OnInit {
   convertEvents(events: Array<Termin>): Array<any>{
     const calendarEvents = [];
     events.forEach(function(event){
+      var text='Titel: ' + event.title + '<br>Beschreibung: ' + event.beschreibung + '<br>Ort: ' + event.ort
+      if(event.imgpath){
+        text+="<br><img width='200px' src='"+event.imgpath+"'>"
+      }
       calendarEvents.push({
-        title: 'Titel: ' + event.title + '<br>Beschreibung: ' + event.beschreibung + '<br>Ort: ' + event.ort,
+        title: text,
         start: new Date(event.s_date),
         end: new Date(event.e_date),
         color: colors.red,

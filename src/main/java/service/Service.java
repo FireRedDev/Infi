@@ -90,6 +90,21 @@ public class Service {
     public List<Person> getUsersLayerDown(int id) {
         return repo.getUsersLayerDown(id);
     }
+    
+        /**
+     * Lists all Persons/Users
+     *
+     * @param id
+     * @return
+     */
+    @POST
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Path("getUsersLayerDownJRK")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public List<Person> getUsersLayerDownJRK(int id) {
+        return repo.getUsersLayerDownJRK(id);
+    }
 
     /**
      * Lists all JRKENTITYS
@@ -208,14 +223,15 @@ public class Service {
     /**
      * insert Dokumentation and create Relationship with its Termin
      *
+     * @param id
      * @param b
      */
-    @Path("insertPerson")
+    @Path("insertPerson/{id}")
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
-    public void insertPerson(Person b) {
-        repo.insert(b);
+    public void insertPerson(@PathParam("id") int id, Person b) {
+        repo.insert(id,b);
     }
 
     /**

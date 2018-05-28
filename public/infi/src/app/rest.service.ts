@@ -12,13 +12,13 @@ export class RestService {
   getAllRoles(){
     return this.http.get('http://localhost:8080/api/service/getAllRoles');
   }
-  insertPerson(person){
+  insertPerson(person,jrk){
     //insert Person machen
-    return this.http.post('http://localhost:8080/api/service/insertPerson', person);
+    debugger
+    return this.http.post('http://localhost:8080/api/service/insertPerson/'+jrk, person);
   }
 
   savePerson(person){
-    alert("Hallo");
     debugger
     return this.http.post('http://localhost:8080/api/service/savePerson', person);
   }
@@ -29,6 +29,10 @@ export class RestService {
 
   getUsersLayerDown(id){
     return this.http.post('http://localhost:8080/api/service/getUsersLayerDown',id);
+  }
+
+  getUsersLayerDownJRK(id){
+    return this.http.post('http://localhost:8080/api/service/getUsersLayerDownJRK',id);
   }
 
   login(body){

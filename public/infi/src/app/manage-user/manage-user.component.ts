@@ -56,5 +56,9 @@ this.persons.splice(i,1);
 addUser(){
 this.changeView.emit("add-user");
 }
-
+set(id){
+  this.rest.getUsersLayerDownJRK(id).subscribe(data => {
+    this.persons = data;
+  });
+}
 }
