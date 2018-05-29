@@ -15,40 +15,44 @@
         <input type="text" class="form-control" id="vorname"
                required
                [(ngModel)]="actPerson.vorname" name="vorname"
-               #vorname="ngModel">
-               <div [hidden]="vorname.valid || vorname.pristine"
+               #vorname="ngModel" minlength="3">
+               <div [hidden]="vorname.valid"
                class="alert alert-danger">
-               Vorname muss eingegeben werden!
+               Vorname muss eingegeben werden und mindestens 3 Zeichen lang sein!
       </div>
       <br>
         <label for="nachname">Nachname</label>
         <input type="text" class="form-control" id="nachname"
                required
                [(ngModel)]="actPerson.nachname" name="nachname"
-               #nachname="ngModel">
-               <div [hidden]="nachname.valid || nachname.pristine"
+               #nachname="ngModel" minlength="3">
+               <div [hidden]="nachname.valid"
                class="alert alert-danger">
-               Nachname muss eingegeben werden!
+               Nachname muss eingegeben werden und mindestens 3 Zeichen lang sein!
       </div>
       <br>
         <label for="email">E-Mail</label>
         <input type="email" class="form-control" id="email"
                required
                [(ngModel)]="actPerson.email" name="email"
-               #email="ngModel">
-               <div [hidden]="email.valid || email.pristine"
+               #email="ngModel" (change)="checkEmail()">
+               <div [hidden]="email.valid"
                class="alert alert-danger">
                E-Mail muss eingegeben werden!
-      </div>
+              </div>
+              <div [hidden]="correctEmail"
+              class="alert alert-danger">
+              Korrekte E-Mail muss eingegeben werden!
+             </div>
       <br>
         <label for="password">Passwort</label>
         <input type="password" class="form-control" id="password"
                required
                [(ngModel)]="actPerson.password" name="password"
-               #password="ngModel">
-               <div [hidden]="password.valid || password.pristine"
+               #password="ngModel" minlength="4">
+               <div [hidden]="password.valid"
                class="alert alert-danger">
-               Passwort muss eingegeben werden!
+               Passwort muss eingegeben werden und mindestens 4 Zeichen lang sein!
       </div>
   </div>
 <button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save(); view = 'manage-user'">einfügen</button>

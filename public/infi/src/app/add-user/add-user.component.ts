@@ -29,6 +29,7 @@ export class AddUserComponent implements OnInit {
    role = Role
    jrk:number
    actRole:Role
+   correctEmail=false
 
   ngOnInit() {
     var body = localStorage.getItem('currentUser');
@@ -60,5 +61,18 @@ export class AddUserComponent implements OnInit {
   submitted = false;
  
   onSubmit() { this.submitted = true; }
+
+  checkEmail(){
+    this.correctEmail=false;
+    if (this.validateEmail(this.actPerson.email)) {
+      this.correctEmail=true;
+    }
+  }
+
+  validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+  
 
 }
