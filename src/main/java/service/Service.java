@@ -1,18 +1,12 @@
 package service;
 
-import RestResponseClasses.NameValue;
-import RestResponseClasses.PersonTransferObject;
+import RestResponseClasses.*;
 import entities.*;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import repository.DatenbankRepository;
 import RestResponseClasses.PersonTokenTransferObject;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.StreamingOutput;
 
 /**
  *
@@ -34,14 +28,13 @@ public class Service {
         System.out.println("messagefunction");
         return "INFI Jugendrotkreuz Server up and running..";
     }
-    
+
     @POST
     @Secured({Role.LANDESLEITER, Role.BEZIRKSLEITER})
     @Path("deletePerson")
     public List<Person> deletePerson(int id) {
-        return (repo.listAllNeu(id));
+        return repo.deletePerson(id);
     }
-    
 
     /**
      * Login to Server with Username/Password and get a Token
@@ -98,6 +91,21 @@ public class Service {
         return repo.getUsersLayerDown(id);
     }
     
+        /**
+     * Lists all Persons/Users
+     *
+     * @param id
+     * @return
+     */
+    @POST
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Path("getUsersLayerDownJRK")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public List<Person> getUsersLayerDownJRK(int id) {
+        return repo.getUsersLayerDownJRK(id);
+    }
+
     /**
      * Lists all JRKENTITYS
      *
@@ -198,7 +206,7 @@ public class Service {
     public void insertDoko(Termin d) {
         repo.insertDoko(d);
     }
-    
+
     /**
      * Gibt alle Rollen zurück.
      *
@@ -211,18 +219,19 @@ public class Service {
     public Role[] getAllRoles() {
         return repo.getAllRoles();
     }
-    
-        /**
+
+    /**
      * insert Dokumentation and create Relationship with its Termin
      *
+     * @param id
      * @param b
      */
-    @Path("insertPerson")
+    @Path("insertPerson/{id}")
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
-    public void insertPerson(Person b) {
-        repo.insert(b);
+    public void insertPerson(@PathParam("id") int id, Person b) {
+        repo.insert(id,b);
     }
 
     /**
@@ -254,7 +263,7 @@ public class Service {
     public boolean isAdmin(int id) {
         return repo.isAdmin(id);
     }
-    
+
     /**
      * Noch nicht dokumentierte Termine zurückgeben
      *
@@ -300,9 +309,9 @@ public class Service {
     }
 
     /**
-     * 
+     *
      * @param jrk
-     * @return 
+     * @return
      */
     @POST
     @Path("getTimelineValues")
@@ -329,9 +338,9 @@ public class Service {
     }
 
     /**
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
     @POST
     @Path("getJRKEntitaetdown")
@@ -343,9 +352,9 @@ public class Service {
     }
 
     /**
-     * 
+     *
      * @param p
-     * @return 
+     * @return
      */
     @POST
     @Path("changePassword")
@@ -359,9 +368,9 @@ public class Service {
     }
 
     /**
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
     @POST
     @Path("needPwdChange")
@@ -371,7 +380,7 @@ public class Service {
     public boolean needPwdChange(int id) {
         return repo.needPwdChange(id);
     }
-    
+
     /**
      *
      * @param p
@@ -387,10 +396,11 @@ public class Service {
         return "\"Person geändert\"";
     }
 
+    /**
      * Inserts a Info and assigns it to a JRKEntitaet
      *
      * @param id
-     * @param t
+     * @param i
      */
     @Path("insertInfo/{id}")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})

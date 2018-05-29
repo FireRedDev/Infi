@@ -57,7 +57,9 @@
 <div [hidden]="edate.valid || edate.pristine"
     class="alert alert-danger">
     Enddatum muss eingegeben werden!
-</div>    
+</div>
+<input type="file" class="form-control" id="fileInput" name="fileUpload" (change)="fileUpload($event)"> <i class="fas fa-sync fa-spin"></i>
+Der upload der Bilder kann länger dauern.     
 </div>
 <button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save()">einfügen</button>
 </form>

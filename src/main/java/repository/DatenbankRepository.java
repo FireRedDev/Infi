@@ -63,11 +63,19 @@ public class DatenbankRepository {
     public List<Person> listAllUsers() {
         return em.createNamedQuery("Benutzer.listAll", Person.class).getResultList();
     }
-    
-    public List<Person> listAllNeu(int id) {
-        em.createNamedQuery("Benutzer.deletePerson", Person.class).setParameter("id", id);
 
-        return listAllUsers();
+    public List<Person> deletePerson(int id) {
+        try {
+            Person p = em.find(Person.class, id);
+            em.getTransaction().begin();
+            em.remove(p);
+            em.getTransaction().commit();
+
+            return listAllUsers();
+        } catch (Exception e) {
+            System.err.println(e);
+            return null;
+        }
     }
 
     /**
@@ -80,16 +88,21 @@ public class DatenbankRepository {
         //Find User and create Person Object
         Query query = em.createNamedQuery("Benutzer.login", Person.class);
         query.setParameter("email", pto.email);
-        Person b = (Person) query.getSingleResult();
+        try {
+            Person b = (Person) query.getSingleResult();
 //generate token
-        String token = generateJWT(b);
-        //check password
-        if (b.getPassword().equals(pto.password)) {
-            PersonTokenTransferObject pt = new PersonTokenTransferObject(String.valueOf(b.getId()), token);
+            String token = generateJWT(b);
+            //check password
+            if (b.getPassword().equals(pto.password)) {
+                PersonTokenTransferObject pt = new PersonTokenTransferObject(String.valueOf(b.getId()), token);
 //return user and token
-            return pt;
+                return pt;
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
         }
-        return null;
+
     }
 
     /**
@@ -117,13 +130,28 @@ public class DatenbankRepository {
      * @param b
      * @return
      */
+    public Person insert(int id, Person b) {
+        JRKEntitaet j = em.find(JRKEntitaet.class, id);
+        b.setJrkentitaet(j);
+        em.getTransaction().begin();
+        em.merge(b);
+        em.getTransaction().commit();
+        return b;
+    }
+
+    /**
+     * Insert Person into Database
+     *
+     * @param b
+     * @return
+     */
     public Person insert(Person b) {
         em.getTransaction().begin();
         em.merge(b);
         em.getTransaction().commit();
         return b;
     }
-    
+
     public Role[] getAllRoles() {
         return Role.values();
     }
@@ -321,7 +349,7 @@ public class DatenbankRepository {
         }
         return termine;
     }
-    
+
     /**
      *
      * @param termine
@@ -385,7 +413,7 @@ public class DatenbankRepository {
         Person p = em.find(Person.class, id);
         return p.getJrkentitaet().getTyp() != JRKEntitaetType.Gruppe;
     }
-    
+
     /**
      *
      * @param id
@@ -393,7 +421,7 @@ public class DatenbankRepository {
      */
     public boolean isAdmin(int id) {
         Person p = em.find(Person.class, id);
-        return p.getJrkentitaet().getTyp() == JRKEntitaetType.Landstelle||p.getJrkentitaet().getTyp() == JRKEntitaetType.Bezirkstelle;
+        return p.getJrkentitaet().getTyp() == JRKEntitaetType.Landstelle || p.getJrkentitaet().getTyp() == JRKEntitaetType.Bezirkstelle;
     }
 
     /**
@@ -605,13 +633,11 @@ public class DatenbankRepository {
     public void changePassword(Person p) {
         String password = p.getPassword();
         p = em.find(Person.class, p.getId());
-        if (!p.isPasswordChanged()) {
-            p.setPassword(password);
-            p.setPasswordChanged(true);
-            em.getTransaction().begin();
-            em.persist(p);
-            em.getTransaction().commit();
-        }
+        p.setPassword(password);
+        p.setPasswordChanged(true);
+        em.getTransaction().begin();
+        em.persist(p);
+        em.getTransaction().commit();
     }
 
     /**
@@ -626,36 +652,47 @@ public class DatenbankRepository {
     }
 
     /**
-     * 
+     *
      * @param id
-     * @return 
+     * @return
      */
     public List<Person> getUsersLayerDown(int id) {
         Person currentPerson = em.find(Person.class, id);
         JRKEntitaet jrk = currentPerson.getJrkentitaet();
         this.getJRKEntitaetdown(id);
-        List<JRKEntitaet> jrks= em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
-        List<Person> pers=new LinkedList<>();
-        for(JRKEntitaet j:jrks){
-            List<Person> p= em.createNamedQuery("Benutzer.byjrkEntitaet", Person.class).setParameter("id", jrk).getResultList();
+        List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+        List<Person> pers = new LinkedList<>();
+        for (JRKEntitaet j : jrks) {
+            List<Person> p = em.createNamedQuery("Benutzer.byjrkEntitaet", Person.class).setParameter("id", j).getResultList();
+            this.addListPerson(pers, p);
+        }
+        return pers;
+    }
+
+    public List<Person> getUsersLayerDownJRK(int id) {
+        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+        List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
+        List<Person> pers = new LinkedList<>();
+        for (JRKEntitaet j : jrks) {
+            List<Person> p = em.createNamedQuery("Benutzer.byjrkEntitaet", Person.class).setParameter("id", j).getResultList();
             this.addListPerson(pers, p);
         }
         return pers;
     }
 
     public void savePerson(Person p) {
-       insert(p); 
+        insert(p);
     }
 
     /**
-     * 
+     *
      * @param id
-     * @param i 
+     * @param i
      */
     public void insertInfo(int id, Info i) {
         JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
         jrk.addInfo(i);
-        
+
         insert(jrk);
     }
 }

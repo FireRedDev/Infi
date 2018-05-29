@@ -1,39 +1,95 @@
-:host {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-div.input {
-    position: relative;
-}
-
-div.input label {
+.login-box{
+    width: 320px;
+    height: 420px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    top: 50%;
+    left: 50%;
     position: absolute;
-    top: 0;
-    transform: translateY(-50%);
-    left: 10px;
-    background: white;
-    padding: 5px 2px;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+    border-radius: 20px;
+}
+.avatar{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: -50px;
+    left: calc(50% - 50px);
+}
+h1{
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 22px;
 }
 
-div.input input {
-    padding: 10px 20px;
-    font-size: 25px;
-    outline: 0;
+@font-face { font-family: 'Dunant-Light';
+    src: url('../../assets/Dunant-Medium.otf') format('truetype'); 
 }
 
-div.input {
-    margin-top: 20px;
+.login-box p{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    /*font-family: 'Dunant-Light';*/ 
+    letter-spacing: 1px;
 }
-form{
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
+.login-box input{
+    width: 100%;
+    margin-bottom: 20px;
 }
-.btn{
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+.login-box input[type="text"], input[type="password"]
+{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    font-size: 16px;
+}
+.login-box input[type="submit"]
+{
+    border: none;
+    outline: none;
+    height: 40px;
+    background: red;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+}
+.login-box input[type="submit"]:hover
+{
+    cursor: pointer;
+    background: #830909;
+}
+
+.login-box a{
+    text-decoration: none;
+    font-size: 14px;
+    color: #fff;
+}
+#hintergrundbild{
+    width:100%;
+    height: 100vh;
+    background: url("../../assets/bg.jpeg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #ccc;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #ccc;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #ccc;
 }

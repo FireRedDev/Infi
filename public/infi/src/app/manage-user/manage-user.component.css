@@ -13,11 +13,24 @@
     width: 210px;
 }
 
+#PersonName{
+    position: absolute;
+}
 
+#Buttons{
+    position: relative;
+
+    margin-left: 450px;
+}
+
+#PersonNameEdit{
+    position: absolute;
+}
 
 #editSection{
     margin-left:28%;
     position: absolute;
     margin-top: 150px;
+    width:600px;
 }
 

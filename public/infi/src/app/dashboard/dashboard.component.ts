@@ -41,8 +41,8 @@ export class DashboardComponent implements OnInit {
   private _positionNum = 0;
   private _dock = false;
   private _closeOnClickOutside = true;
-  private _closeOnClickBackdrop = false;
-  private _showBackdrop = false;
+  private _closeOnClickBackdrop = true;
+  private _showBackdrop = true;
   private _animate = true;
   private _trapFocus = true;
   private _autoFocus = true;
@@ -161,7 +161,6 @@ export class DashboardComponent implements OnInit {
     });
     this.rest.getJRKEntitaet(body)
       .subscribe(data => {
-        debugger
         this.jrkEntitaet = data;
       }); 
   }

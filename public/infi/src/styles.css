@@ -1,3 +1,5 @@
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
 @font-face { font-family: meine-schrift;
              src: url('/assets/Dunant-Light.otf') }
 
@@ -104,4 +106,8 @@ a.cal-event-action {
 
 a.cal-event-title {
     text-decoration: none;
+}
+
+.cal-tooltip-inner{
+    max-width: 400px;
 }

@@ -40,7 +40,11 @@ edit(i:number){
 
 done(i:number){
   this.persons[i].isEditable = false;
-  this.rest.savePerson(this.persons[i]);
+  var person = this.persons[i]
+  delete person.isEditable
+  this.rest.savePerson(person).subscribe(data => {
+    console.log("User updated!");
+  }); 
 }
 
 deletePerson(i:number){
@@ -52,5 +56,9 @@ this.persons.splice(i,1);
 addUser(){
 this.changeView.emit("add-user");
 }
-
+set(id){
+  this.rest.getUsersLayerDownJRK(id).subscribe(data => {
+    this.persons = data;
+  });
+}
 }

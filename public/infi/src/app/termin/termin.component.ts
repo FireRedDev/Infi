@@ -26,6 +26,11 @@ export class TerminComponent implements OnInit {
 @Output() changeView: EventEmitter<string> = new EventEmitter();
 
 success=false;
+fileInput;
+fileDisplayArea;
+imgpath;
+file;
+uploaded=false
 
   constructor(private rest: RestService, dateTimeAdapter: DateTimeAdapter<any>) {
     this.rest=rest;
@@ -36,8 +41,10 @@ success=false;
     
   }
   save(){
-    this.actTermin.s_date=new Date(this.actTermin.s_date).toISOString().substr(0, 19).replace('T', ' ');
-    this.actTermin.e_date=new Date(this.actTermin.e_date).toISOString().substr(0, 19).replace('T', ' ');
+    var actTermin=this.actTermin
+    actTermin.s_date=new Date(this.actTermin.s_date).toISOString().substr(0, 19).replace('T', ' ');
+    actTermin.e_date=new Date(this.actTermin.e_date).toISOString().substr(0, 19).replace('T', ' ');
+    actTermin.imgpath="http://localhost:8080/upload_image/"+this.file[0].name;
       this.rest.insertTermin(this.jrkEntitaet,this.actTermin)
         .subscribe(data => {
           this.changeView.emit("month");
@@ -46,8 +53,59 @@ success=false;
       
   }
 
-    actTermin:Termin = new Termin(0,'','','','','');
+    actTermin:Termin = new Termin(0,'','','','','','');
     submitted = false;
  
     onSubmit() { this.submitted = true; }
-    }
+
+    fileUpload(e) {
+      this.fileInput = document.getElementById('fileInput');
+      this.file=this.fileInput.files
+        var file=this.fileInput.files[0]
+        console.log("File"+file)
+      var rest = this.rest;
+      var imageType = /image.*/;
+
+      if (file.type.match(imageType)) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          var dataURI =reader .result;
+          console.log(dataURI);
+          //https://stackoverflow.com/questions/12168909/blob-from-dataurl
+          // convert base64 to raw binary data held in a string
+          // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+          var byteString = atob(dataURI.split(',')[1]);
+
+          // separate out the mime component
+          var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+
+          // write the bytes of the string to an ArrayBuffer
+          var ab = new ArrayBuffer(byteString.length);
+
+          // create a view into the buffer
+          var ia = new Uint8Array(ab);
+
+          // set the bytes of the buffer to the correct values
+          for (var i = 0; i < byteString.length; i++) {
+              ia[i] = byteString.charCodeAt(i);
+          }
+
+          // write the ArrayBuffer to a blob, and you're done
+          var blob = new Blob([ab], {type: mimeString});
+
+          console.log(blob);
+          rest.uploadImage(blob,file.name)
+            .subscribe(data => {
+              console.log("insertImage")
+          });
+       
+        }
+
+        reader.readAsDataURL(file);
+      } else {
+        this.fileDisplayArea = "File not supported!";
+        console.log(this.fileDisplayArea);
+      }
+  }
+}

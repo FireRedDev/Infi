@@ -27,6 +27,7 @@ public class Termin implements Serializable {
 
     private String beschreibung;
     private String ort;
+    private String imgpath;
     @OneToOne
     private Dokumentation doko;
 
@@ -69,6 +70,16 @@ public class Termin implements Serializable {
         this.title = title;
         this.beschreibung = beschreibung;
         this.ort = ort;
+        this.doko = doko;
+    }
+
+    public Termin(String s_date, String e_date, String title, String beschreibung, String ort, String imgpath, Dokumentation doko) {
+        this.s_date = s_date;
+        this.e_date = e_date;
+        this.title = title;
+        this.beschreibung = beschreibung;
+        this.ort = ort;
+        this.imgpath = imgpath;
         this.doko = doko;
     }
 
@@ -182,6 +193,14 @@ public class Termin implements Serializable {
      */
     public void setDoko(Dokumentation doko) {
         this.doko = doko;
+    }
+
+    public String getImgpath() {
+        return imgpath;
+    }
+
+    public void setImgpath(String imgpath) {
+        this.imgpath = imgpath;
     }
 
 }

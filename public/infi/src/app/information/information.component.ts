@@ -32,7 +32,6 @@ export class InformationComponent implements OnInit {
     }
 
     save(){
-      debugger;
       for (var i=0; i<this.file.length;i++) {
       this.actInformation.mediapath.push("http://localhost:8080/upload_image/"+this.file[i].name);
       }
