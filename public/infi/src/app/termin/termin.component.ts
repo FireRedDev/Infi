@@ -65,6 +65,7 @@ s_date;
     onSubmit() { this.submitted = true; }
 
     fileUpload(e) {
+      this.fileerror=false;
       this.fileInput = document.getElementById('fileInput');
       this.file=this.fileInput.files
         var file=this.fileInput.files[0]
