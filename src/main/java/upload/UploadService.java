@@ -17,6 +17,8 @@ public class UploadService extends HttpHandler {
 
     File root;
 
+    public UploadService() {}
+    
     public UploadService(File root) {
         this.root = root;
     }

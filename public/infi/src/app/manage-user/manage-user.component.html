@@ -25,8 +25,8 @@
     </div>
    
     <div id="Buttons">
-      <button (click)="done(i)"><i class="material-icons">done</i></button>
-      <button (click)="edit(i)"><i class="material-icons">edit</i></button>
+      <button *ngIf="person.isEditable" (click)="done(i)"><i class="material-icons">done</i></button>
+      <button *ngIf="!person.isEditable" (click)="edit(i)"><i class="material-icons">edit</i></button>
       <button (click)="deletePerson(i)"><i class="material-icons">delete</i></button>
     </div>
     <hr>

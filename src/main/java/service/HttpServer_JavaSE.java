@@ -45,14 +45,16 @@ public class HttpServer_JavaSE {
 
         server.getServerConfiguration().addHttpHandler(new UploadService(docRoots.getArray()[0]), "/upload");
         System.out.println(String.format("Server startet at %s\nHit enter to stop ...", BASE_URI));
-
+        init();
+//        Thread t = new Thread(new NotificationRunnable());
+//        t.start();
         Logger l = Logger.getLogger("org.glassfish.grizzly.http.server.HttpHandler");
         l.setLevel(Level.FINE);
         l.setUseParentHandlers(false);
         ConsoleHandler ch = new ConsoleHandler();
         ch.setLevel(Level.ALL);
         l.addHandler(ch);
-        init();
+
         System.in.read();
         server.shutdown();
     }
@@ -144,7 +146,7 @@ public class HttpServer_JavaSE {
         ooe.addTermin(new Termin("2018-04-19 13:00:00", "2018-04-19 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
         wels.addTermin(new Termin("2018-07-15 09:00:00", "2018-07-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
 
-        marchtrenk1.addTermin(new Termin("2019-01-015 15:30:00", "2019-01-17 17:30:00", "Wandern", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
+        marchtrenk1.addTermin(new Termin("2019-01-15 15:30:00", "2019-01-17 17:30:00", "Wandern", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
         wels.addTermin(new Termin("2019-05-30 09:00:00", "2019-05-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
         ooe.addTermin(new Termin("2017-12-19 13:00:00", "2017-12-19 21:00:00", "Adventmarkt", "warm anziehen", "Adventmarkt Wels"));
         wels.addTermin(new Termin("2019-08-15 09:00:00", "2019-08-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
@@ -153,6 +155,8 @@ public class HttpServer_JavaSE {
         wels.addTermin(new Termin("2017-12-30 09:00:00", "2017-12-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
         ooe.addTermin(new Termin("2019-04-19 13:00:00", "2019-04-19 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
         wels.addTermin(new Termin("2017-07-15 09:00:00", "2017-07-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
+
+        ooe.addTermin(new Termin("2018-05-29 13:00:00", "2018-05-29 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
 
         String[] a = {"http://localhost:8080/upload_image/teambuilding.jpg"};
         String[] b = {"http://localhost:8080/upload_image/bezirkslager2.jpg", "http://localhost:8080/upload_image/bezirkslager3.jpg", "http://localhost:8080/upload_image/bezirkslager1.jpg"};
@@ -166,10 +170,10 @@ public class HttpServer_JavaSE {
 
         Person tom = new Person("00001", "passme", "Tom", "Tester", ooe, Role.LANDESLEITER);
         Person karin = new Person("00002", "passme", "Karin", "Tester", wels, Role.BEZIRKSLEITER);
-        Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt, Role.GRUPPENLEITER);
+        Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt, Role.ORTSTELLENLEITER);
         Person doris = new Person("00004", "passme", "Doris", "Tester", sattledt1, Role.KIND);
         Person isabella = new Person("00005", "passme", "Isabella", "Tester", sattledt1, Role.KIND);
-        Person antonia = new Person("00006", "passme", "Antonia", "Tester", marchtrenk, Role.GRUPPENLEITER);
+        Person antonia = new Person("00006", "passme", "Antonia", "Tester", marchtrenk, Role.ORTSTELLENLEITER);
         Person melanie = new Person("00007", "passme", "Melanie", "Tester", marchtrenk1, Role.KIND);
         insert(tom);
         insert(karin);

@@ -28,9 +28,12 @@ export class TerminComponent implements OnInit {
 success=false;
 fileInput;
 fileDisplayArea;
+fileerror=false;
 imgpath;
 file;
 uploaded=false
+e_date;
+s_date;
 
   constructor(private rest: RestService, dateTimeAdapter: DateTimeAdapter<any>) {
     this.rest=rest;
@@ -42,15 +45,18 @@ uploaded=false
   }
   save(){
     var actTermin=this.actTermin
-    actTermin.s_date=new Date(this.actTermin.s_date).toISOString().substr(0, 19).replace('T', ' ');
-    actTermin.e_date=new Date(this.actTermin.e_date).toISOString().substr(0, 19).replace('T', ' ');
-    actTermin.imgpath="http://localhost:8080/upload_image/"+this.file[0].name;
+    actTermin.s_date=new Date(this.s_date).toISOString().substr(0, 19).replace('T', ' ');
+    actTermin.e_date=new Date(this.e_date).toISOString().substr(0, 19).replace('T', ' ');
+    if(this.file !== undefined){
+      actTermin.imgpath="http://localhost:8080/upload_image/"+this.file[0].name;
+    }
+    if(!this.fileerror){
       this.rest.insertTermin(this.jrkEntitaet,this.actTermin)
         .subscribe(data => {
           this.changeView.emit("month");
       });
       this.success=true;
-      
+    }
   }
 
     actTermin:Termin = new Termin(0,'','','','','','');
@@ -65,8 +71,7 @@ uploaded=false
         console.log("File"+file)
       var rest = this.rest;
       var imageType = /image.*/;
-
-      if (file.type.match(imageType)) {
+      if (file.type.match(imageType)&&this.file[0].size<1097152) {
         var reader = new FileReader();
 
         reader.onload = function(e) {
@@ -98,6 +103,7 @@ uploaded=false
           rest.uploadImage(blob,file.name)
             .subscribe(data => {
               console.log("insertImage")
+              alert("Bild hochgeladen")
           });
        
         }
@@ -105,7 +111,7 @@ uploaded=false
         reader.readAsDataURL(file);
       } else {
         this.fileDisplayArea = "File not supported!";
-        console.log(this.fileDisplayArea);
+        this.fileerror=true;
       }
   }
 }
