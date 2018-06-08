@@ -588,7 +588,7 @@ public class DatenbankRepository {
                     hmap.put("Kinder" + start.getYear(), ((hmap.get("Kinder" + start.getYear()) == null ? 0 : hmap.get("Kinder" + start.getYear())) + (int) ChronoUnit.HOURS.between(start, ende)) * doku.getKinderliste().length);
                     //POSSIBLE BUG: San ChronoUnit Hours gleichgroß wie deine Hours?
                     //get the Preparationtime
-                    hmap.put("Vorbereitungszeit" + start.getYear(), (hmap.get("Vorbereitungszeit" + start.getYear()) == null ? 0 : hmap.get("Vorbereitungszeit" + start.getYear())) + (int) doku.getVzeit());
+                    hmap.put("Vorbereitung" + start.getYear(), (hmap.get("Vorbereitung" + start.getYear()) == null ? 0 : hmap.get("Vorbereitung" + start.getYear())) + (int) doku.getVzeit());
                 }
             }
 

@@ -44,26 +44,11 @@ aside{
 a{
     color: black !important;
 }
-@media screen and (min-height: 950px) {
-    .cal-open-day-events.ng-trigger.ng-trigger-collapse {
-        position: fixed;
-        background-color: white !important;
-        bottom: 50px;
-        width: 90%;
-    }
-    .black{
-        color:black !important;
-        background-color: white !important;
-    }
-    a.cal-event-title{
-        color: rgb(173, 33, 33) !important;
-    }
+
+.black{
+    color:white !important;
 }
-@media screen and (max-height: 949px) {
-    .black{
-        color:white !important;
-    }
-}
+
 .cal-month-view .cal-open-day-events{
     box-shadow: none !important;
 }

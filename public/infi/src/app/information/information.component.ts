@@ -18,7 +18,7 @@ export class InformationComponent implements OnInit {
   fileDisplayArea;
   imgpath;
   file;
-  uploaded=false
+  fileerror=false;
 
   success=false;
     constructor(private rest: RestService) {
@@ -32,8 +32,13 @@ export class InformationComponent implements OnInit {
     }
 
     save(){
+      var imageType = /image.*/;
+      debugger;
       for (var i=0; i<this.file.length;i++) {
-      this.actInformation.mediapath.push("http://localhost:8080/upload_image/"+this.file[i].name);
+        var file=this.fileInput.files[i]
+        if(file.type.match(imageType)&&this.file[i].size<1097152){
+          this.actInformation.mediapath.push("http://localhost:8080/upload_image/"+this.file[i].name);
+        }
       }
         this.rest.insertInfo(this.jrkEntitaet,this.actInformation)
           .subscribe(data => {
@@ -55,49 +60,49 @@ export class InformationComponent implements OnInit {
         for (var i=0; i<this.fileInput.files.length;i++) {
           var file=this.fileInput.files[i]
           console.log("File"+file)
-        var rest = this.rest;
-        var imageType = /image.*/;
-  
-        if (file.type.match(imageType)) {
-          var reader = new FileReader();
-  
-          reader.onload = function(e) {
-            var dataURI =reader .result;
-            console.log(dataURI);
-            //https://stackoverflow.com/questions/12168909/blob-from-dataurl
-            // convert base64 to raw binary data held in a string
-            // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
-            var byteString = atob(dataURI.split(',')[1]);
+          var rest = this.rest;
+          var imageType = /image.*/;
+    
+          if (file.type.match(imageType)&&this.file[i].size<1097152) {
+            var reader = new FileReader();
+    
+            reader.onload = function(e) {
+              var dataURI =reader .result;
+              console.log(dataURI);
+              //https://stackoverflow.com/questions/12168909/blob-from-dataurl
+              // convert base64 to raw binary data held in a string
+              // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+              var byteString = atob(dataURI.split(',')[1]);
 
-            // separate out the mime component
-            var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+              // separate out the mime component
+              var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
 
-            // write the bytes of the string to an ArrayBuffer
-            var ab = new ArrayBuffer(byteString.length);
+              // write the bytes of the string to an ArrayBuffer
+              var ab = new ArrayBuffer(byteString.length);
 
-            // create a view into the buffer
-            var ia = new Uint8Array(ab);
+              // create a view into the buffer
+              var ia = new Uint8Array(ab);
 
-            // set the bytes of the buffer to the correct values
-            for (var i = 0; i < byteString.length; i++) {
-                ia[i] = byteString.charCodeAt(i);
+              // set the bytes of the buffer to the correct values
+              for (var i = 0; i < byteString.length; i++) {
+                  ia[i] = byteString.charCodeAt(i);
+              }
+
+              // write the ArrayBuffer to a blob, and you're done
+              var blob = new Blob([ab], {type: mimeString});
+              console.log(blob);
+              rest.uploadImage(blob,file.name)
+                .subscribe(data => {
+                  console.log("insertImage")
+                  alert("Bild"+(i+1)+" hochgeladen")
+              });
+          
             }
-
-            // write the ArrayBuffer to a blob, and you're done
-            var blob = new Blob([ab], {type: mimeString});
-
-            console.log(blob);
-            rest.uploadImage(blob,file.name)
-              .subscribe(data => {
-                console.log("insertImage")
-            });
-         
-          }
-  
+    
           reader.readAsDataURL(file);
         } else {
           this.fileDisplayArea = "File not supported!";
-          console.log(this.fileDisplayArea);
+          this.fileerror=true;
         }
       }
     }

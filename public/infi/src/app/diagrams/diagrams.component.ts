@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 //import {single, multi, single2, multi2, single3, multi3, singleChartBar, multiChartBar} from './data';
 import { RestService } from '../rest.service';
+import { jrkEntitaet } from '../models/jrkEntitaet.model';
 
 @Component({
 selector: 'app-diagrams',
@@ -67,23 +68,30 @@ showLabels = true;
 explodeSlices = false;
 doughnut = false;
 
-  set(body: any): void {
-    this.rest.getChartValues(body)
+  set(body: number): void {
+      debugger;
+      var jrk;
+      for(let j of this.JRKEntitaeten){
+        if(j.id==body){
+            jrk=j;
+        }
+      }
+    this.rest.getChartValues(jrk)
     .subscribe(value => {
         this.single = value;
     });
 
-   this.rest.getLowerEntityHourList(body)
+   this.rest.getLowerEntityHourList(jrk)
     .subscribe(value => {
         this.single2 = value;
     });
 
-    this.rest.getYearlyHoursPerPeople(body)
+    this.rest.getYearlyHoursPerPeople(jrk)
     .subscribe(value => {
         this.single3 = value;
     });
 
-    this.rest.getTimelineValues(body)
+    this.rest.getTimelineValues(jrk)
     .subscribe(value => {
         this.singleChartBar = value;
     });

@@ -50,8 +50,8 @@ export class ProtocolComponent implements OnInit {
   }
   save(){
     var actTermin=this.actTermin
-    actTermin.s_date=new Date(this.actTermin.s_date).toISOString().substr(0, 19).replace('T', ' ');
-    actTermin.e_date=new Date(this.actTermin.e_date).toISOString().substr(0, 19).replace('T', ' ');
+    actTermin.s_date=new Date(this.s_date).toISOString().substr(0, 19).replace('T', ' ');
+    actTermin.e_date=new Date(this.e_date).toISOString().substr(0, 19).replace('T', ' ');
     this.actProtokol.kinderliste = this.children;
     this.actProtokol.betreuer = this.betreuer;
       actTermin.doko = this.actProtokol;
@@ -73,6 +73,8 @@ export class ProtocolComponent implements OnInit {
     for (index = 0; index < this.term.length; ++index) {
       if(this.term[index].id == id){
         this.actTermin=this.term[index];
+        this.s_date=this.actTermin.s_date;
+        this.e_date=this.actTermin.e_date;
       }
     }
     }
@@ -81,6 +83,8 @@ export class ProtocolComponent implements OnInit {
 
     newBetreuer: string;
     betreuer: any;
+    s_date;
+    e_date;
 
     addChild(event) {
       this.children.push(this.newChild);

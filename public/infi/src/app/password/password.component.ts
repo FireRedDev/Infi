@@ -30,6 +30,7 @@ export class PasswordComponent implements OnInit {
       if(this.password1==this.password2&&this.password1!=""){
         const body = {'id': localStorage.getItem('currentUser'), 'password': this.password1};
         this.rest.changePassword(body).subscribe(data => {
+          this.err='';
           this.msg = "Passwort wurde geändert.";
           console.log("message: "+data);
           $('#pwdModal').modal('hide');
@@ -37,6 +38,7 @@ export class PasswordComponent implements OnInit {
       }
       else{
         this.err="Die beiden Passwörter sind nicht ident, versuche es nochmal!";
+        this.msg='';
       }
    
   }
