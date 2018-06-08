@@ -94,7 +94,7 @@ export class InformationComponent implements OnInit {
               rest.uploadImage(blob,file.name)
                 .subscribe(data => {
                   console.log("insertImage")
-                  alert("Bild"+(i+1)+" hochgeladen")
+                  alert("Bild hochgeladen")
               });
           
             }

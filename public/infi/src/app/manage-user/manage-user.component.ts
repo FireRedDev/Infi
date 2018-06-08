@@ -48,7 +48,6 @@ done(i:number){
 }
 
 deletePerson(i:number){
-alert("ID vom gelöschten Benutzer: " + this.persons[i].id);
 this.rest.deletePerson(this.persons[i].id).subscribe(()=>{console.log("gelöscht")});
 this.persons.splice(i,1);
 }
