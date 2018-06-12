@@ -1,20 +1,13 @@
 package service;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import entities.JRKEntitaet;
 import entities.Person;
 import entities.Termin;
-import java.security.Security;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import java.io.DataOutputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -49,6 +42,10 @@ public class NotificationRunnable implements Runnable {
 
     private static String TITLE = "FCM Notification";
     private static String BODY = "Notification from FCM";
+
+    /**
+     *
+     */
     public static final String MESSAGE_KEY = "message";
 
     @Override

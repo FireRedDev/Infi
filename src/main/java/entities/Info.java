@@ -18,6 +18,7 @@ public class Info {
     int id;
     private String ueberschrift;
     private String beschreibung;
+    //array of urls to images
     private String[] mediapath;
     private String datum;
 
@@ -42,10 +43,18 @@ public class Info {
         this.datum = datum;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getDatum() {
         return datum;
     }
 
+    /**
+     * 
+     * @param datum 
+     */
     public void setDatum(String datum) {
         this.datum = datum;
     }
@@ -98,10 +107,18 @@ public class Info {
         this.beschreibung = beschreibung;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String[] getMediapath() {
         return mediapath;
     }
 
+    /**
+     * 
+     * @param mediapath 
+     */
     public void setMediapath(String[] mediapath) {
         this.mediapath = mediapath;
     }

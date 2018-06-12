@@ -1,16 +1,8 @@
-/*
- * Repository
- */
 package repository;
 
-import RestResponseClasses.PersonTransferObject;
-import RestResponseClasses.JWTTokenUser;
-import RestResponseClasses.PersonTokenTransferObject;
-import RestResponseClasses.NameValue;
+import RestResponseClasses.*;
 import entities.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
@@ -20,17 +12,20 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.core.*;
 
 /**
- * Repository
+ * Repository Communicate with Database
  *
  * @author Christopher G
  */
 public class DatenbankRepository {
 
     private final EntityManager em;
+
+    /**
+     *
+     */
     @Context
     protected SecurityContext securityContext;
 
@@ -38,7 +33,7 @@ public class DatenbankRepository {
      * Konstruktor
      */
     public DatenbankRepository() {
-//get database
+        //get database
         em = EntityManagerSingleton.getInstance().getEm();
     }
 
@@ -64,6 +59,14 @@ public class DatenbankRepository {
         return em.createNamedQuery("Benutzer.listAll", Person.class).getResultList();
     }
 
+    /**
+     * delete a Person
+     *
+     * only Landesleiter and Bezirksleiter have the permission to delete Persons
+     *
+     * @param id id of a Person
+     * @return Persons
+     */
     public List<Person> deletePerson(int id) {
         try {
             Person p = em.find(Person.class, id);
@@ -90,12 +93,12 @@ public class DatenbankRepository {
         query.setParameter("email", pto.email);
         try {
             Person b = (Person) query.getSingleResult();
-//generate token
+            //generate token
             String token = generateJWT(b);
             //check password
             if (b.getPassword().equals(pto.password)) {
                 PersonTokenTransferObject pt = new PersonTokenTransferObject(String.valueOf(b.getId()), token);
-//return user and token
+                //return user and token
                 return pt;
             }
             return null;
@@ -127,6 +130,7 @@ public class DatenbankRepository {
     /**
      * Insert Person into Database
      *
+     * @param id
      * @param b
      * @return
      */
@@ -152,11 +156,17 @@ public class DatenbankRepository {
         return b;
     }
 
+    /**
+     * give back all roles
+     *
+     * @return Rollen
+     */
     public Role[] getAllRoles() {
         return Role.values();
     }
 
     /**
+     * inserts a JWTTokenUser
      *
      * @param b
      * @return
@@ -169,6 +179,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * inserts a Appointment
      *
      * @param termin
      * @return
@@ -181,6 +192,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * inserts a documentation
      *
      * @param doku
      */
@@ -191,6 +203,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * inserts a JRK-Entity
      *
      * @param jrk
      */
@@ -201,16 +214,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * Lists all Termine
-     *
-     * @return
-     */
-    public List<Termin> termine() {
-        List<Termin> termine = em.createNamedQuery("Termin.listAll", Termin.class).getResultList();
-        return termine;
-    }
-
-    /**
+     * Get Appointments for a specific User
      *
      * @param id
      * @return
@@ -228,6 +232,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Get Informations for a specific User
      *
      * @param id
      * @return
@@ -246,6 +251,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Get Appointments in the hierachie down
      *
      * @param jrk
      * @param termine
@@ -267,6 +273,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Get Appointments in the hierachie down
      *
      * @param jrk
      * @param termine
@@ -285,6 +292,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Get Informations in the hierachie up
      *
      * @param jrk
      * @param termine
@@ -303,6 +311,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Get Informations in the hierachie down
      *
      * @param jrk
      * @param termine
@@ -321,6 +330,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * add a Information to a list
      *
      * @param termine
      * @param tt
@@ -336,6 +346,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * add a Appointment to a list
      *
      * @param termine
      * @param tt
@@ -351,6 +362,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * add a Person to a list
      *
      * @param termine
      * @param tt
@@ -366,6 +378,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Get Username
      *
      * @param id
      * @return
@@ -375,6 +388,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Lists all JRK-Entities
      *
      * @return
      */
@@ -383,6 +397,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * insert a appointment
      *
      * @param id
      * @param t
@@ -395,8 +410,9 @@ public class DatenbankRepository {
     }
 
     /**
+     * get the JRKEntity
      *
-     * @param id
+     * @param id User id
      * @return
      */
     public JRKEntitaet getJRKEntitaet(int id) {
@@ -405,6 +421,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Is this User a Editor?
      *
      * @param id
      * @return
@@ -415,6 +432,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Is this User a admin
      *
      * @param id
      * @return
@@ -461,7 +479,6 @@ public class DatenbankRepository {
     public Dokumentation getDokumentationbyTermin(int id) {
         return em.find(Termin.class, id).getDoko();
     }
-//name is kategorie
 
     /**
      *
@@ -586,7 +603,6 @@ public class DatenbankRepository {
                     hmap.put("Betreuer" + start.getYear(), ((hmap.get("Betreuer" + start.getYear()) == null ? 0 : hmap.get("Betreuer" + start.getYear())) + (int) ChronoUnit.HOURS.between(start, ende)) * doku.getBetreuer().length);
                     //get the kinders time
                     hmap.put("Kinder" + start.getYear(), ((hmap.get("Kinder" + start.getYear()) == null ? 0 : hmap.get("Kinder" + start.getYear())) + (int) ChronoUnit.HOURS.between(start, ende)) * doku.getKinderliste().length);
-                    //POSSIBLE BUG: San ChronoUnit Hours gleichgroß wie deine Hours?
                     //get the Preparationtime
                     hmap.put("Vorbereitung" + start.getYear(), (hmap.get("Vorbereitung" + start.getYear()) == null ? 0 : hmap.get("Vorbereitung" + start.getYear())) + (int) doku.getVzeit());
                 }
@@ -607,6 +623,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * get JRK-Entities down
      *
      * @param id
      * @return
@@ -618,6 +635,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * get a Appointment by id
      *
      * @param id
      * @return
@@ -627,6 +645,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * change password
      *
      * @param p
      */
@@ -641,6 +660,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Does this User have to change his password?
      *
      * @param id
      * @return
@@ -652,6 +672,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * get Users Layer Down
      *
      * @param id
      * @return
@@ -669,6 +690,12 @@ public class DatenbankRepository {
         return pers;
     }
 
+    /**
+     * get the Users Layer Down
+     *
+     * @param id
+     * @return
+     */
     public List<Person> getUsersLayerDownJRK(int id) {
         JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
         List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
@@ -680,11 +707,17 @@ public class DatenbankRepository {
         return pers;
     }
 
+    /**
+     * save a Person
+     *
+     * @param p
+     */
     public void savePerson(Person p) {
         insert(p);
     }
 
     /**
+     * insert a information
      *
      * @param id
      * @param i

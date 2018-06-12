@@ -7,8 +7,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * Documentation of a Termin(Appointment), each one has a list of childen,
- * adults caring for them and things like spent time
+ * Documentation of a Termin(Appointment), each one has a list of children,
+ * adults caring for them and things like spent time or stuff they did, or which category the lesson is
  */
 @Entity
 public class Dokumentation implements Serializable {

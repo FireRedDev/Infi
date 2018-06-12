@@ -8,8 +8,8 @@ import java.util.*;
 import javax.persistence.*;
 
 /**
- * An JRKENTITY is an organisational unit/team, like a Jugengruppe or a
- * Bezirksleitstelle
+ * An JRKENTITY is an organisational unit/team, like a Jugendgruppe or a
+ * Bezirksstelle
  *
  * @author Christopher G
  */
