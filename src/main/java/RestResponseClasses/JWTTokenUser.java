@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * C.G Transports a Token and a User to client or Server
+ * C.G Transports a Token and a User -> for REST
  */
 @Entity
 public class JWTTokenUser implements Serializable {

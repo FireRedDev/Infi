@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 /**
  * A Person(Kind,Leiter,..) that is also a User in our System, with Password and
- * Username
+ * Username, mail adress and a role used for checking permissions.
  *
  * @author Christopher G
  */
@@ -42,15 +42,19 @@ public class Person implements Serializable {
     private Role rolle;
     @ManyToOne(fetch = FetchType.LAZY)
     private JRKEntitaet jrkentitaet;
+    //has the password already been changed?
     private boolean passwordChanged;
 
+    /**
+     *
+     */
     public Person() {
     }
 
     /**
      * Konstruktur mit allen Parametern
      *
-     * @param personalnr
+     * @param email
      * @param password
      * @param vorname
      * @param nachname
@@ -195,10 +199,18 @@ public class Person implements Serializable {
         this.jrkentitaet = jrkentitaet;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public boolean isPasswordChanged() {
         return passwordChanged;
     }
 
+    /**
+     * 
+     * @param passwordChanged 
+     */
     public void setPasswordChanged(boolean passwordChanged) {
         this.passwordChanged = passwordChanged;
     }

@@ -28,6 +28,7 @@ public class HttpServer_JavaSE {
     private static final EntityManager em = EntityManagerSingleton.getInstance().getEm();
 
     /**
+     * Main
      *
      * @param args
      * @throws Exception
@@ -69,6 +70,7 @@ public class HttpServer_JavaSE {
         JRKEntitaetType bezirkstelle = Bezirkstelle;
         JRKEntitaetType landesstelle = Landstelle;
 
+        //JRK Entitäten erstellen
         JRKEntitaet ooe = new JRKEntitaet(5, "Oberösterreich", landesstelle, null);
         JRKEntitaet wels = new JRKEntitaet(4, "Wels", bezirkstelle, ooe);
         JRKEntitaet sattledt = new JRKEntitaet(1, "Sattledt", ortstelle, wels);
@@ -76,7 +78,7 @@ public class HttpServer_JavaSE {
         JRKEntitaet marchtrenk = new JRKEntitaet(3, "Marchtrenk", ortstelle, wels);
         JRKEntitaet marchtrenk1 = new JRKEntitaet(6, "Gruppe1", gruppe, marchtrenk);
 
-        //Dokumentation
+        //Termine erstellen
         Termin sattledttermin = new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
         String[] betreuer = {"Gusi", "Isi"};
         String[] kinder = {"Meli", "Antonia", "Luki"};
@@ -168,6 +170,7 @@ public class HttpServer_JavaSE {
         wels.addInfo(new Info("Bezirkslager", "Bilder sind endlich auf Dropbox Link:", b, "2017-08-15 09:00:00"));
         wels.addInfo(new Info("Halloween", "Ergebnisse von der Halloweenstunde", c, "2018-01-15 09:00:00"));
 
+        //Personen erstellen
         Person tom = new Person("00001", "passme", "Tom", "Tester", ooe, Role.LANDESLEITER);
         Person karin = new Person("00002", "passme", "Karin", "Tester", wels, Role.BEZIRKSLEITER);
         Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt, Role.ORTSTELLENLEITER);
@@ -175,6 +178,8 @@ public class HttpServer_JavaSE {
         Person isabella = new Person("00005", "passme", "Isabella", "Tester", sattledt1, Role.KIND);
         Person antonia = new Person("00006", "passme", "Antonia", "Tester", marchtrenk, Role.ORTSTELLENLEITER);
         Person melanie = new Person("00007", "passme", "Melanie", "Tester", marchtrenk1, Role.KIND);
+
+        //Personen einfügen
         insert(tom);
         insert(karin);
         insert(gusi);
@@ -187,7 +192,7 @@ public class HttpServer_JavaSE {
     }
 
     /**
-     * to insert a Person
+     * insert a Person
      *
      * @param b
      * @return

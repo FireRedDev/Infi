@@ -23,15 +23,13 @@ import static javax.ws.rs.core.Response.Status;
 import repository.*;
 
 /**
- *
+ * Blocks Unauthorized Access of Rest Methods extracts Roles
+ * 
  * @author Christopher G
  */
 @Secured
 @Provider
 @Priority(Priorities.AUTHORIZATION)
-/**
- * Blocks Unauthorized Access of Rest Methods Checks Permissions
- */
 public class UserAuthenticationFilter implements ContainerRequestFilter,
         ContainerResponseFilter {
 
@@ -47,6 +45,11 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
         em = EntityManagerSingleton.getInstance().getEm();
     }
 
+    /**
+     *
+     * @param requestContext
+     * @throws IOException
+     */
     @Override
     public void filter(ContainerRequestContext requestContext)
             throws IOException {
@@ -173,6 +176,12 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
         }
     }
 
+    /**
+     *
+     * @param requestContext
+     * @param responseContext
+     * @throws IOException
+     */
     @Override
     public void filter(ContainerRequestContext requestContext,
             ContainerResponseContext responseContext)

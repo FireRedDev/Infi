@@ -11,14 +11,17 @@ public enum JRKEntitaetType {
      *
      */
     Bezirkstelle,
+
     /**
      *
      */
     Landstelle,
+
     /**
      *
      */
     Gruppe,
+
     /**
      *
      */

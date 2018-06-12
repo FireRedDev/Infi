@@ -9,6 +9,7 @@ import repository.DatenbankRepository;
 import RestResponseClasses.PersonTokenTransferObject;
 
 /**
+ * REST-Request Service
  *
  * @author INFI-Projektgruppe http://localhost:8080/api/service/message
  */
@@ -18,7 +19,9 @@ public class Service {
     private DatenbankRepository repo = new DatenbankRepository();
 
     /**
-     * Servertestfunktion
+     * Message
+     *
+     * to test the server
      *
      * @return
      */
@@ -29,6 +32,14 @@ public class Service {
         return "INFI Jugendrotkreuz Server up and running..";
     }
 
+    /**
+     * delete a Person
+     *
+     * only Landesleiter and Bezirksleiter have the permission to delete Persons
+     *
+     * @param id id of a Person
+     * @return Persons
+     */
     @POST
     @Secured({Role.LANDESLEITER, Role.BEZIRKSLEITER})
     @Path("deletePerson")
@@ -37,10 +48,10 @@ public class Service {
     }
 
     /**
-     * Login to Server with Username/Password and get a Token
+     * Login to a Server with Username/Password and get a Token
      *
      * @param pto
-     * @return
+     * @return Token
      */
     @POST
     @Produces("application/json")
@@ -51,36 +62,10 @@ public class Service {
     }
 
     /**
-     * Lists all Termine of all Users and Entitys
+     * Lists all Persons/Users hierachie down
      *
-     * @return
-     */
-    @GET
-    @Path("listAllTermine")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-    public List<Termin> listallTermine() {
-        return repo.termine();
-    }
-
-    /**
-     * Lists all Persons/Users
-     *
-     * @return
-     */
-    @GET
-    @Secured({Role.LANDESLEITER})
-    @Path("listAllPersons")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Person> listAllPersons() {
-        return repo.listAllUsers();
-    }
-
-    /**
-     * Lists all Persons/Users
-     *
-     * @param id
-     * @return
+     * @param id id of a person
+     * @return list
      */
     @POST
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
@@ -90,12 +75,12 @@ public class Service {
     public List<Person> getUsersLayerDown(int id) {
         return repo.getUsersLayerDown(id);
     }
-    
-        /**
-     * Lists all Persons/Users
+
+    /**
+     * Lists all Persons/Users hierachie down
      *
-     * @param id
-     * @return
+     * @param id id of a JRKEntity
+     * @return list
      */
     @POST
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
@@ -107,9 +92,9 @@ public class Service {
     }
 
     /**
-     * Lists all JRKENTITYS
+     * Lists all JRKENTITYIES
      *
-     * @return
+     * @return JRK-Entity List
      */
     @GET
     @Path("listAllJRKEntitaeten")
@@ -122,7 +107,7 @@ public class Service {
     /**
      * Gets Users Termine/Appointments with his PersonalNR
      *
-     * @param id
+     * @param id Person id
      * @return
      */
     @POST
@@ -152,8 +137,8 @@ public class Service {
     /**
      * Gets Username
      *
-     * @param id
-     * @return
+     * @param id Person id
+     * @return Username
      */
     @POST
 
@@ -169,7 +154,7 @@ public class Service {
      * Get a JRKENTITÄT with its ID
      *
      * @param id id der Entität
-     * @return
+     * @return JRK-Entity
      */
     @POST
     @Path("getJRKEntitaet")
@@ -208,7 +193,7 @@ public class Service {
     }
 
     /**
-     * Gibt alle Rollen zurück.
+     * give back all roles
      *
      * @return Rollen
      */
@@ -231,11 +216,11 @@ public class Service {
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     public void insertPerson(@PathParam("id") int id, Person b) {
-        repo.insert(id,b);
+        repo.insert(id, b);
     }
 
     /**
-     * Darf dieser User Termine und Protokolle einfügen?
+     * is this user a editor?
      *
      * @param id
      * @return
@@ -250,7 +235,7 @@ public class Service {
     }
 
     /**
-     * Darf dieser User Benutzer verwalten?
+     * is this user a admin?
      *
      * @param id
      * @return
@@ -265,7 +250,7 @@ public class Service {
     }
 
     /**
-     * Noch nicht dokumentierte Termine zurückgeben
+     * give back none documented appointments
      *
      * @param id
      * @return
@@ -309,6 +294,7 @@ public class Service {
     }
 
     /**
+     * Give back the values for the timeline
      *
      * @param jrk
      * @return
@@ -338,6 +324,7 @@ public class Service {
     }
 
     /**
+     * Gives back the JRK-Entities in the Layers down
      *
      * @param id
      * @return
@@ -352,6 +339,7 @@ public class Service {
     }
 
     /**
+     * change Password
      *
      * @param p
      * @return
@@ -368,6 +356,7 @@ public class Service {
     }
 
     /**
+     * Does this User need to change his password?
      *
      * @param id
      * @return
@@ -382,6 +371,7 @@ public class Service {
     }
 
     /**
+     * save Person
      *
      * @param p
      * @return

@@ -7,24 +7,21 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- *
+ * Appointment consists of title, beschreibung, ort, startdate, enddate, imgpath
  * @author Christopher G
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t")
-    ,
-    @NamedQuery(name = "Termin.getOpenDoko", query = "SELECT t FROM Termin t where t.doko IS NULL"),})
+    @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t"),
+    @NamedQuery(name = "Termin.getOpenDoko", query = "SELECT t FROM Termin t where t.doko IS NULL")})
 public class Termin implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
     private String s_date;
-
     private String e_date;
     private String title;
-
     private String beschreibung;
     private String ort;
     private String imgpath;
@@ -73,6 +70,16 @@ public class Termin implements Serializable {
         this.doko = doko;
     }
 
+    /**
+     *
+     * @param s_date
+     * @param e_date
+     * @param title
+     * @param beschreibung
+     * @param ort
+     * @param imgpath
+     * @param doko
+     */
     public Termin(String s_date, String e_date, String title, String beschreibung, String ort, String imgpath, Dokumentation doko) {
         this.s_date = s_date;
         this.e_date = e_date;
@@ -195,10 +202,18 @@ public class Termin implements Serializable {
         this.doko = doko;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getImgpath() {
         return imgpath;
     }
 
+    /**
+     * 
+     * @param imgpath 
+     */
     public void setImgpath(String imgpath) {
         this.imgpath = imgpath;
     }
