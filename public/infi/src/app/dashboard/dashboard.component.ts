@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit {
   password1="";
   password2="";
 
+  //einige Varbiablen zum konfifurieren der Sidebar
   private _opened = false;
   private _modeNum = 0;
   private _positionNum = 0;
@@ -55,6 +56,7 @@ export class DashboardComponent implements OnInit {
   private _MODES: Array<string> = ['over', 'push', 'slide'];
   private _POSITIONS: Array<string> = ['left', 'right', 'top', 'bottom'];
 
+  //einige Funktionen für die Funktionalität der Sidebar
   private _toggleOpened(): void {
     this._opened = !this._opened;
   }
@@ -133,18 +135,26 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     const body = localStorage.getItem('currentUser');
+
+    //Username von Server erfragen
     this.rest.getName(body)
       .subscribe(data => {
         this.username = JSON.stringify(data).replace("\"","").replace("\"","");
       });
+
+    //Abfragen ob dieser User Editor ist
     this.rest.isEditor(body)
       .subscribe(data => {
         this.isEditor = (data === true);
       });
+
+    //Abfragen ob dieser User Admin ist
       this.rest.isAdmin(body)
       .subscribe(data => {
         this.isAdmin = (data === true);
       });
+
+    //Muss dieser User das Passwort ändern
     this.rest.needPwdChange(body)
     .subscribe(data => {
       if(data!=true){
@@ -152,23 +162,27 @@ export class DashboardComponent implements OnInit {
           backdrop: 'static',
           keyboard: false
       });
-          //this remove the close button on top if you need
+    //this remove the close button on top if you need
     $('#pwdModal').find('.close').remove();
     //this unbind the event click on the shadow zone
     $('#pwdModal').unbind('click');
         $('#pwdModal').modal('show');
       }
     });
+
+    //JRKEntität von Person abrufen
     this.rest.getJRKEntitaet(body)
       .subscribe(data => {
         this.jrkEntitaet = data;
       }); 
   }
 
+  //ändern der View
   changeView(i){
     this.view = i;
   }
 
+  //Password ändern
   changePwd(){
     if(this.password1==this.password2&&this.password1!=""){
       const body = {'id': localStorage.getItem('currentUser'), 'password': this.password1};
