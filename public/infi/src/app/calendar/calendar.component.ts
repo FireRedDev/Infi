@@ -122,12 +122,14 @@ export class CalendarComponent implements OnInit {
     }[this.view];
 
     const body = localStorage.getItem('currentUser');
+    //setzen der Termine
     this.events$ = this.rest.getUserTermine(body)
       .map(json => {
         return this.convertEvents(json as Termin[]);
       });
   }
 
+  //Konvertieren der Events zum anzeigen
   convertEvents(events: Array<Termin>): Array<any>{
     const calendarEvents = [];
     events.forEach(function(event){

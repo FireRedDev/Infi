@@ -21,6 +21,7 @@ export class AddUserComponent implements OnInit {
     this.rest=rest;
    }
 
+   //Aufbereiten des Enums für Drowdown
    keys() : Array<string> {
     var keys = Object.keys(this.role);
     return keys.slice(keys.length / 2);
@@ -31,10 +32,13 @@ export class AddUserComponent implements OnInit {
    actRole:Role
    correctEmail=false
 
+  
   ngOnInit() {
+    //Aktuellen Benutzer holen, seine untergeordneten JRK Entitäten nachladen zum Darstellen
     var body = localStorage.getItem('currentUser');
     this.jrkEnitaet = JSON.parse(body);
   
+    //rest post
     this.rest.getJRKEntitaetdown(body)
       .subscribe(data => {
         this.JRKEntitaeten=data;
@@ -42,6 +46,7 @@ export class AddUserComponent implements OnInit {
     });
   }
 
+  //Person speichern und in die Datenbank speichern
   save(){
     this.actPerson.rolle=this.actRole
       this.rest.insertPerson(this.actPerson, this.jrk)
@@ -62,6 +67,7 @@ export class AddUserComponent implements OnInit {
  
   onSubmit() { this.submitted = true; }
 
+  //Ist die E-Mail korrekt?
   checkEmail(){
     this.correctEmail=false;
     if (this.validateEmail(this.actPerson.email)) {
@@ -69,6 +75,7 @@ export class AddUserComponent implements OnInit {
     }
   }
 
+  //checkt die E-Mail
   validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);

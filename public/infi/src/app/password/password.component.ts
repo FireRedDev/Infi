@@ -26,6 +26,7 @@ export class PasswordComponent implements OnInit {
   ngOnInit() {
   }
 
+  //Passwort ändern
   changePwd(){
       if(this.password1==this.password2&&this.password1!=""){
         const body = {'id': localStorage.getItem('currentUser'), 'password': this.password1};
