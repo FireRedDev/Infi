@@ -3,7 +3,9 @@
 ng-sidebar-container{
     min-height: 90vh
 }
-
+.padd {
+    margin-bottom:20px;
+}
 .loading {
     padding: 1em;
 }
@@ -74,8 +76,8 @@ i.fa.fa-plus {
 }
 
 .dashboard-control {
-    background-color: grey;
-    border: 1px solid grey;
+    background-color: indianred;
+    border: 1px solid indianred;
     cursor: pointer;
     padding-right: 5%;
     padding-top: 0%;

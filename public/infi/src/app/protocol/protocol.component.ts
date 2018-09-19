@@ -39,6 +39,8 @@ export class ProtocolComponent implements OnInit {
         .subscribe(data => {
           this.term=data as Termin[];
           this.actTermin=this.term[0];
+          this.s_date=this.actTermin.s_date;
+          this.e_date=this.actTermin.e_date;
       });
     this.de = {
             firstDayOfWeek: 0,

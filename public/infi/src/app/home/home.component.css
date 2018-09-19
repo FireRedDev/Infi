@@ -22,3 +22,6 @@
     transition: 0.3s;
     margin-top: 7%;
 }
+.card-deck {
+    padding:10px;
+}

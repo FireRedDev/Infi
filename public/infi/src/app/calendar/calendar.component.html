@@ -28,6 +28,22 @@
   <div class="col-md-4">
     <h1>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h1>
   </div>
+  <div class="col-md-4">
+    <div class="btn-group">
+      <div
+        class="btn btn-outline-secondary"
+        (click)="view = 'month'"
+        [class.active]="view === 'month'">
+        Monatsansicht
+      </div>
+      <div
+        class="btn btn-outline-secondary"
+        (click)="view = 'week'"
+        [class.active]="view === 'week'">
+        Wochenansicht
+      </div>
+    </div>
+  </div>
 </div>
 <div *ngIf="events$ | async; else loading; let events">
   <div [ngSwitch]="view">
