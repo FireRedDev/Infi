@@ -46,7 +46,7 @@
             <span class="addTermin" *ngIf="isEditor && view=='home'" (click)="view = 'info'">
                 <i class="fa fa-plus" aria-hidden="true"></i> News schreiben
             </span>
-           <div class="addTermin" *ngIf="isAdmin && view=='manage-user'" (click)="view = 'manage-user'">
+           <div class="addTermin" *ngIf="isAdmin && view=='manage-user'" (click)="view = 'add-user'">
             <i class="fa fa-plus" aria-hidden="true"></i> <span class="padd">Benutzer erstellen</span>
        </div>
         </header>
@@ -103,7 +103,7 @@
     </table>     
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="changePwd()">ändern</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="changePwd()">Ändern</button>
     </div>
     </div>
 </div>
