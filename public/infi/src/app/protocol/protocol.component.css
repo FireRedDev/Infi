@@ -18,3 +18,6 @@ input.ng-tns-c8-5.owl-datetime-input.owl-datetime-main-input {
 .listadd{
     width:10%;
 }
+.alert {
+    padding: 0.2em !important;
+}

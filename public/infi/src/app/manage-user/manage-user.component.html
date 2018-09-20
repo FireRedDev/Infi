@@ -1,16 +1,10 @@
+<div class="wrapper">
 <div id="selectJRK">
 <!-- Dropdown -->
 <select class="form-control" #selectElem (change)="set(selectElem.value)" name="jrkselect" id="jrkselect">
   <option *ngFor="let JRKEntitaet of JRKEntitaeten, let i=index" [selected]="i==0" [value]="JRKEntitaet.id">{{JRKEntitaet.name}}</option>
 </select>
 </div>
-
-<div id="ADDDiv">
-<!-- Benutzer hinzufügen button -->
-<button type="button" (click)="addUser()" id="ADDButton">Benutzer hinzufügen</button>
-</div>
-
-
 
 <div id="editSection">
 <div *ngFor="let person of persons, let i=index">
@@ -30,5 +24,6 @@
       <button (click)="deletePerson(i)"><i class="material-icons">delete</i></button>
     </div>
     <hr>
+</div>
 </div>
 </div>

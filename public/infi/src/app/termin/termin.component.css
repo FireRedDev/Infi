@@ -8,3 +8,7 @@
 input.ng-tns-c8-5.owl-datetime-input.owl-datetime-main-input {
     border: none;
 }
+
+.alert {
+    padding: 0.2em !important;
+}
