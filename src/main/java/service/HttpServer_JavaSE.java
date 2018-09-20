@@ -55,7 +55,8 @@ public class HttpServer_JavaSE {
         ConsoleHandler ch = new ConsoleHandler();
         ch.setLevel(Level.ALL);
         l.addHandler(ch);
-
+Thread t = new Thread(new NotificationRunnable());
+t.start();
         System.in.read();
         server.shutdown();
     }

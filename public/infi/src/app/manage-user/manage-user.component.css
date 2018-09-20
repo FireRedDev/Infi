@@ -1,43 +1,47 @@
-#jrkselect{
-    width: 200px;
+#jrkselect {
+   
+   
 }
+#selectJRK {
 
+}
 #ADDButton{
     float: right;
 }
 
-#selectJRK{
-    margin-top: 40px;
-    position: absolute;
-    width: 210px;
-}
+
 
 #PersonName{
-    position: absolute;
+
 }
-
+#detail {
+  
+}
 #Buttons{
-    position: relative;
+   
 
-    margin-left: 450px;
+    
 }
 
 #PersonNameEdit{
-    position: absolute;
+
 }
 
 #editSection{ 
-    padding: 1em;
+   
+   
     margin-top: 150px;
     -webkit-box-shadow:0px 0px 50px 30px grey ;
 -moz-box-shadow:0px 0px 50px 30px grey ;
 box-shadow:0px 0px 50px 30px grey;
+display:flex;
+
+    justify-content: center;
 }
 
 .wrapper {
     background-color: aliceblue;
     margin-right: 1em;
     margin-left: 1em;
-    display:flex;
-    justify-content: center;
+   
 }

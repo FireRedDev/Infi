@@ -55,33 +55,44 @@ public class NotificationRunnable implements Runnable {
 //        PushService pushService = new PushService();
 //       Notification notification = new Notification(subscription, payload);
 //    pushService.sendAsync(notification);
-        List<Person> personen = em.createNamedQuery("Benutzer.listAll", Person.class).getResultList();
-        LocalDate todaysDate = LocalDate.now();
-        for (Person currentPerson : personen) {
-            List<Termin> termine = new LinkedList();
 
-            //Check for Duplicates, prepare Termin list
-            termine = addList(termine, currentPerson.getJrkentitaet().getTermine());
-            //Recursivly get Termine hierarchic upwards
-            termine = this.termineLayerDown(currentPerson.getJrkentitaet(), termine);
-            //Recursivly get Termine hierarchic downwards
-            termine = this.termineLayerUp(currentPerson.getJrkentitaet(), termine);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            for (Termin termin : termine) {
-                //    "2018-05-02 18:00:00
-                if (LocalDate.parse(termin.getS_date(), formatter).equals(todaysDate)) {
-                    try {
-                        this.TITLE = "Bevorstehender Termin";
-                        //Format String
-                        this.BODY = termin.toString();
-                        sendCommonMessage();
-                    } catch (IOException ex) {
-                        Logger.getLogger(NotificationRunnable.class.getName()).log(Level.SEVERE, null, ex);
-                        ex.printStackTrace();
+        try {
+            sendCommonMessage();
+        } catch (IOException ex) {
+
+        }
+                System.out.println("Notification Thread running");
+        while (true) {
+            //test
+
+            List<Person> personen = em.createNamedQuery("Benutzer.listAll", Person.class).getResultList();
+            LocalDate todaysDate = LocalDate.now();
+            for (Person currentPerson : personen) {
+                List<Termin> termine = new LinkedList();
+
+                //Check for Duplicates, prepare Termin list
+                termine = addList(termine, currentPerson.getJrkentitaet().getTermine());
+                //Recursivly get Termine hierarchic upwards
+                termine = this.termineLayerDown(currentPerson.getJrkentitaet(), termine);
+                //Recursivly get Termine hierarchic downwards
+                termine = this.termineLayerUp(currentPerson.getJrkentitaet(), termine);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                for (Termin termin : termine) {
+                    //    "2018-05-02 18:00:00
+                    if (LocalDate.parse(termin.getS_date(), formatter).equals(todaysDate)) {
+                        try {
+                            this.TITLE = "Bevorstehender Termin";
+                            //Format String
+                            this.BODY = termin.toString();
+                            sendCommonMessage();
+                        } catch (IOException ex) {
+                            Logger.getLogger(NotificationRunnable.class.getName()).log(Level.SEVERE, null, ex);
+                            ex.printStackTrace();
+                        }
                     }
                 }
-            }
 
+            }
         }
     }
 
@@ -94,7 +105,7 @@ public class NotificationRunnable implements Runnable {
      */
     // [START retrieve_access_token]
     private String getAccessToken() throws IOException, ClassNotFoundException {
-        InputStream is=getClass().getClassLoader().getResourceAsStream("service-account.json");
+        InputStream is = getClass().getClassLoader().getResourceAsStream("service-account.json");
         GoogleCredential googleCredential = GoogleCredential
                 .fromStream(is)
                 .createScoped(Arrays.asList(SCOPES));
