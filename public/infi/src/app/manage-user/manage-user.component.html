@@ -7,7 +7,7 @@
 </div>
 
 <div id="editSection">
-<div *ngFor="let person of persons, let i=index">
+<div id ="detail" *ngFor="let person of persons, let i=index">
    
   <div id="PersonName" *ngIf="!person.isEditable">
    {{person.vorname}}  {{person.nachname}}
