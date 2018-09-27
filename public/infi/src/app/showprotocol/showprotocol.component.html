@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<div id="box" *ngFor="let p of protocol, let i=index">
+      <br>
+      {{p.title}} {{p.s_date.slice(0,16)}}
+      <br>
+      <div>
+        {{p.beschreibung.slice(0, 200)}}
+      </div>
+      <br>  
+                                                               <!-- [button]="{{p.id}}" -->
+      <button style="color:white" type="button" class="btn btn-dark btn-sm">Weiter lesen..</button>
+
+      <!-- http://jasonwatmore.com/post/2016/08/23/angular-2-pagination-example-with-logic-like-google -->
+</div>

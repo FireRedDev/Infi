@@ -32,6 +32,7 @@
             <div href="#" id="hover" (click)="view = 'protocol'" *ngIf="isEditor"><p class="einfuegen"><i class="material-icons">subject</i> Protokoll</p></div>
             <div href="#" id="hover" (click)="view = 'password'" *ngIf="isEditor"><p class="einfuegen"><i class="material-icons">lock</i> Passwort ändern</p></div>
             <div href="#" id="hover" (click)="view = 'diagram'" *ngIf="isEditor"><p class="einfuegen"><i class="material-icons">pie_chart</i> Statistiken</p></div>
+            <div href="#" id="hover" (click)="view = 'showprotocol'" *ngIf="isEditor"><p class="einfuegen"><i class="material-icons">assignment</i> Protokolle ansehen</p></div>     
             <div href="#" id="hover" (click)="view = 'manage-user'" *ngIf="isAdmin" [class.active]="view === 'manage-user'"><p class="einfuegen"><i class="material-icons">people</i> Profile verwalten</p></div>
         </div>
         <div><a routerLink="/"><p class="einfuegen"><i class="fas fa-sign-out-alt"></i> Logout</p></a></div>
@@ -74,6 +75,9 @@
             </div>
             <div *ngIf="view =='info'">
                 <app-information [jrkEntitaet]="jrkEntitaet" (changeView)="changeView($event)"></app-information>
+            </div>
+            <div *ngIf="view =='showprotocol'">
+                <app-showprotocol  (changeView)="changeView($event)"></app-showprotocol>
             </div>
             <div *ngIf="view =='password'">
                 <app-password (changeView)="changeView($event)"></app-password>

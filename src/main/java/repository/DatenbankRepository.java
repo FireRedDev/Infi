@@ -728,4 +728,22 @@ public class DatenbankRepository {
 
         insert(jrk);
     }
+    
+    
+    public List<Termin> getProtokollDetails(int id) {
+        List<Termin> termin = new LinkedList();
+        Person currentPerson = em.find(Person.class, id);
+       // termin = this.infoLayerDown(currentPerson.getJrkentitaet(), termin);
+       // termin = this.infoLayerUp(currentPerson.getJrkentitaet(), termin);
+       // Collections.sort(termin, (Info first, Info second) -> first.getDatum().compareTo(second.getDatum()));
+        
+        List<Termin> jrks = em.createQuery("select t from Termin t").getResultList();
+                //.setParameter("jrkentitaet", jrk).getResultList();
+//        List<Person> pers = new LinkedList<>();
+//        for (JRKEntitaet j : jrks) {
+//            List<Person> p = em.createNamedQuery("Benutzer.byjrkEntitaet", Person.class).setParameter("id", j).getResultList();
+//            this.addListPerson(pers, p);
+//        }
+        return jrks;
+    }
 }

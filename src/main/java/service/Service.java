@@ -399,4 +399,13 @@ public class Service {
     public void insertInfo(@PathParam("id") int id, Info i) {
         repo.insertInfo(id, i);
     }
+    
+    @POST
+    //@Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Path("getProtokollDetails")
+    @Produces(MediaType.APPLICATION_JSON)
+    //@Consumes(MediaType.TEXT_PLAIN)
+    public List<Termin> getProtokollDetails() {
+        return repo.getProtokollDetails(1);
+    }
 }
