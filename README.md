@@ -1,7 +1,8 @@
 # Server starten
-Derby Datenbank infi anlegen
+Derby Datenbank InfiDatabase anlegen
 Netbeans run Project
 
 # Client
 Unterverzeichnis public/infi
 ng serve --open
+CORS Plugin einschalten https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi
