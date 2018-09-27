@@ -1,7 +1,7 @@
-* Server starten
+# Server starten
 Derby Datenbank infi anlegen
 Netbeans run Project
 
-* Client
+# Client
 Unterverzeichnis public/infi
 ng serve --open
