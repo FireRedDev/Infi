@@ -1,3 +1,6 @@
+# Requirements
+NodeJS,Angular,Java, Chrome Cors
+
 # Server starten
 Derby Datenbank InfiDatabase anlegen
 
