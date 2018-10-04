@@ -152,7 +152,7 @@ export class RestService {
     return this.http.post("http://localhost:8080/upload?filename="+filename,body);
   }
 
-  showprotocol(){
-    return this.http.post("http://localhost:8080/api/service/getProtokollDetails", 1);
+  showprotocol(jrkEntitaet){
+    return this.http.get("http://localhost:8080/api/service/getProtokollDetails/"+jrkEntitaet.id);
   }
 }

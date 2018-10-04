@@ -7,6 +7,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import repository.DatenbankRepository;
 import RestResponseClasses.PersonTokenTransferObject;
+import javax.ws.rs.core.Context;
 
 /**
  * REST-Request Service
@@ -400,12 +401,12 @@ public class Service {
         repo.insertInfo(id, i);
     }
     
-    @POST
-    //@Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-    @Path("getProtokollDetails")
+    @GET
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Path("getProtokollDetails/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     //@Consumes(MediaType.TEXT_PLAIN)
-    public List<Termin> getProtokollDetails() {
-        return repo.getProtokollDetails(1);
+    public List<Termin> getProtokollDetails(@PathParam("id") int id) {
+        return repo.getProtokollDetails(id);
     }
 }
