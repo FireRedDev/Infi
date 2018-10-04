@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.*;
 import javax.ws.rs.core.*;
+import service.MySecurityContext;
 
 /**
  * Repository Communicate with Database
@@ -727,5 +728,15 @@ public class DatenbankRepository {
         jrk.addInfo(i);
 
         insert(jrk);
+    }
+
+    public List<Termin> getProtokollDetails(int id) {
+        List<Termin> termin = new LinkedList();
+
+        JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+        System.out.println("here");
+        termin = this.termineLayerDown(jrk, termin);
+
+        return termin;
     }
 }
