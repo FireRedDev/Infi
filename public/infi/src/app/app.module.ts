@@ -36,6 +36,7 @@ import { ManageUserComponent } from './manage-user/manage-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { InformationComponent } from './information/information.component';
 import { PasswordComponent } from './password/password.component';
+import { ShowprotocolComponent } from './showprotocol/showprotocol.component';
 
 const appRoutes:Routes = [
 {
@@ -64,7 +65,8 @@ component: DashboardComponent
     ManageUserComponent,
     AddUserComponent,
     InformationComponent,
-    PasswordComponent
+    PasswordComponent,
+    ShowprotocolComponent
   ],
   imports: [
     BrowserModule,
