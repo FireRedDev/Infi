@@ -151,4 +151,11 @@ export class RestService {
   uploadImage(body,filename){
     return this.http.post("http://localhost:8080/upload?filename="+filename,body);
   }
+
+
+   //Bild hochladen
+   insertPlannungsText(text){
+    console.log(text);
+    return this.http.post("http://localhost:8080/api/service/insertPlanung/"+9, text);
+  }
 }

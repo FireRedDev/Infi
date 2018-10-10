@@ -21,4 +21,12 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  /* Plannung speichern */
+  private textModel;
+
+  save(){
+    this.rest.insertPlannungsText(this.textModel).subscribe();
+    this.textModel = "";
+  }
+
 }
