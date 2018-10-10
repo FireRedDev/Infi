@@ -5,162 +5,160 @@ import { HttpClient } from '@angular/common/http';
 export class RestService {
   private http;
 
-  constructor(http:HttpClient) { 
-    this.http=http;
+  constructor(http: HttpClient) {
+    this.http = http;
   }
 
   //Alle Rollen vom Server holen
-  getAllRoles(){
+  getAllRoles() {
     return this.http.get('http://localhost:8080/api/service/getAllRoles');
   }
 
   //Eine neue Person in die Datenbanm einfügen
-  insertPerson(person,jrk){
+  insertPerson(person, jrk) {
     //insert Person machen
-    return this.http.post('http://localhost:8080/api/service/insertPerson/'+jrk, person);
+    return this.http.post('http://localhost:8080/api/service/insertPerson/' + jrk, person);
   }
 
   //Speichern von einer abgeänderten Person
-  savePerson(person){
+  savePerson(person) {
     return this.http.post('http://localhost:8080/api/service/savePerson', person);
   }
 
   //Person löschen
-  deletePerson(id){
+  deletePerson(id) {
     return this.http.post('http://localhost:8080/api/service/deletePerson', id);
   }
 
   //Die untergeordneten Personen
-  getUsersLayerDown(id){
-    return this.http.post('http://localhost:8080/api/service/getUsersLayerDown',id);
+  getUsersLayerDown(id) {
+    return this.http.post('http://localhost:8080/api/service/getUsersLayerDown', id);
   }
 
   //Die untergeordneten User mit JRKEntitätenID erhalten 
-  getUsersLayerDownJRK(id){
-    return this.http.post('http://localhost:8080/api/service/getUsersLayerDownJRK',id);
+  getUsersLayerDownJRK(id) {
+    return this.http.post('http://localhost:8080/api/service/getUsersLayerDownJRK', id);
   }
 
   //Einloggen eines Benutzers
-  login(body){
+  login(body) {
     return this.http.post('http://localhost:8080/api/service/login', body);
   }
-  
+
   //Die untergeordneten User mit PersonenID erhalten 
-  getJRKEntitaetdown(body){
+  getJRKEntitaetdown(body) {
     return this.http.post('http://localhost:8080/api/service/getJRKEntitaetdown', body);
   }
 
   //Untergeordneten Stundenliste erhalten
-  getLowerEntityHourList(body){
+  getLowerEntityHourList(body) {
     return this.http
-    .post('http://localhost:8080/api/service/getLowerEntityHourList', body);
+      .post('http://localhost:8080/api/service/getLowerEntityHourList', body);
   }
 
   //Jährliche Stundenanzahl pro Person
-  getYearlyHoursPerPeople(body){
+  getYearlyHoursPerPeople(body) {
     return this.http
-    .post('http://localhost:8080/api/service/getYearlyHoursPerPeople', body);
+      .post('http://localhost:8080/api/service/getYearlyHoursPerPeople', body);
   }
 
   //Die Werte für das Zeitleistendiagramm
-  getTimelineValues(body){
+  getTimelineValues(body) {
     return this.http
-    .post('http://localhost:8080/api/service/getTimelineValues', body);
+      .post('http://localhost:8080/api/service/getTimelineValues', body);
   }
 
   //Werte für Diagramm
-  getChartValues(body){
+  getChartValues(body) {
     return this.http
-    .post('http://localhost:8080/api/service/getChartValues', body);
+      .post('http://localhost:8080/api/service/getChartValues', body);
   }
 
   //Termin einfügen
-  insertTermin(jrkEntitaet,actTermin){
+  insertTermin(jrkEntitaet, actTermin) {
     return this.http
-    .post('http://localhost:8080/api/service/insertTermin/'+jrkEntitaet.id, actTermin);
+      .post('http://localhost:8080/api/service/insertTermin/' + jrkEntitaet.id, actTermin);
   }
 
   //Information einfügen
-  insertInfo(jrkEntitaet,actInfo){
+  insertInfo(jrkEntitaet, actInfo) {
     return this.http
-    .post('http://localhost:8080/api/service/insertInfo/'+jrkEntitaet.id, actInfo);
+      .post('http://localhost:8080/api/service/insertInfo/' + jrkEntitaet.id, actInfo);
   }
 
   //offene Dokumentation erhalten
-  getOpenDoko(body){
+  getOpenDoko(body) {
     return this.http
-    .post('http://localhost:8080/api/service/getOpenDoko', body);
+      .post('http://localhost:8080/api/service/getOpenDoko', body);
   }
 
   //Neue Dokumentation einfügen
-  insertDoku(actTermin){
+  insertDoku(actTermin) {
     return this.http
-    .post('http://localhost:8080/api/service/insertDoko', actTermin);
+      .post('http://localhost:8080/api/service/insertDoko', actTermin);
   }
 
   //Informationen zu Benutzer holen
-  getUserInfos(body){
+  getUserInfos(body) {
     return this.http
-    .post('http://localhost:8080/api/service/getUserInfos', body);
+      .post('http://localhost:8080/api/service/getUserInfos', body);
   }
 
   //Name des Benutzers der gerade angemeldet ist
-  getName(body){
+  getName(body) {
     return this.http
-    .post('http://localhost:8080/api/service/getName', body);
+      .post('http://localhost:8080/api/service/getName', body);
   }
 
   //True oder False je nach dem ob der angemeldete Benutzer berechtigt ist
   //zu editieren oder nicht
-  isEditor(body){
+  isEditor(body) {
     return this.http
-    .post('http://localhost:8080/api/service/isEditor', body);
+      .post('http://localhost:8080/api/service/isEditor', body);
   }
 
   //True oder False ob Admin oder nicht
-  isAdmin(body){
+  isAdmin(body) {
     return this.http
-    .post('http://localhost:8080/api/service/isAdmin', body);
+      .post('http://localhost:8080/api/service/isAdmin', body);
   }
 
   //JRKEntität des aktuell angemeldeten Benutzers
-  getJRKEntitaet(body){
+  getJRKEntitaet(body) {
     return this.http
-    .post('http://localhost:8080/api/service/getJRKEntitaet', body);
+      .post('http://localhost:8080/api/service/getJRKEntitaet', body);
   }
 
   //Terminde für User 
-  getUserTermine(body){
+  getUserTermine(body) {
     return this.http
-    .post('http://localhost:8080/api/service/getUserTermine', body);
+      .post('http://localhost:8080/api/service/getUserTermine', body);
   }
 
   //Passwort ändern
-  changePassword(body){
+  changePassword(body) {
     return this.http
-    .post('http://localhost:8080/api/service/changePassword', body);
+      .post('http://localhost:8080/api/service/changePassword', body);
   }
 
   //Ob Passwort noch geändert werden muss
-  needPwdChange(body){
+  needPwdChange(body) {
     return this.http
-    .post('http://localhost:8080/api/service/needPwdChange', body);
+      .post('http://localhost:8080/api/service/needPwdChange', body);
   }
 
   //Bild hochladen
-  uploadImage(body,filename){
-    return this.http.post("http://localhost:8080/upload?filename="+filename,body);
+  uploadImage(body, filename) {
+    return this.http.post("http://localhost:8080/upload?filename=" + filename, body);
   }
 
-<<<<<<< public/infi/src/app/rest.service.ts
-
-   //Bild hochladen
-   insertPlannungsText(text){
+  //Bild hochladen
+  insertPlannungsText(text) {
     console.log(text);
-    return this.http.post("http://localhost:8080/api/service/insertPlanung/"+9, text);
-=======
-  showprotocol(jrkEntitaet){
-    return this.http.get("http://localhost:8080/api/service/getProtokollDetails/"+jrkEntitaet.id);
->>>>>>> public/infi/src/app/rest.service.ts
+    return this.http.post("http://localhost:8080/api/service/insertPlanung/" + 9, text);
+  }
+
+  showprotocol(jrkEntitaet) {
+    return this.http.get("http://localhost:8080/api/service/getProtokollDetails/" + jrkEntitaet.id);
   }
 }

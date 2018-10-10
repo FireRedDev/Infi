@@ -10,7 +10,7 @@ import { EventEmitter } from '@angular/core';
 export class ManageUserComponent implements OnInit {
 
 private jrkEnitaet = 2;
-private JRKEntitaeten;
+public JRKEntitaeten;
 data: any;
 isEditable:boolean = false;
 persons;

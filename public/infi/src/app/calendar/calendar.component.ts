@@ -12,6 +12,7 @@ import { DateTimePickerComponent } from './date-time-picker.component';
 import { colors } from './colors';
 import { RestService } from '../rest.service';
 import 'rxjs/add/operator/map';
+import { Observable, Subject } from 'rxjs';
 import {
   isSameMonth,
   isSameDay,
@@ -26,18 +27,17 @@ import {
   addDays,
   addHours
 } from 'date-fns';
-import { Observable } from 'rxjs/Observable';
 import {
   NgbDatepickerModule,
   NgbTimepickerModule, NgbModal
 } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs/Subject';
 import { CustomEventTitleFormatter } from './custom-event-title-formatter.provider';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Benutzer } from '../login-form/benutzer.model';
-import { Component,
+import {
+  Component,
   NgModule,
   ChangeDetectionStrategy,
   OnInit,
@@ -47,7 +47,10 @@ import { Component,
   ViewChild,
   Provider,
   OnDestroy,
-  TemplateRef } from '@angular/core';
+  TemplateRef
+} from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 interface Termin {
   id: number;
@@ -67,7 +70,7 @@ interface Termin {
     NgbTimepickerModule.forRoot(),
     CalendarModule
   ],
-  declarations: [ DateTimePickerComponent],
+  declarations: [DateTimePickerComponent],
   exports: [DateTimePickerComponent]
 })
 @Component({
@@ -76,32 +79,32 @@ interface Termin {
   styleUrls: ['./calendar.component.css'],
   providers: [
     {
-    provide: CalendarDateFormatter,
-    useClass: CustomDateFormatter
-  },
-  {
-    provide: CalendarEventTitleFormatter,
-    useClass: CustomEventTitleFormatter
-  }
+      provide: CalendarDateFormatter,
+      useClass: CustomDateFormatter
+    },
+    {
+      provide: CalendarEventTitleFormatter,
+      useClass: CustomEventTitleFormatter
+    }
   ]
 })
 export class CalendarComponent implements OnInit {
   viewDate: Date = new Date();
   title = 'app';
-  locale = 'de';
   @Input() view;
+  @Output() showDetail = new EventEmitter();
+
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
   weekendDays: number[] = [DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
 
   events$: Observable<Array<CalendarEvent<{ termin: Termin }>>>;
 
+  locale: string = 'de-AT';
+
   activeDayIsOpen = false;
 
-  @Output() viewChange: EventEmitter<string> = new EventEmitter();
-  @Output() viewDateChange: EventEmitter<Date> = new EventEmitter();
-
-  constructor(public rest: RestService,private route: ActivatedRoute, private router: Router) {
-    this.rest=rest;
+  constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) {
+    this.rest = rest;
   }
 
   ngOnInit() {
@@ -130,12 +133,12 @@ export class CalendarComponent implements OnInit {
   }
 
   //Konvertieren der Events zum anzeigen
-  convertEvents(events: Array<Termin>): Array<any>{
+  convertEvents(events: Array<Termin>): Array<any> {
     const calendarEvents = [];
-    events.forEach(function(event){
-      var text='Titel: ' + event.title + '<br>Beschreibung: ' + event.beschreibung + '<br>Ort: ' + event.ort
-      if(event.imgpath){
-        text+="<br><img width='200px' src='"+event.imgpath+"'>"
+    events.forEach(function (event) {
+      var text = 'Titel: ' + event.title + '<br>Beschreibung: ' + event.beschreibung + '<br>Ort: ' + event.ort
+      if (event.imgpath) {
+        text += "<br><img width='200px' src='" + event.imgpath + "'>"
       }
       calendarEvents.push({
         title: text,
@@ -143,7 +146,7 @@ export class CalendarComponent implements OnInit {
         end: new Date(event.e_date),
         color: colors.red,
         cssClass: 'my-custom-class'
-        });
+      });
     });
     return calendarEvents;
   }
@@ -151,9 +154,9 @@ export class CalendarComponent implements OnInit {
     date,
     events
   }: {
-    date: Date;
-    events: Array<CalendarEvent<{ termin: Termin }>>;
-  }): void {
+      date: Date;
+      events: Array<CalendarEvent<{ termin: Termin }>>;
+    }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
         (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -165,5 +168,9 @@ export class CalendarComponent implements OnInit {
         this.viewDate = date;
       }
     }
+  }
+  openDetail(event) {
+    console.log(event);
+    this.showDetail.emit(event);
   }
 }

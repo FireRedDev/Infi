@@ -15,7 +15,7 @@ export class AddUserComponent implements OnInit {
   @Input() jrkEntitaet: jrkEntitaet;
 
   private jrkEnitaet = 2;
-  private JRKEntitaeten;
+  public JRKEntitaeten;
 
   constructor(private rest: RestService) {
     this.rest=rest;

@@ -1,6 +1,15 @@
 {
-    "search.exclude": {
-        "**/node_modules": true,
-        "**/bower_components": true
-    }
-}
+    // Controls if the editor should automatically format the line after typing
+    "beautify.onSave": true,
+ 
+    "editor.formatOnSave": true,
+ 
+    // You can auto formate any files based on extensions type. 
+ "beautify.JSfiles": [
+     "js",
+     "json",
+     "jsbeautifyrc",
+     "jshintrc",
+     "ts"
+   ] 
+ }
