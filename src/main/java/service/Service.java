@@ -398,7 +398,16 @@ public class Service {
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     public void insertInfo(@PathParam("id") int id, Info i) {
+        System.out.println("here");
         repo.insertInfo(id, i);
+    }
+    
+    @Path("insertPlanung/{id}")
+    //@Secured(Role.GRUPPENLEITER)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @POST
+    public void inertPlanung(@PathParam("id") int id, String  text) {
+        repo.insertPlanung(id, text);
     }
     
     @GET

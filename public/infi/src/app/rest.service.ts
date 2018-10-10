@@ -152,7 +152,15 @@ export class RestService {
     return this.http.post("http://localhost:8080/upload?filename="+filename,body);
   }
 
+<<<<<<< public/infi/src/app/rest.service.ts
+
+   //Bild hochladen
+   insertPlannungsText(text){
+    console.log(text);
+    return this.http.post("http://localhost:8080/api/service/insertPlanung/"+9, text);
+=======
   showprotocol(jrkEntitaet){
     return this.http.get("http://localhost:8080/api/service/getProtokollDetails/"+jrkEntitaet.id);
+>>>>>>> public/infi/src/app/rest.service.ts
   }
 }

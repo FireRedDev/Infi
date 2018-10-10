@@ -730,6 +730,13 @@ public class DatenbankRepository {
         insert(jrk);
     }
 
+    public void insertPlanung(int id, String text) {
+        Termin termin = em.find(Termin.class, id);
+        termin.setPlannung(text);
+
+        insert(termin);
+    }
+
     public List<Termin> getProtokollDetails(int id) {
         List<Termin> termin = new LinkedList();
 
