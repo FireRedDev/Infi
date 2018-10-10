@@ -11,7 +11,7 @@ styleUrls: ['./diagrams.component.css']
 export class DiagramsComponent implements OnInit{
 
 private jrkEnitaet = 2;
-private JRKEntitaeten;
+public JRKEntitaeten;
 data: any;
 single=[];
 single2=[];
@@ -19,6 +19,8 @@ single3=[];
 singleChartBar=[];
 multiChartBar=[];
 view: any[] = [700, 400];
+xAxisLabel='Monat';
+yAxisLabel='Stunden';
 
 showLegend = true;
 

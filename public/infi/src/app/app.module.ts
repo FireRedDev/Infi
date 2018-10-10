@@ -4,49 +4,59 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CalendarModule } from 'angular-calendar';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { HeaderComponent } from './header/header.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { FooterComponent } from './footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
 import { UserService } from './user.service';
-import {AuthguardGuard} from './authguard.guard';
-import {AuthService} from './auth/auth.service';
+import { AuthguardGuard } from './authguard.guard';
+import { AuthService } from './auth/auth.service';
 import { SidebarModule } from 'ng-sidebar';
-import {HttpClientModule} from '@angular/common/http';
-import { TerminComponent, DefaultIntl} from './termin/termin.component';
+import { HttpClientModule } from '@angular/common/http';
+import { TerminComponent, DefaultIntl } from './termin/termin.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { ProtocolComponent } from './protocol/protocol.component';
 import { DiagramsComponent } from './diagrams/diagrams.component';
-import {NgxChartsModule} from '@swimlane/ngx-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { RestService } from './rest.service';
 import { HomeComponent } from './home/home.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { ToastrModule } from 'ngx-toastr';
 import { DateTimePickerComponent } from './calendar/date-time-picker.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
-import { CarouselModule } from "angular2-carousel";
+import { OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
 import { OwlDateTimeIntl } from 'ng-pick-datetime/date-time/date-time-picker-intl.service';
 import { ManageUserComponent } from './manage-user/manage-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { InformationComponent } from './information/information.component';
 import { PasswordComponent } from './password/password.component';
+import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import localeDe from '@angular/common/locales/de-AT';
+import { registerLocaleData } from '@angular/common';
+import { CalendarDetailComponent } from './calendar-detail/calendar-detail.component';
+import { MessagingService } from './messaging.service';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireModule, FirebaseApp } from 'angularfire2';
+import { environment } from '../environments/environment';
 
-const appRoutes:Routes = [
-{
-path: '',
-component: LoginFormComponent
-},
-{
-path: 'dashboard',
-canActivate: [AuthguardGuard],
-component: DashboardComponent
-}
+registerLocaleData(localeDe);
+const appRoutes: Routes = [
+  {
+    path: '',
+    component: LoginFormComponent
+  },
+  {
+    path: 'dashboard',
+    canActivate: [AuthguardGuard],
+    component: DashboardComponent
+  }
 ]
 @NgModule({
   declarations: [
@@ -64,7 +74,8 @@ component: DashboardComponent
     ManageUserComponent,
     AddUserComponent,
     InformationComponent,
-    PasswordComponent
+    PasswordComponent,
+    CalendarDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -73,25 +84,25 @@ component: DashboardComponent
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    CalendarModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
     SidebarModule.forRoot(),
     NgbModule.forRoot(),
-    ToastrModule.forRoot(), 
-    OwlDateTimeModule, 
+    ToastrModule.forRoot(),
+    OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgxChartsModule,
-    CarouselModule,
-	  ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
   ],
-  providers: [UserService, RestService, AuthguardGuard, AuthService, 
+  providers: [UserService, RestService, AuthguardGuard, AuthService, MessagingService, AngularFireDatabase, AngularFireAuth,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'},
-    {provide: OwlDateTimeIntl, useValue: DefaultIntl}
-],
+    { provide: OWL_DATE_TIME_LOCALE, useValue: 'de' },
+    { provide: OwlDateTimeIntl, useValue: DefaultIntl }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
-
-export class MyModule {}
-
-export class MyAppModule {}
+export class AppModule { }

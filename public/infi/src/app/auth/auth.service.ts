@@ -15,10 +15,10 @@ export class AuthService {
   }
   cachedRequests: Array<HttpRequest<any>> = [];
   public collectFailedRequest(request): void {
-      this.cachedRequests.push(request);
-    }
+    this.cachedRequests.push(request);
+  }
   public retryFailedRequests(): void {
-      // retry the requests. this method can
-      // be called after the token is refreshed
-    }
+    // retry the requests. this method can
+    // be called after the token is refreshed
+  }
 }

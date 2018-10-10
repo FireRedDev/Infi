@@ -1,16 +1,18 @@
 import { jrkEntitaet } from '../models/jrkEntitaet.model';
 import { forEach } from '@angular/router/src/utils/collection';
-import { Component,
-ChangeDetectionStrategy,
-OnInit,
-Input,
-Output,
-EventEmitter,
-ViewChild,
-Provider,
-OnDestroy,
-TemplateRef } from '@angular/core';
-import {UserService} from '../user.service';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  Provider,
+  OnDestroy,
+  TemplateRef
+} from '@angular/core';
+import { UserService } from '../user.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -29,39 +31,40 @@ declare var $: any;
 export class DashboardComponent implements OnInit {
 
   username: String;
-  isEditor= true;
-  isAdmin=false;
+  isEditor = true;
+  isAdmin = false;
   jrkEntitaet: any;
   view = 'home';
-  password1="";
-  password2="";
+  password1 = "";
+  password2 = "";
+  calendarEntry = {};
 
   //einige Varbiablen zum konfifurieren der Sidebar
-  private _opened = false;
-  private _modeNum = 0;
-  private _positionNum = 0;
-  private _dock = false;
-  private _closeOnClickOutside = true;
-  private _closeOnClickBackdrop = true;
-  private _showBackdrop = true;
-  private _animate = true;
-  private _trapFocus = true;
-  private _autoFocus = true;
-  private _keyClose = false;
-  private _autoCollapseHeight: number = null;
-  private _autoCollapseWidth: number = null;
+  public _opened = false;
+  public _modeNum = 0;
+  public _positionNum = 0;
+  public _dock = false;
+  public _closeOnClickOutside = true;
+  public _closeOnClickBackdrop = true;
+  public _showBackdrop = true;
+  public _animate = true;
+  public _trapFocus = true;
+  public _autoFocus = true;
+  public _keyClose = false;
+  public _autoCollapseHeight: number = null;
+  public _autoCollapseWidth: number = null;
   id: number;
-  private sub: any;
+  public sub: any;
 
-  private _MODES: Array<string> = ['over', 'push', 'slide'];
-  private _POSITIONS: Array<string> = ['left', 'right', 'top', 'bottom'];
+  public _MODES: Array<string> = ['over', 'push', 'slide'];
+  public _POSITIONS: Array<string> = ['left', 'right', 'top', 'bottom'];
 
   //einige Funktionen für die Funktionalität der Sidebar
-  private _toggleOpened(): void {
+  public _toggleOpened(): void {
     this._opened = !this._opened;
   }
 
-  private _toggleMode(): void {
+  public _toggleMode(): void {
     this._modeNum++;
 
     if (this._modeNum === this._MODES.length) {
@@ -69,15 +72,15 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  private _toggleAutoCollapseHeight(): void {
+  public _toggleAutoCollapseHeight(): void {
     this._autoCollapseHeight = this._autoCollapseHeight ? null : 500;
   }
 
-  private _toggleAutoCollapseWidth(): void {
+  public _toggleAutoCollapseWidth(): void {
     this._autoCollapseWidth = this._autoCollapseWidth ? null : 500;
   }
 
-  private _togglePosition(): void {
+  public _togglePosition(): void {
     this._positionNum++;
 
     if (this._positionNum === this._POSITIONS.length) {
@@ -85,52 +88,52 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  private _toggleDock(): void {
+  public _toggleDock(): void {
     this._dock = !this._dock;
   }
 
-  private _toggleCloseOnClickOutside(): void {
+  public _toggleCloseOnClickOutside(): void {
     this._closeOnClickOutside = !this._closeOnClickOutside;
   }
 
-  private _toggleCloseOnClickBackdrop(): void {
+  public _toggleCloseOnClickBackdrop(): void {
     this._closeOnClickBackdrop = !this._closeOnClickBackdrop;
   }
 
-  private _toggleShowBackdrop(): void {
+  public _toggleShowBackdrop(): void {
     this._showBackdrop = !this._showBackdrop;
   }
 
-  private _toggleAnimate(): void {
+  public _toggleAnimate(): void {
     this._animate = !this._animate;
   }
 
-  private _toggleTrapFocus(): void {
+  public _toggleTrapFocus(): void {
     this._trapFocus = !this._trapFocus;
   }
 
-  private _toggleAutoFocus(): void {
+  public _toggleAutoFocus(): void {
     this._autoFocus = !this._autoFocus;
   }
 
-  private _toggleKeyClose(): void {
+  public _toggleKeyClose(): void {
     this._keyClose = !this._keyClose;
   }
 
-  private _onOpenStart(): void {
+  public _onOpenStart(): void {
   }
 
-  private _onOpened(): void {
+  public _onOpened(): void {
   }
 
-  private _onCloseStart(): void {
+  public _onCloseStart(): void {
   }
 
-  private _onClosed(): void {
+  public _onClosed(): void {
   }
 
-  constructor(public rest: RestService,private user: UserService, private route: ActivatedRoute, private router: Router) {
-    this.rest=rest;
+  constructor(public rest: RestService, public user: UserService, public route: ActivatedRoute, public router: Router) {
+    this.rest = rest;
   }
 
   ngOnInit(): void {
@@ -139,7 +142,7 @@ export class DashboardComponent implements OnInit {
     //Username von Server erfragen
     this.rest.getName(body)
       .subscribe(data => {
-        this.username = JSON.stringify(data).replace("\"","").replace("\"","");
+        this.username = JSON.stringify(data).replace("\"", "").replace("\"", "");
       });
 
     //Abfragen ob dieser User Editor ist
@@ -149,49 +152,54 @@ export class DashboardComponent implements OnInit {
       });
 
     //Abfragen ob dieser User Admin ist
-      this.rest.isAdmin(body)
+    this.rest.isAdmin(body)
       .subscribe(data => {
         this.isAdmin = (data === true);
       });
 
     //Muss dieser User das Passwort ändern
     this.rest.needPwdChange(body)
-    .subscribe(data => {
-      if(data!=true){
-        $('#pwdModal').modal({
-          backdrop: 'static',
-          keyboard: false
+      .subscribe(data => {
+        if (data != true) {
+          $('#pwdModal').modal({
+            backdrop: 'static',
+            keyboard: false
+          });
+          //this remove the close button on top if you need
+          $('#pwdModal').find('.close').remove();
+          //this unbind the event click on the shadow zone
+          $('#pwdModal').unbind('click');
+          $('#pwdModal').modal('show');
+        }
       });
-    //this remove the close button on top if you need
-    $('#pwdModal').find('.close').remove();
-    //this unbind the event click on the shadow zone
-    $('#pwdModal').unbind('click');
-        $('#pwdModal').modal('show');
-      }
-    });
 
     //JRKEntität von Person abrufen
     this.rest.getJRKEntitaet(body)
       .subscribe(data => {
         this.jrkEntitaet = data;
-      }); 
+      });
   }
 
   //ändern der View
-  changeView(i){
+  changeView(i) {
     this.view = i;
+  }
+  showDetail(i) {
+    console.log(i);
+    this.calendarEntry = i;
+    this.view = 'calendar-detail';
   }
 
   //Password ändern
-  changePwd(){
-    if(this.password1==this.password2&&this.password1!=""){
-      const body = {'id': localStorage.getItem('currentUser'), 'password': this.password1};
+  changePwd() {
+    if (this.password1 == this.password2 && this.password1 != "") {
+      const body = { 'id': localStorage.getItem('currentUser'), 'password': this.password1 };
       this.rest.changePassword(body).subscribe(data => {
-        console.log("message: "+data);
+        console.log("message: " + data);
         $('#pwdModal').modal('hide');
       });
     }
-    else{
+    else {
       alert("Die beiden Passwörter sind nicht ident, versuche es nochmal!");
     }
   }

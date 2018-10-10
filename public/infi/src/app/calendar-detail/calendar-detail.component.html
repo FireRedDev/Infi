@@ -1,0 +1,3 @@
+<div *ngFor="let item of calendarEntry.events; let i = index">
+  <div [innerHTML]='item.title'></div>{{item.start}}-{{item.end}}
+</div>
