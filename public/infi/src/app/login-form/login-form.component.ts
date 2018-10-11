@@ -36,6 +36,7 @@ export class LoginFormComponent implements OnInit {
     //workaround
     var rt = this.router;
     var u = this.user;
+
     this.rest.login(body).
       subscribe({
         next(data) {

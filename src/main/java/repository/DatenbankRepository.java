@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import javax.persistence.*;
 import javax.ws.rs.core.*;
 import service.MySecurityContext;
-
+import service.Service;
 /**
  * Repository Communicate with Database
  *
@@ -745,5 +745,15 @@ public class DatenbankRepository {
         termin = this.termineLayerDown(jrk, termin);
 
         return termin;
+    }
+
+    public String setFCMToken(int id, String token) {
+       Person p= em.find(Person.class,id);
+       p.setFcmtoken(token);
+       em.getTransaction().begin();
+       em.merge(p);
+       em.getTransaction().commit();
+       Service.firstToken=true;
+       return "sucess";
     }
 }

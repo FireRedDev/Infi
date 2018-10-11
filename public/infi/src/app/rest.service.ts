@@ -161,4 +161,10 @@ export class RestService {
   showprotocol(jrkEntitaet) {
     return this.http.get("http://localhost:8080/api/service/getProtokollDetails/" + jrkEntitaet.id);
   }
+
+  sendToken(body, token) {
+    console.log("id: " + body);
+    console.log("token: " + token);
+    return this.http.post("http://localhost:8080/api/service/saveFCMToken/" + body, token);
+  }
 }

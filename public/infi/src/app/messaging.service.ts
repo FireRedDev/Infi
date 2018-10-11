@@ -3,13 +3,16 @@ import * as firebase from 'firebase';
 import { BehaviorSubject } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { RestService } from './rest.service';
 @Injectable()
 export class MessagingService {
 
   messaging = firebase.messaging()
   currentMessage = new BehaviorSubject(null)
 
-  constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth) { }
+  constructor(private rest: RestService, private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
+    this.rest = rest;
+  }
 
   updateToken(token) {
 
@@ -29,6 +32,7 @@ export class MessagingService {
       })
       .then(token => {
         console.log(token)
+        localStorage.setItem('pushToken', token)
         this.updateToken(token)
       })
       .catch((err) => {
