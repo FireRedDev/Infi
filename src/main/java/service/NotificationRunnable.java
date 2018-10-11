@@ -3,7 +3,6 @@ package service;
 import entities.JRKEntitaet;
 import entities.Person;
 import entities.Termin;
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -14,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -34,8 +34,8 @@ public class NotificationRunnable implements Runnable {
      */
     private static final int TTL = 255;
     private static final String PROJECT_ID = "infi-faefd";
-    private static final String BASE_URL = "https://fcm.googleapis.com";
-    private static final String FCM_SEND_ENDPOINT = "/v1/projects/" + PROJECT_ID + "/messages:send";
+    private static final String BASE_URL = "https://fcm.googleapis.com/fcm/send";
+    //private static final String FCM_SEND_ENDPOINT = "/v1/projects/" + PROJECT_ID + "/messages:send";
 
     private static final String MESSAGING_SCOPE = "https://www.googleapis.com/auth/firebase.messaging";
     private static final String[] SCOPES = {MESSAGING_SCOPE};
@@ -50,69 +50,52 @@ public class NotificationRunnable implements Runnable {
 
     @Override
     public void run() {
-        //TODO Post machen wo man subscription bekommt und mehr in datenbank speichern und hier auslesen und in schleife durchgehen
-//        Security.addProvider(new BouncyCastleProvider());
-//        PushService pushService = new PushService();
-//       Notification notification = new Notification(subscription, payload);
-//    pushService.sendAsync(notification);
 
-        try {
-            sendCommonMessage();
-        } catch (IOException ex) {
-
+        while (!Service.firstToken) {
         }
-                System.out.println("Notification Thread running");
-        while (true) {
-            //test
+        try {
+            sendCommonMessagePersonal(em.find(Person.class, 1).getFcmtoken());
+        } catch (IOException ex) {
+            Logger.getLogger(NotificationRunnable.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Notification Thread running");
+        //while (true) {
+        //test
+        //if(LocalDateTime.now().to)
+        List<Person> personen = em.createNamedQuery("Benutzer.listAll", Person.class).getResultList();
+        LocalDate todaysDate = LocalDate.now();
+        for (Person currentPerson : personen) {
+            List<Termin> termine = new LinkedList();
 
-            List<Person> personen = em.createNamedQuery("Benutzer.listAll", Person.class).getResultList();
-            LocalDate todaysDate = LocalDate.now();
-            for (Person currentPerson : personen) {
-                List<Termin> termine = new LinkedList();
-
-                //Check for Duplicates, prepare Termin list
-                termine = addList(termine, currentPerson.getJrkentitaet().getTermine());
-                //Recursivly get Termine hierarchic upwards
-                termine = this.termineLayerDown(currentPerson.getJrkentitaet(), termine);
-                //Recursivly get Termine hierarchic downwards
-                termine = this.termineLayerUp(currentPerson.getJrkentitaet(), termine);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                for (Termin termin : termine) {
-                    //    "2018-05-02 18:00:00
-                    if (LocalDate.parse(termin.getS_date(), formatter).equals(todaysDate)) {
-                        try {
-                            this.TITLE = "Bevorstehender Termin";
-                            //Format String
-                            this.BODY = termin.toString();
-                            sendCommonMessage();
-                        } catch (IOException ex) {
-                            Logger.getLogger(NotificationRunnable.class.getName()).log(Level.SEVERE, null, ex);
-                            ex.printStackTrace();
+            //Check for Duplicates, prepare Termin list
+            termine = addList(termine, currentPerson.getJrkentitaet().getTermine());
+            //Recursivly get Termine hierarchic upwards
+            termine = this.termineLayerDown(currentPerson.getJrkentitaet(), termine);
+            //Recursivly get Termine hierarchic downwards
+            termine = this.termineLayerUp(currentPerson.getJrkentitaet(), termine);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            for (Termin termin : termine) {
+                //    "2018-05-02 18:00:00
+                if (LocalDate.parse(termin.getS_date(), formatter).equals(todaysDate)) {
+                    try {
+                        this.TITLE = "Bevorstehender Termin";
+                        //Format String
+                        this.BODY = termin.getTitle() + " startet am " + termin.getS_date();
+                        String token = currentPerson.getFcmtoken();
+                        if (token != "") {
+                            sendCommonMessagePersonal(token);
                         }
+                    } catch (IOException ex) {
+                        Logger.getLogger(NotificationRunnable.class.getName()).log(Level.SEVERE, null, ex);
+                        ex.printStackTrace();
                     }
                 }
+                // }
 
             }
+
         }
     }
-
-    /**
-     * Retrieve a valid access token that can be use to authorize requests to
-     * the FCM REST API.
-     *
-     * @return Access token.
-     * @throws IOException
-     */
-    // [START retrieve_access_token]
-    private String getAccessToken() throws IOException, ClassNotFoundException {
-        InputStream is = getClass().getClassLoader().getResourceAsStream("service-account.json");
-        GoogleCredential googleCredential = GoogleCredential
-                .fromStream(is)
-                .createScoped(Arrays.asList(SCOPES));
-        googleCredential.refreshToken();
-        return googleCredential.getAccessToken();
-    }
-    // [END retrieve_access_token]
 
     /**
      * Create HttpURLConnection that can be used for both retrieving and
@@ -123,13 +106,11 @@ public class NotificationRunnable implements Runnable {
      */
     private HttpURLConnection getConnection() throws IOException {
         // [START use_access_token]
-        URL url = new URL(BASE_URL + FCM_SEND_ENDPOINT);
+        URL url = new URL(BASE_URL);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-        try {
-            httpURLConnection.setRequestProperty("Authorization", "Bearer " + getAccessToken());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(NotificationRunnable.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        httpURLConnection.setRequestProperty("Authorization", "key=AAAAoacmulA:APA91bHG4g668PrYpo_6Wm1d5a4ETBeCOGpyQ2YNnXKhPHKMdghp_NDuIl_Ghrq9XbpAX_og6nxruGr4OXZzhlEDb_aVkNdYukhz6I2VFHPKulgEP41Pv0cUWgPHyiKnH0PwYftlfp5f");
+
         httpURLConnection.setRequestProperty("Content-Type", "application/json; UTF-8");
         return httpURLConnection;
         // [END use_access_token]
@@ -244,16 +225,25 @@ public class NotificationRunnable implements Runnable {
         return apsPayload;
     }
 
-    /**
-     * Send notification message to FCM for delivery to registered devices.
-     *
-     * @throws IOException
-     */
-    public void sendCommonMessage() throws IOException {
-        JsonObject notificationMessage = buildNotificationMessage();
+    public void sendCommonMessagePersonal(String token) throws IOException {
+        JsonObject jNotification = new JsonObject();
+        jNotification.addProperty("title", TITLE);
+        jNotification.addProperty("body", BODY);
+        jNotification.addProperty("sound", "default");
+
+        JsonObject data = new JsonObject();
+        data.addProperty("param1", "param1");
+        data.addProperty("param2", "param2");
+
+        JsonObject jMessage = new JsonObject();
+        jMessage.add("data", data);
+        jMessage.add("notification", jNotification);
+        jMessage.addProperty("to", token);
+        jMessage.addProperty("priority", "high");
+
         System.out.println("FCM request body for message using common notification object:");
-        prettyPrint(notificationMessage);
-        sendMessage(notificationMessage);
+        prettyPrint(jMessage);
+        sendMessage(jMessage);
     }
 
     /**

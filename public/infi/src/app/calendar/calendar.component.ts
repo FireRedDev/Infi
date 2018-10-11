@@ -2,8 +2,6 @@ import {
   CalendarEvent,
   CalendarDateFormatter,
   DAYS_OF_WEEK,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
   CalendarEventTitleFormatter,
   CalendarModule
 } from 'angular-calendar';
@@ -21,15 +19,11 @@ import {
   startOfWeek,
   endOfWeek,
   startOfDay,
-  endOfDay,
-  format,
-  subDays,
-  addDays,
-  addHours
+  endOfDay
 } from 'date-fns';
 import {
   NgbDatepickerModule,
-  NgbTimepickerModule, NgbModal
+  NgbTimepickerModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { CustomEventTitleFormatter } from './custom-event-title-formatter.provider';
 import { ActivatedRoute, Router } from '@angular/router';
