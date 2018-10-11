@@ -1,0 +1,70 @@
+   <div class="container">
+   <h2>Protokoll vom {{s_date}}</h2>
+      <div class="row">
+         <div class="col-lg">
+            <br>
+            <label for="title"><b>Titel</b></label>
+            <p>{{actTermin.title}}</p>
+<hr>
+         </div>
+         <br>
+        </div>
+        <div class="row">
+         <div class="col-lg">
+                <label for="beschreibung"><b>Beschreibung</b></label>
+                <p>{{actTermin.beschreibung}}</p>
+             </div>
+         <br>
+         <div class="col-lg">
+                <label for="ort"><b>Ort</b></label>
+                <p>{{actTermin.ort}}</p>
+                <label for="s_date"><b>Startdatum</b></label>
+                {{s_date}}
+                <br>
+                <label for="e_date"><b>Enddatum</b></label>
+                {{e_date}}
+             </div>
+         <br>
+        </div>
+        <hr>
+     <div class="row">
+         <br>
+         <div class="col-lg">
+            <label for="betreuer"><b>Betreuer</b></label>
+            <div>
+               <div *ngFor="let c of proto.betreuer; let i=index">
+                  {{ c }}
+                </div>
+            </div>
+         </div>
+         <br>
+         <div class="col-lg">
+            <label for="kinderliste"><b>Kinder</b></label>
+            <div>
+                <div *ngFor="let c of proto.children; let i=index">
+                   {{ c }}
+                </div>
+            </div>
+         </div>
+      </div>
+      <hr>
+      <div class="row">
+         <br>
+         <div class="col-lg">
+            <label for="taetigkeiten"><b>Tätigkeiten</b></label>
+            <p>{{proto.taetigkeiten}}</p>
+         </div>
+         <br>
+         <div class="col-lg">
+            <label for="vzeit"><b>Vorbereitungszeit in Stunden</b></label>
+            <p>{{proto.vzeit}}</p>
+         </div>
+      </div>
+      <div class="row">
+         <br>
+         <div class="col-lg">
+            <label for="kategorie"><b>Kategorie</b></label><br>
+           <p>{{proto.kategorie}}</p>
+         </div>
+      </div>
+  </div>

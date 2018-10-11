@@ -746,4 +746,11 @@ public class DatenbankRepository {
 
         return termin;
     }
+
+    public Termin getDokoById(int id) {
+        Termin doku;
+        doku = em.find(Termin.class, id);
+        System.out.println("Doku: " + doku);
+        return doku;
+   }
 }

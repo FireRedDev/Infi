@@ -7,9 +7,11 @@
       <div>
         {{p.beschreibung.slice(0, 200)}}
       </div>
-      <br>  
-                                                               <!-- [button]="{{p.id}}" -->
-      <button style="color:white" type="button" class="btn btn-dark btn-sm">Weiter lesen..</button>
-
+      <br>                                         <!-- [button]="{{p.id}}" -->
+      <!--<button style="color:white" type="button" class="btn btn-dark btn-sm" (click)=changeView>Weiter lesen..</button>
+      -->
+      <button style="color:white" type="button" (click)="showDetail(p.id)" class="btn btn-dark btn-sm">Weiter lesen..</button>
+      
+     
       <!-- http://jasonwatmore.com/post/2016/08/23/angular-2-pagination-example-with-logic-like-google -->
 </div>

@@ -265,6 +265,14 @@ public class Service {
         return repo.getOpenDoko(id);
     }
 
+    
+    @Path("getDokuById/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public Termin getDokoById(@PathParam("id") int id) {
+        System.out.println("Looking for id: " + id);
+        return repo.getDokoById(id);
+    }
     /**
      * Häufigkeit von Kategorie in einer JRKEntity
      *

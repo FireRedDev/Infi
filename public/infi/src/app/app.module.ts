@@ -37,6 +37,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { InformationComponent } from './information/information.component';
 import { PasswordComponent } from './password/password.component';
 import { ShowprotocolComponent } from './showprotocol/showprotocol.component';
+import {ProtocolDetailComponent} from './protocol-detail/protocol-detail.component';
 
 const appRoutes:Routes = [
 {
@@ -66,7 +67,8 @@ component: DashboardComponent
     AddUserComponent,
     InformationComponent,
     PasswordComponent,
-    ShowprotocolComponent
+    ShowprotocolComponent,
+    ProtocolDetailComponent
   ],
   imports: [
     BrowserModule,

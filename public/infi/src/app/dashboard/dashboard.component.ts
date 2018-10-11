@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { Benutzer } from '../login-form/benutzer.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestService } from '../rest.service';
+import { ProtocolDetailComponent } from '../protocol-detail/protocol-detail.component';
 declare var jquery: any;
 declare var $: any;
 
@@ -35,6 +36,7 @@ export class DashboardComponent implements OnInit {
   view = 'home';
   password1="";
   password2="";
+  protocol;
 
   //einige Varbiablen zum konfifurieren der Sidebar
   private _opened = false;
@@ -180,6 +182,12 @@ export class DashboardComponent implements OnInit {
   //ändern der View
   changeView(i){
     this.view = i;
+  }
+
+  showProtocol(i){
+    console.log("id" + i);
+    this.view='protocolDetail';
+    this.protocol = i;
   }
 
   //Password ändern

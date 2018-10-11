@@ -11,7 +11,7 @@ import { EventEmitter, Output } from '@angular/core';
 export class ShowprotocolComponent implements OnInit {
   private protocol = [];
   @Input() jrkEntitaet: jrkEntitaet;
-  @Output() changeView: EventEmitter<string> = new EventEmitter();
+  @Output() showProtocol: EventEmitter<any> = new EventEmitter();
 
   constructor(public rest: RestService) { }
 
@@ -19,6 +19,10 @@ export class ShowprotocolComponent implements OnInit {
     this.rest.showprotocol(this.jrkEntitaet).subscribe(data=>{
         this.protocol = data;
     });
+  }
+
+  showDetail(id){
+    this.showProtocol.emit(id);
   }
 
 }

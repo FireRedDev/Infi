@@ -77,11 +77,14 @@
                 <app-information [jrkEntitaet]="jrkEntitaet" (changeView)="changeView($event)"></app-information>
             </div>
             <div *ngIf="view =='showprotocol'">
-                <app-showprotocol [jrkEntitaet]="jrkEntitaet" (changeView)="changeView($event)"></app-showprotocol>
+                <app-showprotocol [jrkEntitaet]="jrkEntitaet" (showProtocol)="showProtocol($event)"></app-showprotocol>
             </div>
             <div *ngIf="view =='password'">
                 <app-password (changeView)="changeView($event)"></app-password>
             </div>
+            <div *ngIf="view=='protocolDetail'">
+            <app-protocol-detail [protocol]=protocol></app-protocol-detail>
+        </div>
         </section>
     </div>
 </ng-sidebar-container>
