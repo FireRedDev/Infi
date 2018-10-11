@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <div id="box" *ngFor="let p of protocol, let i=index">
       <br>
@@ -9,7 +9,36 @@
       </div>
       <br>  
                                                                <!-- [button]="{{p.id}}" -->
-      <button style="color:white" type="button" class="btn btn-dark btn-sm">Weiter lesen..</button>
 
-      <!-- http://jasonwatmore.com/post/2016/08/23/angular-2-pagination-example-with-logic-like-google -->
+      <!-- http://jasonwatmore.com/post/2016/08/23/angular-2-pagination-example-with-logic-like-google
+</div>
+<div class="col-md-12">
+  <table class="table table-responsive table-hover">
+    <tr>
+      <th><a href (click)="sortTable('p.company')">Titel</a></th>
+      <th><a href (click)="sortTable('p.s_date')">Datum</a></th>
+      <th><a href (click)="sortTable('p.beschreibung')">Beschreibung</a></th>
+    </tr>
+    <tr *ngFor="let p of protocol, let i=index">
+      <td>{{p.title}}</td>
+      <td>{{p.s_date.slice(0,16)}}</td>
+      <td>{{p.beschreibung.slice(0, 200)}}</td>
+      <td><button style="color:white" type="button" class="btn btn-dark btn-sm">Weiter lesen..</button></td>
+    </tr>
+  </table>
+</div>-->
+<div class="col-md-12">
+  <table class="table table-responsive table-hover">
+    <tr>
+        <th class="pointer" (click)="sort('Titel')" >Titel</th>
+        <th class="pointer" (click)="sort('Datum')">Datum</th>
+        <th class="pointer" (click)="sort('Beschreibung')" >Beschreibung</th>
+    </tr>
+   <tr *ngFor="let item of  records | category: searchText 
+                | orderBy: {property: column, direction: direction}">     
+      <td>{{item.Titel}}</td>
+      <td>{{item.Datum}}</td>
+      <td>{{item.Beschreibung}}</td>
+    </tr>
+  </table>
 </div>

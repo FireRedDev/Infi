@@ -37,6 +37,12 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { InformationComponent } from './information/information.component';
 import { PasswordComponent } from './password/password.component';
 import { ShowprotocolComponent } from './showprotocol/showprotocol.component';
+import { ProtocolPipe } from './protocol.pipe';
+import {MatTableModule} from '@angular/material/table';
+
+import { CategoryPipe } from './showprotocol/category.pipe';
+import { OrderrByPipe } from './showprotocol/orderByPipe';
+
 
 const appRoutes:Routes = [
 {
@@ -66,7 +72,10 @@ component: DashboardComponent
     AddUserComponent,
     InformationComponent,
     PasswordComponent,
-    ShowprotocolComponent
+    ShowprotocolComponent,
+    ProtocolPipe,
+    CategoryPipe,    // Note these two line
+    OrderrByPipe    // Note these two line
   ],
   imports: [
     BrowserModule,
@@ -85,10 +94,10 @@ component: DashboardComponent
     CarouselModule,
 	  ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [UserService, RestService, AuthguardGuard, AuthService, 
+  providers: [UserService, RestService, AuthguardGuard, AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'},
-    {provide: OwlDateTimeIntl, useValue: DefaultIntl}
+    {provide: OwlDateTimeIntl, useValue: DefaultIntl},
 ],
   bootstrap: [AppComponent]
 })

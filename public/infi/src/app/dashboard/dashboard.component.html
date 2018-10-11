@@ -28,7 +28,7 @@
         <p class="einfuegen"><i class="fa fa-user" aria-hidden="true"></i><b> {{username}} </b></p><hr>
         <div (click)="_toggleOpened()">
             <div href="#" id="hover" (click)="view = 'home'" [class.active]="view === 'home'"><p class="einfuegen"><i class="material-icons">home</i> Startseite</p></div>
-            <div href="#" id="hover" (click)="view = 'month'" [class.active]="view === 'month'" ><p class="einfuegen"><i class="material-icons">date_range</i> Kalendar</p></div>
+            <div href="#" id="hover" (click)="view = 'month'" [class.active]="view === 'month'" ><p class="einfuegen"><i class="material-icons">date_range</i> Kalender</p></div>
             <div href="#" id="hover" (click)="view = 'protocol'" *ngIf="isEditor"><p class="einfuegen"><i class="material-icons">subject</i> Protokoll</p></div>
             <div href="#" id="hover" (click)="view = 'password'" *ngIf="isEditor"><p class="einfuegen"><i class="material-icons">lock</i> Passwort ändern</p></div>
             <div href="#" id="hover" (click)="view = 'diagram'" *ngIf="isEditor"><p class="einfuegen"><i class="material-icons">pie_chart</i> Statistiken</p></div>
