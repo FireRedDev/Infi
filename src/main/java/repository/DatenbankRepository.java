@@ -728,4 +728,20 @@ public class DatenbankRepository {
 
         insert(jrk);
     }
+      public void registerAttendee(int terminID, int userID) {
+        Termin t = em.find(Termin.class, terminID);
+        Person p = em.find(Person.class, userID);
+        if (Arrays.asList(t.getDoko().getKinderliste()).contains(p.getVorname())) {
+            //send Message
+            t.addTeilnehmer(p.getVorname());
+        }
+    }
+    
+    public void removeAttendee(int terminID, int userID) {
+        Termin t = em.find(Termin.class, terminID);
+        Person p = em.find(Person.class, userID);
+        if (t.getTeilnehmer().contains(p.getVorname())) {
+            t.removeTeilnehmer(p.getVorname());
+        }
+    }
 }
