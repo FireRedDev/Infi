@@ -36,6 +36,7 @@ import { ManageUserComponent } from './manage-user/manage-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { InformationComponent } from './information/information.component';
 import { PasswordComponent } from './password/password.component';
+import { TerminDetailAnsichtComponent } from './termin-detail-ansicht/termin-detail-ansicht.component';
 
 const appRoutes:Routes = [
 {
@@ -64,7 +65,8 @@ component: DashboardComponent
     ManageUserComponent,
     AddUserComponent,
     InformationComponent,
-    PasswordComponent
+    PasswordComponent,
+    TerminDetailAnsichtComponent
   ],
   imports: [
     BrowserModule,

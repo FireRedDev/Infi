@@ -4,6 +4,8 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -27,6 +29,7 @@ public class Termin implements Serializable {
     private String imgpath;
     @OneToOne
     private Dokumentation doko;
+    LinkedList Teilnehmer = new LinkedList();
 
     /**
      *
@@ -50,6 +53,22 @@ public class Termin implements Serializable {
         this.beschreibung = beschreibung;
         this.ort = ort;
     }
+
+    public LinkedList getTeilnehmer() {
+        return Teilnehmer;
+    }
+
+    public void setTeilnehmer(LinkedList Teilnehmer) {
+        this.Teilnehmer = Teilnehmer;
+    }
+
+   
+     public void addTeilnehmer(String t) {
+         this.Teilnehmer.add(t);
+     }
+public void removeTeilnehmer(String t) {
+         this.Teilnehmer.remove(t);
+     }
 
     /**
      * Konstruktor mit allen Parametern

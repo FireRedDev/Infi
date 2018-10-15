@@ -7,6 +7,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import repository.DatenbankRepository;
 import RestResponseClasses.PersonTokenTransferObject;
+import javax.ws.rs.core.Context;
 
 /**
  * REST-Request Service
@@ -399,4 +400,20 @@ public class Service {
     public void insertInfo(@PathParam("id") int id, Info i) {
         repo.insertInfo(id, i);
     }
+    @Path("registerAttendee/{id}")
+     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER,Role.KIND})
+    @Consumes(MediaType.APPLICATION_JSON)
+     @POST
+    public void registerAttendee(@PathParam("id") int terminID, int userID,@Context MySecurityContext sc) {
+        if(sc.isIDValue(userID)) {
+        repo.registerAttendee(terminID,userID);
+    }}
+     @Path("registerAttendee/{id}")
+     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER,Role.KIND})
+    @Consumes(MediaType.APPLICATION_JSON)
+     @POST
+    public void removeAttendee(@PathParam("id") int terminID, int userID,@Context MySecurityContext sc) {
+        if(sc.isIDValue(userID)) {
+        repo.removeAttendee(terminID,userID);
+    }}
 }

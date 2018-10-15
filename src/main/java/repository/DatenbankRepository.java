@@ -8,6 +8,7 @@ import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import io.jsonwebtoken.*;
 import java.io.UnsupportedEncodingException;
+
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +21,7 @@ import javax.ws.rs.core.*;
  * @author Christopher G
  */
 public class DatenbankRepository {
-
+    
     private final EntityManager em;
 
     /**
@@ -73,7 +74,7 @@ public class DatenbankRepository {
             em.getTransaction().begin();
             em.remove(p);
             em.getTransaction().commit();
-
+            
             return listAllUsers();
         } catch (Exception e) {
             System.err.println(e);
@@ -105,7 +106,7 @@ public class DatenbankRepository {
         } catch (Exception e) {
             return null;
         }
-
+        
     }
 
     /**
@@ -119,7 +120,7 @@ public class DatenbankRepository {
             String jwt = Jwts.builder().setSubject("1234567890")
                     .setId(String.valueOf(b.getId()))
                     .claim("id", b.getId()).claim("role", b.getRolle()).signWith(SignatureAlgorithm.HS256, "secretswaggy132".getBytes("UTF-8")).compact();
-
+            
             return jwt;
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(DatenbankRepository.class.getName()).log(Level.SEVERE, null, ex);
@@ -497,7 +498,7 @@ public class DatenbankRepository {
                     case "EH":
                         katcount[0]++;
                         break;
-
+                    
                     case "Exkursion":
                         katcount[1]++;
                         break;
@@ -511,7 +512,7 @@ public class DatenbankRepository {
         returnlist.add(new NameValue("EH", katcount[0]));
         returnlist.add(new NameValue("Exkursion", katcount[1]));
         returnlist.add(new NameValue("Soziales", katcount[2]));
-
+        
         return returnlist;
     }
 
@@ -538,13 +539,13 @@ public class DatenbankRepository {
                     nv.setValue(nv.getValue() + (int) hours);
                 }
             }
-
+            
             if (nv.getValue() == 0) {
                 nv.setValue(0.1);
             }
             returnlist.add(nv);
         }
-
+        
         return returnlist;
     }
 
@@ -555,27 +556,27 @@ public class DatenbankRepository {
      */
     public List<NameValue> getLowerEntityHourList(JRKEntitaet jrk) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
+        
         List<NameValue> returnlist = new LinkedList<>();
         List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
         // go through all hierarchicly lower jrk entities
         for (JRKEntitaet jr : jrks) {
             //get current jrks termine
             List<Termin> list = jr.getTermine();
-
+            
             NameValue nv = new NameValue(jr.getName(), 2);
             //count the time of each termin for the jrk entity
             for (Termin termin : list) {
                 LocalDateTime.parse(termin.getS_date(), formatter);
-
+                
                 LocalDateTime.parse(termin.getE_date(), formatter);
                 long hours = ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter));
                 nv.setValue(nv.getValue() + (int) hours);
-
+                
             }
             returnlist.add(nv);
         }
-
+        
         return returnlist;
     }
 
@@ -588,11 +589,11 @@ public class DatenbankRepository {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         /* This is how to declare HashMap */
         HashMap<String, Integer> hmap = new HashMap<>();
-
+        
         List<NameValue> kat = new LinkedList<>();
-
+        
         List<Termin> list = jrk.getTermine();
-
+        
         if (list != null) {
             for (Termin termin : list) {
                 Dokumentation doku = termin.getDoko();
@@ -607,7 +608,7 @@ public class DatenbankRepository {
                     hmap.put("Vorbereitung" + start.getYear(), (hmap.get("Vorbereitung" + start.getYear()) == null ? 0 : hmap.get("Vorbereitung" + start.getYear())) + (int) doku.getVzeit());
                 }
             }
-
+            
         }
         List<NameValue> returnlist = new LinkedList<>();
         Set set = hmap.entrySet();
@@ -618,7 +619,7 @@ public class DatenbankRepository {
             System.out.println(mentry.getValue());
             returnlist.add(new NameValue(mentry.getKey().toString(), Integer.valueOf(mentry.getValue().toString())));
         }
-
+        
         return returnlist;
     }
 
@@ -725,7 +726,24 @@ public class DatenbankRepository {
     public void insertInfo(int id, Info i) {
         JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
         jrk.addInfo(i);
-
+        
         insert(jrk);
+    }
+    
+    public void registerAttendee(int terminID, int userID) {
+        Termin t = em.find(Termin.class, terminID);
+        Person p = em.find(Person.class, userID);
+        if (Arrays.asList(t.getDoko().getKinderliste()).contains(p.getVorname())) {
+            //send Message
+            t.addTeilnehmer(p.getVorname());
+        }
+    }
+    
+    public void removeAttendee(int terminID, int userID) {
+        Termin t = em.find(Termin.class, terminID);
+        Person p = em.find(Person.class, userID);
+        if (t.getTeilnehmer().contains(p.getVorname())) {
+            t.removeTeilnehmer(p.getVorname());
+        }
     }
 }

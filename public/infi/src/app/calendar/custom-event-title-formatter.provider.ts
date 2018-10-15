@@ -9,7 +9,7 @@ export class CustomEventTitleFormatter extends CalendarEventTitleFormatter {
   locale: string = 'de';
 
   month(event: CalendarEvent): string {
-    return `<div class="black"><b>${new Intl.DateTimeFormat(this.locale, {
+    return `<div class="black" (click)="view = 'app-termin-detail-ansicht'"><b>${new Intl.DateTimeFormat(this.locale, {
       month: 'numeric',
       day:'numeric',
       year:'numeric',
