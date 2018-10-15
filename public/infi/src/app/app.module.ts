@@ -42,6 +42,7 @@ import {MatTableModule} from '@angular/material/table';
 
 import { CategoryPipe } from './showprotocol/category.pipe';
 import { OrderrByPipe } from './showprotocol/orderByPipe';
+import {FilterPipe} from './showprotocol/filter.pipe';
 
 
 const appRoutes:Routes = [
@@ -75,7 +76,8 @@ component: DashboardComponent
     ShowprotocolComponent,
     ProtocolPipe,
     CategoryPipe,    // Note these two line
-    OrderrByPipe    // Note these two line
+    OrderrByPipe,   // Note these two line
+    FilterPipe
   ],
   imports: [
     BrowserModule,

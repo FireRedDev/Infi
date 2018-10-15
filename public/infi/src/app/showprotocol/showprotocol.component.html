@@ -26,16 +26,25 @@
       <td><button style="color:white" type="button" class="btn btn-dark btn-sm">Weiter lesen..</button></td>
     </tr>
   </table>
-</div>-->
+</div>
+https://scotch.io/tutorials/sort-and-filter-a-table-using-angular
+-->
 <div class="col-md-12">
+    <form [ngFormOptions]="{ updateOn: 'change' }">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+            <input type="text" class="form-control" placeholder="Search for Event" name="searchText" [(ngModel)]="searchText">
+          </div>      
+        </div>
+      </form>
   <table class="table table-responsive table-hover">
     <tr>
-        <th class="pointer" (click)="sort('Titel')" >Titel</th>
+        <th class="pointer" (click)="sort('Titel')">Titel</th>
         <th class="pointer" (click)="sort('Datum')">Datum</th>
         <th class="pointer" (click)="sort('Beschreibung')" >Beschreibung</th>
     </tr>
-   <tr *ngFor="let item of  records | category: searchText 
-                | orderBy: {property: column, direction: direction}">     
+   <tr *ngFor="let item of records | orderBy: {property: column, direction: direction} | filter: 'Titel' :searchText; let i = index">     
       <td>{{item.Titel}}</td>
       <td>{{item.Datum}}</td>
       <td>{{item.Beschreibung}}</td>

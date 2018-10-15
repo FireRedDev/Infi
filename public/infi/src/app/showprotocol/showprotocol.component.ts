@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestService } from '../rest.service';
 import { CategoryPipe } from './category.pipe';
+import {FilterPipe} from './filter.pipe';
 import { Pipe, PipeTransform } from '@angular/core';
 import { Jsonp } from '../../../node_modules/@angular/http';
 
@@ -10,8 +11,9 @@ import { Jsonp } from '../../../node_modules/@angular/http';
   styleUrls: ['./showprotocol.component.css']
 })
 @Pipe({
-  name: 'CategoryPipe'
+  name: 'FilterPipe',
 })
+
 export class ShowprotocolComponent implements OnInit {
   private protocol = [];
 
@@ -33,6 +35,7 @@ export class ShowprotocolComponent implements OnInit {
             const myObj = {Titel: this.protocol[i].title, Datum: this.protocol[i].s_date.slice(0,16),  Beschreibung: this.protocol[i].beschreibung};
             this.records.push(myObj);
             console.log(myObj);
+            console.log(this.records[i].Titel);
         }
         //this.records= [JSON.parse(JSON.stringify(myObj))];
           /*  { },
