@@ -81,7 +81,7 @@ t.start();
         JRKEntitaet marchtrenk1 = new JRKEntitaet(6, "Gruppe1", gruppe, marchtrenk);
 
         //Termine erstellen
-        Termin sattledttermin = new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
+        Termin sattledttermin = new Termin("2018-11-04 15:30:00", "2018-01-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
         String[] betreuer = {"Gusi", "Isi"};
         String[] kinder = {"Meli", "Antonia", "Luki"};
         String[] betreuer1 = {"Daniel", "Jakob"};

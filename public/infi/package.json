@@ -32,6 +32,7 @@
     "angular-draggable-droppable": "^4.0.0",
     "angular-md5": "^0.1.10",
     "angular-resizable-element": "^3.2.0",
+    "angularfire2": "^5.0.2",
     "core-js": "^2.5.3",
     "d3": "^4.13.0",
     "date-fns": "^1.29.0",

@@ -8,6 +8,9 @@ import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import io.jsonwebtoken.*;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -755,5 +758,30 @@ public class DatenbankRepository {
        em.getTransaction().commit();
        Service.firstToken=true;
        return "sucess";
+    }
+
+    public Termin getNextDate() throws ParseException {
+        Termin find = null;
+        List<Termin> termin;
+        termin = em.createNamedQuery("Termin.listAll").getResultList();
+        
+        
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date dateobj = new Date();
+        System.out.println(df.format(dateobj));
+        Date date2;
+        
+        for(int i = 0;i < termin.size();i++){
+            Date date1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(termin.get(i).getS_date());
+            date2 = date1;
+            if(date1.after(dateobj)){
+                if(date2.after(date1)||date2.equals(date1)){
+                    System.out.println(date1);
+                    date2=date1;
+                    find = termin.get(i);
+                }
+            }
+        }
+        return find;
     }
 }

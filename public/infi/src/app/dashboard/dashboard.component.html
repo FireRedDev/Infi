@@ -46,6 +46,10 @@
         <p class="einfuegen">
           <i class="material-icons">people</i> Profile verwalten</p>
       </div>
+      <div href="#" id="hover" (click)="view='dateconfirm'" *ngIf="isEditor">
+        <p class="einfuegen">
+          <i class="material-icons">people</i> DateConfirm</p>
+      </div>
     </div>
     <div>
       <a routerLink="/">
@@ -102,6 +106,9 @@
       </div>
       <div *ngIf="view =='showprotocol'">
         <app-showprotocol [jrkEntitaet]="jrkEntitaet" (changeView)="changeView($event)"></app-showprotocol>
+      </div>
+      <div *ngIf="view=='dateconfirm'">
+        <app-dateconfirm (changeView)="changeView($event)"></app-dateconfirm>
       </div>
     </section>
   </div>

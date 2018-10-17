@@ -7,6 +7,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import repository.DatenbankRepository;
 import RestResponseClasses.PersonTokenTransferObject;
+import java.text.ParseException;
 import javax.ws.rs.core.Context;
 
 /**
@@ -427,5 +428,11 @@ public class Service {
     @POST
     public String saveFCMToken(@PathParam("id") int id, String token) {
         return "\"" + repo.setFCMToken(id, token) + "\"";
+    }
+    @Path("getNextDate")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public Termin getNextDate() throws ParseException{
+        return repo.getNextDate();
     }
 }

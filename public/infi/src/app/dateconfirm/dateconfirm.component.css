@@ -1,0 +1,19 @@
+#btn-red, #btn-green{
+    width: 40%;
+    padding: 3%;
+    margin: 5%;
+    margin-top: 0%;
+    font-size: 18px;
+    color: white;
+    /*font-weight: bold;*/
+}
+#btn-red{
+    float: right;
+}
+#btn-green{
+    float: left;
+}
+#confirmc{
+    text-align: center;
+    max-width: 400px;
+}

@@ -46,6 +46,7 @@ import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/dat
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireModule, FirebaseApp } from 'angularfire2';
 import { environment } from '../environments/environment';
+import { DateconfirmComponent } from './dateconfirm/dateconfirm.component';
 
 registerLocaleData(localeDe);
 const appRoutes: Routes = [
@@ -77,7 +78,8 @@ const appRoutes: Routes = [
     InformationComponent,
     PasswordComponent,
     ShowprotocolComponent,
-    CalendarDetailComponent
+    CalendarDetailComponent,
+    DateconfirmComponent
   ],
   imports: [
     BrowserModule,

@@ -167,4 +167,8 @@ export class RestService {
     console.log("token: " + token);
     return this.http.post("http://localhost:8080/api/service/saveFCMToken/" + body, token);
   }
+
+  shownextDate() {
+    return this.http.get("http://localhost:8080/api/service/getNextDate");
+  }
 }
