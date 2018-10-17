@@ -33,18 +33,12 @@ import { Benutzer } from '../login-form/benutzer.model';
 import {
   Component,
   NgModule,
-  ChangeDetectionStrategy,
   OnInit,
   Input,
   Output,
-  EventEmitter,
-  ViewChild,
-  Provider,
-  OnDestroy,
-  TemplateRef
+  EventEmitter
 } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { id } from '@swimlane/ngx-charts/release/utils';
 
 interface Termin {
   id: number;
@@ -135,6 +129,8 @@ export class CalendarComponent implements OnInit {
         text += "<br><img width='200px' src='" + event.imgpath + "'>"
       }
       calendarEvents.push({
+        id: event.id,
+        termin: event,
         title: text,
         start: new Date(event.s_date),
         end: new Date(event.e_date),

@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
   password1 = "";
   password2 = "";
   calendarEntry = {};
+  protocolentry;
 
   //einige Varbiablen zum konfifurieren der Sidebar
   public _opened = false;
@@ -171,9 +172,13 @@ export class DashboardComponent implements OnInit {
     this.view = i;
   }
   showDetail(i) {
-    console.log(i);
     this.calendarEntry = i;
     this.view = 'calendar-detail';
+  }
+  writeDoku(i) {
+    //this.calendarEntry = i;
+    this.protocolentry = i;
+    this.view = 'protocol';
   }
 
   //Password ändern

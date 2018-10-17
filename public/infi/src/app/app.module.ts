@@ -16,7 +16,7 @@ import { AuthguardGuard } from './authguard.guard';
 import { AuthService } from './auth/auth.service';
 import { SidebarModule } from 'ng-sidebar';
 import { HttpClientModule } from '@angular/common/http';
-import { TerminComponent, DefaultIntl } from './termin/termin.component';
+import { TerminComponent } from './termin/termin.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { ProtocolComponent } from './protocol/protocol.component';
@@ -28,26 +28,24 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { ToastrModule } from 'ngx-toastr';
 import { DateTimePickerComponent } from './calendar/date-time-picker.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
-import { OwlDateTimeIntl } from 'ng-pick-datetime/date-time/date-time-picker-intl.service';
+import { OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule, OwlDateTimeIntl } from 'ng-pick-datetime';
 import { ManageUserComponent } from './manage-user/manage-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { InformationComponent } from './information/information.component';
 import { PasswordComponent } from './password/password.component';
 import { ShowprotocolComponent } from './showprotocol/showprotocol.component';
-import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent } from 'rxjs';
-import { CommonModule } from '@angular/common';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import localeDe from '@angular/common/locales/de-AT';
 import { registerLocaleData } from '@angular/common';
 import { CalendarDetailComponent } from './calendar-detail/calendar-detail.component';
 import { MessagingService } from './messaging.service';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireModule, FirebaseApp } from 'angularfire2';
+import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 
 registerLocaleData(localeDe);
+
 const appRoutes: Routes = [
   {
     path: '',
@@ -59,6 +57,8 @@ const appRoutes: Routes = [
     component: DashboardComponent
   }
 ]
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -102,8 +102,7 @@ const appRoutes: Routes = [
   ],
   providers: [UserService, RestService, AuthguardGuard, AuthService, MessagingService, AngularFireDatabase, AngularFireAuth,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    { provide: OWL_DATE_TIME_LOCALE, useValue: 'de' },
-    { provide: OwlDateTimeIntl, useValue: DefaultIntl }
+    { provide: OWL_DATE_TIME_LOCALE, useValue: 'de' }
   ],
   bootstrap: [AppComponent]
 })

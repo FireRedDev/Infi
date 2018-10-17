@@ -25,7 +25,8 @@
               "src/firebase-messaging-sw.js"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
