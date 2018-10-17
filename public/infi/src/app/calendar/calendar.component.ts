@@ -59,8 +59,8 @@ interface Termin {
   e_date: string;
   beschreibung: string;
   benutzer: Benutzer;
-  ort: String;
-  imgpath: String;
+  ort: string;
+  imgpath: string;
 }
 @NgModule({
   imports: [
@@ -136,18 +136,21 @@ export class CalendarComponent implements OnInit {
   convertEvents(events: Array<Termin>): Array<any> {
     const calendarEvents = [];
     events.forEach(function (event) {
-      var text = 'Titel: ' + event.title + '<br>Beschreibung: ' + event.beschreibung + '<br>Ort: ' + event.ort
+      var text = 'Titel: ' + event.title;
       if (event.imgpath) {
-        text += "<br><img width='200px' src='" + event.imgpath + "'>"
+        //text += "<br><img width='200px' src='" + event.imgpath + "'>"
       }
       calendarEvents.push({
         title: text,
+        beschreibung: '<br><b>Beschreibung: </b>' + event.beschreibung + '<br><b>Ort:</b> ' + event.ort,
+        imagePath:  event.imgpath,
         start: new Date(event.s_date),
         end: new Date(event.e_date),
         color: colors.red,
         cssClass: 'my-custom-class'
       });
     });
+    console.log(events)
     return calendarEvents;
   }
   dayClicked({
@@ -170,7 +173,6 @@ export class CalendarComponent implements OnInit {
     }
   }
   openDetail(event) {
-    console.log(event);
     this.showDetail.emit(event);
   }
 }

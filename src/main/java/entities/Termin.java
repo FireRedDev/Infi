@@ -62,7 +62,17 @@ public class Termin implements Serializable {
      * @param title
      * @param beschreibung
      * @param ort
+     * @param imgPath
      */
+//    public Termin(String s_date, String e_date, String title, String beschreibung, String ort, String plannung) {
+//        this.s_date = s_date;
+//        this.e_date = e_date;
+//        this.title = title;
+//        this.beschreibung = beschreibung;
+//        this.ort = ort;
+//        this.plannung = plannung;
+//    }
+    
     public Termin(String s_date, String e_date, String title, String beschreibung, String ort, String plannung) {
         this.s_date = s_date;
         this.e_date = e_date;

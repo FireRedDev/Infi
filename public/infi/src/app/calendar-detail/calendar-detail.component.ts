@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { RestService } from 'src/app/rest.service';
 
 @Component({
   selector: 'app-calendar-detail',
@@ -7,11 +8,19 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CalendarDetailComponent implements OnInit {
   @Input() calendarEntry;
-  constructor() { }
+  constructor(private rest: RestService) { }
 
   ngOnInit() {
 
     console.log(this.calendarEntry);
   }
+
+   /* Plannung speichern */
+   private textModel;
+   
+     save(){
+       this.rest.insertPlannungsText(this.textModel).subscribe();
+       this.textModel = "";
+     }
 
 }

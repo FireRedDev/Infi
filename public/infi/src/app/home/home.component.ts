@@ -24,13 +24,4 @@ export class HomeComponent implements OnInit {
         console.log(this.infos);
       });
   }
-
-  /* Plannung speichern */
-  private textModel;
-
-  save(){
-    this.rest.insertPlannungsText(this.textModel).subscribe();
-    this.textModel = "";
-  }
-
 }
