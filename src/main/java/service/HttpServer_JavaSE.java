@@ -87,10 +87,12 @@ t.start();
         String[] betreuer1 = {"Daniel", "Jakob"};
         String[] kinder1 = {"Luisa", "Jonas", "Harald"};
         sattledttermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "Soziales"));
+        sattledttermin.setImgpath("assets/Logo.png");
         sattledt1.addTermin(sattledttermin);
 
         Termin welstermin = new Termin("2018-03-04 15:30:00", "2018-03-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Wels");
         welstermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "EH"));
+        welstermin.setImgpath("assets/Logo.png");
         wels.addTermin(welstermin);
 
         Termin sattermin = new Termin("2018-03-05 15:30:00", "2018-03-05 17:30:00", "Generalversammlung", "Ortsstellenversammlung", "Dienststelle Sattledt");
@@ -115,14 +117,16 @@ t.start();
 
         Termin sattermin1 = new Termin("2018-04-05 15:30:00", "2018-04-05 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
         sattermin1.setDoko(new Dokumentation(kinder1, betreuer, "basteln", 2.0, "Soziales"));
+        sattermin1.setImgpath("assets/Logo.png");
         sattledt.addTermin(sattermin1);
 
-        Termin marchtrenktermin = new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk");
+        Termin marchtrenktermin = new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei",  "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk");
         marchtrenktermin.setDoko(new Dokumentation(kinder1, betreuer1, "grillen", 3.0, "Soziales"));
         marchtrenk1.addTermin(marchtrenktermin);
-
+        
         Termin marchtrenktermin1 = new Termin("2018-04-04 15:30:00", "2018-04-04 17:30:00", "Film schauen", "Bitte Decken und Polster mit nehmen", "Dienststelle Marchtrenk");
         marchtrenktermin1.setDoko(new Dokumentation(kinder1, betreuer1, "schauen", 2.0, "Soziales"));
+        marchtrenktermin1.setImgpath("assets/Logo.png"); 
         marchtrenk1.addTermin(marchtrenktermin1);
 
         marchtrenk1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Eislaufen", "Bitte Eislaufschuhe, Winterkleidung und 3€ Eintritt mitnehmen", "Eislaufplatz Marchtrenk"));

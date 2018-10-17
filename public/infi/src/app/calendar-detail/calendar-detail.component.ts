@@ -14,6 +14,7 @@ import {
 })
 export class CalendarDetailComponent implements OnInit {
   @Input() calendarEntry;
+
   @Output() writeDoku = new EventEmitter();
   isEditor;
   constructor(public rest: RestService) {
