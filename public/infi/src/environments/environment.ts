@@ -5,13 +5,12 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "AIzaSyDyMRDnOIt58FcHwUbTdK_RBCoTJEF2qRs",
-    authDomain: "infipwa.firebaseapp.com",
-    databaseURL: "https://infipwa.firebaseio.com",
-    projectId: "infipwa",
-    storageBucket: "infipwa.appspot.com",
-    messagingSenderId: "765257743324"
-
+    apiKey: "AIzaSyC_BptdwAGaJZlXCwWO-w5B2oN3nmujzE8",
+    authDomain: "infi-faefd.firebaseapp.com",
+    databaseURL: "https://infi-faefd.firebaseio.com",
+    projectId: "infi-faefd",
+    storageBucket: "infi-faefd.appspot.com",
+    messagingSenderId: "694294067792"
   }
 };
 /*

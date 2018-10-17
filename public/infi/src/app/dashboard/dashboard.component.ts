@@ -1,22 +1,8 @@
-import { jrkEntitaet } from '../models/jrkEntitaet.model';
-import { forEach } from '@angular/router/src/utils/collection';
 import {
   Component,
-  ChangeDetectionStrategy,
   OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChild,
-  Provider,
-  OnDestroy,
-  TemplateRef
 } from '@angular/core';
 import { UserService } from '../user.service';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Benutzer } from '../login-form/benutzer.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestService } from '../rest.service';
 declare var jquery: any;
@@ -38,6 +24,7 @@ export class DashboardComponent implements OnInit {
   password1 = "";
   password2 = "";
   calendarEntry = {};
+  protocolentry;
 
   //einige Varbiablen zum konfifurieren der Sidebar
   public _opened = false;
@@ -138,7 +125,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     const body = localStorage.getItem('currentUser');
-
+    this.rest.sendToken(body, localStorage.getItem('pushToken')).subscribe();
     //Username von Server erfragen
     this.rest.getName(body)
       .subscribe(data => {
@@ -185,9 +172,13 @@ export class DashboardComponent implements OnInit {
     this.view = i;
   }
   showDetail(i) {
-    console.log(i);
     this.calendarEntry = i;
     this.view = 'calendar-detail';
+  }
+  writeDoku(i) {
+    //this.calendarEntry = i;
+    this.protocolentry = i;
+    this.view = 'protocol';
   }
 
   //Password ändern

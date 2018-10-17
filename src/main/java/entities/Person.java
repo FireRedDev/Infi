@@ -40,6 +40,7 @@ public class Person implements Serializable {
     private String vorname;
     private String nachname;
     private Role rolle;
+    private String fcmtoken;
     @ManyToOne(fetch = FetchType.LAZY)
     private JRKEntitaet jrkentitaet;
     //has the password already been changed?
@@ -214,4 +215,15 @@ public class Person implements Serializable {
     public void setPasswordChanged(boolean passwordChanged) {
         this.passwordChanged = passwordChanged;
     }
+
+    public String getFcmtoken() {
+        return fcmtoken;
+    }
+
+    public void setFcmtoken(String fcmtoken) {
+        this.fcmtoken = fcmtoken;
+    }
+
+
+    
 }

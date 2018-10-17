@@ -1,8 +1,5 @@
-import { AngularFireModule } from 'angularFire2';
-
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessagingService } from './messaging.service';
-
 
 @Component({
     selector: 'app-root',
@@ -10,13 +7,12 @@ import { MessagingService } from './messaging.service';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+    constructor(private msgService: MessagingService) { }
     message;
 
-    constructor(private msgService: MessagingService) { }
-
     ngOnInit() {
-        this.msgService.getPermission()
-        this.msgService.receiveMessage()
-        this.message = this.msgService.currentMessage
+        this.msgService.getPermission();
+        this.msgService.receiveMessage();
+        this.message = this.msgService.currentMessage;
     }
 }

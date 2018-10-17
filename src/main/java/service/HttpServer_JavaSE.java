@@ -56,6 +56,7 @@ public class HttpServer_JavaSE {
         ch.setLevel(Level.ALL);
         l.addHandler(ch);
 Thread t = new Thread(new NotificationRunnable());
+
 t.start();
         System.in.read();
         server.shutdown();
@@ -163,7 +164,7 @@ t.start();
         ooe.addTermin(new Termin("2019-04-19 13:00:00", "2019-04-19 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
         wels.addTermin(new Termin("2017-07-15 09:00:00", "2017-07-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
 
-        ooe.addTermin(new Termin("2018-05-29 13:00:00", "2018-05-29 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
+        ooe.addTermin(new Termin("2018-10-11 13:00:00", "2018-10-11 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
 
         String[] a = {"http://localhost:8080/upload_image/teambuilding.jpg"};
         String[] b = {"http://localhost:8080/upload_image/bezirkslager2.jpg", "http://localhost:8080/upload_image/bezirkslager3.jpg", "http://localhost:8080/upload_image/bezirkslager1.jpg"};

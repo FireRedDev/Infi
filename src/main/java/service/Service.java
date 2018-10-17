@@ -18,6 +18,7 @@ import javax.ws.rs.core.Context;
 public class Service {
 
     private DatenbankRepository repo = new DatenbankRepository();
+    public static Boolean firstToken = false;
 
     /**
      * Message
@@ -401,15 +402,17 @@ public class Service {
         System.out.println("here");
         repo.insertInfo(id, i);
     }
-    
+
     @Path("insertPlanung/{id}")
     //@Secured(Role.GRUPPENLEITER)
     @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
     @POST
-    public void inertPlanung(@PathParam("id") int id, String  text) {
+    public String insertPlanung(@PathParam("id") int id, String text) {
         repo.insertPlanung(id, text);
+        return "inserted";
     }
-    
+
     @GET
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Path("getProtokollDetails/{id}")
@@ -417,5 +420,14 @@ public class Service {
     //@Consumes(MediaType.TEXT_PLAIN)
     public List<Termin> getProtokollDetails(@PathParam("id") int id) {
         return repo.getProtokollDetails(id);
+    }
+
+    @Path("saveFCMToken/{id}")
+    @Secured({Role.KIND, Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @POST
+    public String saveFCMToken(@PathParam("id") int id, String token) {
+        return "\"" + repo.setFCMToken(id, token) + "\"";
     }
 }

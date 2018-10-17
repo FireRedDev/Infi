@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class RestService {
   private http;
 
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, private toastr: ToastrService) {
     this.http = http;
   }
 
@@ -153,12 +154,22 @@ export class RestService {
   }
 
   //Bild hochladen
-  insertPlannungsText(text) {
+  insertPlannungsText(body, text) {
     console.log(text);
-    return this.http.post("http://localhost:8080/api/service/insertPlanung/" + 9, text);
+    return this.http.post("http://localhost:8080/api/service/insertPlanung/" + body, text);
   }
 
   showprotocol(jrkEntitaet) {
     return this.http.get("http://localhost:8080/api/service/getProtokollDetails/" + jrkEntitaet.id);
+  }
+
+  sendToken(body, token) {
+    console.log("id: " + body);
+    console.log("token: " + token);
+    return this.http.post("http://localhost:8080/api/service/saveFCMToken/" + body, token);
+  }
+
+  showMessage(text1, text2) {
+    this.toastr.success(text1, text2);
   }
 }
