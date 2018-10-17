@@ -406,9 +406,11 @@ public class Service {
     @Path("insertPlanung/{id}")
     //@Secured(Role.GRUPPENLEITER)
     @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
     @POST
-    public void inertPlanung(@PathParam("id") int id, String text) {
+    public String insertPlanung(@PathParam("id") int id, String text) {
         repo.insertPlanung(id, text);
+        return "inserted";
     }
 
     @GET

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { BehaviorSubject } from 'rxjs';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { RestService } from './rest.service';
 @Injectable()
 export class MessagingService {
@@ -44,6 +44,7 @@ export class MessagingService {
     console.log("Recieved:")
     this.messaging.onMessage((payload) => {
       console.log("Message received. ", payload);
+      this.rest.showMessage("Message: ", payload)
       this.currentMessage.next(payload)
     });
 
