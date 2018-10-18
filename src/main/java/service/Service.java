@@ -7,6 +7,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import repository.DatenbankRepository;
 import RestResponseClasses.PersonTokenTransferObject;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.ws.rs.core.Context;
 
 /**
@@ -251,6 +253,20 @@ public class Service {
         return repo.isAdmin(id);
     }
 
+        /**
+     * is this user a admin?
+     *
+     * @param id
+     * @return
+     */
+    @Path("isGruppenleiter")
+    @Secured({Role.BEZIRKSLEITER, Role.KIND, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @POST
+    public boolean isGruppenleiter(int id) {
+        return repo.isGruppenleiter(id);
+    }
     /**
      * give back none documented appointments
      *
@@ -429,5 +445,34 @@ public class Service {
     @POST
     public String saveFCMToken(@PathParam("id") int id, String token) {
         return "\"" + repo.setFCMToken(id, token) + "\"";
+    }
+
+    @Path("registerAttendee/{id}")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER, Role.KIND})
+    @Consumes(MediaType.TEXT_PLAIN)
+    @POST
+    public void registerAttendee(@PathParam("id") int terminID, int userID, @Context MySecurityContext sc) {
+        repo.registerAttendee(terminID, userID);
+    }
+
+    @Path("removeAttendee/{id}")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER, Role.KIND})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @POST
+    public void removeAttendee(@PathParam("id") int terminID, int userID, @Context MySecurityContext sc) {
+        if (sc.isIDValue(userID)) {
+            repo.removeAttendee(terminID, userID);
+        }
+    }
+
+    @Path("getNextIncomingAppointment/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER, Role.KIND})
+    @POST
+    public Termin getNextIncomingAppointment(@PathParam("id") int id) {
+        List<Termin> liste = repo.getUsertermine(id);
+        String date=LocalDateTime.now().toString();
+        
+        return liste.stream().filter(t->t.getS_date().compareTo(date)>0).sorted((l, r) -> l.getS_date().compareTo(r.getS_date())).findFirst().orElse(null);
     }
 }

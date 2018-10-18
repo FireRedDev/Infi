@@ -1,27 +1,46 @@
-.container{
-    text-align: left;
-    width: 100%;
-    height: 300px;
+.container {
+  text-align: left;
+  width: 385px;
+  height: 320px;
 }
 
-#imageSize{
-    max-width: 400px;
-    max-height: 280px;
+#imageSize {
+  max-width: 400px;
+  max-height: 280px;
 }
 
-.card-block{
-    background-color: white;
-    color: black;
-    z-index: 1000;
-    padding: 1%;
-    margin: 2%;
+.card-block {
+  background-color: white;
+  color: black;
+  z-index: 1000;
+  padding: 1%;
+  margin: 2%;
 }
 
-.card{   
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    margin-top: 7%;
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  margin-top: 7%;
 }
+
 .card-deck {
-    padding:10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.ja {
+  background-color: green;
+  border: none;
+  color: white;
+}
+
+.nein {
+  background-color: red;
+  margin-left: 3%;
+  border: none;
+  color: white;
+}
+
+.naechstertermin {
+  margin-bottom: 20%;
 }

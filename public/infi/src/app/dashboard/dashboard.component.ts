@@ -24,7 +24,6 @@ export class DashboardComponent implements OnInit {
   password1 = "";
   password2 = "";
   calendarEntry = {};
-  protocolentry;
 
   //einige Varbiablen zum konfifurieren der Sidebar
   public _opened = false;
@@ -175,10 +174,9 @@ export class DashboardComponent implements OnInit {
     this.calendarEntry = i;
     this.view = 'calendar-detail';
   }
-  writeDoku(i) {
-    //this.calendarEntry = i;
-    this.protocolentry = i;
-    this.view = 'protocol';
+  changeViewCalendar(i) {
+    this.calendarEntry = i.item;
+    this.view = i.view;
   }
 
   //Password ändern
@@ -191,9 +189,7 @@ export class DashboardComponent implements OnInit {
       });
     }
     else {
-      alert("Die beiden Passwörter sind nicht ident, versuche es nochmal!");
+      this.rest.showErrorMessage("Error", "Die beiden Passwörter sind nicht ident, versuche es nochmal!");
     }
   }
 }
-
-

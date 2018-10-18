@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import decode from 'jwt-decode';
 import { HttpRequest } from '@angular/common/http';
 @Injectable()
 export class AuthService {

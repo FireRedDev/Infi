@@ -8,6 +8,8 @@ import { RestService } from '../rest.service';
 })
 export class HomeComponent implements OnInit {
   public infos;
+  public t;
+  showInvite = true;
 
   constructor(private rest: RestService) {
     this.rest = rest;
@@ -20,7 +22,21 @@ export class HomeComponent implements OnInit {
     this.rest.getUserInfos(body)
       .subscribe(data => {
         this.infos = data;
-        console.log(this.infos);
+        this.rest.showSuccessMessage("Erfolg", "Informationen geladen!");
       });
+
+
+    this.rest.getActTermin(body).subscribe(data => {
+      this.t = data;
+      console.log(data.title)
+      console.log(this.t)
+    });
+  }
+
+  setComing() {
+    const body = localStorage.getItem('currentUser');
+    console.log("hallo", this.rest)
+    this.rest.setComing(this.t.id, body).subscribe();
+    this.showInvite = false;
   }
 }

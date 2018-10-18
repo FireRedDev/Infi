@@ -1,30 +1,23 @@
 <form (ngSubmit)="onSubmit()" #infoForm="ngForm">
   <div class="form-group">
-      <label for="ueberschrift">Überschrift</label>
-      <input type="text" class="form-control" id="ueberschrift"
-             required
-             [(ngModel)]="actInformation.ueberschrift" name="ueberschrift"
-             #ueberschrift="ngModel">
-             <div [hidden]="ueberschrift.valid || ueberschrift.pristine"
-             class="alert alert-danger">
-             Überschrift muss eingegeben werden!
-           </div>
-       <br>
-      <label for="beschreibung">Beschreibung</label>
-      <input type="text" class="form-control" id="beschreibung"
-          required
-          [(ngModel)]="actInformation.beschreibung" name="beschreibung"
-          #beschreibung="ngModel">
-          <div [hidden]="beschreibung.valid || beschreibung.pristine"
-          class="alert alert-danger">
-          Beschreibung muss eingegeben werden!
-      </div>
-      <br>
-      <input type="file" class="form-control" id="fileInput" name="fileUpload" (change)="fileUpload($event)" multiple>
-      <div [hidden]="!fileerror"
-      class="alert alert-danger">
+    <label for="ueberschrift">Überschrift</label>
+    <input type="text" class="form-control" id="ueberschrift" required [(ngModel)]="actInformation.ueberschrift" name="ueberschrift"
+      #ueberschrift="ngModel">
+    <div [hidden]="ueberschrift.valid || ueberschrift.pristine" class="alert alert-danger">
+      Überschrift muss eingegeben werden!
+    </div>
+    <br>
+    <label for="beschreibung">Beschreibung</label>
+    <input type="text" class="form-control" id="beschreibung" required [(ngModel)]="actInformation.beschreibung" name="beschreibung"
+      #beschreibung="ngModel">
+    <div [hidden]="beschreibung.valid || beschreibung.pristine" class="alert alert-danger">
+      Beschreibung muss eingegeben werden!
+    </div>
+    <br>
+    <input type="file" class="form-control" id="fileInput" name="fileUpload" (change)="fileUpload($event)" multiple>
+    <div [hidden]="!fileerror" class="alert alert-danger">
       Bild muss unter 1MB liegen!
-  </div> 
+    </div>
   </div>
   <button type="submit" class="btn btn-success" [disabled]="!infoForm.form.valid" (click)="save()">einfügen</button>
 </form>

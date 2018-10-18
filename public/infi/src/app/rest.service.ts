@@ -118,6 +118,12 @@ export class RestService {
       .post('http://localhost:8080/api/service/isEditor', body);
   }
 
+  //True oder False je nach dem ob der angemeldete Benutzer Gruppenleiter ist
+  isGruppenleiter(body) {
+    return this.http
+      .post('http://localhost:8080/api/service/isGruppenleiter', body);
+  }
+
   //True oder False ob Admin oder nicht
   isAdmin(body) {
     return this.http
@@ -169,7 +175,21 @@ export class RestService {
     return this.http.post("http://localhost:8080/api/service/saveFCMToken/" + body, token);
   }
 
-  showMessage(text1, text2) {
+  showErrorMessage(text1, text2) {
+    this.toastr.error(text1, text2);
+  }
+
+  showSuccessMessage(text1, text2) {
     this.toastr.success(text1, text2);
+  }
+
+  getActTermin(id) {
+    return this.http.post("http://localhost:8080/api/service/getNextIncomingAppointment/" + id)
+  }
+
+  setComing(id, id2) {
+    console.log(id)
+    console.log(id2)
+    return this.http.post("http://localhost:8080/api/service/registerAttendee/" + id, id2)
   }
 }

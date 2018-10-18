@@ -43,6 +43,10 @@ import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/da
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
+import { FilterPipe } from './filter-pipe.pipe';
+import { OrderByPipe } from './order-by.pipe';
+import { PlanningComponent } from './planning/planning.component';
+import { QuillModule } from 'ngx-quill'
 
 registerLocaleData(localeDe);
 
@@ -77,7 +81,10 @@ const appRoutes: Routes = [
     InformationComponent,
     PasswordComponent,
     ShowprotocolComponent,
-    CalendarDetailComponent
+    CalendarDetailComponent,
+    FilterPipe,
+    OrderByPipe,
+    PlanningComponent
   ],
   imports: [
     BrowserModule,
@@ -99,6 +106,7 @@ const appRoutes: Routes = [
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    QuillModule
   ],
   providers: [UserService, RestService, AuthguardGuard, AuthService, MessagingService, AngularFireDatabase, AngularFireAuth,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

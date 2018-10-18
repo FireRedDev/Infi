@@ -26,13 +26,10 @@ export class InformationComponent implements OnInit {
   de: any;
 
   ngOnInit() {
-    this.fileDisplayArea = "";
-
   }
 
   save() {
     var imageType = /image.*/;
-    debugger;
     for (var i = 0; i < this.file.length; i++) {
       var file = this.fileInput.files[i]
       if (file.type.match(imageType) && this.file[i].size < 1097152) {
@@ -41,7 +38,7 @@ export class InformationComponent implements OnInit {
     }
     this.rest.insertInfo(this.jrkEntitaet, this.actInformation)
       .subscribe(data => {
-        console.log("home");
+        this.rest.showSuccessMessage("Erfolg", "Informationsbeitrag eingefügt!");
         this.changeView.emit("home");
       });
     this.success = true;
@@ -51,7 +48,6 @@ export class InformationComponent implements OnInit {
   submitted = false;
 
   onSubmit() { this.submitted = true; }
-
 
   fileUpload(e) {
     this.fileInput = document.getElementById('fileInput');
@@ -92,18 +88,15 @@ export class InformationComponent implements OnInit {
           console.log(blob);
           rest.uploadImage(blob, file.name)
             .subscribe(data => {
-              console.log("insertImage")
-              alert("Bild hochgeladen")
+              rest.showSuccessMessage("Erfolg", "Bild erfolgreich hochgeladen!");
             });
 
         }
-
         reader.readAsDataURL(file);
       } else {
-        this.fileDisplayArea = "File not supported!";
+        this.rest.showErrorMessage("Error", "Bild nicht unterstützt!");
         this.fileerror = true;
       }
     }
   }
-
 }

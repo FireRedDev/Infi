@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Output, Input } from '@angular/core';
 import { RestService } from '../rest.service';
 import { Protokoll } from './protocol';
 import { Termin } from './termin';
@@ -74,7 +74,6 @@ export class GermanItl extends OwlDateTimeIntl {
   selector: 'app-protocol',
   templateUrl: './protocol.component.html',
   styleUrls: ['./protocol.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     // The locale would typically be provided on the root module of your application. We do it at
     // the component level here, due to limitations of our example generation script.
@@ -90,25 +89,23 @@ export class ProtocolComponent implements OnInit {
     this.newBetreuer = '';
     this.betreuer = [];
     this.rest = rest;
-    //dateTimeAdapter.setLocale('de-De');
   }
 
   @Output() changeView: EventEmitter<string> = new EventEmitter();
   de: any;
   public term: Termin[];
-  @Input() protocolentry;
+  @Input() calendarEntry;
   dateTime: Date;
 
   ngOnInit() {
     const body = localStorage.getItem('currentUser');
-    console.log(this.protocolentry);
     this.rest.getOpenDoko(body)
       .subscribe(data => {
         this.term = data as Termin[];
         this.actTermin = this.getFirstDate();
-        this.s_date = this.actTermin.s_date;
-        this.e_date = this.actTermin.e_date;
-        this.rest.showMessage("Termine geladen", "")
+        this.s_date = new Date(this.actTermin.s_date);
+        this.e_date = new Date(this.actTermin.e_date);
+        this.rest.showSuccessMessage("Erfolg", "Termine geladen");
       });
   }
   save() {
@@ -170,11 +167,10 @@ export class ProtocolComponent implements OnInit {
   }
 
   getFirstDate(): Termin {
-    if (this.protocolentry != null) {
-      return this.protocolentry.termin;
+    if (this.calendarEntry != null) {
+      return this.calendarEntry.termin;
     }
     return this.term[0];
   }
 
 }
-

@@ -7,7 +7,6 @@ import { RestService } from '../rest.service';
     styleUrls: ['./diagrams.component.css']
 })
 export class DiagramsComponent implements OnInit {
-
     private jrkEnitaet = 2;
     public JRKEntitaeten;
     data: any;
@@ -69,7 +68,6 @@ export class DiagramsComponent implements OnInit {
     doughnut = false;
 
     set(body: number): void {
-        debugger;
         var jrk;
         for (let j of this.JRKEntitaeten) {
             if (j.id == body) {
@@ -100,6 +98,4 @@ export class DiagramsComponent implements OnInit {
     onSelect(event) {
         console.log(event);
     }
-
 }
-

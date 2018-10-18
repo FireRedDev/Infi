@@ -40,8 +40,8 @@ public class NotificationRunnable implements Runnable {
     private static final String MESSAGING_SCOPE = "https://www.googleapis.com/auth/firebase.messaging";
     private static final String[] SCOPES = {MESSAGING_SCOPE};
 
-    private static String TITLE = "FCM Notification";
-    private static String BODY = "Notification from FCM";
+    private static String TITLE = "Push funktioniert";
+    private static String BODY = "Ab jetzt bekommst du Push Nachrichten!";
 
     /**
      *

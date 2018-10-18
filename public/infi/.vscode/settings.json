@@ -11,5 +11,6 @@
      "jsbeautifyrc",
      "jshintrc",
      "ts"
-   ] 
- }
+  ],
+  "editor.formatOnPaste": true
+}

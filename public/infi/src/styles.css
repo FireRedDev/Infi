@@ -1,211 +1,251 @@
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
 @import "~ng-pick-datetime/assets/style/picker.min.css";
-@font-face { font-family: meine-schrift;
-             src: url('/assets/Dunant-Light.otf') }
+@import '~ngx-toastr/toastr.css';
 
-body { font-family: meine-schrift }
-
-.dashboard-contents{
-    margin-top: 25px !important;
+@font-face {
+  font-family: meine-schrift;
+  src: url('/assets/Dunant-Light.otf')
 }
+
+* {
+  font-family: meine-schrift
+}
+
+.dashboard-contents {
+  margin-top: 25px !important;
+}
+
 .cal-month-view .cal-day-cell.cal-today {
-    background-color: lightgray !important;
+  background-color: lightgray !important;
 }
 
 .cal-week-view .cal-today {
-    background-color: lightgray !important;
+  background-color: lightgray !important;
 }
 
-.cal-month-view .cal-header .cal-cell{
-    text-overflow: clip !important;
+.cal-month-view .cal-header .cal-cell {
+  text-overflow: clip !important;
 }
 
-.cal-month-view .cal-day-cell.cal-today .cal-day-number{
-    font-size: 1.2em;
+.cal-month-view .cal-day-cell.cal-today .cal-day-number {
+  font-size: 1.4em;
 }
 
-aside{
-    background-color: white !important;
-    width:250px;
+aside {
+  background-color: white !important;
+  width: 250px;
 }
 
-.ng-sidebar{
-    background-color: white !important;
+.ng-sidebar {
+  background-color: white !important;
 }
 
-.btn-group{
-    margin-bottom: 20px !important;
+.btn-group {
+  margin-bottom: 20px !important;
 }
 
-.cal-month-view .cal-day-cell{
-    border-color: lightgray !important;
+.cal-month-view .cal-day-cell {
+  border-color: lightgray !important;
 }
 
-a{
-    color: black !important;
+a {
+  color: black !important;
 }
 
-.black{
-    color:white !important;
+.black {
+  color: white !important;
 }
 
-.cal-month-view .cal-open-day-events{
-    box-shadow: none !important;
+.cal-month-view .cal-open-day-events {
+  box-shadow: none !important;
 }
 
-.cal-event{
-    background-color: rgb(173, 33, 33) !important;
-}
-
-a.cal-event-title{
-    font-size: 16px !important;
-}
-
-.btn:focus,.btn:active {
-    outline: none !important;
-    box-shadow: none;
-}
-@media screen and (max-width: 900px) {
-    .cal-month-view .cal-day-badge{
-        position:relative;
-        top: 50px;
-    }
-    .cal-month-view .cal-day-number{
-        margin-right: 0px !important;
-    }
-}
-
-ng-sidebar{
-    height:100% !important;
-}
-ng-sidebar-container{
-    height:100% !important;
-}
-input.owl-datetime-input.owl-datetime-main-input {
-    border: none !important;
-}
-
-a.cal-event-action {
-    text-decoration: none;
+.cal-event {
+  background-color: rgb(173, 33, 33) !important;
 }
 
 a.cal-event-title {
-    text-decoration: none;
+  font-size: 20px !important;
 }
 
-.cal-tooltip-inner{
-    max-width: 400px;
+.btn:focus,
+.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}
+
+@media screen and (max-width: 900px) {
+  .cal-month-view .cal-day-badge {
+    position: relative;
+    top: 50px;
+  }
+
+  .cal-month-view .cal-day-number {
+    margin-right: 0px !important;
+  }
+}
+
+ng-sidebar {
+  height: 100% !important;
+}
+
+ng-sidebar-container {
+  height: 100% !important;
+}
+
+input.owl-datetime-input.owl-datetime-main-input {
+  border: none !important;
+}
+
+a.cal-event-action {
+  text-decoration: none;
+}
+
+a.cal-event-title {
+  text-decoration: none;
+}
+
+.cal-tooltip-inner {
+  max-width: 400px;
 }
 
 /* loading */
 .circle {
-	margin: 100px auto;
-	width: 100px;
-	height: 100px;
-	position: relative;
+  margin: 100px auto;
+  width: 100px;
+  height: 100px;
+  position: relative;
 }
+
 .circle .child {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	left: 0;
-	top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
+
 .circle .child:before {
-	content: "";
-	display: block;
-	margin: 0 auto;
-	width: 15%;
-	height: 15%;
-	background-color: #333;
-	border-radius: 100%;
-	animation: circleBounceDelay 1.2s infinite ease-in-out both;
+  content: "";
+  display: block;
+  margin: 0 auto;
+  width: 15%;
+  height: 15%;
+  background-color: #333;
+  border-radius: 100%;
+  animation: circleBounceDelay 1.2s infinite ease-in-out both;
 }
+
 .circle .circle2 {
-	transform: rotate(30deg);
+  transform: rotate(30deg);
 }
+
 .circle .circle3 {
-	transform: rotate(60deg);
+  transform: rotate(60deg);
 }
+
 .circle .circle4 {
-	transform: rotate(90deg);
+  transform: rotate(90deg);
 }
+
 .circle .circle5 {
-	transform: rotate(120deg);
+  transform: rotate(120deg);
 }
+
 .circle .circle6 {
-	transform: rotate(150deg);
+  transform: rotate(150deg);
 }
+
 .circle .circle7 {
-	transform: rotate(180deg);
+  transform: rotate(180deg);
 }
+
 .circle .circle8 {
-	transform: rotate(210deg);
+  transform: rotate(210deg);
 }
+
 .circle .circle9 {
-	transform: rotate(240deg);
+  transform: rotate(240deg);
 }
+
 .circle .circle10 {
-	transform: rotate(270deg);
+  transform: rotate(270deg);
 }
+
 .circle .circle11 {
-	transform: rotate(300deg);
+  transform: rotate(300deg);
 }
+
 .circle .circle12 {
-	transform: rotate(330deg);
+  transform: rotate(330deg);
 }
+
 .circle .circle2:before {
-	animation-delay: -1.1s;
+  animation-delay: -1.1s;
 }
+
 .circle .circle3:before {
-	animation-delay: -1s;
+  animation-delay: -1s;
 }
+
 .circle .circle4:before {
-	animation-delay: -0.9s;
+  animation-delay: -0.9s;
 }
+
 .circle .circle5:before {
-	animation-delay: -0.8s;
+  animation-delay: -0.8s;
 }
+
 .circle .circle6:before {
-	animation-delay: -0.7s;
+  animation-delay: -0.7s;
 }
+
 .circle .circle7:before {
-	animation-delay: -0.6s;
+  animation-delay: -0.6s;
 }
+
 .circle .circle8:before {
-	animation-delay: -0.5s;
+  animation-delay: -0.5s;
 }
+
 .circle .circle9:before {
-	animation-delay: -0.4s;
+  animation-delay: -0.4s;
 }
+
 .circle .circle10:before {
-	animation-delay: -0.3s;
+  animation-delay: -0.3s;
 }
+
 .circle .circle11:before {
-	animation-delay: -0.2s;
+  animation-delay: -0.2s;
 }
+
 .circle .circle12:before {
-	animation-delay: -0.1s;
+  animation-delay: -0.1s;
 }
 
 @-webkit-keyframes circleBounceDelay {
-	0%,
-	80%,
-	100% {
-		transform: scale(0);
-	}
-	40% {
-		transform: scale(1);
-	}
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1);
+  }
 }
 
 @keyframes circleBounceDelay {
-	0%,
-	80%,
-	100% {
-		transform: scale(0);
-	}
-	40% {
-		transform: scale(1);
-	}
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1);
+  }
 }

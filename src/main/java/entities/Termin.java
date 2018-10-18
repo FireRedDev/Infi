@@ -8,11 +8,13 @@ import javax.persistence.*;
 
 /**
  * Appointment consists of title, beschreibung, ort, startdate, enddate, imgpath
+ *
  * @author Christopher G
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t"),
+    @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t")
+    ,
     @NamedQuery(name = "Termin.getOpenDoko", query = "SELECT t FROM Termin t where t.doko IS NULL")})
 public class Termin implements Serializable {
 
@@ -26,7 +28,8 @@ public class Termin implements Serializable {
     private String ort;
     private String imgpath;
     private String plannung;
-    
+    private String teilnehmer="";
+
     @OneToOne
     private Dokumentation doko;
 
@@ -52,8 +55,7 @@ public class Termin implements Serializable {
         this.beschreibung = beschreibung;
         this.ort = ort;
     }
-    
-    
+
     /**
      * Konstruktor ohne Dokumentation
      *
@@ -72,7 +74,6 @@ public class Termin implements Serializable {
 //        this.ort = ort;
 //        this.plannung = plannung;
 //    }
-    
     public Termin(String s_date, String e_date, String title, String beschreibung, String ort, String plannung) {
         this.s_date = s_date;
         this.e_date = e_date;
@@ -234,16 +235,16 @@ public class Termin implements Serializable {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getImgpath() {
         return imgpath;
     }
 
     /**
-     * 
-     * @param imgpath 
+     *
+     * @param imgpath
      */
     public void setImgpath(String imgpath) {
         this.imgpath = imgpath;
@@ -256,4 +257,21 @@ public class Termin implements Serializable {
     public void setPlannung(String plannung) {
         this.plannung = plannung;
     }
+
+    public String getTeilnehmer() {
+        return teilnehmer;
+    }
+
+    public void setTeilnehmer(String teilnehmer) {
+        this.teilnehmer = teilnehmer;
+    }
+
+    public void addTeilnehmer(String t) {
+        this.teilnehmer=this.teilnehmer+t+";";
+    }
+
+    public void removeTeilnehmer(String t) {
+        this.teilnehmer=this.teilnehmer.replace(t, "");
+    }
+
 }

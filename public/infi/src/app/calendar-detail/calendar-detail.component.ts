@@ -15,14 +15,14 @@ import {
 export class CalendarDetailComponent implements OnInit {
   @Input() calendarEntry;
 
-  @Output() writeDoku = new EventEmitter();
+  @Output() changeViewCalendar = new EventEmitter();
   isEditor;
+  isGruppenleiter
   constructor(public rest: RestService) {
     this.rest = rest;
   }
 
   ngOnInit() {
-
     const body = localStorage.getItem('currentUser');
 
     //Abfragen ob dieser User Editor ist
@@ -30,18 +30,14 @@ export class CalendarDetailComponent implements OnInit {
       .subscribe(data => {
         this.isEditor = (data === true);
       });
+
+    this.rest.isGruppenleiter(body)
+      .subscribe(data => {
+        this.isGruppenleiter = (data === true);
+      });
   }
 
-  changeView(item) {
-    this.writeDoku.emit(item);
-  }
-  /* Plannung speichern */
-  public textModel;
-
-  save(item) {
-    debugger;
-    const body = item.id;
-    this.rest.insertPlannungsText(body, this.textModel).subscribe();
-    this.textModel = "";
+  changeViewCalendarDetail(view, item) {
+    this.changeViewCalendar.emit({ "view": view, "item": item });
   }
 }

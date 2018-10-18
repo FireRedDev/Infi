@@ -1,57 +1,39 @@
+.container {
+  text-align: left;
+  width: 100%;
+  height: 300px;
+}
 
-        .container{
-            display: inline-block;
-        }
+#imageSize {
+  max-width: 400px;
+  max-height: 280px;
+}
 
-        .card-box {
-            background: #FAFAFA;
-            min-height: 300px;
-            position: relative;
-            padding: 30px 30px 20px;
-            margin-bottom: 20px;
-            margin-left: 10px;
-            /*display: -ms-flexbox;
-            display: flex;
-            -ms-flex-direction: column;
-            flex-direction: column;
-            -webkit-box-pack: justify;
-            -ms-flex-pack: justify;
-            justify-content: space-between;
-            position: relative;
-            cursor: pointer;*/
-        }
+.card-box {
+  background-color: white;
+  color: black;
+  z-index: 1000;
+  padding: 1%;
+  margin: 2%;
+}
 
-        .card-box:after {
-            display: block;
-            background: red;
-            border-top: 2px solid red;
-            content: '';
-            width: 100%;
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-        }
+.card-box {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  margin-top: 7%;
+  padding: 10px;
+}
 
-        .card-title h2 {
-            margin: 0;
-            padding-top: 5%;
-            color: black;
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-            font-size: 24px;
-            line-height: 1;
-            margin-bottom: 15px;
-        }
+.card-deck {
+  padding: 10px;
+}
 
-        .card-title p {
-            margin: 0;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
+.card-title {
+  margin: 10px;
+}
 
-
-        img{
-            height: 200px;
-            width: auto;
-        }
+img {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}

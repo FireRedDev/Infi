@@ -1,5 +1,4 @@
 export enum Role {
-
     KIND,
     GRUPPENLEITER,
     ORTSTELLENLEITER,

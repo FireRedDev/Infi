@@ -41,10 +41,10 @@
         [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="openDetail($event.day)" (eventClicked)="openDetail($event.event)">
       </mwl-calendar-month-view>
       <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" [locale]="locale"
-        (eventClicked)="eventClicked($event.event)">
+        (eventClicked)="openDetail($event.event)">
       </mwl-calendar-week-view>
       <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [locale]="locale"
-        (eventClicked)="eventClicked($event.event)">
+        (eventClicked)="openDetail($event.event)">
       </mwl-calendar-day-view>
     </div>
   </div>

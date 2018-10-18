@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
-import { Md5 } from 'ts-md5/dist/md5';
 import 'rxjs/add/operator/retry';
-import * as $ from 'jquery';
 import { Benutzer } from './benutzer.model';
 import { Observable } from 'rxjs';
 import { RestService } from '../rest.service';
@@ -37,6 +35,7 @@ export class LoginFormComponent implements OnInit {
     var rt = this.router;
     var u = this.user;
 
+    var rest = this.rest;
     this.rest.login(body).
       subscribe({
         next(data) {
@@ -47,23 +46,18 @@ export class LoginFormComponent implements OnInit {
             rt.navigate(['dashboard']);
           }
           else {
-            alert("Falsche Email oder falsches Passwort eingegeben!");
-          }
-          err => {
-            alert("Falsche Email oder falsches Passwort eingegeben!");
+            rest.showErrorMessage("Error", "Falsche Email oder falsches Passwort eingegeben!");
           }
         },
         error(error) {
           if (error.status < 400 || error.status === 500) {
-            alert('Falsche Email oder falsches Passwort eingegeben!');
+            rest.showErrorMessage("Error", "Falsche Email oder falsches Passwort eingegeben!");
             return Observable.throw(new Error(error.status));
           }
         },
         complete() {
           console.log('Completed');
-
         }
       });
   }
-
 }

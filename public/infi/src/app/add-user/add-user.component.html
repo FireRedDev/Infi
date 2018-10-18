@@ -1,59 +1,46 @@
 <h2>Benutzer hinzufügen</h2>
 <form (ngSubmit)="onSubmit()" #terminForm="ngForm">
-    <div class="form-group">
-        <label for="auswahl">Rolle auswählen</label>
-        <select  class="form-control" #selectElem (change)="setRole(selectElem.value)">
-          <option *ngFor="let key of keys()" [value]="key">{{key}}</option>
-        </select>
-        <br>
-        <label for="jrkEntity">Ebene auswählen</label>
-        <!-- Dropdown -->
-        <select class="form-control" #selectElem (change)="setJRK(selectElem.value)" name="jrkselect" id="jrkselect">
-          <option *ngFor="let JRKEntitaet of JRKEntitaeten, let i=index" [selected]="i==0" [value]="JRKEntitaet.id">{{JRKEntitaet.name}}</option>
-        </select>
-        <label for="vorname">Vorname</label>
-        <input type="text" class="form-control" id="vorname"
-               required
-               [(ngModel)]="actPerson.vorname" name="vorname"
-               #vorname="ngModel" minlength="3">
-               <div [hidden]="vorname.valid"
-               class="alert alert-danger">
-               Vorname muss eingegeben werden und mindestens 3 Zeichen lang sein!
-      </div>
-      <br>
-        <label for="nachname">Nachname</label>
-        <input type="text" class="form-control" id="nachname"
-               required
-               [(ngModel)]="actPerson.nachname" name="nachname"
-               #nachname="ngModel" minlength="3">
-               <div [hidden]="nachname.valid"
-               class="alert alert-danger">
-               Nachname muss eingegeben werden und mindestens 3 Zeichen lang sein!
-      </div>
-      <br>
-        <label for="email">E-Mail</label>
-        <input type="email" class="form-control" id="email"
-               required
-               [(ngModel)]="actPerson.email" name="email"
-               #email="ngModel" (change)="checkEmail()">
-               <div [hidden]="email.valid"
-               class="alert alert-danger">
-               E-Mail muss eingegeben werden!
-              </div>
-              <div [hidden]="correctEmail"
-              class="alert alert-danger">
-              Korrekte E-Mail muss eingegeben werden!
-             </div>
-      <br>
-        <label for="password">Passwort</label>
-        <input type="password" class="form-control" id="password"
-               required
-               [(ngModel)]="actPerson.password" name="password"
-               #password="ngModel" minlength="4">
-               <div [hidden]="password.valid"
-               class="alert alert-danger">
-               Passwort muss eingegeben werden und mindestens 4 Zeichen lang sein!
-      </div>
+  <div class="form-group">
+    <label for="auswahl">Rolle auswählen</label>
+    <select class="form-control" #selectElem (change)="setRole(selectElem.value)">
+      <option *ngFor="let key of keys()" [value]="key">{{key}}</option>
+    </select>
+    <br>
+    <label for="jrkEntity">Ebene auswählen</label>
+    <!-- Dropdown -->
+    <select class="form-control" #selectElem (change)="setJRK(selectElem.value)" name="jrkselect" id="jrkselect">
+      <option *ngFor="let JRKEntitaet of JRKEntitaeten, let i=index" [selected]="i==0" [value]="JRKEntitaet.id">{{JRKEntitaet.name}}</option>
+    </select>
+    <label for="vorname">Vorname</label>
+    <input type="text" class="form-control" id="vorname" required [(ngModel)]="actPerson.vorname" name="vorname"
+      #vorname="ngModel" minlength="3">
+    <div [hidden]="vorname.valid" class="alert alert-danger">
+      Vorname muss eingegeben werden und mindestens 3 Zeichen lang sein!
+    </div>
+    <br>
+    <label for="nachname">Nachname</label>
+    <input type="text" class="form-control" id="nachname" required [(ngModel)]="actPerson.nachname" name="nachname"
+      #nachname="ngModel" minlength="3">
+    <div [hidden]="nachname.valid" class="alert alert-danger">
+      Nachname muss eingegeben werden und mindestens 3 Zeichen lang sein!
+    </div>
+    <br>
+    <label for="email">E-Mail</label>
+    <input type="email" class="form-control" id="email" required [(ngModel)]="actPerson.email" name="email" #email="ngModel"
+      (change)="checkEmail()">
+    <div [hidden]="email.valid" class="alert alert-danger">
+      E-Mail muss eingegeben werden!
+    </div>
+    <div [hidden]="correctEmail" class="alert alert-danger">
+      Korrekte E-Mail muss eingegeben werden!
+    </div>
+    <br>
+    <label for="password">Passwort</label>
+    <input type="password" class="form-control" id="password" required [(ngModel)]="actPerson.password" name="password"
+      #password="ngModel" minlength="4">
+    <div [hidden]="password.valid" class="alert alert-danger">
+      Passwort muss eingegeben werden und mindestens 4 Zeichen lang sein!
+    </div>
   </div>
-<button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save();">einfügen</button>
+  <button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save();">einfügen</button>
 </form>

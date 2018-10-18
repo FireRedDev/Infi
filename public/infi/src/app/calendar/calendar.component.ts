@@ -10,7 +10,7 @@ import { DateTimePickerComponent } from './date-time-picker.component';
 import { colors } from './colors';
 import { RestService } from '../rest.service';
 import 'rxjs/add/operator/map';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   isSameMonth,
   isSameDay,
@@ -26,7 +26,6 @@ import {
   NgbTimepickerModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { CustomEventTitleFormatter } from './custom-event-title-formatter.provider';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Benutzer } from '../login-form/benutzer.model';
@@ -38,7 +37,6 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { id } from '@swimlane/ngx-charts/release/utils';
 
 interface Termin {
   id: number;
@@ -91,7 +89,7 @@ export class CalendarComponent implements OnInit {
 
   activeDayIsOpen = false;
 
-  constructor(public rest: RestService, private route: ActivatedRoute, private router: Router) {
+  constructor(public rest: RestService) {
     this.rest = rest;
   }
 
@@ -125,15 +123,12 @@ export class CalendarComponent implements OnInit {
     const calendarEvents = [];
     events.forEach(function (event) {
       var text = 'Titel: ' + event.title;
-      if (event.imgpath) {
-        //text += "<br><img width='200px' src='" + event.imgpath + "'>"
-      }
       calendarEvents.push({
         id: event.id,
         termin: event,
         title: text,
         beschreibung: '<br><b>Beschreibung: </b>' + event.beschreibung + '<br><b>Ort:</b> ' + event.ort,
-        imagePath:  event.imgpath,
+        imagePath: event.imgpath,
         start: new Date(event.s_date),
         end: new Date(event.e_date),
         color: colors.red,

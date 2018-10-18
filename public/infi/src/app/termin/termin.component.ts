@@ -117,6 +117,7 @@ export class TerminComponent implements OnInit {
     if (!this.fileerror) {
       this.rest.insertTermin(this.jrkEntitaet, this.actTermin)
         .subscribe(data => {
+          this.rest.showSuccessMessage("Erfolg","Termin eingefügt");
           this.changeView.emit("month");
         });
       this.success = true;

@@ -78,7 +78,7 @@
         <app-termin [jrkEntitaet]="jrkEntitaet" (changeView)="changeView($event)"></app-termin>
       </div>
       <div *ngIf="view =='protocol'">
-        <app-protocol (changeView)="changeView($event)" [protocolentry]="protocolentry"></app-protocol>
+        <app-protocol (changeView)="changeView($event)" [calendarEntry]="calendarEntry"></app-protocol>
       </div>
       <div *ngIf="view =='diagram'">
         <app-diagrams></app-diagrams>
@@ -99,15 +99,17 @@
         <app-password (changeView)="changeView($event)"></app-password>
       </div>
       <div *ngIf="view =='calendar-detail'">
-        <app-calendar-detail [calendarEntry]="calendarEntry" (writeDoku)="writeDoku($event)"></app-calendar-detail>
+        <app-calendar-detail [calendarEntry]="calendarEntry" (changeViewCalendar)="changeViewCalendar($event)"></app-calendar-detail>
       </div>
       <div *ngIf="view =='showprotocol'">
-        <app-showprotocol [jrkEntitaet]="jrkEntitaet" (changeView)="changeView($event)"></app-showprotocol>
+        <app-showprotocol [jrkEntitaet]="jrkEntitaet"></app-showprotocol>
+      </div>
+      <div *ngIf="view =='planning'">
+        <app-planning [calendarEntry]="calendarEntry" (changeView)="changeView($event)"></app-planning>
       </div>
     </section>
   </div>
 </ng-sidebar-container>
-
 
 <!-- Modal -->
 <div class="modal fade" id="pwdModal" tabindex="-1" role="dialog" aria-labelledby="pwdModalLabel" aria-hidden="true">

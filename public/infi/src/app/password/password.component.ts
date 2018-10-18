@@ -1,7 +1,5 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { RestService } from '../rest.service';
-import {UserService} from '../user.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { EventEmitter } from '@angular/core';
 declare var $: any;
 
@@ -12,35 +10,31 @@ declare var $: any;
 })
 export class PasswordComponent implements OnInit {
 
-  password1="";
-  password2="";
+  password1 = "";
+  password2 = "";
   msg = "";
-  err="";
+  err = "";
 
   @Output() changeView: EventEmitter<string> = new EventEmitter();
 
-  constructor(public rest: RestService,private user: UserService, private route: ActivatedRoute, private router: Router) {
-    this.rest=rest;
+  constructor(public rest: RestService) {
+    this.rest = rest;
   }
 
   ngOnInit() {
   }
 
   //Passwort ändern
-  changePwd(){
-      if(this.password1==this.password2&&this.password1!=""){
-        const body = {'id': localStorage.getItem('currentUser'), 'password': this.password1};
-        this.rest.changePassword(body).subscribe(data => {
-          this.err='';
-          this.msg = "Passwort wurde geändert.";
-          console.log("message: "+data);
-          $('#pwdModal').modal('hide');
-        });
-      }
-      else{
-        this.err="Die beiden Passwörter sind nicht ident, versuche es nochmal!";
-        this.msg='';
-      }
-   
+  changePwd() {
+    if (this.password1 == this.password2 && this.password1 != "") {
+      const body = { 'id': localStorage.getItem('currentUser'), 'password': this.password1 };
+      this.rest.changePassword(body).subscribe(data => {
+        this.rest.showSuccessMessage("Erfolg", "Passwort wurde geändert.");
+        this.changeView.emit("month");
+      });
+    }
+    else {
+      this.rest.showErrorMessage("Error", "Die beiden Passwörter sind nicht ident, versuche es nochmal!");
+    }
   }
 }

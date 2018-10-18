@@ -15,6 +15,7 @@ import javax.persistence.*;
 import javax.ws.rs.core.*;
 import service.MySecurityContext;
 import service.Service;
+
 /**
  * Repository Communicate with Database
  *
@@ -442,6 +443,17 @@ public class DatenbankRepository {
         Person p = em.find(Person.class, id);
         return p.getJrkentitaet().getTyp() == JRKEntitaetType.Landstelle || p.getJrkentitaet().getTyp() == JRKEntitaetType.Bezirkstelle;
     }
+    
+        /**
+     * Is this User a Gruppenleiter?
+     *
+     * @param id
+     * @return
+     */
+    public boolean isGruppenleiter(int id) {
+        Person p = em.find(Person.class, id);
+        return p.getJrkentitaet().getTyp() == JRKEntitaetType.Ortstelle;
+    }
 
     /**
      *
@@ -748,12 +760,32 @@ public class DatenbankRepository {
     }
 
     public String setFCMToken(int id, String token) {
-       Person p= em.find(Person.class,id);
-       p.setFcmtoken(token);
-       em.getTransaction().begin();
-       em.merge(p);
-       em.getTransaction().commit();
-       Service.firstToken=true;
-       return "sucess";
+        Person p = em.find(Person.class, id);
+        p.setFcmtoken(token);
+        em.getTransaction().begin();
+        em.merge(p);
+        em.getTransaction().commit();
+        Service.firstToken = true;
+        return "sucess";
+    }
+
+    public void registerAttendee(int terminID, int userID) {
+        Termin t = em.find(Termin.class, terminID);
+        Person p = em.find(Person.class, userID);
+
+        //send Message
+        t.addTeilnehmer(p.getVorname());
+
+        em.getTransaction().begin();
+        em.merge(t);
+        em.getTransaction().commit();
+    }
+
+    public void removeAttendee(int terminID, int userID) {
+        Termin t = em.find(Termin.class, terminID);
+        Person p = em.find(Person.class, userID);
+        if (t.getTeilnehmer().contains(p.getVorname())) {
+            t.removeTeilnehmer(p.getVorname());
+        }
     }
 }
