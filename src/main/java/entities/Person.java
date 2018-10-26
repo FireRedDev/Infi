@@ -218,7 +218,7 @@ public class Person implements Serializable {
 
     public String getFcmtoken() {
         return fcmtoken;
-    }
+}
 
     public void setFcmtoken(String fcmtoken) {
         this.fcmtoken = fcmtoken;

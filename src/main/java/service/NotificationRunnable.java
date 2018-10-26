@@ -59,41 +59,39 @@ public class NotificationRunnable implements Runnable {
             Logger.getLogger(NotificationRunnable.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("Notification Thread running");
-        //while (true) {
-        //test
-        //if(LocalDateTime.now().to)
-        List<Person> personen = em.createNamedQuery("Benutzer.listAll", Person.class).getResultList();
-        LocalDate todaysDate = LocalDate.now();
-        for (Person currentPerson : personen) {
-            List<Termin> termine = new LinkedList();
+        while (true) {
+            if (LocalDateTime.now().getHour() == 7 && LocalDateTime.now().getMinute() == 0 && LocalDateTime.now().getSecond() == 0) {
+                List<Person> personen = em.createNamedQuery("Benutzer.listAll", Person.class).getResultList();
+                LocalDate tomorrow = LocalDate.now().plusDays(1);
+                for (Person currentPerson : personen) {
+                    List<Termin> termine = new LinkedList();
 
-            //Check for Duplicates, prepare Termin list
-            termine = addList(termine, currentPerson.getJrkentitaet().getTermine());
-            //Recursivly get Termine hierarchic upwards
-            termine = this.termineLayerDown(currentPerson.getJrkentitaet(), termine);
-            //Recursivly get Termine hierarchic downwards
-            termine = this.termineLayerUp(currentPerson.getJrkentitaet(), termine);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            for (Termin termin : termine) {
-                //    "2018-05-02 18:00:00
-                if (LocalDate.parse(termin.getS_date(), formatter).equals(todaysDate)) {
-                    try {
-                        this.TITLE = "Bevorstehender Termin";
-                        //Format String
-                        this.BODY = termin.getTitle() + " startet am " + termin.getS_date();
-                        String token = currentPerson.getFcmtoken();
-                        if (token != "") {
-                            sendCommonMessagePersonal(token);
+                    //Check for Duplicates, prepare Termin list
+                    termine = addList(termine, currentPerson.getJrkentitaet().getTermine());
+                    //Recursivly get Termine hierarchic upwards
+                    termine = this.termineLayerDown(currentPerson.getJrkentitaet(), termine);
+                    //Recursivly get Termine hierarchic downwards
+                    termine = this.termineLayerUp(currentPerson.getJrkentitaet(), termine);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    for (Termin termin : termine) {
+                        //    "2018-05-02 18:00:00
+                        if (LocalDate.parse(termin.getS_date(), formatter).equals(tomorrow)) {
+                            try {
+                                this.TITLE = "Bevorstehender Termin";
+                                //Format String
+                                this.BODY = termin.getTitle() + " startet am " + termin.getS_date();
+                                String token = currentPerson.getFcmtoken();
+                                if (token != "") {
+                                    sendCommonMessagePersonal(token);
+                                }
+                            } catch (IOException ex) {
+                                Logger.getLogger(NotificationRunnable.class.getName()).log(Level.SEVERE, null, ex);
+                                ex.printStackTrace();
+                            }
                         }
-                    } catch (IOException ex) {
-                        Logger.getLogger(NotificationRunnable.class.getName()).log(Level.SEVERE, null, ex);
-                        ex.printStackTrace();
                     }
                 }
-                // }
-
             }
-
         }
     }
 

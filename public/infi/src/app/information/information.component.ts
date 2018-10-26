@@ -54,7 +54,6 @@ export class InformationComponent implements OnInit {
     this.file = this.fileInput.files
     for (var i = 0; i < this.fileInput.files.length; i++) {
       var file = this.fileInput.files[i]
-      console.log("File" + file)
       var rest = this.rest;
       var imageType = /image.*/;
 
@@ -63,7 +62,6 @@ export class InformationComponent implements OnInit {
 
         reader.onload = function (e) {
           var dataURI = reader.result;
-          console.log(dataURI);
           //https://stackoverflow.com/questions/12168909/blob-from-dataurl
           // convert base64 to raw binary data held in a string
           // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
@@ -85,7 +83,6 @@ export class InformationComponent implements OnInit {
 
           // write the ArrayBuffer to a blob, and you're done
           var blob = new Blob([ab], { type: mimeString });
-          console.log(blob);
           rest.uploadImage(blob, file.name)
             .subscribe(data => {
               rest.showSuccessMessage("Erfolg", "Bild erfolgreich hochgeladen!");

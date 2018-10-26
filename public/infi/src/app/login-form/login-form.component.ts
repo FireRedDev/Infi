@@ -56,7 +56,7 @@ export class LoginFormComponent implements OnInit {
           }
         },
         complete() {
-          console.log('Completed');
+          //console.log('Completed');
         }
       });
   }

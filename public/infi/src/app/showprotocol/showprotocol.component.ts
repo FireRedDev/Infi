@@ -18,6 +18,7 @@ export class ShowprotocolComponent implements OnInit {
   records: Array<any> = new Array();
   isDesc: boolean = false;
   column: string = 'CategoryName';
+  searchText;
 
   constructor(
     public rest: RestService

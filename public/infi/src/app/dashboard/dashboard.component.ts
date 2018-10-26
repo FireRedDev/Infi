@@ -178,13 +178,17 @@ export class DashboardComponent implements OnInit {
     this.calendarEntry = i.item;
     this.view = i.view;
   }
+  changeViewProtocol() {
+    this.calendarEntry = null;
+    this.view = 'protocol';
+  }
 
   //Password ändern
   changePwd() {
     if (this.password1 == this.password2 && this.password1 != "") {
       const body = { 'id': localStorage.getItem('currentUser'), 'password': this.password1 };
       this.rest.changePassword(body).subscribe(data => {
-        console.log("message: " + data);
+        //console.log("message: " + data);
         $('#pwdModal').modal('hide');
       });
     }

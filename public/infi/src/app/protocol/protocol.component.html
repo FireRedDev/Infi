@@ -134,7 +134,7 @@
               name="kategorie" [value]="'Exkursion'" [checked]="actProtokol.kategorie === 'Exkursion'">Exkursion</label>
         </div>
       </div>
+      <button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save()">einfügen</button>
     </div>
   </div>
-  <button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save()">einfügen</button>
 </form>

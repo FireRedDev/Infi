@@ -117,7 +117,7 @@ export class TerminComponent implements OnInit {
     if (!this.fileerror) {
       this.rest.insertTermin(this.jrkEntitaet, this.actTermin)
         .subscribe(data => {
-          this.rest.showSuccessMessage("Erfolg","Termin eingefügt");
+          this.rest.showSuccessMessage("Erfolg", "Termin eingefügt");
           this.changeView.emit("month");
         });
       this.success = true;
@@ -134,7 +134,7 @@ export class TerminComponent implements OnInit {
     this.fileInput = document.getElementById('fileInput');
     this.file = this.fileInput.files
     var file = this.fileInput.files[0]
-    console.log("File" + file)
+    //console.log("File" + file)
     var rest = this.rest;
     var imageType = /image.*/;
     if (file.type.match(imageType) && this.file[0].size < 1097152) {
@@ -142,7 +142,7 @@ export class TerminComponent implements OnInit {
 
       reader.onload = function (e) {
         var dataURI = reader.result;
-        console.log(dataURI);
+        //console.log(dataURI);
         //https://stackoverflow.com/questions/12168909/blob-from-dataurl
         // convert base64 to raw binary data held in a string
         // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
@@ -165,11 +165,11 @@ export class TerminComponent implements OnInit {
         // write the ArrayBuffer to a blob, and you're done
         var blob = new Blob([ab], { type: mimeString });
 
-        console.log(blob);
+        //console.log(blob);
         rest.uploadImage(blob, file.name)
           .subscribe(data => {
             console.log("insertImage")
-            alert("Bild hochgeladen")
+            rest.showSuccessMessage("Erfolg", "Bild hochgeladen")
           });
 
       }

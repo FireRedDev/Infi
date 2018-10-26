@@ -28,14 +28,11 @@ export class HomeComponent implements OnInit {
 
     this.rest.getActTermin(body).subscribe(data => {
       this.t = data;
-      console.log(data.title)
-      console.log(this.t)
     });
   }
 
   setComing() {
     const body = localStorage.getItem('currentUser');
-    console.log("hallo", this.rest)
     this.rest.setComing(this.t.id, body).subscribe();
     this.showInvite = false;
   }

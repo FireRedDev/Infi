@@ -55,9 +55,9 @@ public class HttpServer_JavaSE {
         ConsoleHandler ch = new ConsoleHandler();
         ch.setLevel(Level.ALL);
         l.addHandler(ch);
-Thread t = new Thread(new NotificationRunnable());
+        Thread t = new Thread(new NotificationRunnable());
 
-t.start();
+        t.start();
         System.in.read();
         server.shutdown();
     }
@@ -95,6 +95,10 @@ t.start();
         welstermin.setImgpath("assets/Logo.png");
         wels.addTermin(welstermin);
 
+        Termin welstermin4 = new Termin("2018-10-25 15:30:00", "2018-10-25 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Wels");
+        welstermin4.setImgpath("assets/Logo.png");
+        wels.addTermin(welstermin4);
+
         Termin sattermin = new Termin("2018-03-05 15:30:00", "2018-03-05 17:30:00", "Generalversammlung", "Ortsstellenversammlung", "Dienststelle Sattledt");
         sattermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "Exkursion"));
         sattledt.addTermin(sattermin);
@@ -120,13 +124,13 @@ t.start();
         sattermin1.setImgpath("assets/Logo.png");
         sattledt.addTermin(sattermin1);
 
-        Termin marchtrenktermin = new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei",  "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk");
+        Termin marchtrenktermin = new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk");
         marchtrenktermin.setDoko(new Dokumentation(kinder1, betreuer1, "grillen", 3.0, "Soziales"));
         marchtrenk1.addTermin(marchtrenktermin);
-        
+
         Termin marchtrenktermin1 = new Termin("2018-04-04 15:30:00", "2018-04-04 17:30:00", "Film schauen", "Bitte Decken und Polster mit nehmen", "Dienststelle Marchtrenk");
         marchtrenktermin1.setDoko(new Dokumentation(kinder1, betreuer1, "schauen", 2.0, "Soziales"));
-        marchtrenktermin1.setImgpath("assets/Logo.png"); 
+        marchtrenktermin1.setImgpath("assets/Logo.png");
         marchtrenk1.addTermin(marchtrenktermin1);
 
         marchtrenk1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Eislaufen", "Bitte Eislaufschuhe, Winterkleidung und 3€ Eintritt mitnehmen", "Eislaufplatz Marchtrenk"));
@@ -164,7 +168,7 @@ t.start();
         ooe.addTermin(new Termin("2019-04-19 13:00:00", "2019-04-19 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
         wels.addTermin(new Termin("2017-07-15 09:00:00", "2017-07-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
 
-        ooe.addTermin(new Termin("2018-10-11 13:00:00", "2018-10-11 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
+        ooe.addTermin(new Termin("2018-05-29 13:00:00", "2018-05-29 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
 
         String[] a = {"http://localhost:8080/upload_image/teambuilding.jpg"};
         String[] b = {"http://localhost:8080/upload_image/bezirkslager2.jpg", "http://localhost:8080/upload_image/bezirkslager3.jpg", "http://localhost:8080/upload_image/bezirkslager1.jpg"};

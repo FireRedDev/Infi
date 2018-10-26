@@ -28,7 +28,7 @@ public class Termin implements Serializable {
     private String ort;
     private String imgpath;
     private String plannung;
-    private String teilnehmer="";
+    private String teilnehmer = "";
 
     @OneToOne
     private Dokumentation doko;
@@ -267,11 +267,11 @@ public class Termin implements Serializable {
     }
 
     public void addTeilnehmer(String t) {
-        this.teilnehmer=this.teilnehmer+t+";";
+        this.teilnehmer = this.teilnehmer + t + ";";
     }
 
     public void removeTeilnehmer(String t) {
-        this.teilnehmer=this.teilnehmer.replace(t, "");
+        this.teilnehmer = this.teilnehmer.replace(t, "");
     }
 
 }

@@ -443,8 +443,8 @@ public class DatenbankRepository {
         Person p = em.find(Person.class, id);
         return p.getJrkentitaet().getTyp() == JRKEntitaetType.Landstelle || p.getJrkentitaet().getTyp() == JRKEntitaetType.Bezirkstelle;
     }
-    
-        /**
+
+    /**
      * Is this User a Gruppenleiter?
      *
      * @param id
@@ -747,7 +747,7 @@ public class DatenbankRepository {
         termin.setPlannung(text);
 
         insert(termin);
-    }
+}
 
     public List<Termin> getProtokollDetails(int id) {
         List<Termin> termin = new LinkedList();

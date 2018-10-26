@@ -1,6 +1,24 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <div class="card-deck">
+  <div class="naechstertermin" *ngIf="showInvite">
+    <div class="card-deck">
+      <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">Nächster Termin:</h4><br>
+          <div class="container">
+            <b>Titel: </b>{{t?.title}}<br>
+            <b>Beschreibung: </b>{{t?.beschreibung}}<br>
+            <b>Ort: </b>{{t?.ort}}<br>
+            <b>Von: </b>{{t?.s_date}}<br>
+            <b>Bis: </b>{{t?.e_date}}<br><br>
+            <button class="ja" (click)="setComing()">Ja, ich komme</button>
+            <button class="nein" (click)="showInvite==false">Nein, ich komme nicht</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div *ngFor="let i of infos, let zahl=index">
     <div class="card">
       <div class="card-block">
@@ -38,50 +56,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="naechstertermin" *ngIf="showInvite">
-    <div class="card-deck">
-      <div class="card">
-        <div class="card-block">
-          <h4 class="card-title">Nächster Termin:</h4><br>
-          <div class="container">
-            <b>Titel: </b>{{t?.title}}<br>
-            <b>Beschreibung: </b>{{t?.beschreibung}}<br>
-            <b>Ort: </b>{{t?.ort}}<br>
-            <b>Von: </b>{{t?.s_date}}<br>
-            <b>Bis: </b>{{t?.e_date}}<br><br>
-            <button class="ja" (click)="setComing()">Ja, ich komme</button>
-            <button class="nein" (click)="showInvite==false">Nein, ich komme nicht</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal für Plannung -->
-
-<!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Stunden planen</button>
-
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <h4 class="modal-title">Stunden planen</h4> <br>
-        <textarea class="form-control z-depth-1" style="font-size:15px;width:100%;height:100px;" [(ngModel)]="textModel"></textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="save()">Speichern</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

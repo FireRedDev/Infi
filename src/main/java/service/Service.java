@@ -253,7 +253,7 @@ public class Service {
         return repo.isAdmin(id);
     }
 
-        /**
+    /**
      * is this user a admin?
      *
      * @param id
@@ -427,7 +427,7 @@ public class Service {
     public String insertPlanung(@PathParam("id") int id, String text) {
         repo.insertPlanung(id, text);
         return "inserted";
-    }
+}
 
     @GET
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
@@ -460,9 +460,7 @@ public class Service {
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     public void removeAttendee(@PathParam("id") int terminID, int userID, @Context MySecurityContext sc) {
-        if (sc.isIDValue(userID)) {
             repo.removeAttendee(terminID, userID);
-        }
     }
 
     @Path("getNextIncomingAppointment/{id}")

@@ -135,7 +135,6 @@ export class CalendarComponent implements OnInit {
         cssClass: 'my-custom-class'
       });
     });
-    console.log(events)
     return calendarEvents;
   }
   dayClicked({

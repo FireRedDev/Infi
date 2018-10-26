@@ -49,7 +49,7 @@ export class ManageUserComponent implements OnInit {
 
   deletePerson(i: number) {
     this.rest.deletePerson(this.persons[i].id).subscribe(() => {
-      console.log("gelöscht")
+      this.rest.showSuccessMessage("Erfolg", "Person erfolgreich gelöscht!");
     });
     this.persons.splice(i, 1);
   }

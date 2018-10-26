@@ -1,29 +1,27 @@
-<div class="container">
-  <div class="row">
-    <div *ngFor="let item of calendarEntry.events; let i = index" class="col-lg-6 col-sm">
-      <div class="card-box">
-        <div class="card-title">
-          <h2>
-            <div [innerHTML]='item.title'></div>
-          </h2>
-        </div>
-        <div class="card-body">
-          <div [innerHTML]='item.beschreibung'></div><br>
-          <b>Startdatum:</b>
-          <div [innerHTML]='item.start.toLocaleString().slice(0,16)'></div>
-          <b>Enddatum:</b>
-          <div [innerHTML]='item.end.toLocaleString().slice(0,16)'></div>
-          <img src='{{item.imagePath}}'>
-          <b *ngIf="item.termin.plannung">Planung:</b>
-          <div *ngIf="item.termin.plannung" [innerHTML]="item.termin.plannung"></div>
-          <div *ngIf="isGruppenleiter&&item.termin.teilnehmer!=''">Es kommen: {{item.termin.teilnehmer}}</div>
-        </div>
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button (click)="changeViewCalendarDetail('protocol',item)" class="btn btn-secondary" *ngIf="isEditor">Protokoll
-            schreiben</button>
-          <button (click)="changeViewCalendarDetail('planning',item)" class="btn btn-secondary" *ngIf="isEditor">Planung
-            schreiben</button>
-        </div>
+<div class="row">
+  <div *ngFor="let item of calendarEntry.events; let i = index" class="col-lg-6 col-sm">
+    <div class="card-box">
+      <div class="card-title">
+        <h2>
+          <div [innerHTML]='item.title'></div>
+        </h2>
+      </div>
+      <div class="card-body">
+        <div [innerHTML]='item.beschreibung'></div><br>
+        <b>Startdatum:</b>
+        <div [innerHTML]='item.start.toLocaleString().slice(0,16)'></div>
+        <b>Enddatum:</b>
+        <div [innerHTML]='item.end.toLocaleString().slice(0,16)'></div>
+        <img src='{{item.imagePath}}'>
+        <b *ngIf="item.termin.plannung">Planung:</b>
+        <div *ngIf="item.termin.plannung" [innerHTML]="item.termin.plannung"></div>
+        <div *ngIf="isGruppenleiter&&item.termin.teilnehmer!=''">Es kommen: {{item.termin.teilnehmer}}</div>
+      </div>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button (click)="changeViewCalendarDetail('protocol',item)" class="btn btn-secondary" *ngIf="isEditor">Protokoll
+          schreiben</button>
+        <button (click)="changeViewCalendarDetail('planning',item)" class="btn btn-secondary" *ngIf="isEditor">Planung
+          schreiben</button>
       </div>
     </div>
   </div>

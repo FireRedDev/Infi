@@ -31,9 +31,7 @@ public class MySecurityContext implements SecurityContext {
         return () -> String.valueOf(id); //To change body of generated methods, choose Tools | Templates.
 
     }
-public boolean isIDValue (int id) {
-    return id==this.id;
-}
+
     /**
      *
      * @param role

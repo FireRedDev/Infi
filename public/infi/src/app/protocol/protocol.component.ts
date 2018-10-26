@@ -167,7 +167,7 @@ export class ProtocolComponent implements OnInit {
   }
 
   getFirstDate(): Termin {
-    if (this.calendarEntry != null) {
+    if (this.calendarEntry != null && this.calendarEntry != {}) {
       return this.calendarEntry.termin;
     }
     return this.term[0];
