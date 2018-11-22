@@ -12,9 +12,14 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.*;
 import service.MySecurityContext;
 import service.Service;
+import static entities.JRKEntitaetType.*;
 
 /**
  * Repository Communicate with Database
@@ -46,9 +51,9 @@ public class DatenbankRepository {
      * @return
      */
     public Person addBenutzer(Person p) {
-        em.getTransaction().begin();
+
         em.persist(p);
-        em.getTransaction().commit();
+
         return p;
     }
 
@@ -72,9 +77,8 @@ public class DatenbankRepository {
     public List<Person> deletePerson(int id) {
         try {
             Person p = em.find(Person.class, id);
-            em.getTransaction().begin();
+
             em.remove(p);
-            em.getTransaction().commit();
 
             return listAllUsers();
         } catch (Exception e) {
@@ -139,9 +143,9 @@ public class DatenbankRepository {
     public Person insert(int id, Person b) {
         JRKEntitaet j = em.find(JRKEntitaet.class, id);
         b.setJrkentitaet(j);
-        em.getTransaction().begin();
+
         em.merge(b);
-        em.getTransaction().commit();
+
         return b;
     }
 
@@ -152,9 +156,9 @@ public class DatenbankRepository {
      * @return
      */
     public Person insert(Person b) {
-        em.getTransaction().begin();
+
         em.merge(b);
-        em.getTransaction().commit();
+
         return b;
     }
 
@@ -174,9 +178,9 @@ public class DatenbankRepository {
      * @return
      */
     public JWTTokenUser insert(JWTTokenUser b) {
-        em.getTransaction().begin();
+
         em.merge(b);
-        em.getTransaction().commit();
+
         return b;
     }
 
@@ -187,9 +191,9 @@ public class DatenbankRepository {
      * @return
      */
     public Termin insert(Termin termin) {
-        em.getTransaction().begin();
+
         em.persist(termin);
-        em.getTransaction().commit();
+
         return termin;
     }
 
@@ -199,9 +203,9 @@ public class DatenbankRepository {
      * @param doku
      */
     public void insert(Dokumentation doku) {
-        em.getTransaction().begin();
+
         em.persist(doku);
-        em.getTransaction().commit();
+
     }
 
     /**
@@ -210,9 +214,9 @@ public class DatenbankRepository {
      * @param jrk
      */
     public void insert(JRKEntitaet jrk) {
-        em.getTransaction().begin();
+
         em.merge(jrk);
-        em.getTransaction().commit();
+
     }
 
     /**
@@ -479,9 +483,9 @@ public class DatenbankRepository {
      * @param d
      */
     public void insertDoko(Termin d) {
-        em.getTransaction().begin();
+
         em.merge(d);
-        em.getTransaction().commit();
+
     }
 
     /**
@@ -667,9 +671,9 @@ public class DatenbankRepository {
         p = em.find(Person.class, p.getId());
         p.setPassword(password);
         p.setPasswordChanged(true);
-        em.getTransaction().begin();
+
         em.persist(p);
-        em.getTransaction().commit();
+
     }
 
     /**
@@ -747,7 +751,7 @@ public class DatenbankRepository {
         termin.setPlannung(text);
 
         insert(termin);
-}
+    }
 
     public List<Termin> getProtokollDetails(int id) {
         List<Termin> termin = new LinkedList();
@@ -762,9 +766,9 @@ public class DatenbankRepository {
     public String setFCMToken(int id, String token) {
         Person p = em.find(Person.class, id);
         p.setFcmtoken(token);
-        em.getTransaction().begin();
+
         em.merge(p);
-        em.getTransaction().commit();
+
         Service.firstToken = true;
         return "sucess";
     }
@@ -776,9 +780,8 @@ public class DatenbankRepository {
         //send Message
         t.addTeilnehmer(p.getVorname());
 
-        em.getTransaction().begin();
         em.merge(t);
-        em.getTransaction().commit();
+
     }
 
     public void removeAttendee(int terminID, int userID) {
@@ -788,4 +791,183 @@ public class DatenbankRepository {
             t.removeTeilnehmer(p.getVorname());
         }
     }
+
+    public String getTerminTeilnehmer(int id) {
+        Termin t = em.find(Termin.class, id);
+        return t.getTeilnehmer();
+
+    }
+
+    public List<Person> getSupervisor(int id) {
+        Person currentPerson = em.find(Person.class, id);
+        JRKEntitaet jrk = currentPerson.getJrkentitaet();
+        return em.createNamedQuery("Benutzer.byjrkEntitaet").setParameter("id", jrk).getResultList();
+    }
+
+    public List<Person> getChildren(int id) {
+        Person currentPerson = em.find(Person.class, id);
+        List<Person> pers = new LinkedList<>();
+        JRKEntitaet jrk = currentPerson.getJrkentitaet();
+        List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown").setParameter("jrkentitaet", jrk).getResultList();
+        for (JRKEntitaet j : jrks) {
+            pers.addAll(em.createNamedQuery("Benutzer.byjrkEntitaet").setParameter("id", j).getResultList());
+        }
+        return pers;
+    }
+
+    public void changeTermin(Termin t) {
+        em.merge(t);
+    }
+
+    public void changeInfo(Info i) {
+        em.merge(i);
+    }
+
+    public String testValues() {
+        JRKEntitaetType gruppe = Gruppe;
+        JRKEntitaetType ortstelle = Ortstelle;
+        JRKEntitaetType bezirkstelle = Bezirkstelle;
+        JRKEntitaetType landesstelle = Landstelle;
+
+        //JRK Entitäten erstellen
+        JRKEntitaet ooe = new JRKEntitaet(5, "Oberösterreich", landesstelle, null);
+        insert(ooe);
+        JRKEntitaet wels = new JRKEntitaet(4, "Wels", bezirkstelle, ooe);
+        insert(wels);
+        JRKEntitaet sattledt = new JRKEntitaet(1, "Sattledt", ortstelle, wels);
+        insert(sattledt);
+        JRKEntitaet sattledt1 = new JRKEntitaet(2, "Gruppe1", gruppe, sattledt);
+        insert(sattledt1);
+        JRKEntitaet marchtrenk = new JRKEntitaet(3, "Marchtrenk", ortstelle, wels);
+        insert(marchtrenk);
+        JRKEntitaet marchtrenk1 = new JRKEntitaet(6, "Gruppe1", gruppe, marchtrenk);
+        insert(marchtrenk1);
+
+        //Termine erstellen
+        Termin sattledttermin = new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
+        String[] betreuer = {"Gusi", "Isi"};
+        String[] kinder = {"Meli", "Antonia", "Luki"};
+        String[] betreuer1 = {"Daniel", "Jakob"};
+        String[] kinder1 = {"Luisa", "Jonas", "Harald"};
+        sattledttermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "Soziales"));
+        sattledttermin.setImgpath("assets/Logo.png");
+        sattledt1.addTermin(sattledttermin);
+
+        Termin welstermin = new Termin("2018-03-04 15:30:00", "2018-03-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Wels");
+        welstermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "EH"));
+        welstermin.setImgpath("assets/Logo.png");
+        wels.addTermin(welstermin);
+
+        Termin welstermin4 = new Termin("2018-10-25 15:30:00", "2018-10-25 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Wels");
+        welstermin4.setImgpath("assets/Logo.png");
+        wels.addTermin(welstermin4);
+
+        Termin sattermin = new Termin("2018-03-05 15:30:00", "2018-03-05 17:30:00", "Generalversammlung", "Ortsstellenversammlung", "Dienststelle Sattledt");
+        sattermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "Exkursion"));
+        sattledt.addTermin(sattermin);
+
+        Termin sattledttermin1 = new Termin("2018-02-04 15:30:00", "2018-02-04 17:30:00", "Generalversammlung", "Ortsstellenversammlung", "Dienststelle Sattledt");
+        sattledttermin1.setDoko(new Dokumentation(kinder1, betreuer1, "basteln", 2.0, "Exkursion"));
+        sattledt1.addTermin(sattledttermin1);
+
+        Termin welstermin1 = new Termin("2018-04-04 15:30:00", "2018-04-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
+        welstermin1.setDoko(new Dokumentation(kinder, betreuer1, "basteln", 2.0, "Soziales"));
+        wels.addTermin(welstermin1);
+
+        Termin welstermin2 = new Termin("2018-06-15 14:00:00", "2018-06-15 21:00:00", "Klettern", "Bitte feste Schuhe anziehen", "Klettergarten");
+        welstermin2.setDoko(new Dokumentation(kinder, betreuer1, "basteln", 7.0, "Soziales"));
+        wels.addTermin(welstermin2);
+
+        Termin welstermin3 = new Termin("2017-06-15 14:00:00", "2017-06-15 21:00:00", "Klettern", "Bitte feste Schuhe anziehen", "Klettergarten");
+        welstermin3.setDoko(new Dokumentation(kinder, betreuer1, "klettern", 7.0, "Soziales"));
+        wels.addTermin(welstermin3);
+
+        Termin sattermin1 = new Termin("2018-04-05 15:30:00", "2018-04-05 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
+        sattermin1.setDoko(new Dokumentation(kinder1, betreuer, "basteln", 2.0, "Soziales"));
+        sattermin1.setImgpath("assets/Logo.png");
+        sattledt.addTermin(sattermin1);
+
+        Termin marchtrenktermin = new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk");
+        marchtrenktermin.setDoko(new Dokumentation(kinder1, betreuer1, "grillen", 3.0, "Soziales"));
+        marchtrenk1.addTermin(marchtrenktermin);
+
+        Termin marchtrenktermin1 = new Termin("2018-04-04 15:30:00", "2018-04-04 17:30:00", "Film schauen", "Bitte Decken und Polster mit nehmen", "Dienststelle Marchtrenk");
+        marchtrenktermin1.setDoko(new Dokumentation(kinder1, betreuer1, "schauen", 2.0, "Soziales"));
+        marchtrenktermin1.setImgpath("assets/Logo.png");
+        marchtrenk1.addTermin(marchtrenktermin1);
+
+        marchtrenk1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Eislaufen", "Bitte Eislaufschuhe, Winterkleidung und 3€ Eintritt mitnehmen", "Eislaufplatz Marchtrenk"));
+        wels.addTermin(new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk"));
+        ooe.addTermin(new Termin("2018-02-02 18:00:00", "2018-02-02 21:00:00", "Faschingsumzug", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz"));
+        wels.addTermin(new Termin("2018-02-15 14:00:00", "2018-02-15 21:00:00", "Basteln", "Bitte Schere und Kleber mitnehmen", "Dienststelle Marchtrenk"));
+
+        marchtrenk1.addTermin(new Termin("2018-03-04 15:30:00", "2018-03-04 17:30:00", "Film schauen", "Bitte Decken und Polster mit nehmen", "Dienststelle Marchtrenk"));
+        wels.addTermin(new Termin("2018-04-24 18:00:00", "2018-04-24 21:00:00", "Basteln", "Bitte Schere und Kleber mitnehmen", "Dienststelle Marchtrenk"));
+        ooe.addTermin(new Termin("2018-05-02 18:00:00", "2018-05-02 21:00:00", "Grillerei", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz"));
+        wels.addTermin(new Termin("2018-06-15 14:00:00", "2018-06-15 21:00:00", "Klettern", "Bitte feste Schuhe anziehen", "Klettergarten"));
+
+        marchtrenk.addTermin(new Termin("2018-04-04 15:30:00", "2018-04-04 17:30:00", "Film schauen auf der Dienststelle", "Bitte Decken und Polster mit nehmen", "Dienststelle Marchtrenk"));
+        wels.addTermin(new Termin("2018-04-24 17:00:00", "2018-04-24 21:00:00", "Basteln", "Bitte Schere und Kleber mitnehmen", "Dienststelle Marchtrenk"));
+        ooe.addTermin(new Termin("2018-05-02 13:00:00", "2018-05-02 21:00:00", "Grillerei", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz"));
+        wels.addTermin(new Termin("2018-06-15 10:00:00", "2018-06-15 21:00:00", "Klettern", "Bitte feste Schuhe anziehen", "Klettergarten"));
+
+        marchtrenk.addTermin(new Termin("2018-01-15 15:30:00", "2018-01-17 17:30:00", "Wandern", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
+        wels.addTermin(new Termin("2018-05-30 09:00:00", "2018-05-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
+        ooe.addTermin(new Termin("2018-12-19 13:00:00", "2018-12-19 21:00:00", "Adventmarkt", "warm anziehen", "Adventmarkt Wels"));
+        wels.addTermin(new Termin("2018-08-15 09:00:00", "2018-08-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
+
+        marchtrenk.addTermin(new Termin("2018-10-01 11:30:00", "2018-10-01 17:30:00", "Wandern auf der Reiteralm", "Festes Schuhwerk", "Dienststelle Marchtrenk", "Plannung erstellt"));
+        wels.addTermin(new Termin("2018-12-30 09:00:00", "2018-12-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
+        ooe.addTermin(new Termin("2018-04-19 13:00:00", "2018-04-19 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
+        wels.addTermin(new Termin("2018-07-15 09:00:00", "2018-07-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
+
+        marchtrenk1.addTermin(new Termin("2019-01-15 15:30:00", "2019-01-17 17:30:00", "Wandern", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
+        wels.addTermin(new Termin("2019-05-30 09:00:00", "2019-05-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
+        ooe.addTermin(new Termin("2017-12-19 13:00:00", "2017-12-19 21:00:00", "Adventmarkt", "warm anziehen", "Adventmarkt Wels"));
+        wels.addTermin(new Termin("2019-08-15 09:00:00", "2019-08-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
+
+        marchtrenk1.addTermin(new Termin("2017-10-01 11:30:00", "2017-10-17 17:30:00", "Wandern", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
+        wels.addTermin(new Termin("2017-12-30 09:00:00", "2017-12-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
+        ooe.addTermin(new Termin("2019-04-19 13:00:00", "2019-04-19 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
+        wels.addTermin(new Termin("2017-07-15 09:00:00", "2017-07-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
+
+        ooe.addTermin(new Termin("2018-05-29 13:00:00", "2018-05-29 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
+
+        String[] a = {"http://localhost:8080/upload_image/teambuilding.jpg"};
+        String[] b = {"http://localhost:8080/upload_image/bezirkslager2.jpg", "http://localhost:8080/upload_image/bezirkslager3.jpg", "http://localhost:8080/upload_image/bezirkslager1.jpg"};
+        String[] c = {"http://localhost:8080/upload_image/halloween.jpg"};
+        String[] d = {"http://localhost:8080/upload_image/fotoOnline.jpg", "http://localhost:8080/upload_image/lager.jpg"};
+
+        sattledt1.addInfo(new Info("Terminfindung für Fotoshooting", "Bitte Abstimmen Doodle-Link", a, "2018-02-15 09:00:00"));
+        ooe.addInfo(new Info("Fotos", "fotos sind online oö", d, "2017-07-15 09:00:00"));
+        wels.addInfo(new Info("Bezirkslager", "Bilder sind endlich auf Dropbox Link:", b, "2017-08-15 09:00:00"));
+        wels.addInfo(new Info("Halloween", "Ergebnisse von der Halloweenstunde", c, "2018-01-15 09:00:00"));
+
+        //Personen erstellen
+        Person tom = new Person("00001", "passme", "Tom", "Tester", ooe, Role.LANDESLEITER);
+        Person karin = new Person("00002", "passme", "Karin", "Tester", wels, Role.BEZIRKSLEITER);
+        Person gusi = new Person("00003", "passme", "Gusi", "Tester", sattledt, Role.ORTSTELLENLEITER);
+        Person doris = new Person("00004", "passme", "Doris", "Tester", sattledt1, Role.KIND);
+        Person isabella = new Person("00005", "passme", "Isabella", "Tester", sattledt1, Role.KIND);
+        Person antonia = new Person("00006", "passme", "Antonia", "Tester", marchtrenk, Role.ORTSTELLENLEITER);
+        Person melanie = new Person("00007", "passme", "Melanie", "Tester", marchtrenk1, Role.KIND);
+
+        //Personen einfügen
+        insert(tom);
+        insert(karin);
+        insert(gusi);
+        insert(doris);
+        insert(isabella);
+        insert(antonia);
+        insert(melanie);
+        return "Testvalues";
+    }
+
+    public String deleteTermin(Termin t) {
+        em.getTransaction().begin();
+        em.remove(t);
+        em.getTransaction().commit();
+        return "success";
+    }
+
 }

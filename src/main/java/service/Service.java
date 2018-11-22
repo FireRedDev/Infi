@@ -9,6 +9,7 @@ import repository.DatenbankRepository;
 import RestResponseClasses.PersonTokenTransferObject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import javax.inject.Inject;
 import javax.ws.rs.core.Context;
 
 /**
@@ -184,6 +185,20 @@ public class Service {
     }
 
     /**
+     * Inserts a Termin/Appointment and assigns it to a JRKEntitaet
+     *
+     * @param id
+     * @param t
+     */
+    @Path("changeTermin")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @PUT
+    public void changeTermin(Termin t) {
+        repo.changeTermin(t);
+    }
+
+    /**
      * insert Dokumentation and create Relationship with its Termin
      *
      * @param d Termin
@@ -194,6 +209,14 @@ public class Service {
     @POST
     public void insertDoko(Termin d) {
         repo.insertDoko(d);
+    }
+
+    @Path("getTerminTeilnehmer")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @POST
+    public String getTerminTeilnehmer(int id) {
+        return repo.getTerminTeilnehmer(id);
     }
 
     /**
@@ -267,6 +290,7 @@ public class Service {
     public boolean isGruppenleiter(int id) {
         return repo.isGruppenleiter(id);
     }
+
     /**
      * give back none documented appointments
      *
@@ -419,6 +443,14 @@ public class Service {
         repo.insertInfo(id, i);
     }
 
+    @Path("changeInfo")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @PUT
+    public void changeInfo(Info i) {
+        repo.changeInfo(i);
+    }
+
     @Path("insertPlanung/{id}")
     //@Secured(Role.GRUPPENLEITER)
     @Consumes(MediaType.TEXT_PLAIN)
@@ -427,7 +459,7 @@ public class Service {
     public String insertPlanung(@PathParam("id") int id, String text) {
         repo.insertPlanung(id, text);
         return "inserted";
-}
+    }
 
     @GET
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
@@ -460,7 +492,7 @@ public class Service {
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     public void removeAttendee(@PathParam("id") int terminID, int userID, @Context MySecurityContext sc) {
-            repo.removeAttendee(terminID, userID);
+        repo.removeAttendee(terminID, userID);
     }
 
     @Path("getNextIncomingAppointment/{id}")
@@ -469,8 +501,47 @@ public class Service {
     @POST
     public Termin getNextIncomingAppointment(@PathParam("id") int id) {
         List<Termin> liste = repo.getUsertermine(id);
-        String date=LocalDateTime.now().toString();
-        
-        return liste.stream().filter(t->t.getS_date().compareTo(date)>0).sorted((l, r) -> l.getS_date().compareTo(r.getS_date())).findFirst().orElse(null);
+        String date = LocalDateTime.now().toString();
+
+        return liste.stream().filter(t -> t.getS_date().compareTo(date) > 0).sorted((l, r) -> l.getS_date().compareTo(r.getS_date())).findFirst().orElse(null);
+    }
+
+    /**
+     * Gives back the Supervisors
+     *
+     * @param id
+     * @return
+     */
+    @POST
+    @Path("getSupervisors")
+    @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER, Role.GRUPPENLEITER})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public List<Person> getSupervisor(int id) {
+        return repo.getSupervisor(id);
+    }
+
+    /**
+     * Gives back the Children
+     *
+     * @param id
+     * @return
+     */
+    @POST
+    @Path("getChildren")
+    @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER, Role.GRUPPENLEITER})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public List<Person> getChildren(int id) {
+        return repo.getChildren(id);
+    }
+
+    @Path("deleteTermin")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    @POST
+    public String deleteTermin(Termin t) {
+        return repo.deleteTermin(t);
     }
 }

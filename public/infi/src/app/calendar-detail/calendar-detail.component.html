@@ -8,6 +8,8 @@
       </div>
       <div class="card-body">
         <div [innerHTML]='item.beschreibung'></div><br>
+        <b>Ort:</b>
+        <div [innerHTML]='item.ort'></div><br>
         <b>Startdatum:</b>
         <div [innerHTML]='item.start.toLocaleString().slice(0,16)'></div>
         <b>Enddatum:</b>
@@ -22,6 +24,8 @@
           schreiben</button>
         <button (click)="changeViewCalendarDetail('planning',item)" class="btn btn-secondary" *ngIf="isEditor">Planung
           schreiben</button>
+        <button (click)="changeTermin(item)" class="btn btn-secondary" *ngIf="isEditor">Termin bearbeiten</button>
+        <button (click)="deleteTermin(item)" class="btn btn-secondary" *ngIf="isEditor">Termin löschen</button>
       </div>
     </div>
   </div>
