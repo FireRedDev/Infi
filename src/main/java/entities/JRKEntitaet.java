@@ -6,6 +6,7 @@ package entities;
 import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
+import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 /**
  * An JRKENTITY is an organisational unit/team, like a Jugendgruppe or a
@@ -29,8 +30,10 @@ public class JRKEntitaet implements Serializable {
     private String ort;
     private JRKEntitaetType typ;
     //each JRKENTITÄT has its own list of Termine and info
+    @CascadeOnDelete
     @OneToMany
     private List<Termin> termine = new LinkedList<Termin>();
+    @CascadeOnDelete
     @OneToMany
     private List<Info> info = new LinkedList<Info>();
 
@@ -219,6 +222,14 @@ public class JRKEntitaet implements Serializable {
      */
     public void addTermin(Termin termin) {
         termine.add(termin);
+    }
+
+    /**
+     *
+     * @param termin
+     */
+    public void removeTermin(Termin termin) {
+        termine.remove(termin);
     }
 
     /**

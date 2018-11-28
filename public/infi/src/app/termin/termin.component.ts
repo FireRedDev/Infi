@@ -88,6 +88,7 @@ export class GermanItl extends OwlDateTimeIntl {
 export class TerminComponent implements OnInit {
   @Input() jrkEntitaet: jrkEntitaet;
   @Output() changeView: EventEmitter<string> = new EventEmitter();
+  @Input() actTermin: Termin;
 
   success = false;
   fileInput;
@@ -105,7 +106,8 @@ export class TerminComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.s_date = new Date(this.actTermin.s_date)
+    this.e_date = new Date(this.actTermin.e_date)
   }
   save() {
     var actTermin = this.actTermin
@@ -115,16 +117,26 @@ export class TerminComponent implements OnInit {
       actTermin.imgpath = "http://localhost:8080/upload_image/" + this.file[0].name;
     }
     if (!this.fileerror) {
-      this.rest.insertTermin(this.jrkEntitaet, this.actTermin)
-        .subscribe(data => {
-          this.rest.showSuccessMessage("Erfolg", "Termin eingefügt");
-          this.changeView.emit("month");
-        });
-      this.success = true;
+      if (actTermin.id != 0) {
+        this.rest.changeTermin(this.actTermin)
+          .subscribe(data => {
+            this.rest.showSuccessMessage("Erfolg", "Termin eingefügt");
+            this.changeView.emit("month");
+          });
+        this.success = true;
+      }
+      else {
+        this.rest.insertTermin(this.jrkEntitaet, this.actTermin)
+          .subscribe(data => {
+            this.rest.showSuccessMessage("Erfolg", "Termin eingefügt");
+            this.changeView.emit("month");
+          });
+        this.success = true;
+      }
     }
   }
 
-  actTermin: Termin = new Termin(0, '', '', '', '', '', '');
+
   submitted = false;
 
   onSubmit() { this.submitted = true; }

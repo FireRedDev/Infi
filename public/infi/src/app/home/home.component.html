@@ -57,6 +57,8 @@
           </div>
         </div>
       </div>
+      <button (click)="changeInfo(i)" class="btn btn-secondary" *ngIf="isEditor">Information bearbeiten</button>
+      <button (click)="deleteInfo(i)" class="btn btn-secondary" *ngIf="isEditor">Information löschen</button>
     </div>
   </div>
 </div>

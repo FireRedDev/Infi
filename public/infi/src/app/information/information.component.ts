@@ -11,6 +11,7 @@ import { EventEmitter } from '@angular/core';
 })
 export class InformationComponent implements OnInit {
   @Input() jrkEntitaet: jrkEntitaet;
+  @Input() actInformation: Info;
   @Output() changeView: EventEmitter<string> = new EventEmitter();
 
   fileInput;
@@ -36,15 +37,23 @@ export class InformationComponent implements OnInit {
         this.actInformation.mediapath.push("http://localhost:8080/upload_image/" + this.file[i].name);
       }
     }
-    this.rest.insertInfo(this.jrkEntitaet, this.actInformation)
-      .subscribe(data => {
-        this.rest.showSuccessMessage("Erfolg", "Informationsbeitrag eingefügt!");
-        this.changeView.emit("home");
-      });
+    if (this.actInformation.id != 0) {
+      this.rest.changeInfo(this.actInformation)
+        .subscribe(data => {
+          this.rest.showSuccessMessage("Erfolg", "Informationsbeitrag eingefügt!");
+          this.changeView.emit("home");
+        });
+    }
+    else {
+      this.rest.insertInfo(this.jrkEntitaet, this.actInformation)
+        .subscribe(data => {
+          this.rest.showSuccessMessage("Erfolg", "Informationsbeitrag eingefügt!");
+          this.changeView.emit("home");
+        });
+    }
     this.success = true;
   }
 
-  actInformation: Info = new Info(0, '', '', [], '');
   submitted = false;
 
   onSubmit() { this.submitted = true; }

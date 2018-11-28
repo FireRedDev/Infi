@@ -542,6 +542,15 @@ public class Service {
     @Produces(MediaType.TEXT_PLAIN)
     @POST
     public String deleteTermin(Termin t) {
-        return repo.deleteTermin(t);
+        return "\""+repo.deleteTermin(t)+"\"";
+    }
+    
+        @Path("deleteInfo")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    @POST
+    public String deleteInfo(Info i) {
+        return "\""+repo.deleteInfo(i)+"\"";
     }
 }

@@ -16,6 +16,7 @@ export class CalendarDetailComponent implements OnInit {
   @Input() calendarEntry;
 
   @Output() changeViewCalendar = new EventEmitter();
+  @Output() changeViewTermin = new EventEmitter();
   isEditor;
   isGruppenleiter
   constructor(public rest: RestService) {
@@ -23,6 +24,7 @@ export class CalendarDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    debugger;
     const body = localStorage.getItem('currentUser');
 
     //Abfragen ob dieser User Editor ist
@@ -39,5 +41,14 @@ export class CalendarDetailComponent implements OnInit {
 
   changeViewCalendarDetail(view, item) {
     this.changeViewCalendar.emit({ "view": view, "item": item });
+  }
+
+  deleteTermin(item) {
+    this.rest.deleteTermin(item.termin).subscribe(data => {
+      console.log(data);
+    });
+  }
+  changeTermin(item) {
+    this.changeViewTermin.emit({ "view": "termin", "item": item.termin });
   }
 }

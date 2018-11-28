@@ -80,11 +80,21 @@ export class RestService {
     return this.http
       .post('http://localhost:8080/api/service/insertTermin/' + jrkEntitaet.id, actTermin);
   }
+  //Termin ändern
+  changeTermin(actTermin) {
+    return this.http
+      .put('http://localhost:8080/api/service/changeTermin', actTermin);
+  }
 
   //Information einfügen
   insertInfo(jrkEntitaet, actInfo) {
     return this.http
-      .post('http://localhost:8080/api/service/insertInfo/' + jrkEntitaet.id, actInfo);
+      .post('http://localhost:8080/api/service/insertInsfo/' + jrkEntitaet.id, actInfo);
+  }
+  //Information ändern
+  changeInfo(actInfo) {
+    return this.http
+      .put('http://localhost:8080/api/service/changeInfo', actInfo);
   }
 
   //offene Dokumentation erhalten
@@ -191,5 +201,12 @@ export class RestService {
     console.log(id)
     console.log(id2)
     return this.http.post("http://localhost:8080/api/service/registerAttendee/" + id, id2)
+  }
+  deleteTermin(item) {
+    return this.http.post("http://localhost:8080/api/service/deleteTermin/", item)
+  }
+
+  deleteInfo(item) {
+    return this.http.post("http://localhost:8080/api/service/deleteInfo/", item)
   }
 }

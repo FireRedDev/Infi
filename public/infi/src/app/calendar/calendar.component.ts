@@ -127,10 +127,11 @@ export class CalendarComponent implements OnInit {
         id: event.id,
         termin: event,
         title: text,
-        beschreibung: '<br><b>Beschreibung: </b>' + event.beschreibung + '<br><b>Ort:</b> ' + event.ort,
+        beschreibung: event.beschreibung,
         imagePath: event.imgpath,
         start: new Date(event.s_date),
         end: new Date(event.e_date),
+        ort: event.ort,
         color: colors.red,
         cssClass: 'my-custom-class'
       });

@@ -7,13 +7,14 @@
         </h2>
       </div>
       <div class="card-body">
+        <b>Beschreibung:</b>
         <div [innerHTML]='item.beschreibung'></div><br>
         <b>Ort:</b>
         <div [innerHTML]='item.ort'></div><br>
         <b>Startdatum:</b>
-        <div [innerHTML]='item.start.toLocaleString().slice(0,16)'></div>
+        <div [innerHTML]='item.start.toLocaleString()'></div>
         <b>Enddatum:</b>
-        <div [innerHTML]='item.end.toLocaleString().slice(0,16)'></div>
+        <div [innerHTML]='item.end.toLocaleString()'></div>
         <img src='{{item.imagePath}}'>
         <b *ngIf="item.termin.plannung">Planung:</b>
         <div *ngIf="item.termin.plannung" [innerHTML]="item.termin.plannung"></div>

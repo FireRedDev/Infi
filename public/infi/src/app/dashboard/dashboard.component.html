@@ -75,7 +75,7 @@
         <app-calendar [view]="view" (showDetail)="showDetail($event)"></app-calendar>
       </div>
       <div *ngIf="view=='termin'">
-        <app-termin [jrkEntitaet]="jrkEntitaet" (changeView)="changeView($event)"></app-termin>
+        <app-termin [jrkEntitaet]="jrkEntitaet" [actTermin]="actTermin" (changeView)="changeView($event)"></app-termin>
       </div>
       <div *ngIf="view =='protocol'">
         <app-protocol (changeView)="changeView($event)" [calendarEntry]="calendarEntry"></app-protocol>
@@ -83,7 +83,7 @@
       <div *ngIf="view =='diagram'">
         <app-diagrams></app-diagrams>
       </div>
-      <div *ngIf="view =='home'">
+      <div *ngIf="view =='home'" (changeViewInfo)="changeViewInfo($event)">
         <app-home></app-home>
       </div>
       <div *ngIf="view =='manage-user'">
@@ -93,13 +93,14 @@
         <add-user [jrkEntitaet]="jrkEntitaet" (changeView)="changeView($event)"></add-user>
       </div>
       <div *ngIf="view =='info'">
-        <app-information [jrkEntitaet]="jrkEntitaet" (changeView)="changeView($event)"></app-information>
+        <app-information [jrkEntitaet]="jrkEntitaet" [actInformation]="actInformation" (changeView)="changeView($event)"></app-information>
       </div>
       <div *ngIf="view =='password'">
         <app-password (changeView)="changeView($event)"></app-password>
       </div>
       <div *ngIf="view =='calendar-detail'">
-        <app-calendar-detail [calendarEntry]="calendarEntry" (changeViewCalendar)="changeViewCalendar($event)"></app-calendar-detail>
+        <app-calendar-detail [calendarEntry]="calendarEntry" (changeViewCalendar)="changeViewCalendar($event)"
+          (changeViewTermin)="changeViewTermin($event)"></app-calendar-detail>
       </div>
       <div *ngIf="view =='showprotocol'">
         <app-showprotocol [jrkEntitaet]="jrkEntitaet"></app-showprotocol>

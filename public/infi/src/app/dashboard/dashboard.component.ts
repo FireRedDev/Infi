@@ -7,6 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RestService } from '../rest.service';
 declare var jquery: any;
 declare var $: any;
+import { Termin } from '../models/termin';
+import { Info } from '../models/info';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,6 +26,8 @@ export class DashboardComponent implements OnInit {
   password1 = "";
   password2 = "";
   calendarEntry = {};
+  actTermin: Termin = new Termin(0, '', '', '', '', '', '');
+  actInformation: Info = new Info(0, '', '', [], '');
 
   //einige Varbiablen zum konfifurieren der Sidebar
   public _opened = false;
@@ -176,6 +180,15 @@ export class DashboardComponent implements OnInit {
   }
   changeViewCalendar(i) {
     this.calendarEntry = i.item;
+    this.view = i.view;
+  }
+  changeViewTermin(i) {
+    this.actTermin = i.item;
+    this.view = i.view;
+  }
+  changeViewInfo(i) {
+    debugger;
+    this.actInformation = i.item;
     this.view = i.view;
   }
   changeViewProtocol() {

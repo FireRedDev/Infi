@@ -964,8 +964,23 @@ public class DatenbankRepository {
     }
 
     public String deleteTermin(Termin t) {
+        Termin tt = null;
         em.getTransaction().begin();
-        em.remove(t);
+        if (!em.contains(t)) {
+            tt = em.merge(t);
+        }
+        em.remove(tt);
+        em.getTransaction().commit();
+        return "success";
+    }
+
+    public String deleteInfo(Info i) {
+        Info ii = null;
+        em.getTransaction().begin();
+        if (!em.contains(i)) {
+            ii = em.merge(i);
+        }
+        em.remove(ii);
         em.getTransaction().commit();
         return "success";
     }
