@@ -83,6 +83,7 @@ export class GermanItl extends OwlDateTimeIntl {
   ],
 })
 export class ProtocolComponent implements OnInit {
+  private childrens;
   constructor(public rest: RestService) {
     this.newChild = '';
     this.children = [];
@@ -107,12 +108,18 @@ export class ProtocolComponent implements OnInit {
         this.e_date = new Date(this.actTermin.e_date);
         this.rest.showSuccessMessage("Erfolg", "Termine geladen");
       });
+
+    this.rest.getChildren(body)
+      .subscribe(data => {
+        this.children = data;
+        console.log(this.childrens)
+    });
   }
   save() {
     var actTermin = this.actTermin
     actTermin.s_date = new Date(this.s_date).toISOString().substr(0, 19).replace('T', ' ');
     actTermin.e_date = new Date(this.e_date).toISOString().substr(0, 19).replace('T', ' ');
-    this.actProtokol.kinderliste = this.children;
+    this.actProtokol.kinderliste = this.childrens;
     this.actProtokol.betreuer = this.betreuer;
     actTermin.doko = this.actProtokol;
     this.rest.insertDoku(actTermin)
@@ -140,14 +147,16 @@ export class ProtocolComponent implements OnInit {
   }
   newChild: string;
   children: any;
-
+  array;
   newBetreuer: string;
   betreuer: any;
   s_date;
   e_date;
 
   addChild(event) {
-    this.children.push(this.newChild);
+    this.array = this.newChild.split(" "); 
+    this.children.push({vorname: this.array[0], nachname: this.array[1]});
+    console.log(this.children)
     this.newChild = '';
     event.preventDefault();
   }

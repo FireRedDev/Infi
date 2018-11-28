@@ -87,18 +87,37 @@
           <label for="kinderliste">Kinderliste</label>
           <div>
             <div>
-              <form (submit)="addChild($event)">
-                <div><input type="text" class="form-control list" [(ngModel)]="newChild" (keyup.enter)="newChild=''"
-                    name="newChild">
-                  <button class="form-control listadd" type="submit" [disabled]="newChild===''"><i class="fa fa-arrow-circle-right"
+                <div >
+                  <!--<button class="form-control listadd" type="submit" [disabled]="newChild===''"><i class="fa fa-arrow-circle-right"
                       aria-hidden="true"></i></button>
+                     <div *ngFor="let c of childrens; let i=index">
+                    {{c.vorname}} {{c.nachname}}
+              </div>-->
                 </div>
-              </form>
+              <br>
+              <div class="container">
+                  <div class="row">
+                    <form (submit)="addChild($event)">
+                      <input placeholder="Kind hinzufügen" type="text" class="form-control list" [(ngModel)]="newChild"
+                       (keyup.enter)="newChild=''" name="newChild">
+                      <!--<button class="form-control listadd" type="submit" [disabled]="newChild===''" style="width:100px;"><i class="fa fa-arrow-circle-right"
+                        aria-hidden="true"></i></button>-->
+                    </form>
+                          <div class="well" style="width:100%; max-height: 150px; margin-top:10px; overflow: auto;">
+                              <ul class="list-group checked-list-box" *ngFor="let c of children; let i=index">
+                                <li class="list-group-item" style="height:40px; margin-left:10px;" data-checked="true">
+                                  <input type="checkbox" checked="checked"> 
+                                  {{c.vorname}} {{c.nachname}}
+                                </li>
+                              </ul>
+                          </div>
+                  </div>
+                </div>
             </div>
-            <div *ngFor="let c of children; let i=index">
+            <!--<div *ngFor="let c of children; let i=index">
               {{ c }}
               <span (click)="deleteChild(i)" class="delete-icon"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>

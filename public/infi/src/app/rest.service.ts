@@ -197,6 +197,10 @@ export class RestService {
     return this.http.post("http://localhost:8080/api/service/getNextIncomingAppointment/" + id)
   }
 
+  getChildren(id) {
+    return this.http.post("http://localhost:8080/api/service/getChildren/", id)
+  }
+
   setComing(id, id2) {
     console.log(id)
     console.log(id2)
