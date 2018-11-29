@@ -209,4 +209,7 @@ export class RestService {
   deleteInfo(item) {
     return this.http.post("http://localhost:8080/api/service/deleteInfo/", item)
   }
+  sharePlanning(body) {
+    return this.http.post("http://localhost:8080/api/service/sharePlanning/", body)
+  }
 }
