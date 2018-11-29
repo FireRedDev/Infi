@@ -46,7 +46,8 @@ import { environment } from '../environments/environment';
 import { FilterPipe } from './filter-pipe.pipe';
 import { OrderByPipe } from './order-by.pipe';
 import { PlanningComponent } from './planning/planning.component';
-import { QuillModule } from 'ngx-quill'
+import { QuillModule } from 'ngx-quill';
+import { ShowplanningComponent } from './showplanning/showplanning.component'
 
 registerLocaleData(localeDe);
 
@@ -84,7 +85,8 @@ const appRoutes: Routes = [
     CalendarDetailComponent,
     FilterPipe,
     OrderByPipe,
-    PlanningComponent
+    PlanningComponent,
+    ShowplanningComponent
   ],
   imports: [
     BrowserModule,

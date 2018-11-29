@@ -542,15 +542,32 @@ public class Service {
     @Produces(MediaType.TEXT_PLAIN)
     @POST
     public String deleteTermin(Termin t) {
-        return "\""+repo.deleteTermin(t)+"\"";
+        return "\"" + repo.deleteTermin(t) + "\"";
     }
-    
-        @Path("deleteInfo")
+
+    @Path("deleteInfo")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @POST
     public String deleteInfo(Info i) {
-        return "\""+repo.deleteInfo(i)+"\"";
+        return "\"" + repo.deleteInfo(i) + "\"";
+    }
+
+    @Path("sharePlanning/{id}")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    @POST
+    public String sharePlanning(@PathParam("id") int id) {
+        return "\"" + repo.sharePlanning(id) + "\"";
+    }
+
+    @Path("sharedPlanning")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Produces(MediaType.APPLICATION_JSON)
+    @POST
+    public List<Planning> sharedPlanning() {
+        return repo.sharedPlanning();
     }
 }

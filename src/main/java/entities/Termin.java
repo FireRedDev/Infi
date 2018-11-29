@@ -27,11 +27,13 @@ public class Termin implements Serializable {
     private String beschreibung;
     private String ort;
     private String imgpath;
-    private String plannung;
     private String teilnehmer = "";
 
     @OneToOne
     private Dokumentation doko;
+    
+     @OneToOne
+    private Planning planning;
 
     /**
      *
@@ -56,32 +58,6 @@ public class Termin implements Serializable {
         this.ort = ort;
     }
 
-    /**
-     * Konstruktor ohne Dokumentation
-     *
-     * @param s_date
-     * @param e_date
-     * @param title
-     * @param beschreibung
-     * @param ort
-     * @param imgPath
-     */
-//    public Termin(String s_date, String e_date, String title, String beschreibung, String ort, String plannung) {
-//        this.s_date = s_date;
-//        this.e_date = e_date;
-//        this.title = title;
-//        this.beschreibung = beschreibung;
-//        this.ort = ort;
-//        this.plannung = plannung;
-//    }
-    public Termin(String s_date, String e_date, String title, String beschreibung, String ort, String plannung) {
-        this.s_date = s_date;
-        this.e_date = e_date;
-        this.title = title;
-        this.beschreibung = beschreibung;
-        this.ort = ort;
-        this.plannung = plannung;
-    }
 
     /**
      * Konstruktor mit allen Parametern
@@ -250,14 +226,6 @@ public class Termin implements Serializable {
         this.imgpath = imgpath;
     }
 
-    public String getPlannung() {
-        return plannung;
-    }
-
-    public void setPlannung(String plannung) {
-        this.plannung = plannung;
-    }
-
     public String getTeilnehmer() {
         return teilnehmer;
     }
@@ -272,6 +240,14 @@ public class Termin implements Serializable {
 
     public void removeTeilnehmer(String t) {
         this.teilnehmer = this.teilnehmer.replace(t, "");
+    }
+
+    public Planning getPlanning() {
+        return planning;
+    }
+
+    public void setPlanning(Planning planning) {
+        this.planning = planning;
     }
 
 }
