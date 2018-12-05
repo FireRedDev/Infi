@@ -458,7 +458,7 @@ public class Service {
     @POST
     public String insertPlanung(@PathParam("id") int id, String text) {
         repo.insertPlanung(id, text);
-        return "inserted";
+        return "\"inserted\"";
     }
 
     @GET

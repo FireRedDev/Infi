@@ -161,6 +161,14 @@ public class DatenbankRepository {
 
         return b;
     }
+    
+    public Planning insert(Planning p){
+        em.getTransaction().begin();
+        em.persist(p);
+        em.getTransaction().commit();
+        
+        return p;
+    }
 
     /**
      * give back all roles
@@ -748,8 +756,9 @@ public class DatenbankRepository {
 
     public void insertPlanung(int id, String text) {
         Termin termin = em.find(Termin.class, id);
-        termin.setPlanning(new Planning(text));
-       
+        Planning planning=new Planning(text);
+        termin.setPlanning(planning);
+       insert(planning);
         insert(termin);
     }
 

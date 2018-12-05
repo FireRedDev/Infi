@@ -1,12 +1,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel='stylesheet prefetch' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.5/angular-material.css'>
 <ng-sidebar-container>
-  <ng-sidebar [(opened)]="_opened" [mode]="_MODES[_modeNum]" [keyClose]="_keyClose" [position]="_POSITIONS[_positionNum]"
-    [dock]="_dock" [dockedSize]="'50px'" [autoCollapseHeight]="_autoCollapseHeight" [autoCollapseWidth]="_autoCollapseWidth"
-    [closeOnClickOutside]="_closeOnClickOutside" [closeOnClickBackdrop]="_closeOnClickBackdrop" [showBackdrop]="_showBackdrop"
-    [animate]="_animate" [trapFocus]="_trapFocus" [autoFocus]="_autoFocus" [sidebarClass]="'dashboard-sidebar'"
-    [ariaLabel]="'My sidebar'" (onOpenStart)="_onOpenStart()" (onOpened)="_onOpened()" (onCloseStart)="_onCloseStart()"
-    s (onClosed)="_onClosed()">
+  <ng-sidebar [(opened)]="_opened" [mode]="_MODES[_modeNum]" [keyClose]="_keyClose" [position]="_POSITIONS[_positionNum]" [dock]="_dock"
+    [dockedSize]="'50px'" [autoCollapseHeight]="_autoCollapseHeight" [autoCollapseWidth]="_autoCollapseWidth" [closeOnClickOutside]="_closeOnClickOutside"
+    [closeOnClickBackdrop]="_closeOnClickBackdrop" [showBackdrop]="_showBackdrop" [animate]="_animate" [trapFocus]="_trapFocus"
+    [autoFocus]="_autoFocus" [sidebarClass]="'dashboard-sidebar'" [ariaLabel]="'My sidebar'" (onOpenStart)="_onOpenStart()"
+    (onOpened)="_onOpened()" (onCloseStart)="_onCloseStart()" s (onClosed)="_onClosed()">
 
     <div class="dashboard-control" (click)="_toggleOpened()">
       <i class="material-icons">close</i>
@@ -46,6 +45,10 @@
       <div href="#" id="hover" (click)="view = 'manage-user'" *ngIf="isAdmin" [class.active]="view === 'manage-user'">
         <p class="einfuegen">
           <i class="material-icons">people</i> Profile verwalten</p>
+      </div>
+      <div href="#" id="hover" (click)="view = 'showplanning'" *ngIf="isAdmin">
+        <p class="einfuegen">
+          <i class="material-icons">people</i> Planungen</p>
       </div>
     </div>
     <div>
@@ -99,14 +102,16 @@
         <app-password (changeView)="changeView($event)"></app-password>
       </div>
       <div *ngIf="view =='calendar-detail'">
-        <app-calendar-detail [calendarEntry]="calendarEntry" (changeViewCalendar)="changeViewCalendar($event)"
-          (changeViewTermin)="changeViewTermin($event)"></app-calendar-detail>
+        <app-calendar-detail [calendarEntry]="calendarEntry" (changeViewCalendar)="changeViewCalendar($event)" (changeViewTermin)="changeViewTermin($event)"></app-calendar-detail>
       </div>
       <div *ngIf="view =='showprotocol'">
         <app-showprotocol [jrkEntitaet]="jrkEntitaet"></app-showprotocol>
       </div>
       <div *ngIf="view =='planning'">
         <app-planning [calendarEntry]="calendarEntry" (changeView)="changeView($event)"></app-planning>
+      </div>
+      <div *ngIf="view =='showplanning'">
+        <app-showplanning (changeView)="changeView($event)"></app-showplanning>
       </div>
     </section>
   </div>

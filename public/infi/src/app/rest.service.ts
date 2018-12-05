@@ -212,4 +212,8 @@ export class RestService {
   sharePlanning(body) {
     return this.http.post("http://localhost:8080/api/service/sharePlanning/", body)
   }
+
+  getAllPlanning() {
+    return this.http.post("http://localhost:8080/api/service/sharedPlanning")
+  }
 }
