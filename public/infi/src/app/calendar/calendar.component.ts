@@ -37,6 +37,7 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
+import { Planning } from 'src/app/planning/planning';
 
 interface Termin {
   id: number;
@@ -47,6 +48,7 @@ interface Termin {
   benutzer: Benutzer;
   ort: string;
   imgpath: string;
+  plan: Planning;
 }
 @NgModule({
   imports: [
@@ -132,6 +134,7 @@ export class CalendarComponent implements OnInit {
         start: new Date(event.s_date),
         end: new Date(event.e_date),
         ort: event.ort,
+        plan: event.plan,
         color: colors.red,
         cssClass: 'my-custom-class'
       });

@@ -480,8 +480,8 @@ public class Service {
     @Produces(MediaType.TEXT_PLAIN)
     @POST
     public String insertPlanung(@PathParam("id") int id, String text) {
-        repo.insertPlanung(id, text);
-        return "inserted";
+        repo.insertPlanung(id,text);
+        return "\"inserted\"";
     }
 
     @Path("changePlanung")
@@ -600,8 +600,15 @@ public class Service {
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Produces(MediaType.APPLICATION_JSON)
     @POST
-    public List<Planning> sharedPlanning() {
-        return repo.sharedPlanning();
+    public List<Termin> sharedPlanning() {
+        List<Termin> t = repo.sharedPlanning();
+        if(t.isEmpty()){
+            Termin t1 = new Termin("kein", "ergebnis", "gefunden", "", "");
+            Planning pl = new Planning("Leer");
+            t1.setPlanning(pl);
+            t.add(t1);
+        }
+        return t;
     }
 
     @Path("deletePlanning")
