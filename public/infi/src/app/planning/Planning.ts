@@ -2,7 +2,7 @@ export class Planning {
 
     constructor(
         public id,
-        public descr = "",
+        public plannung = "",
         public share = false
     ) { }
 

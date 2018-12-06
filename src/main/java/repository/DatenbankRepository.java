@@ -758,7 +758,7 @@ public class DatenbankRepository {
         Termin termin = em.find(Termin.class, id);
         Planning planning=new Planning(text);
         termin.setPlanning(planning);
-       insert(planning);
+        insert(planning);
         insert(termin);
     }
 
@@ -855,15 +855,34 @@ public class DatenbankRepository {
     }
 
     public String sharePlanning(int id) {
-        Termin termin = em.find(Termin.class, id);
-        termin.getPlanning().setShare(true);
-
-        insert(termin);
+        Planning plan= em.find(Termin.class, id).getPlanning();
+        plan.setShare(true);
+        System.out.println(plan.getPlannung());
+        /*em.getTransaction().begin();
+        em.merge(termin);
+        em.getTransaction().commit();*/
+        insert(plan);
         return "success";
     }
 
-    public List<Planning> sharedPlanning() {
-        return em.createQuery("select p from Planning p").getResultList();
+   /* public List<Planning> sharedPlanning() {
+        List<Planning> plans = em.createQuery("select p from Planning p").getResultList();
+        for(Planning p : plans){
+            System.out.println(p.getPlannung());
+        }
+        return plans;
+    }*/
+    public List<Termin> sharedPlanning() {
+        List<Termin> plans = em.createQuery("select t from Termin t").getResultList();
+        List<Termin> pl = new ArrayList();
+        for(Termin p : plans){
+            if(p.getPlanning() != null){
+                System.out.println(p.getPlanning().getPlannung());
+                if(p.getPlanning().isShare()){ 
+                   pl.add(p);
+                }
+            }
+        }
+        return pl;
     }
-
 }

@@ -19,7 +19,6 @@
         <div [innerHTML]='item.end.toLocaleString()'></div>
         <img src='{{item.imagePath}}'>
         <b *ngIf="item.termin.plan">Planung:</b>
-        Hier sollte die Planung angezeigt werden
         <div *ngIf="item.termin.plan" [innerHTML]="item.termin.plan.descr"></div>
         <div *ngIf="isGruppenleiter&&item.termin.teilnehmer!=''">Es kommen: {{item.termin.teilnehmer}}</div>
       </div>

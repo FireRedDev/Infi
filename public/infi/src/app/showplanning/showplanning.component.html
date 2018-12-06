@@ -1,3 +1,7 @@
-<div *ngFor="let pl of plannings">
-  {{pl}}
+<div *ngFor="let pl of records">
+  <p>
+    <b>Datum:</b> {{pl.Datum}}
+    <br>
+    <b>Beschreibung:</b> {{pl.Beschreibung}}
+  </p>
 </div>
