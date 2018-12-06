@@ -8,6 +8,8 @@
   <div class="form-group">
     <quill-editor name="text" [(ngModel)]="text"></quill-editor>
   </div>
-  <button type="submit" class="btn btn-success" (click)="save()">einfügen</button>
-  <button type="submit" class="btn btn-success" (click)="sharePlanning()">Planung teilen</button>
+  <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+    <button type="submit" class="btn btn-secondary" (click)="save()">einfügen</button>
+    <button type="submit" class="btn btn-secondary" (click)="sharePlanning()">Planung teilen</button>
+  </div>
 </form>
