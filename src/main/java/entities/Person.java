@@ -4,6 +4,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.*;
 
 /**
@@ -26,8 +27,8 @@ import javax.persistence.*;
     ,
     @NamedQuery(name = "Benutzer.jrkEntitaet", query = "SELECT b.jrkentitaet FROM Person b where b.id=:id")
         ,
-    @NamedQuery(name = "Benutzer.byjrkEntitaet", query = "SELECT b FROM Person b where b.jrkentitaet=:id")
-
+    @NamedQuery(name = "Benutzer.byjrkEntitaet", query = "SELECT b FROM Person b where b.jrkentitaet.id=:id"),
+@NamedQuery(name = "Benutzer.findbyname", query = "SELECT b from Person b where CONCAT(b.vorname,' ',b.nachname) like :var")
 })
 public class Person implements Serializable {
 
@@ -222,6 +223,55 @@ public class Person implements Serializable {
 
     public void setFcmtoken(String fcmtoken) {
         this.fcmtoken = fcmtoken;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 67 * hash + this.id;
+        hash = 67 * hash + Objects.hashCode(this.email);
+        hash = 67 * hash + Objects.hashCode(this.password);
+        hash = 67 * hash + Objects.hashCode(this.vorname);
+        hash = 67 * hash + Objects.hashCode(this.nachname);
+        hash = 67 * hash + Objects.hashCode(this.rolle);
+        hash = 67 * hash + Objects.hashCode(this.jrkentitaet);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Person other = (Person) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        if (!Objects.equals(this.vorname, other.vorname)) {
+            return false;
+        }
+        if (!Objects.equals(this.nachname, other.nachname)) {
+            return false;
+        }
+        if (this.rolle != other.rolle) {
+            return false;
+        }
+        if (!Objects.equals(this.jrkentitaet, other.jrkentitaet)) {
+            return false;
+        }
+        return true;
     }
 
 

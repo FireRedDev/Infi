@@ -209,4 +209,12 @@ export class DashboardComponent implements OnInit {
       this.rest.showErrorMessage("Error", "Die beiden Passwörter sind nicht ident, versuche es nochmal!");
     }
   }
+  addTermin() {
+    this.view = 'termin';
+    this.actTermin = new Termin(0, '', '', '', '', '', '');
+  }
+  addInfo() {
+    this.view = 'info';
+    this.actInformation = new Info(0, '', '', [], '');
+  }
 }

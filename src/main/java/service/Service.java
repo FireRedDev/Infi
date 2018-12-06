@@ -308,6 +308,21 @@ public class Service {
     }
 
     /**
+     * give back none planed appointments
+     *
+     * @param id
+     * @return
+     */
+    @Path("getOpenPlanning")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @POST
+    public List<Termin> getOpenPlanning(int id) {
+        return repo.getOpenPlanning(id);
+    }
+
+    /**
      * Häufigkeit von Kategorie in einer JRKEntity
      *
      * @param jrk
@@ -322,6 +337,14 @@ public class Service {
         return repo.getChartValues(jrk);
     }
 
+      @POST
+    @Path("getPersonenstunden")
+    @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<NameValue> getPersonenstunden(JRKEntitaet jrk) {
+        return repo.getPersonenstunden(jrk);
+    }
     /**
      * Anzahl von den Stunden pro Monat im letzten Jahr
      *
@@ -458,8 +481,18 @@ public class Service {
     @Produces(MediaType.TEXT_PLAIN)
     @POST
     public String insertPlanung(@PathParam("id") int id, String text) {
-        repo.insertPlanung(id, text);
-        return "inserted";
+        repo.insertPlanung(id,text);
+        return "\"inserted\"";
+    }
+
+    @Path("changePlanung")
+    //@Secured(Role.GRUPPENLEITER)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    @POST
+    public String changePlanung(Planning planning) {
+        repo.changePlanung(planning);
+        return "changed";
     }
 
     @GET
@@ -543,15 +576,48 @@ public class Service {
     @Produces(MediaType.TEXT_PLAIN)
     @POST
     public String deleteTermin(Termin t) {
-        return "\""+repo.deleteTermin(t)+"\"";
+        return "\"" + repo.deleteTermin(t) + "\"";
     }
-    
-        @Path("deleteInfo")
+
+    @Path("deleteInfo")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @POST
     public String deleteInfo(Info i) {
-        return "\""+repo.deleteInfo(i)+"\"";
+        return "\"" + repo.deleteInfo(i) + "\"";
+    }
+
+    @Path("sharePlanning/{id}")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    @POST
+    public String sharePlanning(@PathParam("id") int id) {
+        return "\"" + repo.sharePlanning(id) + "\"";
+    }
+
+    @Path("sharedPlanning")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Produces(MediaType.APPLICATION_JSON)
+    @POST
+    public List<Termin> sharedPlanning() {
+        List<Termin> t = repo.sharedPlanning();
+        if(t.isEmpty()){
+            Termin t1 = new Termin("kein", "ergebnis", "gefunden", "", "");
+            Planning pl = new Planning("Leer");
+            t1.setPlanning(pl);
+            t.add(t1);
+        }
+        return t;
+    }
+
+    @Path("deletePlanning")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    @POST
+    public String deletePlanning(Planning p) {
+        return "\"" + repo.deletePlanning(p) + "\"";
     }
 }

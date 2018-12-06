@@ -27,11 +27,13 @@ public class Termin implements Serializable {
     private String beschreibung;
     private String ort;
     private String imgpath;
-    private String plannung;
     private String teilnehmer = "";
 
     @OneToOne
     private Dokumentation doko;
+    
+     @OneToOne
+    private Planning planning;
 
     /**
      *
@@ -55,6 +57,7 @@ public class Termin implements Serializable {
         this.beschreibung = beschreibung;
         this.ort = ort;
     }
+<<<<<<< src/main/java/entities/Termin.java
     public Termin(String s_date, String e_date, String title, String beschreibung, String ort,String teilnehmer) {
         this.s_date = s_date;
         this.e_date = e_date;
@@ -63,6 +66,9 @@ public class Termin implements Serializable {
         this.ort = ort;
         this.teilnehmer=teilnehmer;
     }
+=======
+
+>>>>>>> src/main/java/entities/Termin.java
 
 
     /**
@@ -232,14 +238,6 @@ public class Termin implements Serializable {
         this.imgpath = imgpath;
     }
 
-    public String getPlannung() {
-        return plannung;
-    }
-
-    public void setPlannung(String plannung) {
-        this.plannung = plannung;
-    }
-
     public String getTeilnehmer() {
         return teilnehmer;
     }
@@ -254,6 +252,14 @@ public class Termin implements Serializable {
 
     public void removeTeilnehmer(String t) {
         this.teilnehmer = this.teilnehmer.replace(t, "");
+    }
+
+    public Planning getPlanning() {
+        return planning;
+    }
+
+    public void setPlanning(Planning planning) {
+        this.planning = planning;
     }
 
 }

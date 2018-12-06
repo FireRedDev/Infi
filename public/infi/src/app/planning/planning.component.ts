@@ -21,4 +21,12 @@ export class PlanningComponent implements OnInit {
     this.changeView.emit("month");
     this.rest.showSuccessMessage("Erfolg", "Plannung eingefügt!");
   }
+
+  sharePlanning() {
+    this.rest.sharePlanning(this.calendarEntry.id).subscribe(data => {
+      this.rest.showSuccessMessage("Erfolg", "Plannung geteilt!");
+
+    });
+
+  }
 }

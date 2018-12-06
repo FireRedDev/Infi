@@ -82,10 +82,10 @@ public class HttpServer_JavaSE {
 
         //Termine erstellen
         Termin sattledttermin = new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
-        String[] betreuer = {"Gusi", "Isi"};
-        String[] kinder = {"Meli", "Antonia", "Luki"};
-        String[] betreuer1 = {"Daniel", "Jakob"};
-        String[] kinder1 = {"Luisa", "Jonas", "Harald"};
+        String[] betreuer = {"Gusi Tester", "Isabella Tester"};
+        String[] kinder = {"Melanie Tester", "Antonia Tester", "Lukas Tester"};
+        String[] betreuer1 = {"Doris Tester", "Jakob Tester"};
+        String[] kinder1 = {"Luisa Tester", "Jonas Tester", "Harald Tester"};
         sattledttermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "Soziales"));
         sattledttermin.setImgpath("assets/Logo.png");
         sattledt1.addTermin(sattledttermin);
@@ -153,7 +153,7 @@ public class HttpServer_JavaSE {
         ooe.addTermin(new Termin("2018-12-19 13:00:00", "2018-12-19 21:00:00", "Adventmarkt", "warm anziehen", "Adventmarkt Wels","Doris Tester; Isabella Tester;"));
         wels.addTermin(new Termin("2018-08-15 09:00:00", "2018-08-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
 
-        marchtrenk.addTermin(new Termin("2018-10-01 11:30:00", "2018-10-01 17:30:00", "Wandern auf der Reiteralm", "Festes Schuhwerk", "Dienststelle Marchtrenk", "Plannung erstellt"));
+        marchtrenk.addTermin(new Termin("2018-10-01 11:30:00", "2018-10-01 17:30:00", "Wandern auf der Reiteralm", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
         wels.addTermin(new Termin("2018-12-30 09:00:00", "2018-12-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
         ooe.addTermin(new Termin("2018-04-19 13:00:00", "2018-04-19 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
         wels.addTermin(new Termin("2018-07-15 09:00:00", "2018-07-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
