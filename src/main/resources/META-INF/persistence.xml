@@ -10,7 +10,7 @@
     <class>entities.Person</class>
     <class>entities.Planning</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/infiDatenbank"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/InfiDatabase"/>
       <property name="javax.persistence.jdbc.user" value="infi"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
       <property name="javax.persistence.jdbc.password" value="infi"/>
