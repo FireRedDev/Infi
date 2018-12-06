@@ -161,12 +161,12 @@ public class DatenbankRepository {
 
         return b;
     }
-    
-    public Planning insert(Planning p){
+
+    public Planning insert(Planning p) {
         em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
-        
+
         return p;
     }
 
@@ -709,7 +709,7 @@ public class DatenbankRepository {
         List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
         List<Person> pers = new LinkedList<>();
         for (JRKEntitaet j : jrks) {
-            List<Person> p = em.createNamedQuery("Benutzer.byjrkEntitaet", Person.class).setParameter("id", j).getResultList();
+            List<Person> p = em.createNamedQuery("Benutzer.byjrkEntitaet", Person.class).setParameter("id", j.getId()).getResultList();
             this.addListPerson(pers, p);
         }
         return pers;
@@ -759,9 +759,9 @@ public class DatenbankRepository {
      * @param id
      * @param text
      */
-    public void insertPlanung(int id, String text) {
+    public void insertPlanung(int id, Planning p) {
         Termin termin = em.find(Termin.class, id);
-        termin.setPlanning(new Planning(text));
+        termin.setPlanning(p);
 
         insert(termin);
     }
@@ -907,32 +907,14 @@ public class DatenbankRepository {
         return "success";
     }
 
-    public String sharePlanning(int id) {
-        Planning plan= em.find(Termin.class, id).getPlanning();
-        plan.setShare(true);
-        System.out.println(plan.getPlannung());
-        /*em.getTransaction().begin();
-        em.merge(termin);
-        em.getTransaction().commit();*/
-        insert(plan);
-        return "success";
-    }
-
-   /* public List<Planning> sharedPlanning() {
-        List<Planning> plans = em.createQuery("select p from Planning p").getResultList();
-        for(Planning p : plans){
-            System.out.println(p.getPlannung());
-        }
-        return plans;
-    }*/
     public List<Termin> sharedPlanning() {
         List<Termin> plans = em.createQuery("select t from Termin t").getResultList();
         List<Termin> pl = new ArrayList();
-        for(Termin p : plans){
-            if(p.getPlanning() != null){
+        for (Termin p : plans) {
+            if (p.getPlanning() != null) {
                 System.out.println(p.getPlanning().getPlannung());
-                if(p.getPlanning().isShare()){ 
-                   pl.add(p);
+                if (p.getPlanning().isShare()) {
+                    pl.add(p);
                 }
             }
         }
@@ -945,7 +927,7 @@ public class DatenbankRepository {
         //Parser for our Date Format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         for (Termin t : termine) {
-            //Where is no planning and the Date is after right now
+            //Where is no planning and the Date is before right now
             if (t.getPlanning() == null && LocalDate.parse(t.getE_date(), formatter).isAfter(LocalDate.now())) {
                 te.add(t);
             }
@@ -977,36 +959,41 @@ public class DatenbankRepository {
 
         List<Termin> list = jrk.getTermine();
         List<Person> personen = em.createNamedQuery("Benutzer.byjrkEntitaet").setParameter("id", jrk.getId()).getResultList();
-        List<JRKEntitaet> jrks=new LinkedList<>();
-        for(Person p:personen){
-        jrks=getJRKEntitaetdown(p.getId());
+        List<JRKEntitaet> jrks = new LinkedList<>();
+        for (Person p : personen) {
+            jrks = getJRKEntitaetdown(p.getId());
         }
-        for(JRKEntitaet j:jrks){
+        for (JRKEntitaet j : jrks) {
             personen = em.createNamedQuery("Benutzer.byjrkEntitaet").setParameter("id", j.getId()).getResultList();
         }
         if (list != null) {
             for (Termin termin : list) {
                 LocalDateTime start = LocalDateTime.parse(termin.getS_date(), formatter);
                 LocalDateTime ende = LocalDateTime.parse(termin.getE_date(), formatter);
-                
+
                 Dokumentation doku = termin.getDoko();
-                if(doku!=null) {
-                for (Person person : personen) {
-                    ArrayList<String> teilnehmer = new ArrayList<String>();
-                    teilnehmer.addAll(Arrays.asList(doku.getBetreuer()));
-                    teilnehmer.addAll(Arrays.asList(doku.getKinderliste()));
-                    for (String teiln : teilnehmer) {
-                        Person teilnehm = (Person) em.createNamedQuery("Benutzer.findbyname").setParameter("var", teiln).getSingleResult();
-                        if (person.equals(teilnehm)) {
-                            int hilf;
-                            if (hmap.get(String.valueOf(person.getVorname() + " " + person.getNachname())) != null) {
-                                hilf = hmap.get(String.valueOf(person.getVorname() + " " + person.getNachname()));
-                            } else {
-                                hilf = 0;
+                if (doku != null) {
+                    for (Person person : personen) {
+                        ArrayList<String> teilnehmer = new ArrayList<String>();
+                        teilnehmer.addAll(Arrays.asList(doku.getBetreuer()));
+                        teilnehmer.addAll(Arrays.asList(doku.getKinderliste()));
+                        for (String teiln : teilnehmer) {
+                            try {
+                                Person teilnehm = (Person) em.createNamedQuery("Benutzer.findbyname").setParameter("var", teiln).getSingleResult();
+                                if (person.equals(teilnehm)) {
+                                    int hilf;
+                                    if (hmap.get(String.valueOf(person.getVorname() + " " + person.getNachname())) != null) {
+                                        hilf = hmap.get(String.valueOf(person.getVorname() + " " + person.getNachname()));
+                                    } else {
+                                        hilf = 0;
+                                    }
+                                    hmap.put(String.valueOf(person.getVorname() + " " + person.getNachname()), hilf + (int) ChronoUnit.HOURS.between(start, ende));
+                                }
+                            } catch (Exception e) {
+
                             }
-                            hmap.put(String.valueOf(person.getVorname() + " " + person.getNachname()), hilf + (int) ChronoUnit.HOURS.between(start, ende));
                         }
-                    }}
+                    }
 //                if (doku != null) {
 //                    LocalDateTime start = LocalDateTime.parse(termin.getS_date(), formatter);
 //                    LocalDateTime ende = LocalDateTime.parse(termin.getE_date(), formatter);
