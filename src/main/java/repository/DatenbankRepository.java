@@ -746,6 +746,11 @@ public class DatenbankRepository {
         insert(jrk);
     }
 
+    /**
+     *
+     * @param id
+     * @param text
+     */
     public void insertPlanung(int id, String text) {
         Termin termin = em.find(Termin.class, id);
         termin.setPlanning(new Planning(text));
@@ -753,6 +758,11 @@ public class DatenbankRepository {
         insert(termin);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<Termin> getProtokollDetails(int id) {
         List<Termin> termin = new LinkedList();
 
@@ -763,6 +773,12 @@ public class DatenbankRepository {
         return termin;
     }
 
+    /**
+     *
+     * @param id
+     * @param token
+     * @return
+     */
     public String setFCMToken(int id, String token) {
         Person p = em.find(Person.class, id);
         p.setFcmtoken(token);
@@ -773,6 +789,11 @@ public class DatenbankRepository {
         return "sucess";
     }
 
+    /**
+     *
+     * @param terminID
+     * @param userID
+     */
     public void registerAttendee(int terminID, int userID) {
         Termin t = em.find(Termin.class, terminID);
         Person p = em.find(Person.class, userID);
@@ -784,6 +805,11 @@ public class DatenbankRepository {
 
     }
 
+    /**
+     *
+     * @param terminID
+     * @param userID
+     */
     public void removeAttendee(int terminID, int userID) {
         Termin t = em.find(Termin.class, terminID);
         Person p = em.find(Person.class, userID);
@@ -792,18 +818,33 @@ public class DatenbankRepository {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public String getTerminTeilnehmer(int id) {
         Termin t = em.find(Termin.class, id);
         return t.getTeilnehmer();
 
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<Person> getSupervisor(int id) {
         Person currentPerson = em.find(Person.class, id);
         JRKEntitaet jrk = currentPerson.getJrkentitaet();
         return em.createNamedQuery("Benutzer.byjrkEntitaet").setParameter("id", jrk).getResultList();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public List<Person> getChildren(int id) {
         Person currentPerson = em.find(Person.class, id);
         List<Person> pers = new LinkedList<>();
@@ -815,14 +856,27 @@ public class DatenbankRepository {
         return pers;
     }
 
+    /**
+     *
+     * @param t
+     */
     public void changeTermin(Termin t) {
         em.merge(t);
     }
 
+    /**
+     *
+     * @param i
+     */
     public void changeInfo(Info i) {
         em.merge(i);
     }
 
+    /**
+     *
+     * @param t
+     * @return
+     */
     public String deleteTermin(Termin t) {
         Termin tt = null;
         em.getTransaction().begin();
@@ -855,6 +909,35 @@ public class DatenbankRepository {
 
     public List<Planning> sharedPlanning() {
         return em.createQuery("select p from Planning p").getResultList();
+    }
+
+    public List<Termin> getOpenPlanning(int id) {
+        List<Termin> termine = this.getUsertermine(id);
+        List<Termin> te = new LinkedList<>();
+        //Parser for our Date Format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        for (Termin t : termine) {
+            //Where is no planning and the Date is after right now
+            if (t.getPlanning() == null && LocalDate.parse(t.getE_date(), formatter).isAfter(LocalDate.now())) {
+                te.add(t);
+            }
+        }
+        return te;
+    }
+
+    public void changePlanung(Planning planning) {
+        em.merge(planning);
+    }
+
+    public String deletePlanning(Planning p) {
+        Planning pp = null;
+        em.getTransaction().begin();
+        if (!em.contains(p)) {
+            pp = em.merge(p);
+        }
+        em.remove(pp);
+        em.getTransaction().commit();
+        return "success";
     }
 
     public List<NameValue> getPersonenstunden(JRKEntitaet jrk) {

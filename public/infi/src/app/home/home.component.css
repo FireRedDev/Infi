@@ -1,7 +1,7 @@
 .container {
   text-align: left;
   width: 385px;
-  height: 320px;
+  height: 350px;
 }
 
 #imageSize {
@@ -26,17 +26,4 @@
 .card-deck {
   padding-left: 10px;
   padding-right: 10px;
-}
-
-.ja {
-  background-color: green;
-  border: none;
-  color: white;
-}
-
-.nein {
-  background-color: red;
-  margin-left: 3%;
-  border: none;
-  color: white;
 }
