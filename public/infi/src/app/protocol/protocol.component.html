@@ -64,21 +64,26 @@
       </div>
       <div class="row">
         <br>
-        <div class="col-lg">
+       <div class="col-lg">
           <label for="betreuer">Betreuer</label>
           <div>
             <div>
-              <form (submit)="addBetreuer($event)">
-                <div><input type="text" class="form-control list" [(ngModel)]="newBetreuer" (keyup.enter)="newBetreuer=''"
-                    name="newBetreuer">
-                  <button class="form-control listadd" type="submit" [disabled]="newBetreuer===''"><i class="fa fa-arrow-circle-right"
-                      aria-hidden="true"></i></button>
+              <div class="container">
+                  <div class="row">
+                    <form (submit)="addBetreuer($event)">
+                      <input placeholder="Betreuer hinzufügen" type="text" class="form-control list" [(ngModel)]="newBetreuer"
+                       (keyup.enter)="newBetreuer=''" name="newBetreuer">
+                    </form>
+                          <div class="well" style="width:100%; max-height: 150px; margin-top:10px; overflow: auto;">
+                              <ul class="list-group checked-list-box" *ngFor="let s of supervisor; let i=index">
+                                <li class="list-group-item" style="height:40px; margin-left:10px;" data-checked="true">
+                                  <input type="checkbox" class="check2" value="{{s.vorname}} {{s.nachname}}" [checked]="getValueChecked(s.vorname, s.nachname)"> 
+                                  {{s.vorname}} {{s.nachname}}
+                                </li>
+                              </ul>
+                          </div>
+                  </div>
                 </div>
-              </form>
-            </div>
-            <div *ngFor="let c of betreuer; let i=index">
-              {{ c }}
-              <span (click)="deleteBetreuer(i)" class="delete-icon"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
             </div>
           </div>
         </div>
@@ -87,20 +92,28 @@
           <label for="kinderliste">Kinderliste</label>
           <div>
             <div>
-              <form (submit)="addChild($event)">
-                <div><input type="text" class="form-control list" [(ngModel)]="newChild" (keyup.enter)="newChild=''"
-                    name="newChild">
-                  <button class="form-control listadd" type="submit" [disabled]="newChild===''"><i class="fa fa-arrow-circle-right"
-                      aria-hidden="true"></i></button>
+              <div class="container">
+                  <div class="row">
+                    <form (submit)="addChild($event)">
+                      <input placeholder="Kind hinzufügen" type="text" class="form-control list" [(ngModel)]="newChild"
+                       (keyup.enter)="newChild=''" name="newChild">
+                    </form>
+                          <div class="well" style="width:100%; max-height: 150px; margin-top:10px; overflow: auto;">
+                              <ul class="list-group checked-list-box" *ngFor="let c of children; let i=index">
+                                <li class="list-group-item" style="height:40px; margin-left:10px;" data-checked="true">
+                                  <input type="checkbox" class="check" value="{{c.vorname}} {{c.nachname}}" [checked]="getValueChecked(c.vorname, c.nachname)"> 
+                                  {{c.vorname}} {{c.nachname}}
+                                </li>
+                              </ul>
+                          </div>
+                  </div>
                 </div>
-              </form>
-            </div>
-            <div *ngFor="let c of children; let i=index">
-              {{ c }}
-              <span (click)="deleteChild(i)" class="delete-icon"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
             </div>
           </div>
         </div>
+      </div>
+      <div class="row">
+        <br>
       </div>
       <div class="row">
         <br>
@@ -112,7 +125,6 @@
             Tätigkeiten muss eingegeben werden!
           </div>
         </div>
-        <br>
         <div class="col-lg">
           <label for="vzeit">Vorbereitungszeit in Stunden</label>
           <input type="number" class="form-control" id="vzeit" required [(ngModel)]="actProtokol.vzeit" name="vzeit"
@@ -134,7 +146,7 @@
               name="kategorie" [value]="'Exkursion'" [checked]="actProtokol.kategorie === 'Exkursion'">Exkursion</label>
         </div>
       </div>
-      <button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save()">einfügen</button>
+      <button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save()">einfügen</button> 
     </div>
   </div>
 </form>

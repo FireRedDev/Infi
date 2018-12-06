@@ -95,11 +95,11 @@ public class HttpServer_JavaSE {
         welstermin.setImgpath("assets/Logo.png");
         wels.addTermin(welstermin);
 
-        Termin welstermin4 = new Termin("2018-10-25 15:30:00", "2018-10-25 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Wels");
+        Termin welstermin4 = new Termin("2018-10-25 15:30:00", "2018-10-25 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Wels", "Antonia Tester; Melanie Tester;");
         welstermin4.setImgpath("assets/Logo.png");
         wels.addTermin(welstermin4);
 
-        Termin sattermin = new Termin("2018-03-05 15:30:00", "2018-03-05 17:30:00", "Generalversammlung", "Ortsstellenversammlung", "Dienststelle Sattledt");
+        Termin sattermin = new Termin("2018-03-05 15:30:00", "2018-03-05 17:30:00", "Generalversammlung", "Ortsstellenversammlung", "Dienststelle Sattledt", "Antonia Tester; Melanie Tester;");
         sattermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "Exkursion"));
         sattledt.addTermin(sattermin);
 
@@ -150,7 +150,7 @@ public class HttpServer_JavaSE {
 
         marchtrenk.addTermin(new Termin("2018-01-15 15:30:00", "2018-01-17 17:30:00", "Wandern", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
         wels.addTermin(new Termin("2018-05-30 09:00:00", "2018-05-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
-        ooe.addTermin(new Termin("2018-12-19 13:00:00", "2018-12-19 21:00:00", "Adventmarkt", "warm anziehen", "Adventmarkt Wels"));
+        ooe.addTermin(new Termin("2018-12-19 13:00:00", "2018-12-19 21:00:00", "Adventmarkt", "warm anziehen", "Adventmarkt Wels","Doris Tester; Isabella Tester;"));
         wels.addTermin(new Termin("2018-08-15 09:00:00", "2018-08-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
 
         marchtrenk.addTermin(new Termin("2018-10-01 11:30:00", "2018-10-01 17:30:00", "Wandern auf der Reiteralm", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
@@ -160,7 +160,7 @@ public class HttpServer_JavaSE {
 
         marchtrenk1.addTermin(new Termin("2019-01-15 15:30:00", "2019-01-17 17:30:00", "Wandern", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
         wels.addTermin(new Termin("2019-05-30 09:00:00", "2019-05-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
-        ooe.addTermin(new Termin("2017-12-19 13:00:00", "2017-12-19 21:00:00", "Adventmarkt", "warm anziehen", "Adventmarkt Wels"));
+        ooe.addTermin(new Termin("2017-12-19 13:00:00", "2017-12-19 21:00:00", "Adventmarkt", "warm anziehen", "Adventmarkt Wels", "Antonia Tester; Melanie Tester;"));
         wels.addTermin(new Termin("2019-08-15 09:00:00", "2019-08-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
 
         marchtrenk1.addTermin(new Termin("2017-10-01 11:30:00", "2017-10-17 17:30:00", "Wandern", "Festes Schuhwerk", "Dienststelle Marchtrenk"));

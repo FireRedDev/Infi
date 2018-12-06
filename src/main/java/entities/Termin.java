@@ -57,6 +57,18 @@ public class Termin implements Serializable {
         this.beschreibung = beschreibung;
         this.ort = ort;
     }
+<<<<<<< src/main/java/entities/Termin.java
+    public Termin(String s_date, String e_date, String title, String beschreibung, String ort,String teilnehmer) {
+        this.s_date = s_date;
+        this.e_date = e_date;
+        this.title = title;
+        this.beschreibung = beschreibung;
+        this.ort = ort;
+        this.teilnehmer=teilnehmer;
+    }
+=======
+
+>>>>>>> src/main/java/entities/Termin.java
 
 
     /**

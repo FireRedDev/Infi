@@ -214,9 +214,10 @@ public class Service {
     @Path("getTerminTeilnehmer")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     @POST
     public String getTerminTeilnehmer(int id) {
-        return repo.getTerminTeilnehmer(id);
+        return "\""+repo.getTerminTeilnehmer(id)+"\"";
     }
 
     /**

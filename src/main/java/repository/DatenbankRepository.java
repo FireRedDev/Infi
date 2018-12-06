@@ -807,7 +807,7 @@ public class DatenbankRepository {
         Person p = em.find(Person.class, userID);
 
         //send Message
-        t.addTeilnehmer(p.getVorname());
+        t.addTeilnehmer(p.getVorname()+" "+p.getNachname());
 
         em.merge(t);
 

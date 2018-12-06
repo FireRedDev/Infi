@@ -260,6 +260,20 @@ export class RestService {
     );
   }
 
+  getChildren(id) {
+    return this.http.post("http://localhost:8080/api/service/getChildren/", id)
+  }
+  
+
+  getTerminTeilnehmer(id) {
+    return this.http.post("http://localhost:8080/api/service/getTerminTeilnehmer/", id)
+  }
+
+  getSupervisor(id) {
+    return this.http.post("http://localhost:8080/api/service/getSupervisors/", id)
+  }
+  
+
   setComing(id, id2) {
     console.log(id);
     console.log(id2);
