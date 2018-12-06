@@ -336,6 +336,14 @@ public class Service {
         return repo.getChartValues(jrk);
     }
 
+      @POST
+    @Path("getPersonenstunden")
+    @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<NameValue> getPersonenstunden(JRKEntitaet jrk) {
+        return repo.getPersonenstunden(jrk);
+    }
     /**
      * Anzahl von den Stunden pro Monat im letzten Jahr
      *

@@ -939,4 +939,71 @@ public class DatenbankRepository {
         em.getTransaction().commit();
         return "success";
     }
+
+    public List<NameValue> getPersonenstunden(JRKEntitaet jrk) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        /* This is how to declare HashMap */
+        HashMap<String, Integer> hmap = new HashMap<>();
+
+        List<NameValue> kat = new LinkedList<>();
+
+        List<Termin> list = jrk.getTermine();
+        List<Person> personen = em.createNamedQuery("Benutzer.byjrkEntitaet").setParameter("id", jrk.getId()).getResultList();
+        List<JRKEntitaet> jrks=new LinkedList<>();
+        for(Person p:personen){
+        jrks=getJRKEntitaetdown(p.getId());
+        }
+        for(JRKEntitaet j:jrks){
+            personen = em.createNamedQuery("Benutzer.byjrkEntitaet").setParameter("id", j.getId()).getResultList();
+        }
+        if (list != null) {
+            for (Termin termin : list) {
+                LocalDateTime start = LocalDateTime.parse(termin.getS_date(), formatter);
+                LocalDateTime ende = LocalDateTime.parse(termin.getE_date(), formatter);
+                
+                Dokumentation doku = termin.getDoko();
+                if(doku!=null) {
+                for (Person person : personen) {
+                    ArrayList<String> teilnehmer = new ArrayList<String>();
+                    teilnehmer.addAll(Arrays.asList(doku.getBetreuer()));
+                    teilnehmer.addAll(Arrays.asList(doku.getKinderliste()));
+                    for (String teiln : teilnehmer) {
+                        Person teilnehm = (Person) em.createNamedQuery("Benutzer.findbyname").setParameter("var", teiln).getSingleResult();
+                        if (person.equals(teilnehm)) {
+                            int hilf;
+                            if (hmap.get(String.valueOf(person.getVorname() + " " + person.getNachname())) != null) {
+                                hilf = hmap.get(String.valueOf(person.getVorname() + " " + person.getNachname()));
+                            } else {
+                                hilf = 0;
+                            }
+                            hmap.put(String.valueOf(person.getVorname() + " " + person.getNachname()), hilf + (int) ChronoUnit.HOURS.between(start, ende));
+                        }
+                    }}
+//                if (doku != null) {
+//                    LocalDateTime start = LocalDateTime.parse(termin.getS_date(), formatter);
+//                    LocalDateTime ende = LocalDateTime.parse(termin.getE_date(), formatter);
+//                    // get the betreues time
+//                    hmap.put("Betreuer" + start.getYear(), ((hmap.get("Betreuer" + start.getYear()) == null ? 0 : hmap.get("Betreuer" + start.getYear())) + (int) ChronoUnit.HOURS.between(start, ende)) * doku.getBetreuer().length);
+//                    //get the kinders time
+//                    hmap.put("Kinder" + start.getYear(), ((hmap.get("Kinder" + start.getYear()) == null ? 0 : hmap.get("Kinder" + start.getYear())) + (int) ChronoUnit.HOURS.between(start, ende)) * doku.getKinderliste().length);
+//                    //get the Preparationtime
+//                    hmap.put("Vorbereitung" + start.getYear(), (hmap.get("Vorbereitung" + start.getYear()) == null ? 0 : hmap.get("Vorbereitung" + start.getYear())) + (int) doku.getVzeit());
+//                }
+                }
+
+            }
+        }
+        List<NameValue> returnlist = new LinkedList<>();
+        Set set = hmap.entrySet();
+        Iterator iterator = set.iterator();
+        while (iterator.hasNext()) {
+            Map.Entry mentry = (Map.Entry) iterator.next();
+            System.out.print("key is: " + mentry.getKey() + " & Value is: ");
+            System.out.println(mentry.getValue());
+            returnlist.add(new NameValue(mentry.getKey().toString(), Integer.valueOf(mentry.getValue().toString())));
+        }
+
+        return returnlist;
+    }
+
 }
