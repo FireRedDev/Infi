@@ -51,14 +51,12 @@ export class HomeComponent implements OnInit {
   }
 
   deleteInfo(item) {
-    debugger;
     this.rest.deleteInfo(item).subscribe(data => {
       console.log(data);
       this.infos.splice(this.infos.indexOf(item), 1);
     });
   }
   changeInfo(item) {
-    debugger;
     this.changeViewInfo.emit({ "view": "info", "item": item });
   }
 }

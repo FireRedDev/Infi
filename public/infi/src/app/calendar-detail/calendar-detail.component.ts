@@ -24,7 +24,6 @@ export class CalendarDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
     const body = localStorage.getItem('currentUser');
 
     //Abfragen ob dieser User Editor ist

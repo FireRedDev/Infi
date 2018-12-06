@@ -307,6 +307,21 @@ public class Service {
     }
 
     /**
+     * give back none planed appointments
+     *
+     * @param id
+     * @return
+     */
+    @Path("getOpenPlanning")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @POST
+    public List<Termin> getOpenPlanning(int id) {
+        return repo.getOpenPlanning(id);
+    }
+
+    /**
      * Häufigkeit von Kategorie in einer JRKEntity
      *
      * @param jrk
@@ -321,6 +336,14 @@ public class Service {
         return repo.getChartValues(jrk);
     }
 
+      @POST
+    @Path("getPersonenstunden")
+    @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<NameValue> getPersonenstunden(JRKEntitaet jrk) {
+        return repo.getPersonenstunden(jrk);
+    }
     /**
      * Anzahl von den Stunden pro Monat im letzten Jahr
      *
@@ -461,6 +484,16 @@ public class Service {
         return "\"inserted\"";
     }
 
+    @Path("changePlanung")
+    //@Secured(Role.GRUPPENLEITER)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    @POST
+    public String changePlanung(Planning planning) {
+        repo.changePlanung(planning);
+        return "changed";
+    }
+
     @GET
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Path("getProtokollDetails/{id}")
@@ -576,5 +609,14 @@ public class Service {
             t.add(t1);
         }
         return t;
+    }
+
+    @Path("deletePlanning")
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    @POST
+    public String deletePlanning(Planning p) {
+        return "\"" + repo.deletePlanning(p) + "\"";
     }
 }

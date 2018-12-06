@@ -1,5 +1,5 @@
 <div class="row">
-  <div *ngFor="let item of calendarEntry.events; let i = index" class="col-lg-6 col-sm">
+  <div *ngFor="let item of calendarEntry.events; let i = index" class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
     <div class="card-box">
       <div class="card-title">
         <h2>
@@ -18,6 +18,7 @@
         <b>Enddatum:</b>
         <div [innerHTML]='item.end.toLocaleString()'></div>
         <img src='{{item.imagePath}}'>
+<<<<<<< public/infi/src/app/calendar-detail/calendar-detail.component.html
         <b *ngIf="item.termin.plan">Planung:</b>
         <div *ngIf="item.termin.plan" [innerHTML]="item.termin.plan.descr"></div>
         <div *ngIf="isGruppenleiter&&item.termin.teilnehmer!=''">Es kommen: {{item.termin.teilnehmer}}</div>
@@ -27,6 +28,17 @@
         </button>
         <button (click)="changeViewCalendarDetail('planning',item)" class="btn btn-secondary" *ngIf="isEditor">Planung schreiben
         </button>
+=======
+        <b *ngIf="item.termin.planning">Planung:</b>
+        <div *ngIf="item.termin.planning" [innerHTML]="item.termin.planning.plannung"></div>
+        <div *ngIf="isGruppenleiter&&item.termin.teilnehmer!=''">Es kommen: {{item.termin.teilnehmer}}</div>
+      </div>
+      <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+        <button (click)="changeViewCalendarDetail('protocol',item)" class="btn btn-secondary" *ngIf="isEditor">Protokoll
+          schreiben</button>
+        <button (click)="changeViewCalendarDetail('planning',item)" class="btn btn-secondary" *ngIf="isEditor">Planung
+          schreiben</button>
+>>>>>>> public/infi/src/app/calendar-detail/calendar-detail.component.html
         <button (click)="changeTermin(item)" class="btn btn-secondary" *ngIf="isEditor">Termin bearbeiten</button>
         <button (click)="deleteTermin(item)" class="btn btn-secondary" *ngIf="isEditor">Termin löschen</button>
       </div>
