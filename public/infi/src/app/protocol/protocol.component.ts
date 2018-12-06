@@ -87,8 +87,10 @@ export class ProtocolComponent implements OnInit {
   constructor(public rest: RestService) {
     this.newChild = '';
     this.children = [];
+    this.supervisor = [];
     this.newBetreuer = '';
     this.betreuer = [];
+    this.array = [];
     this.rest = rest;
   }
 
@@ -112,15 +114,22 @@ export class ProtocolComponent implements OnInit {
     this.rest.getChildren(body)
       .subscribe(data => {
         this.children = data;
-        console.log(this.childrens)
+    });
+
+    this.rest.getSupervisor(body)
+    .subscribe(data => {
+      this.supervisor = data;
     });
   }
+
   save() {
+    console.log("ja")
     var actTermin = this.actTermin
     actTermin.s_date = new Date(this.s_date).toISOString().substr(0, 19).replace('T', ' ');
     actTermin.e_date = new Date(this.e_date).toISOString().substr(0, 19).replace('T', ' ');
-    this.actProtokol.kinderliste = this.childrens;
-    this.actProtokol.betreuer = this.betreuer;
+    debugger;
+    this.actProtokol.kinderliste = this.getListe("check");
+    this.actProtokol.betreuer = this.getListe("check2");
     actTermin.doko = this.actProtokol;
     this.rest.insertDoku(actTermin)
       .subscribe(data => {
@@ -142,21 +151,50 @@ export class ProtocolComponent implements OnInit {
         this.actTermin = this.term[index];
         this.s_date = this.actTermin.s_date;
         this.e_date = this.actTermin.e_date;
+
+        this.rest.getTerminTeilnehmer(this.actTermin.id)
+        .subscribe(data => {
+          this.array = data.split(";");        
+        });
       }
     }
   }
   newChild: string;
   children: any;
+  supervisor: any;
   array;
+  listArray;
   newBetreuer: string;
   betreuer: any;
   s_date;
   e_date;
 
+  getListe(name){
+    var list=[];
+    console.log("here")
+    let htmlOption = (document.getElementsByClassName(name) as HTMLCollection);
+    
+        for(var i = 0; i < htmlOption.length; i++){
+            let variable = (htmlOption[i] as HTMLInputElement);
+   
+            if(variable.checked){
+              list.push(variable.value);
+            }
+        }
+        return list;
+  }
+  getValueChecked(vorname, nachname){
+    for(var i=0; i<this.array.length; i++){
+        if((vorname + " " + nachname) == this.array[i]){
+            return "checked";
+        }
+      }
+  }
+
   addChild(event) {
-    this.array = this.newChild.split(" "); 
-    this.children.push({vorname: this.array[0], nachname: this.array[1]});
-    console.log(this.children)
+    this.listArray = this.newChild.split(" "); 
+    this.children.push({vorname: this.listArray[0], nachname: this.listArray[1]});
+    this.array.push(this.listArray[0] + " " + this.listArray[1]);
     this.newChild = '';
     event.preventDefault();
   }
@@ -166,7 +204,9 @@ export class ProtocolComponent implements OnInit {
   }
 
   addBetreuer(event) {
-    this.betreuer.push(this.newBetreuer);
+    this.listArray = this.newBetreuer.split(" "); 
+    this.supervisor.push({vorname: this.listArray[0], nachname: this.listArray[1]});
+    this.array.push(this.listArray[0] + " " + this.listArray[1]);
     this.newBetreuer = '';
     event.preventDefault();
   }

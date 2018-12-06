@@ -55,33 +55,15 @@ public class Termin implements Serializable {
         this.beschreibung = beschreibung;
         this.ort = ort;
     }
-
-    /**
-     * Konstruktor ohne Dokumentation
-     *
-     * @param s_date
-     * @param e_date
-     * @param title
-     * @param beschreibung
-     * @param ort
-     * @param imgPath
-     */
-//    public Termin(String s_date, String e_date, String title, String beschreibung, String ort, String plannung) {
-//        this.s_date = s_date;
-//        this.e_date = e_date;
-//        this.title = title;
-//        this.beschreibung = beschreibung;
-//        this.ort = ort;
-//        this.plannung = plannung;
-//    }
-    public Termin(String s_date, String e_date, String title, String beschreibung, String ort, String plannung) {
+    public Termin(String s_date, String e_date, String title, String beschreibung, String ort,String teilnehmer) {
         this.s_date = s_date;
         this.e_date = e_date;
         this.title = title;
         this.beschreibung = beschreibung;
         this.ort = ort;
-        this.plannung = plannung;
+        this.teilnehmer=teilnehmer;
     }
+
 
     /**
      * Konstruktor mit allen Parametern
