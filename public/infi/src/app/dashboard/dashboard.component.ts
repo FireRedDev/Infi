@@ -172,6 +172,7 @@ export class DashboardComponent implements OnInit {
 
   //ändern der View
   changeView(i) {
+
     this.view = i;
   }
   showDetail(i) {

@@ -313,12 +313,12 @@ public class Service {
      * @param id
      * @return
      */
-    @Path("getOpenPlanning")
+    @Path("getOpenPlanning/{id}")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     @POST
-    public List<Termin> getOpenPlanning(int id) {
+    public List<Termin> getOpenPlanning(@PathParam("id") int id) {
         return repo.getOpenPlanning(id);
     }
 
@@ -476,17 +476,17 @@ public class Service {
     }
 
     @Path("insertPlanung/{id}")
-    //@Secured(Role.GRUPPENLEITER)
-    @Consumes(MediaType.TEXT_PLAIN)
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @POST
-    public String insertPlanung(@PathParam("id") int id, String text) {
-        repo.insertPlanung(id,text);
+    public String insertPlanung(@PathParam("id") int id, Planning p) {
+        repo.insertPlanung(id,p);
         return "\"inserted\"";
     }
 
     @Path("changePlanung")
-    //@Secured(Role.GRUPPENLEITER)
+        @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @POST
@@ -588,27 +588,12 @@ public class Service {
         return "\"" + repo.deleteInfo(i) + "\"";
     }
 
-    @Path("sharePlanning/{id}")
-    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    @POST
-    public String sharePlanning(@PathParam("id") int id) {
-        return "\"" + repo.sharePlanning(id) + "\"";
-    }
-
     @Path("sharedPlanning")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Produces(MediaType.APPLICATION_JSON)
     @POST
     public List<Termin> sharedPlanning() {
         List<Termin> t = repo.sharedPlanning();
-        if(t.isEmpty()){
-            Termin t1 = new Termin("kein", "ergebnis", "gefunden", "", "");
-            Planning pl = new Planning("Leer");
-            t1.setPlanning(pl);
-            t.add(t1);
-        }
         return t;
     }
 

@@ -83,9 +83,9 @@ public class HttpServer_JavaSE {
         //Termine erstellen
         Termin sattledttermin = new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
         String[] betreuer = {"Gusi Tester", "Isabella Tester"};
-        String[] kinder = {"Melanie Tester", "Antonia Tester", "Lukas Tester"};
+        String[] kinder = {"Melanie Tester", "Antonia Tester", "Isabella Tester"};
         String[] betreuer1 = {"Doris Tester", "Jakob Tester"};
-        String[] kinder1 = {"Luisa Tester", "Jonas Tester", "Harald Tester"};
+        String[] kinder1 = {"Petra Tester", "Melanie Tester", "Harald Tester"};
         sattledttermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "Soziales"));
         sattledttermin.setImgpath("assets/Logo.png");
         sattledt1.addTermin(sattledttermin);
@@ -188,6 +188,7 @@ public class HttpServer_JavaSE {
         Person isabella = new Person("00005", "passme", "Isabella", "Tester", sattledt1, Role.KIND);
         Person antonia = new Person("00006", "passme", "Antonia", "Tester", marchtrenk, Role.ORTSTELLENLEITER);
         Person melanie = new Person("00007", "passme", "Melanie", "Tester", marchtrenk1, Role.KIND);
+        Person petra = new Person("00008", "passme", "Petra", "Tester", sattledt1, Role.KIND);
 
         //Personen einfügen
         insert(tom);
@@ -197,6 +198,7 @@ public class HttpServer_JavaSE {
         insert(isabella);
         insert(antonia);
         insert(melanie);
+        insert(petra);
 
         return "Testvalues inserted";
     }

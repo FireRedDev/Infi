@@ -1,164 +1,172 @@
 @import url('http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
 
-ng-sidebar-container{
-    min-height: 90vh
+ng-sidebar-container {
+  min-height: 90vh
 }
+
 .padd {
-    margin-bottom:20px;
+  margin-bottom: 20px;
 }
+
 .loading {
-    padding: 1em;
+  padding: 1em;
 }
 
 dashboard {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 i.fa.fa-plus {
-    color: white;
-    font-size: 30px;
+  color: white;
+  font-size: 30px;
 }
 
-.addTermin{
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-right: 40px;
-    margin-top: 11px;
+.addTermin {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 40px;
+  margin-top: 11px;
 }
 
 .dashboard-header {
-    align-items: center;
-    background: red;
-    color: white;
-    display: flex;
-    padding: 1em;
-    height: 50px;
-    margin-bottom: 10px;
+  align-items: center;
+  background: red;
+  color: white;
+  display: flex;
+  padding: 1em;
+  height: 50px;
+  margin-bottom: 10px;
 }
 
 .dashboard-header__toggle {
-    background: transparent;
-    border: 0.15rem solid white;
-    border-left: 0;
-    border-right: 0;
-    cursor: pointer;
-    font-size: 0;
-    height: 1.5rem;
-    margin-right: 1rem;
-    position: relative;
-    width: 2rem;
+  background: transparent;
+  border: 0.15rem solid white;
+  border-left: 0;
+  border-right: 0;
+  cursor: pointer;
+  font-size: 0;
+  height: 1.5rem;
+  margin-right: 1rem;
+  position: relative;
+  width: 2rem;
 }
 
 .dashboard-header__toggle::after {
-    background: white;
-    content: '';
-    height: 0.15rem;
-    left: 0;
-    margin-top: -0.075rem;
-    position: absolute;
-    top: 50%;
-    width: 100%;
+  background: white;
+  content: '';
+  height: 0.15rem;
+  left: 0;
+  margin-top: -0.075rem;
+  position: absolute;
+  top: 50%;
+  width: 100%;
 }
 
 .dashboard-sidebar {
-    background-color: #fff;
-    padding: 2em 1em;
+  background-color: #fff;
+  padding: 2em 1em;
 }
+
 .dashboard-sidebar.ng-sidebar--opened.ng-sidebar--over {
-    box-shadow: 0 0 2.5em rgba(85, 85, 85, 0.5);
-    background-color: white;
+  box-shadow: 0 0 2.5em rgba(85, 85, 85, 0.5);
+  background-color: white;
 }
 
 .dashboard-contents {
-    padding: 0 2em;
+  padding: 0 2em;
 }
 
 .dashboard-control {
-    background-color: indianred;
-    border: 1px solid indianred;
-    cursor: pointer;
-    padding-right: 5%;
-    padding-top: 0%;
-    padding-bottom: 0%;
-    transition: background-color 0.15s;
-    text-align: right;
-    font-size: 200%;
-    height:50px;
+  background-color: grey;
+  border: 1px solid grey;
+  cursor: pointer;
+  padding-right: 5%;
+  padding-top: 0%;
+  padding-bottom: 0%;
+  transition: background-color 0.15s;
+  text-align: right;
+  font-size: 200%;
+  height: 50px;
 }
+
 .dashboard-control:hover {
-    background-color: grey;
-    color: white;
+  background-color: grey;
+  color: white;
 }
 
-.material-icons{
-    padding-bottom: 0%;
-    font-size: 90%;
+.material-icons {
+  padding-bottom: 0%;
+  font-size: 90%;
 }
 
-.einfuegen{
-    padding-left: 5%;
-    padding-right: 30%;
-    font-size: 125%;
-    margin-top:10px;
-    margin-bottom:0px;
+.einfuegen {
+  padding-left: 5%;
+  padding-right: 30%;
+  font-size: 125%;
+  margin-top: 10px;
+  margin-bottom: 0px;
 }
 
 
-#imagePlatzhalter{
-    background: url(../../assets/sidebar.jpeg) no-repeat;
-    background-size: 100%;
-    width: 100%;
-    background-color: lightgrey;
-    height: 18%;
+#imagePlatzhalter {
+  background: url(../../assets/sidebar.jpeg) no-repeat;
+  background-size: 100%;
+  width: 100%;
+  background-color: lightgrey;
+  height: 18%;
 }
 
 body {
-    background: #eee;
-    font-family: 'helvetica Neue';
+  background: #eee;
+  font-family: 'helvetica Neue';
 }
 
-#hover:hover{
-    background-color: lightgrey;
-    transition: all ease 1.5s;
+#hover:hover {
+  background-color: lightgrey;
+  transition: all ease 1.5s;
 }
 
-#hover{
-    color:black;
-    width: 100%;
-    height: 7%;
-    padding-top: 3%;
-    padding-bottom: 3%;
+#hover {
+  color: black;
+  width: 100%;
+  height: 7%;
+  padding-top: 3%;
+  padding-bottom: 3%;
 }
 
 .my-custom-class a {
-    color: #FF3D7F !important;
+  color: #FF3D7F !important;
 }
 
 @media screen and (max-width: 500px) {
-    .dashboard-contents[_ngcontent-c3] {
-        padding: 0px !important;
-    }
-}
-.black{
-    color:black !important;
-    background-color: white !important;
+  .dashboard-contents[_ngcontent-c3] {
+    padding: 0px !important;
+  }
 }
 
-hr{
-    margin: 0;
+.black {
+  color: black !important;
+  background-color: white !important;
 }
-a:link, a:visited {
-    background-color: #f44336;
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-    width: 100%;
-    height:50px;
+
+hr {
+  margin: 0;
+}
+
+a:link,
+a:visited {
+  background-color: #f44336;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+  height: 50px;
 }
 
 
-a:hover, a:active {
-    background-color: red;
+a:hover,
+a:active {
+  background-color: red;
 }

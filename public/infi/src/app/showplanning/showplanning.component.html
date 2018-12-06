@@ -1,7 +1,26 @@
-<div *ngFor="let pl of records">
-  <p>
-    <b>Datum:</b> {{pl.Datum}}
-    <br>
-    <b>Beschreibung:</b> {{pl.Beschreibung}}
-  </p>
+<!-- Include stylesheet -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+<!-- Include the Quill library -->
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<div class="col-md-12">
+  <div *ngFor="let pl of records, let i=index">
+    Planung:
+    <div *ngIf="!isEdit[i]">
+      <div [innerHTML]="pl.Beschreibung"></div>
+    </div>
+    <div *ngIf="isEdit[i]">
+      <quill-editor name="text" [(ngModel)]="pl.plannung"></quill-editor>
+    </div>
+
+    <select class="form-control" #selectElem (change)="setTermin(selectElem.value)" name="termSelect">
+      <option *ngFor="let t of terminsOpenPlaning" [selected]="i==0" [value]="t.id">{{t.title}}</option>
+    </select>
+
+    <div class="btn-group btn-group" role="group" aria-label="Basic example">
+      <button type="submit" class="btn btn-secondary" (click)="isEdit[i]=true">Planung verändern</button>
+      <button type="submit" class="btn btn-secondary" (click)="savePlaning(pl)">Planung speichern</button>
+    </div>
+  </div>
 </div>

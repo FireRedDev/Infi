@@ -295,19 +295,14 @@ export class RestService {
       item
     );
   }
-<<<<<<< public/infi/src/app/rest.service.ts
   sharePlanning(id) {
     return this.http.post("http://localhost:8080/api/service/sharePlanning/" + id)
   }
 
   getAllPlanning() {
     return this.http.post("http://localhost:8080/api/service/sharedPlanning")
-=======
-  sharePlanning(body) {
-    return this.http.post(
-      "http://localhost:8080/api/service/sharePlanning/",
-      body
-    );
->>>>>>> public/infi/src/app/rest.service.ts
+  }
+  getOpenPlanning(body) {
+    return this.http.post("http://localhost:8080/api/service/getOpenPlanning/" + body)
   }
 }

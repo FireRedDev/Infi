@@ -22,13 +22,18 @@ public class Planning implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String plannung;
-    private boolean share=false;
+    private boolean share = false;
 
     public Planning() {
     }
 
     public Planning(String plannung) {
         this.plannung = plannung;
+    }
+
+    public Planning(String plannung, boolean share) {
+        this.plannung = plannung;
+        this.share = share;
     }
 
     public int getId() {

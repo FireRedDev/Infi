@@ -10,6 +10,7 @@ export class PlanningComponent implements OnInit {
   @Input() calendarEntry;
   @Output() changeView: EventEmitter<string> = new EventEmitter();
   text;
+  share = false;
   constructor(public rest: RestService) { }
 
   ngOnInit() {
@@ -17,7 +18,7 @@ export class PlanningComponent implements OnInit {
 
   save() {
     const body = this.calendarEntry.id;
-    this.rest.insertPlannungsText(body, this.text).subscribe();
+    this.rest.insertPlannungsText(body, { "plannung": this.text, "share": this.share }).subscribe();
     this.changeView.emit("month");
     this.rest.showSuccessMessage("Erfolg", "Plannung eingefügt!");
   }

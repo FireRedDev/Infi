@@ -71,20 +71,23 @@ export class DiagramsComponent implements OnInit {
         jrk = j;
       }
     }
-    this.rest.getChartValues(jrk).subscribe(value => {
+    this.rest.getChartValues(body).subscribe(value => {
       this.single = value;
     });
 
-    this.rest.getLowerEntityHourList(jrk).subscribe(value => {
+    this.rest.getLowerEntityHourList(body).subscribe(value => {
       this.single2 = value;
     });
 
-    this.rest.getYearlyHoursPerPeople(jrk).subscribe(value => {
+    this.rest.getYearlyHoursPerPeople(body).subscribe(value => {
       this.single3 = value;
     });
 
-    this.rest.getTimelineValues(jrk).subscribe(value => {
+    this.rest.getTimelineValues(body).subscribe(value => {
       this.singleChartBar = value;
+    });
+    this.rest.getPersonenstunden(body).subscribe(value => {
+      this.single4 = value;
     });
   }
 
