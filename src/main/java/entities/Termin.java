@@ -57,7 +57,17 @@ public class Termin implements Serializable {
         this.beschreibung = beschreibung;
         this.ort = ort;
     }
-<<<<<<< src/main/java/entities/Termin.java
+
+    /**
+     * Konstruktor
+     * 
+     * @param s_date
+     * @param e_date
+     * @param title
+     * @param beschreibung
+     * @param ort
+     * @param teilnehmer 
+     */
     public Termin(String s_date, String e_date, String title, String beschreibung, String ort,String teilnehmer) {
         this.s_date = s_date;
         this.e_date = e_date;
@@ -66,9 +76,6 @@ public class Termin implements Serializable {
         this.ort = ort;
         this.teilnehmer=teilnehmer;
     }
-=======
-
->>>>>>> src/main/java/entities/Termin.java
 
 
     /**

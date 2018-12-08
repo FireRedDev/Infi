@@ -8,7 +8,7 @@
   <div *ngFor="let pl of records, let i=index">
     Planung:
     <div *ngIf="!isEdit[i]">
-      <div [innerHTML]="pl.Beschreibung"></div>
+      <div [innerHTML]="pl.plannung"></div>
     </div>
     <div *ngIf="isEdit[i]">
       <quill-editor name="text" [(ngModel)]="pl.plannung"></quill-editor>

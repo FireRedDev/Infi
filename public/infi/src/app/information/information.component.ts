@@ -31,10 +31,12 @@ export class InformationComponent implements OnInit {
 
   save() {
     var imageType = /image.*/;
-    for (var i = 0; i < this.file.length; i++) {
-      var file = this.fileInput.files[i]
-      if (file.type.match(imageType) && this.file[i].size < 1097152) {
-        this.actInformation.mediapath.push("http://localhost:8080/upload_image/" + this.file[i].name);
+    if (this.file) {
+      for (var i = 0; i < this.file.length; i++) {
+        var file = this.fileInput.files[i]
+        if (file.type.match(imageType) && this.file[i].size < 1097152) {
+          this.actInformation.mediapath.push("http://localhost:8080/upload_image/" + this.file[i].name);
+        }
       }
     }
     if (this.actInformation.id != 0) {

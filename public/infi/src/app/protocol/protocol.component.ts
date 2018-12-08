@@ -114,12 +114,12 @@ export class ProtocolComponent implements OnInit {
     this.rest.getChildren(body)
       .subscribe(data => {
         this.children = data;
-    });
+      });
 
     this.rest.getSupervisor(body)
-    .subscribe(data => {
-      this.supervisor = data;
-    });
+      .subscribe(data => {
+        this.supervisor = data;
+      });
   }
 
   save() {
@@ -149,13 +149,13 @@ export class ProtocolComponent implements OnInit {
     for (index = 0; index < this.term.length; ++index) {
       if (this.term[index].id == id) {
         this.actTermin = this.term[index];
-        this.s_date = this.actTermin.s_date;
-        this.e_date = this.actTermin.e_date;
+        this.s_date = new Date(this.actTermin.s_date);
+        this.e_date = new Date(this.actTermin.e_date);
 
         this.rest.getTerminTeilnehmer(this.actTermin.id)
-        .subscribe(data => {
-          this.array = data.split(";");        
-        });
+          .subscribe(data => {
+            this.array = data.split(";");
+          });
       }
     }
   }
@@ -169,31 +169,31 @@ export class ProtocolComponent implements OnInit {
   s_date;
   e_date;
 
-  getListe(name){
-    var list=[];
+  getListe(name) {
+    var list = [];
     console.log("here")
     let htmlOption = (document.getElementsByClassName(name) as HTMLCollection);
-    
-        for(var i = 0; i < htmlOption.length; i++){
-            let variable = (htmlOption[i] as HTMLInputElement);
-   
-            if(variable.checked){
-              list.push(variable.value);
-            }
-        }
-        return list;
-  }
-  getValueChecked(vorname, nachname){
-    for(var i=0; i<this.array.length; i++){
-        if((vorname + " " + nachname) == this.array[i]){
-            return "checked";
-        }
+
+    for (var i = 0; i < htmlOption.length; i++) {
+      let variable = (htmlOption[i] as HTMLInputElement);
+
+      if (variable.checked) {
+        list.push(variable.value);
       }
+    }
+    return list;
+  }
+  getValueChecked(vorname, nachname) {
+    for (var i = 0; i < this.array.length; i++) {
+      if ((vorname + " " + nachname) == this.array[i]) {
+        return "checked";
+      }
+    }
   }
 
   addChild(event) {
-    this.listArray = this.newChild.split(" "); 
-    this.children.push({vorname: this.listArray[0], nachname: this.listArray[1]});
+    this.listArray = this.newChild.split(" ");
+    this.children.push({ vorname: this.listArray[0], nachname: this.listArray[1] });
     this.array.push(this.listArray[0] + " " + this.listArray[1]);
     this.newChild = '';
     event.preventDefault();
@@ -204,8 +204,8 @@ export class ProtocolComponent implements OnInit {
   }
 
   addBetreuer(event) {
-    this.listArray = this.newBetreuer.split(" "); 
-    this.supervisor.push({vorname: this.listArray[0], nachname: this.listArray[1]});
+    this.listArray = this.newBetreuer.split(" ");
+    this.supervisor.push({ vorname: this.listArray[0], nachname: this.listArray[1] });
     this.array.push(this.listArray[0] + " " + this.listArray[1]);
     this.newBetreuer = '';
     event.preventDefault();
