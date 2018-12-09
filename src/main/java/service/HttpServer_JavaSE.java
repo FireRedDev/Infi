@@ -126,7 +126,7 @@ public class HttpServer_JavaSE {
 
         Termin marchtrenktermin = new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk");
         marchtrenktermin.setDoko(new Dokumentation(kinder1, betreuer1, "grillen", 3.0, "Soziales"));
-        marchtrenk1.addTermin(marchtrenktermin);
+        marchtrenk.addTermin(marchtrenktermin);
 
         Termin marchtrenktermin1 = new Termin("2018-04-04 15:30:00", "2018-04-04 17:30:00", "Film schauen", "Bitte Decken und Polster mit nehmen", "Dienststelle Marchtrenk");
         marchtrenktermin1.setDoko(new Dokumentation(kinder1, betreuer1, "schauen", 2.0, "Soziales"));

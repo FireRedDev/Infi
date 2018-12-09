@@ -156,9 +156,9 @@ public class DatenbankRepository {
      * @return
      */
     public Person insert(Person b) {
-        
+       em.getTransaction().begin();
         em.merge(b);
-        
+        em.getTransaction().commit();
         return b;
     }
     
@@ -199,9 +199,9 @@ public class DatenbankRepository {
      * @return
      */
     public Termin insert(Termin termin) {
-        
+        em.getTransaction().begin();
         em.persist(termin);
-        
+        em.getTransaction().commit();
         return termin;
     }
 
@@ -234,6 +234,7 @@ public class DatenbankRepository {
      * @return
      */
     public List<Termin> getUsertermine(int id) {
+        em.clear();
         List<Termin> termine = new LinkedList();
         Person currentPerson = em.find(Person.class, id);
         //Check for Duplicates, prepare Termin list
@@ -252,6 +253,7 @@ public class DatenbankRepository {
      * @return
      */
     public List<Info> getUserInfos(int id) {
+        em.clear();
         List<Info> info = new LinkedList();
         //find Person with primary key
         Person currentPerson = em.find(Person.class, id);
@@ -872,7 +874,9 @@ public class DatenbankRepository {
      * @param t
      */
     public void changeTermin(Termin t) {
+        em.getTransaction().begin();
         em.merge(t);
+        em.getTransaction().commit();
     }
 
     /**
@@ -891,29 +895,15 @@ public class DatenbankRepository {
      * @return
      */
     public String deleteTermin(Termin t) {
-        Termin tt = null;
         em.getTransaction().begin();
-        if (!em.contains(t)) {
-            tt = em.merge(t);
-        }
-        em.remove(tt);
+        Termin toRemove = em.merge(t);
+        em.remove(toRemove);
         em.getTransaction().commit();
         return "success";
     }
     
     public String deleteInfo(Info i) {
         em.getTransaction().begin();
-//        List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.listAll").getResultList();
-//        for (JRKEntitaet jrk : jrks) {
-//            List<Info> infos = jrk.getInfo();
-//            for (Info in : infos) {
-//                if (in.equals(i)) {
-//                    jrk.getInfo().remove(i);
-//                    em.merge(jrk);
-//                }
-//
-//            }
-//        }
         Info toRemove = em.merge(i);
         em.remove(toRemove);
         em.getTransaction().commit();

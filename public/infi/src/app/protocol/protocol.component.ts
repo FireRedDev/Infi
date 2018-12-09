@@ -127,7 +127,6 @@ export class ProtocolComponent implements OnInit {
     var actTermin = this.actTermin
     actTermin.s_date = new Date(this.s_date).toISOString().substr(0, 19).replace('T', ' ');
     actTermin.e_date = new Date(this.e_date).toISOString().substr(0, 19).replace('T', ' ');
-    debugger;
     this.actProtokol.kinderliste = this.getListe("check");
     this.actProtokol.betreuer = this.getListe("check2");
     actTermin.doko = this.actProtokol;
