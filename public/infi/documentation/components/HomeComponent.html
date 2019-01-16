@@ -1,0 +1,885 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>infi-pwa documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">infi-pwa documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>HomeComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/home.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-home</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./home.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./home.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#infos">infos</a>
+                            </li>
+                            <li>
+                                <a href="#isEditor">isEditor</a>
+                            </li>
+                            <li>
+                                <a href="#showInvite">showInvite</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#t">t</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#changeInfo">changeInfo</a>
+                            </li>
+                            <li>
+                                <a href="#deleteInfo">deleteInfo</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#setComing">setComing</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#changeViewInfo">changeViewInfo</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(rest: <a href="../injectables/RestService.html">RestService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/home/home.component.ts:19</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>rest</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/RestService.html" target="_self" >RestService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="changeViewInfo"></a>
+                        <code>changeViewInfo</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code><a href="https://angular.io/api/core/EventEmitter" target="_blank" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/home/home.component.ts:19</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="changeInfo"></a>
+                        <span class="name">
+                            <b>
+                            changeInfo
+                            </b>
+                            <a href="#changeInfo"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>changeInfo(item)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/home/home.component.ts:59</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>item</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="deleteInfo"></a>
+                        <span class="name">
+                            <b>
+                            deleteInfo
+                            </b>
+                            <a href="#deleteInfo"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>deleteInfo(item)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/home/home.component.ts:53</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>item</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnInit"></a>
+                        <span class="name">
+                            <b>
+                            ngOnInit
+                            </b>
+                            <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnInit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/home/home.component.ts:25</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="setComing"></a>
+                        <span class="name">
+                            <b>
+                            setComing
+                            </b>
+                            <a href="#setComing"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>setComing()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/home/home.component.ts:47</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="infos"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            infos
+                            </b>
+                            <a href="#infos"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>infos:     <code></code>
+</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/home/home.component.ts:15</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isEditor"></a>
+                        <span class="name">
+                            <b>
+                            isEditor
+                            </b>
+                            <a href="#isEditor"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>isEditor:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/home/home.component.ts:18</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showInvite"></a>
+                        <span class="name">
+                            <b>
+                            showInvite
+                            </b>
+                            <a href="#showInvite"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>showInvite:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>true</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/home/home.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="t"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            t
+                            </b>
+                            <a href="#t"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>t:     <code></code>
+</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/home/home.component.ts:16</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { RestService } from &#x27;../rest.service&#x27;;
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter
+} from &#x27;@angular/core&#x27;;
+
+@Component({
+  selector: &#x27;app-home&#x27;,
+  templateUrl: &#x27;./home.component.html&#x27;,
+  styleUrls: [&#x27;./home.component.css&#x27;]
+})
+export class HomeComponent implements OnInit {
+  public infos;
+  public t;
+  showInvite &#x3D; true;
+  isEditor &#x3D; false;
+  @Output() changeViewInfo &#x3D; new EventEmitter();
+
+  constructor(private rest: RestService) {
+    this.rest &#x3D; rest;
+  }
+
+  ngOnInit() {
+
+    const body &#x3D; localStorage.getItem(&#x27;currentUser&#x27;);
+
+    this.rest.getUserInfos(body)
+      .subscribe(data &#x3D;&gt; {
+        this.infos &#x3D; data;
+        this.rest.showSuccessMessage(&quot;Erfolg&quot;, &quot;Informationen geladen!&quot;);
+      });
+
+
+    this.rest.getActTermin(body).subscribe(data &#x3D;&gt; {
+      this.t &#x3D; data;
+    });
+
+    //Abfragen ob dieser User Editor ist
+    this.rest.isEditor(body)
+      .subscribe(data &#x3D;&gt; {
+        this.isEditor &#x3D; (data &#x3D;&#x3D;&#x3D; true);
+      });
+  }
+
+  setComing() {
+    const body &#x3D; localStorage.getItem(&#x27;currentUser&#x27;);
+    this.rest.setComing(this.t.id, body).subscribe();
+    this.showInvite &#x3D; false;
+  }
+
+  deleteInfo(item) {
+    this.rest.deleteInfo(item).subscribe(data &#x3D;&gt; {
+      console.log(data);
+      this.infos.splice(this.infos.indexOf(item), 1);
+    });
+  }
+  changeInfo(item) {
+    this.changeViewInfo.emit({ &quot;view&quot;: &quot;info&quot;, &quot;item&quot;: item });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css&quot;&gt;
+
+&lt;div class&#x3D;&quot;card-deck&quot;&gt;
+  &lt;div class&#x3D;&quot;naechstertermin&quot; *ngIf&#x3D;&quot;showInvite&quot;&gt;
+    &lt;div class&#x3D;&quot;card-deck&quot;&gt;
+      &lt;div class&#x3D;&quot;card&quot;&gt;
+        &lt;div class&#x3D;&quot;card-block&quot;&gt;
+          &lt;h4 class&#x3D;&quot;card-title&quot;&gt;Nächster Termin:&lt;/h4&gt;
+          &lt;div class&#x3D;&quot;container&quot;&gt;
+            &lt;b&gt;Titel: &lt;/b&gt;{{t?.title}}&lt;br&gt;
+            &lt;b&gt;Beschreibung: &lt;/b&gt;{{t?.beschreibung}}&lt;br&gt;
+            &lt;b&gt;Ort: &lt;/b&gt;{{t?.ort}}&lt;br&gt;
+            &lt;b&gt;Von: &lt;/b&gt;{{t?.s_date}}&lt;br&gt;
+            &lt;b&gt;Bis: &lt;/b&gt;{{t?.e_date}}&lt;br&gt;&lt;br&gt;
+            &lt;div class&#x3D;&quot;btn-group&quot; role&#x3D;&quot;group&quot; aria-label&#x3D;&quot;Basic example&quot;&gt;
+              &lt;button class&#x3D;&quot;btn btn-success&quot; (click)&#x3D;&quot;setComing()&quot;&gt;Ja, ich komme&lt;/button&gt;
+              &lt;button class&#x3D;&quot;btn btn-danger&quot; (click)&#x3D;&quot;showInvite&#x3D;&#x3D;false&quot;&gt;Nein, ich komme nicht&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div *ngFor&#x3D;&quot;let i of infos, let zahl&#x3D;index&quot;&gt;
+    &lt;div class&#x3D;&quot;card&quot;&gt;
+      &lt;div class&#x3D;&quot;card-block&quot;&gt;
+        &lt;h4 class&#x3D;&quot;card-title&quot;&gt;{{i.ueberschrift}}&lt;/h4&gt;
+        &lt;div class&#x3D;&quot;container&quot;&gt;
+          &lt;p class&#x3D;&quot;card-text&quot;&gt;{{i.beschreibung}}&lt;/p&gt;
+
+          &lt;div *ngIf&#x3D;&quot;i.mediapath?.length&quot;&gt;
+
+            &lt;div id&#x3D;&quot;myCarousel{{zahl}}&quot; class&#x3D;&quot;carousel slide&quot; data-ride&#x3D;&quot;carousel&quot;&gt;
+              &lt;!-- Indicators --&gt;
+
+              &lt;!-- Wrapper for slides --&gt;
+              &lt;div class&#x3D;&quot;carousel-inner&quot;&gt;
+                &lt;div class&#x3D;&quot;item active&quot;&gt;
+                  &lt;img id&#x3D;&quot;imageSize&quot; [src]&#x3D;&quot;i.mediapath[0]&quot; alt&#x3D;&quot;Bild&quot;&gt;
+                  &lt;div class&#x3D;&quot;carousel-caption&quot;&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;item&quot; *ngFor&#x3D;&quot;let path of i.mediapath.slice(1), let izahl &#x3D; index&quot;&gt;
+                  &lt;img id&#x3D;&quot;imageSize&quot; [src]&#x3D;&quot;path&quot; alt&#x3D;&quot;Bild&quot;&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div *ngIf&#x3D;&quot;i.mediapath?.length &gt; 1&quot;&gt;
+                &lt;!-- Left and right controls --&gt;
+                &lt;a class&#x3D;&quot;left carousel-control&quot; href&#x3D;&quot;#myCarousel{{zahl}}&quot; data-slide&#x3D;&quot;prev&quot;&gt;
+                  &lt;span class&#x3D;&quot;glyphicon glyphicon-chevron-left&quot;&gt;&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;sr-only&quot;&gt;Previous&lt;/span&gt;
+                &lt;/a&gt;
+                &lt;a class&#x3D;&quot;right carousel-control&quot; href&#x3D;&quot;#myCarousel{{zahl}}&quot; data-slide&#x3D;&quot;next&quot;&gt;
+                  &lt;span class&#x3D;&quot;glyphicon glyphicon-chevron-right&quot;&gt;&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;sr-only&quot;&gt;Next&lt;/span&gt;
+                &lt;/a&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;btn-group&quot; role&#x3D;&quot;group&quot; aria-label&#x3D;&quot;Basic example&quot;&gt;
+            &lt;button (click)&#x3D;&quot;changeInfo(i)&quot; class&#x3D;&quot;btn btn-secondary&quot; *ngIf&#x3D;&quot;isEditor&quot;&gt;Information bearbeiten&lt;/button&gt;
+            &lt;button (click)&#x3D;&quot;deleteInfo(i)&quot; class&#x3D;&quot;btn btn-secondary&quot; *ngIf&#x3D;&quot;isEditor&quot;&gt;Information löschen&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./home.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.container {
+  text-align: left;
+  width: 385px;
+  height: 350px;
+}
+
+#imageSize {
+  max-width: 400px;
+  max-height: 280px;
+}
+
+.card-block {
+  background-color: white;
+  color: black;
+  z-index: 1000;
+  padding: 1%;
+  margin: 2%;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  margin-top: 7%;
+}
+
+.card-deck {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"><div class="card-deck">  <div class="naechstertermin" *ngIf="showInvite">    <div class="card-deck">      <div class="card">        <div class="card-block">          <h4 class="card-title">Nächster Termin:</h4>          <div class="container">            <b>Titel: </b>{{t?.title}}<br>            <b>Beschreibung: </b>{{t?.beschreibung}}<br>            <b>Ort: </b>{{t?.ort}}<br>            <b>Von: </b>{{t?.s_date}}<br>            <b>Bis: </b>{{t?.e_date}}<br><br>            <div class="btn-group" role="group" aria-label="Basic example">              <button class="btn btn-success" (click)="setComing()">Ja, ich komme</button>              <button class="btn btn-danger" (click)="showInvite==false">Nein, ich komme nicht</button>            </div>          </div>        </div>      </div>    </div>  </div>  <div *ngFor="let i of infos, let zahl=index">    <div class="card">      <div class="card-block">        <h4 class="card-title">{{i.ueberschrift}}</h4>        <div class="container">          <p class="card-text">{{i.beschreibung}}</p>          <div *ngIf="i.mediapath?.length">            <div id="myCarousel{{zahl}}" class="carousel slide" data-ride="carousel">              <!-- Indicators -->              <!-- Wrapper for slides -->              <div class="carousel-inner">                <div class="item active">                  <img id="imageSize" [src]="i.mediapath[0]" alt="Bild">                  <div class="carousel-caption">                  </div>                </div>                <div class="item" *ngFor="let path of i.mediapath.slice(1), let izahl = index">                  <img id="imageSize" [src]="path" alt="Bild">                </div>              </div>              <div *ngIf="i.mediapath?.length > 1">                <!-- Left and right controls -->                <a class="left carousel-control" href="#myCarousel{{zahl}}" data-slide="prev">                  <span class="glyphicon glyphicon-chevron-left"></span>                  <span class="sr-only">Previous</span>                </a>                <a class="right carousel-control" href="#myCarousel{{zahl}}" data-slide="next">                  <span class="glyphicon glyphicon-chevron-right"></span>                  <span class="sr-only">Next</span>                </a>              </div>            </div>          </div>          <div class="btn-group" role="group" aria-label="Basic example">            <button (click)="changeInfo(i)" class="btn btn-secondary" *ngIf="isEditor">Information bearbeiten</button>            <button (click)="deleteInfo(i)" class="btn btn-secondary" *ngIf="isEditor">Information löschen</button>          </div>        </div>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AddUserComponent', 'selector': 'add-user'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CalendarDetailComponent', 'selector': 'app-calendar-detail'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DateTimePickerComponent', 'selector': 'mwl-demo-utils-date-time-picker'},{'name': 'DiagramsComponent', 'selector': 'app-diagrams'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InformationComponent', 'selector': 'app-information'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'ManageUserComponent', 'selector': 'manage-user'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PlanningComponent', 'selector': 'app-planning'},{'name': 'ProtocolComponent', 'selector': 'app-protocol'},{'name': 'ShowplanningComponent', 'selector': 'app-showplanning'},{'name': 'ShowprotocolComponent', 'selector': 'app-showprotocol'},{'name': 'TerminComponent', 'selector': 'app-termin'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'HomeComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'HomeComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

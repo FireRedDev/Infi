@@ -2,6 +2,9 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";
 
+/**
+ * RestService
+ */
 @Injectable()
 export class RestService {
   getPersonenstunden(body): any {
@@ -12,16 +15,27 @@ export class RestService {
   }
   private http;
 
+  /**
+   * Constructor
+   * @param http HttpClient
+   * @param toastr Toast-Message
+   */
   constructor(http: HttpClient, private toastr: ToastrService) {
     this.http = http;
   }
 
-  //Alle Rollen vom Server holen
+  /**
+   * get all Roles from the Server
+   */
   getAllRoles() {
     return this.http.get("http://localhost:8080/api/service/getAllRoles");
   }
 
-  //Eine neue Person in die Datenbanm einfügen
+  /**
+   * insert a Person
+   * @param person Person
+   * @param jrk JRK
+   */
   insertPerson(person, jrk) {
     //insert Person machen
     return this.http.post(
@@ -30,7 +44,10 @@ export class RestService {
     );
   }
 
-  //Speichern von einer abgeänderten Person
+  /**
+   * save the Person
+   * @param person Person
+   */
   savePerson(person) {
     return this.http.post(
       "http://localhost:8080/api/service/savePerson",
@@ -38,12 +55,18 @@ export class RestService {
     );
   }
 
-  //Person löschen
+  /**
+   * delete Person
+   * @param id id of the User
+   */
   deletePerson(id) {
     return this.http.post("http://localhost:8080/api/service/deletePerson", id);
   }
 
-  //Die untergeordneten Personen
+  /**
+   * get Users Layer down
+   * @param id id of the User
+   */
   getUsersLayerDown(id) {
     return this.http.post(
       "http://localhost:8080/api/service/getUsersLayerDown",
@@ -51,7 +74,10 @@ export class RestService {
     );
   }
 
-  //Die untergeordneten User mit JRKEntitätenID erhalten
+  /**
+   * get Users Layer down
+   * @param id Id of a JRKEntity
+   */
   getUsersLayerDownJRK(id) {
     return this.http.post(
       "http://localhost:8080/api/service/getUsersLayerDownJRK",
@@ -59,7 +85,10 @@ export class RestService {
     );
   }
 
-  //Einloggen eines Benutzers
+  /**
+   * login
+   * @param body Username and Password
+   */
   login(body) {
     return this.http.post("http://localhost:8080/api/service/login", body);
   }
@@ -232,9 +261,12 @@ export class RestService {
   }
 
   showprotocol(jrkEntitaet) {
-    return this.http.get(
-      "http://localhost:8080/api/service/getProtokollDetails/" + jrkEntitaet.id
-    );
+    return this.http.get("http://localhost:8080/api/service/getProtokollDetails/" + jrkEntitaet.id);
+  }
+  //Dokumentationen mit ID finden
+  getDokuById(id) {
+    console.log("Sending findByID Request to server");
+    return this.http.get('http://localhost:8080/api/service/getDokuById/' + id);
   }
 
   sendToken(body, token) {
@@ -263,7 +295,7 @@ export class RestService {
   getChildren(id) {
     return this.http.post("http://localhost:8080/api/service/getChildren/", id)
   }
-  
+
 
   getTerminTeilnehmer(id) {
     return this.http.post("http://localhost:8080/api/service/getTerminTeilnehmer/", id)
@@ -272,7 +304,7 @@ export class RestService {
   getSupervisor(id) {
     return this.http.post("http://localhost:8080/api/service/getSupervisors/", id)
   }
-  
+
 
   setComing(id, id2) {
     console.log(id);

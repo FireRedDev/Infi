@@ -6,6 +6,9 @@ import { Benutzer } from './benutzer.model';
 import { Observable } from 'rxjs';
 import { RestService } from '../rest.service';
 
+/**
+ * Login Component
+ */
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -56,7 +59,6 @@ export class LoginFormComponent implements OnInit {
           }
         },
         complete() {
-          //console.log('Completed');
         }
       });
   }

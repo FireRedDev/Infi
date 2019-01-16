@@ -7,9 +7,17 @@ import { MessagingService } from './messaging.service';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+    /**
+     * Message Service
+     * @param msgService 
+     */
     constructor(private msgService: MessagingService) { }
+    /** Message */
     message;
 
+    /**
+     * initalize Push Notifications
+     */
     ngOnInit() {
         this.msgService.getPermission();
         this.msgService.receiveMessage();

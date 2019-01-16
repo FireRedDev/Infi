@@ -1,3 +1,6 @@
+/**
+ * Enum-Role
+ */
 export enum Role {
     KIND,
     GRUPPENLEITER,

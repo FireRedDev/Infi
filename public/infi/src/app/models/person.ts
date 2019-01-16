@@ -1,3 +1,6 @@
+/**
+ * Person-Model
+ */
 import { Role } from './role.enum';
 export class Person {
     constructor(

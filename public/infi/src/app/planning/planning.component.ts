@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RestService } from '../rest.service';
 
+/**
+ * Component for writing Planning
+ */
 @Component({
   selector: 'app-planning',
   templateUrl: './planning.component.html',
@@ -16,6 +19,9 @@ export class PlanningComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * save the planning
+   */
   save() {
     const body = this.calendarEntry.id;
     this.rest.insertPlannungsText(body, { "plannung": this.text, "share": this.share }).subscribe();
