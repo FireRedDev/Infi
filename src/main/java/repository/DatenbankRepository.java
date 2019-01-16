@@ -494,7 +494,9 @@ public class DatenbankRepository {
      */
     public void insertDoko(Termin d) {
         em.getTransaction().begin();
-        em.persist(d.getDoko());
+        Dokumentation doku=d.getDoko();
+        em.persist(doku);
+        d.setDoko(doku);
         em.merge(d);
         em.getTransaction().commit();
         

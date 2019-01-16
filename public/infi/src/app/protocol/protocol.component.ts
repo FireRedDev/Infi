@@ -130,6 +130,7 @@ export class ProtocolComponent implements OnInit {
     this.actProtokol.kinderliste = this.getListe("check");
     this.actProtokol.betreuer = this.getListe("check2");
     actTermin.doko = this.actProtokol;
+    console.log(this.actProtokol)
     this.rest.insertDoku(actTermin)
       .subscribe(data => {
         this.changeView.emit('month');
@@ -137,7 +138,7 @@ export class ProtocolComponent implements OnInit {
 
   }
 
-  actProtokol: Protokoll = new Protokoll(0, null, null, '', 'Soziales');
+  actProtokol: Protokoll = new Protokoll(0, null, null, '', '','','','','Soziales');
   actTermin: Termin = new Termin();
   submitted = false;
 
