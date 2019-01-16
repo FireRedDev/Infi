@@ -7,7 +7,6 @@ import { DateTimeAdapter, OWL_DATE_TIME_LOCALE, OwlDateTimeIntl } from 'ng-pick-
 import { NativeDateTimeAdapter } from 'ng-pick-datetime/date-time/adapter/native-date-time-adapter.class';
 import { Platform } from '@angular/cdk/platform';
 
-// here is the default text string
 export class GermanItl extends OwlDateTimeIntl {
   /** A label for the up second button (used by screen readers).  */
   upSecondLabel = 'Sekunde mehr';
@@ -70,6 +69,9 @@ export class GermanItl extends OwlDateTimeIntl {
   hour12PMLabel = 'PM';
 }
 
+/**
+ * Component for insert and edit Appointments
+ */
 @Component({
   selector: 'app-termin',
   templateUrl: './termin.component.html',
@@ -83,8 +85,6 @@ export class GermanItl extends OwlDateTimeIntl {
     { provide: OwlDateTimeIntl, useClass: GermanItl },
   ],
 })
-
-
 export class TerminComponent implements OnInit {
   @Input() jrkEntitaet: jrkEntitaet;
   @Output() changeView: EventEmitter<string> = new EventEmitter();
@@ -109,6 +109,12 @@ export class TerminComponent implements OnInit {
     this.s_date = new Date(this.actTermin.s_date)
     this.e_date = new Date(this.actTermin.e_date)
   }
+
+  /**
+   * Save a Appointment
+   * the dates have to be changed to a other format
+   * difference between update and insert
+   */
   save() {
     var actTermin = this.actTermin
     actTermin.s_date = new Date(this.s_date).toISOString().substr(0, 19).replace('T', ' ');
@@ -141,12 +147,15 @@ export class TerminComponent implements OnInit {
 
   onSubmit() { this.submitted = true; }
 
+  /**
+   * Upload the file
+   * @param e event
+   */
   fileUpload(e) {
     this.fileerror = false;
     this.fileInput = document.getElementById('fileInput');
     this.file = this.fileInput.files
     var file = this.fileInput.files[0]
-    //console.log("File" + file)
     var rest = this.rest;
     var imageType = /image.*/;
     if (file.type.match(imageType) && this.file[0].size < 1097152) {
@@ -154,7 +163,6 @@ export class TerminComponent implements OnInit {
 
       reader.onload = function (e) {
         var dataURI = reader.result;
-        //console.log(dataURI);
         //https://stackoverflow.com/questions/12168909/blob-from-dataurl
         // convert base64 to raw binary data held in a string
         // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
@@ -177,7 +185,6 @@ export class TerminComponent implements OnInit {
         // write the ArrayBuffer to a blob, and you're done
         var blob = new Blob([ab], { type: mimeString });
 
-        //console.log(blob);
         rest.uploadImage(blob, file.name)
           .subscribe(data => {
             console.log("insertImage")

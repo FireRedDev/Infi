@@ -38,7 +38,9 @@ import {
   EventEmitter
 } from '@angular/core';
 import { Planning } from 'src/app/planning/planning';
-
+/**
+ * Interface for Termin
+ */
 interface Termin {
   id: number;
   title: string;
@@ -61,6 +63,10 @@ interface Termin {
   declarations: [DateTimePickerComponent],
   exports: [DateTimePickerComponent]
 })
+
+/**
+ * Calendar Componet to show the Calendar
+ */
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -91,14 +97,28 @@ export class CalendarComponent implements OnInit {
 
   activeDayIsOpen = false;
 
+  /**
+   * Constructor
+   * @param rest RestService
+   */
   constructor(public rest: RestService) {
     this.rest = rest;
   }
 
+  /**
+   * ngOnInit
+   * 
+   * fetch Events
+   */
   ngOnInit() {
     this.fetchEvents();
   }
 
+  /**
+   * fetch Event
+   * 
+   * get Current User and get Appointments of this User
+   */
   fetchEvents(): void {
     const getStart: any = {
       month: startOfMonth,
@@ -113,14 +133,17 @@ export class CalendarComponent implements OnInit {
     }[this.view];
 
     const body = localStorage.getItem('currentUser');
-    //setzen der Termine
+
     this.events$ = this.rest.getUserTermine(body)
       .map(json => {
         return this.convertEvents(json as Termin[]);
       });
   }
 
-  //Konvertieren der Events zum anzeigen
+  /**
+   * Converts the Events for the View
+   * @param events 
+   */
   convertEvents(events: Array<Termin>): Array<any> {
     const calendarEvents = [];
     events.forEach(function (event) {
@@ -141,6 +164,11 @@ export class CalendarComponent implements OnInit {
     });
     return calendarEvents;
   }
+
+  /**
+   * is clicked?
+   * @param param0 
+   */
   dayClicked({
     date,
     events
@@ -160,6 +188,13 @@ export class CalendarComponent implements OnInit {
       }
     }
   }
+
+  /**
+   * open Detail
+   * 
+   * Emit to open Detail view
+   * @param event 
+   */
   openDetail(event) {
     this.showDetail.emit(event);
   }

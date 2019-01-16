@@ -1,3 +1,6 @@
+/**
+ * Appointment-Object
+ */
 export class Termin {
     constructor(
         public id = 0,

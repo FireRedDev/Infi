@@ -37,6 +37,14 @@ public class Service {
         return "INFI Jugendrotkreuz Server up and running..";
     }
 
+    @Path("getDokuById/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public Termin getDokoById(@PathParam("id") int id) {
+        System.out.println("Looking for id: " + id);
+        return repo.getDokoById(id);
+    }
+
     /**
      * delete a Person
      *
@@ -217,7 +225,7 @@ public class Service {
     @Produces(MediaType.TEXT_PLAIN)
     @POST
     public String getTerminTeilnehmer(int id) {
-        return "\""+repo.getTerminTeilnehmer(id)+"\"";
+        return "\"" + repo.getTerminTeilnehmer(id) + "\"";
     }
 
     /**
@@ -337,7 +345,7 @@ public class Service {
         return repo.getChartValues(jrk);
     }
 
-      @POST
+    @POST
     @Path("getPersonenstunden")
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Produces(MediaType.APPLICATION_JSON)
@@ -345,6 +353,7 @@ public class Service {
     public List<NameValue> getPersonenstunden(JRKEntitaet jrk) {
         return repo.getPersonenstunden(jrk);
     }
+
     /**
      * Anzahl von den Stunden pro Monat im letzten Jahr
      *
@@ -481,12 +490,12 @@ public class Service {
     @Produces(MediaType.TEXT_PLAIN)
     @POST
     public String insertPlanung(@PathParam("id") int id, Planning p) {
-        repo.insertPlanung(id,p);
+        repo.insertPlanung(id, p);
         return "\"inserted\"";
     }
 
     @Path("changePlanung")
-        @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @POST

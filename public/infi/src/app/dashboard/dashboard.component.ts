@@ -5,11 +5,20 @@ import {
 import { UserService } from '../user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestService } from '../rest.service';
+import { ProtocolDetailComponent } from '../protocol-detail/protocol-detail.component';
+/** JQuery */
 declare var jquery: any;
+/** is needed to use JQuery */
 declare var $: any;
 import { Termin } from '../models/termin';
 import { Info } from '../models/info';
 
+/**
+ * Dashboard Component
+ * 
+ * Navbar is in this Component
+ * The change of the component is done in the dashboard
+ */
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -28,8 +37,11 @@ export class DashboardComponent implements OnInit {
   calendarEntry = {};
   actTermin: Termin = new Termin(0, '', '', '', '', '', '');
   actInformation: Info = new Info(0, '', '', [], '');
+  protocol;
 
-  //einige Varbiablen zum konfifurieren der Sidebar
+  /**
+   * Variables for the Sidebar
+   */
   public _opened = false;
   public _modeNum = 0;
   public _positionNum = 0;
@@ -49,7 +61,9 @@ export class DashboardComponent implements OnInit {
   public _MODES: Array<string> = ['over', 'push', 'slide'];
   public _POSITIONS: Array<string> = ['left', 'right', 'top', 'bottom'];
 
-  //einige Funktionen für die Funktionalität der Sidebar
+  /**
+   * some Functions for the Sidebar
+   */
   public _toggleOpened(): void {
     this._opened = !this._opened;
   }
@@ -195,6 +209,11 @@ export class DashboardComponent implements OnInit {
   changeViewProtocol() {
     this.calendarEntry = null;
     this.view = 'protocol';
+  }
+  showProtocol(i) {
+    console.log("id" + i);
+    this.view = 'protocolDetail';
+    this.protocol = i;
   }
 
   //Password ändern

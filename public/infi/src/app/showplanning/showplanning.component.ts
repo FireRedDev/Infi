@@ -3,7 +3,9 @@ import { Planning } from 'src/app/planning/Planning';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Termin } from '../protocol/termin';
 
-
+/**
+ * show all Plannings
+ */
 @Component({
   selector: 'app-showplanning',
   templateUrl: './showplanning.component.html',
@@ -12,6 +14,7 @@ import { Termin } from '../protocol/termin';
 export class ShowplanningComponent implements OnInit {
   @Input() jrkEntitaet;
   @Output() changeView: EventEmitter<string> = new EventEmitter();
+  @Output() showProtocol: EventEmitter<any> = new EventEmitter();
 
   actTermin: Termin = new Termin();
 
@@ -19,6 +22,9 @@ export class ShowplanningComponent implements OnInit {
     public rest: RestService
   ) { }
 
+  /**
+   * get All Plannings
+   */
   ngOnInit() {
     this.rest.getAllPlanning().subscribe(data => {
       this.termins = data;
@@ -39,6 +45,10 @@ export class ShowplanningComponent implements OnInit {
   private terminsOpenPlaning = [];
   records = [];
 
+  /**
+   * 
+   * @param id Termin id
+   */
   setTermin(id: any): void {
     var index;
     for (index = 0; index < this.terminsOpenPlaning.length; ++index) {
@@ -47,6 +57,15 @@ export class ShowplanningComponent implements OnInit {
       }
     }
   }
+
+  showDetail(id) {
+    this.showProtocol.emit(id);
+  }
+
+  /**
+   * Save the Planing
+   * @param plan 
+   */
   savePlaning(plan) {
     const body = this.actTermin.id;
     this.rest.insertPlannungsText(body, plan).subscribe();

@@ -4,6 +4,9 @@ import { RestService } from '../rest.service';
 import { jrkEntitaet } from '../models/jrkEntitaet.model';
 import { EventEmitter } from '@angular/core';
 
+/**
+ * Component to edit and insert Information-Articles
+ */
 @Component({
   selector: 'app-information',
   templateUrl: './information.component.html',

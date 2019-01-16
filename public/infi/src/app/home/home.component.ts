@@ -6,6 +6,9 @@ import {
   EventEmitter
 } from '@angular/core';
 
+/**
+ * Component which shows all Information Articles
+ */
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

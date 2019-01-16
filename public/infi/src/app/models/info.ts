@@ -1,3 +1,6 @@
+/**
+ * Info Model
+ */
 export class Info {
     constructor(
         public id = 0,

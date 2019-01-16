@@ -47,7 +47,8 @@ import { FilterPipe } from './filter-pipe.pipe';
 import { OrderByPipe } from './order-by.pipe';
 import { PlanningComponent } from './planning/planning.component';
 import { QuillModule } from 'ngx-quill';
-import { ShowplanningComponent } from './showplanning/showplanning.component'
+import { ShowplanningComponent } from './showplanning/showplanning.component';
+import { ProtocolDetailComponent } from './protocol-detail/protocol-detail.component'
 
 registerLocaleData(localeDe);
 
@@ -86,7 +87,8 @@ const appRoutes: Routes = [
     FilterPipe,
     OrderByPipe,
     PlanningComponent,
-    ShowplanningComponent
+    ShowplanningComponent,
+    ProtocolDetailComponent
   ],
   imports: [
     BrowserModule,

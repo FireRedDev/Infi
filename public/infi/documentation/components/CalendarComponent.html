@@ -1,0 +1,848 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>infi-pwa documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">infi-pwa documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>CalendarComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/calendar/calendar.component.ts</code>
+</p>
+
+
+
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code><a href="../classes/CustomDateFormatter.html" target="_self" >{
+    provide: CalendarDateFormatter, useClass: CustomDateFormatter
+}</a></code>
+                            <code><a href="../classes/CustomEventTitleFormatter.html" target="_self" >{
+    provide: CalendarEventTitleFormatter, useClass: CustomEventTitleFormatter
+}</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-calendar</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./calendar.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./calendar.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#convertEvents">convertEvents</a>
+                            </li>
+                            <li>
+                                <a href="#dayClicked">dayClicked</a>
+                            </li>
+                            <li>
+                                <a href="#fetchEvents">fetchEvents</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openDetail">openDetail</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>Object()</code>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="convertEvents"></a>
+                        <span class="name">
+                            <b>
+                            convertEvents
+                            </b>
+                            <a href="#convertEvents"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>convertEvents(events: <a href="../interfaces/Termin.html">Array<Termin></a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="147" class="link-to-prism">src/app/calendar/calendar.component.ts:147</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Converts the Events for the View</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>events</td>
+                                                        <td>
+                                                                    <code><a href="../interfaces/Termin.html" target="_self" >Array&lt;Termin&gt;</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>Array&lt;any&gt;</code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dayClicked"></a>
+                        <span class="name">
+                            <b>
+                            dayClicked
+                            </b>
+                            <a href="#dayClicked"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>dayClicked(undefined: literal type)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="172" class="link-to-prism">src/app/calendar/calendar.component.ts:172</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>is clicked?</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>
+                                                                    <code>literal type</code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="fetchEvents"></a>
+                        <span class="name">
+                            <b>
+                            fetchEvents
+                            </b>
+                            <a href="#fetchEvents"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>fetchEvents()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="122" class="link-to-prism">src/app/calendar/calendar.component.ts:122</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>fetch Event</p>
+<p>get Current User and get Appointments of this User</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnInit"></a>
+                        <span class="name">
+                            <b>
+                            ngOnInit
+                            </b>
+                            <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnInit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="113" class="link-to-prism">src/app/calendar/calendar.component.ts:113</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>ngOnInit</p>
+<p>fetch Events</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="openDetail"></a>
+                        <span class="name">
+                            <b>
+                            openDetail
+                            </b>
+                            <a href="#openDetail"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>openDetail(event)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="198" class="link-to-prism">src/app/calendar/calendar.component.ts:198</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>open Detail</p>
+<p>Emit to open Detail view</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>event</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  CalendarEvent,
+  CalendarDateFormatter,
+  DAYS_OF_WEEK,
+  CalendarEventTitleFormatter,
+  CalendarModule
+} from &#x27;angular-calendar&#x27;;
+import { CustomDateFormatter } from &#x27;./custom-date-formatter.provider&#x27;;
+import { DateTimePickerComponent } from &#x27;./date-time-picker.component&#x27;;
+import { colors } from &#x27;./colors&#x27;;
+import { RestService } from &#x27;../rest.service&#x27;;
+import &#x27;rxjs/add/operator/map&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import {
+  isSameMonth,
+  isSameDay,
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  startOfDay,
+  endOfDay
+} from &#x27;date-fns&#x27;;
+import {
+  NgbDatepickerModule,
+  NgbTimepickerModule
+} from &#x27;@ng-bootstrap/ng-bootstrap&#x27;;
+import { CustomEventTitleFormatter } from &#x27;./custom-event-title-formatter.provider&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { Benutzer } from &#x27;../login-form/benutzer.model&#x27;;
+import {
+  Component,
+  NgModule,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter
+} from &#x27;@angular/core&#x27;;
+import { Planning } from &#x27;src/app/planning/planning&#x27;;
+/**
+ * Interface for Termin
+ */
+interface Termin {
+  id: number;
+  title: string;
+  s_date: string;
+  e_date: string;
+  beschreibung: string;
+  benutzer: Benutzer;
+  ort: string;
+  imgpath: string;
+  plan: Planning;
+}
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    NgbDatepickerModule.forRoot(),
+    NgbTimepickerModule.forRoot(),
+    CalendarModule
+  ],
+  declarations: [DateTimePickerComponent],
+  exports: [DateTimePickerComponent]
+})
+
+/**
+ * Calendar Componet to show the Calendar
+ */
+@Component({
+  selector: &#x27;app-calendar&#x27;,
+  templateUrl: &#x27;./calendar.component.html&#x27;,
+  styleUrls: [&#x27;./calendar.component.css&#x27;],
+  providers: [
+    {
+      provide: CalendarDateFormatter,
+      useClass: CustomDateFormatter
+    },
+    {
+      provide: CalendarEventTitleFormatter,
+      useClass: CustomEventTitleFormatter
+    }
+  ]
+})
+export class CalendarComponent implements OnInit {
+  viewDate: Date &#x3D; new Date();
+  title &#x3D; &#x27;app&#x27;;
+  @Input() view;
+  @Output() showDetail &#x3D; new EventEmitter();
+
+  weekStartsOn: number &#x3D; DAYS_OF_WEEK.MONDAY;
+  weekendDays: number[] &#x3D; [DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
+
+  events$: Observable&lt;Array&lt;CalendarEvent&lt;{ termin: Termin }&gt;&gt;&gt;;
+
+  locale: string &#x3D; &#x27;de-AT&#x27;;
+
+  activeDayIsOpen &#x3D; false;
+
+  /**
+   * Constructor
+   * @param rest RestService
+   */
+  constructor(public rest: RestService) {
+    this.rest &#x3D; rest;
+  }
+
+  /**
+   * ngOnInit
+   * 
+   * fetch Events
+   */
+  ngOnInit() {
+    this.fetchEvents();
+  }
+
+  /**
+   * fetch Event
+   * 
+   * get Current User and get Appointments of this User
+   */
+  fetchEvents(): void {
+    const getStart: any &#x3D; {
+      month: startOfMonth,
+      week: startOfWeek,
+      day: startOfDay
+    }[this.view];
+
+    const getEnd: any &#x3D; {
+      month: endOfMonth,
+      week: endOfWeek,
+      day: endOfDay
+    }[this.view];
+
+    const body &#x3D; localStorage.getItem(&#x27;currentUser&#x27;);
+
+    this.events$ &#x3D; this.rest.getUserTermine(body)
+      .map(json &#x3D;&gt; {
+        return this.convertEvents(json as Termin[]);
+      });
+  }
+
+  /**
+   * Converts the Events for the View
+   * @param events 
+   */
+  convertEvents(events: Array&lt;Termin&gt;): Array&lt;any&gt; {
+    const calendarEvents &#x3D; [];
+    events.forEach(function (event) {
+      var text &#x3D; &#x27;Titel: &#x27; + event.title;
+      calendarEvents.push({
+        id: event.id,
+        termin: event,
+        title: text,
+        beschreibung: event.beschreibung,
+        imagePath: event.imgpath,
+        start: new Date(event.s_date),
+        end: new Date(event.e_date),
+        ort: event.ort,
+        plan: event.plan,
+        color: colors.red,
+        cssClass: &#x27;my-custom-class&#x27;
+      });
+    });
+    return calendarEvents;
+  }
+
+  /**
+   * is clicked?
+   * @param param0 
+   */
+  dayClicked({
+    date,
+    events
+  }: {
+      date: Date;
+      events: Array&lt;CalendarEvent&lt;{ termin: Termin }&gt;&gt;;
+    }): void {
+    if (isSameMonth(date, this.viewDate)) {
+      if (
+        (isSameDay(this.viewDate, date) &amp;&amp; this.activeDayIsOpen &#x3D;&#x3D;&#x3D; true) ||
+        events.length &#x3D;&#x3D;&#x3D; 0
+      ) {
+        this.activeDayIsOpen &#x3D; false;
+      } else {
+        this.activeDayIsOpen &#x3D; true;
+        this.viewDate &#x3D; date;
+      }
+    }
+  }
+
+  /**
+   * open Detail
+   * 
+   * Emit to open Detail view
+   * @param event 
+   */
+  openDetail(event) {
+    this.showDetail.emit(event);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;row text-center&quot;&gt;
+  &lt;div class&#x3D;&quot;col-md-4&quot;&gt;
+    &lt;div class&#x3D;&quot;btn-group&quot;&gt;
+      &lt;div class&#x3D;&quot;btn btn-outline-secondary&quot; mwlCalendarPreviousView [view]&#x3D;&quot;view&quot; [(viewDate)]&#x3D;&quot;viewDate&quot;&gt;
+        Vorheriger
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;btn btn-outline-secondary&quot; mwlCalendarToday [(viewDate)]&#x3D;&quot;viewDate&quot;&gt;
+        Aktueller
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;btn btn-outline-secondary&quot; mwlCalendarNextView [view]&#x3D;&quot;view&quot; [(viewDate)]&#x3D;&quot;viewDate&quot;&gt;
+        Nächster
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;col-md-4&quot;&gt;
+    &lt;h3&gt;{{ viewDate | calendarDate:(view + &#x27;ViewTitle&#x27;):locale }}&lt;/h3&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;col-md-4&quot;&gt;
+    &lt;div class&#x3D;&quot;btn-group&quot;&gt;
+      &lt;div class&#x3D;&quot;btn btn-outline-secondary&quot; (click)&#x3D;&quot;view &#x3D; &#x27;month&#x27;&quot; [class.active]&#x3D;&quot;view &#x3D;&#x3D;&#x3D; &#x27;month&#x27;&quot;&gt;
+        Monat
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;btn btn-outline-secondary&quot; (click)&#x3D;&quot;view &#x3D; &#x27;week&#x27;&quot; [class.active]&#x3D;&quot;view &#x3D;&#x3D;&#x3D; &#x27;week&#x27;&quot;&gt;
+        Woche
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;btn btn-outline-secondary&quot; (click)&#x3D;&quot;view &#x3D; &#x27;day&#x27;&quot; [class.active]&#x3D;&quot;view &#x3D;&#x3D;&#x3D; &#x27;day&#x27;&quot;&gt;
+        Tag
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;ng-template #loading&gt;
+    &lt;div class&#x3D;&quot;text-center&quot;&gt;
+      &lt;i class&#x3D;&quot;fa fa-spin fa-spinner fa-5x&quot;&gt;&lt;/i&gt;
+      &lt;br&gt; Termine werden geladen ...
+    &lt;/div&gt;
+  &lt;/ng-template&gt;
+
+  &lt;div *ngIf&#x3D;&quot;events$ | async; else loading; let events&quot; class&#x3D;&quot;calendarbox&quot;&gt;
+    &lt;div [ngSwitch]&#x3D;&quot;view&quot;&gt;
+      &lt;mwl-calendar-month-view *ngSwitchCase&#x3D;&quot;&#x27;month&#x27;&quot; [viewDate]&#x3D;&quot;viewDate&quot; [events]&#x3D;&quot;events&quot; [locale]&#x3D;&quot;locale&quot;
+        [activeDayIsOpen]&#x3D;&quot;activeDayIsOpen&quot; (dayClicked)&#x3D;&quot;openDetail($event.day)&quot; (eventClicked)&#x3D;&quot;openDetail($event.event)&quot;&gt;
+      &lt;/mwl-calendar-month-view&gt;
+      &lt;mwl-calendar-week-view *ngSwitchCase&#x3D;&quot;&#x27;week&#x27;&quot; [viewDate]&#x3D;&quot;viewDate&quot; [events]&#x3D;&quot;events&quot; [locale]&#x3D;&quot;locale&quot;
+        (eventClicked)&#x3D;&quot;openDetail($event.event)&quot;&gt;
+      &lt;/mwl-calendar-week-view&gt;
+      &lt;mwl-calendar-day-view *ngSwitchCase&#x3D;&quot;&#x27;day&#x27;&quot; [viewDate]&#x3D;&quot;viewDate&quot; [events]&#x3D;&quot;events&quot; [locale]&#x3D;&quot;locale&quot;
+        (eventClicked)&#x3D;&quot;openDetail($event.event)&quot;&gt;
+      &lt;/mwl-calendar-day-view&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./calendar.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.calendarbox {
+  width: 100% !important;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="row text-center">  <div class="col-md-4">    <div class="btn-group">      <div class="btn btn-outline-secondary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">        Vorheriger      </div>      <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">        Aktueller      </div>      <div class="btn btn-outline-secondary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">        Nächster      </div>    </div>  </div>  <div class="col-md-4">    <h3>{{ viewDate | calendarDate:(view + \'ViewTitle\'):locale }}</h3>  </div>  <div class="col-md-4">    <div class="btn-group">      <div class="btn btn-outline-secondary" (click)="view = \'month\'" [class.active]="view === \'month\'">        Monat      </div>      <div class="btn btn-outline-secondary" (click)="view = \'week\'" [class.active]="view === \'week\'">        Woche      </div>      <div class="btn btn-outline-secondary" (click)="view = \'day\'" [class.active]="view === \'day\'">        Tag      </div>    </div>  </div>  <ng-template #loading>    <div class="text-center">      <i class="fa fa-spin fa-spinner fa-5x"></i>      <br> Termine werden geladen ...    </div>  </ng-template>  <div *ngIf="events$ | async; else loading; let events" class="calendarbox">    <div [ngSwitch]="view">      <mwl-calendar-month-view *ngSwitchCase="\'month\'" [viewDate]="viewDate" [events]="events" [locale]="locale"        [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="openDetail($event.day)" (eventClicked)="openDetail($event.event)">      </mwl-calendar-month-view>      <mwl-calendar-week-view *ngSwitchCase="\'week\'" [viewDate]="viewDate" [events]="events" [locale]="locale"        (eventClicked)="openDetail($event.event)">      </mwl-calendar-week-view>      <mwl-calendar-day-view *ngSwitchCase="\'day\'" [viewDate]="viewDate" [events]="events" [locale]="locale"        (eventClicked)="openDetail($event.event)">      </mwl-calendar-day-view>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AddUserComponent', 'selector': 'add-user'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CalendarDetailComponent', 'selector': 'app-calendar-detail'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DateTimePickerComponent', 'selector': 'mwl-demo-utils-date-time-picker'},{'name': 'DiagramsComponent', 'selector': 'app-diagrams'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InformationComponent', 'selector': 'app-information'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'ManageUserComponent', 'selector': 'manage-user'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PlanningComponent', 'selector': 'app-planning'},{'name': 'ProtocolComponent', 'selector': 'app-protocol'},{'name': 'ShowplanningComponent', 'selector': 'app-showplanning'},{'name': 'ShowprotocolComponent', 'selector': 'app-showprotocol'},{'name': 'TerminComponent', 'selector': 'app-termin'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'CalendarComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CalendarComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

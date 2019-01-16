@@ -27,7 +27,7 @@ import static entities.JRKEntitaetType.*;
  * @author Christopher G
  */
 public class DatenbankRepository {
-    
+
     private final EntityManager em;
 
     /**
@@ -51,9 +51,9 @@ public class DatenbankRepository {
      * @return
      */
     public Person addBenutzer(Person p) {
-        
+
         em.persist(p);
-        
+
         return p;
     }
 
@@ -77,9 +77,9 @@ public class DatenbankRepository {
     public List<Person> deletePerson(int id) {
         try {
             Person p = em.find(Person.class, id);
-            
+
             em.remove(p);
-            
+
             return listAllUsers();
         } catch (Exception e) {
             System.err.println(e);
@@ -111,7 +111,7 @@ public class DatenbankRepository {
         } catch (Exception e) {
             return null;
         }
-        
+
     }
 
     /**
@@ -125,7 +125,7 @@ public class DatenbankRepository {
             String jwt = Jwts.builder().setSubject("1234567890")
                     .setId(String.valueOf(b.getId()))
                     .claim("id", b.getId()).claim("role", b.getRolle()).signWith(SignatureAlgorithm.HS256, "secretswaggy132".getBytes("UTF-8")).compact();
-            
+
             return jwt;
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(DatenbankRepository.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,9 +143,9 @@ public class DatenbankRepository {
     public Person insert(int id, Person b) {
         JRKEntitaet j = em.find(JRKEntitaet.class, id);
         b.setJrkentitaet(j);
-        
+
         em.merge(b);
-        
+
         return b;
     }
 
@@ -156,17 +156,17 @@ public class DatenbankRepository {
      * @return
      */
     public Person insert(Person b) {
-       em.getTransaction().begin();
+        em.getTransaction().begin();
         em.merge(b);
         em.getTransaction().commit();
         return b;
     }
-    
+
     public Planning insert(Planning p) {
         em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
-        
+
         return p;
     }
 
@@ -186,9 +186,9 @@ public class DatenbankRepository {
      * @return
      */
     public JWTTokenUser insert(JWTTokenUser b) {
-        
+
         em.merge(b);
-        
+
         return b;
     }
 
@@ -211,9 +211,9 @@ public class DatenbankRepository {
      * @param doku
      */
     public void insert(Dokumentation doku) {
-        
+
         em.persist(doku);
-        
+
     }
 
     /**
@@ -222,9 +222,9 @@ public class DatenbankRepository {
      * @param jrk
      */
     public void insert(JRKEntitaet jrk) {
-        
+
         em.merge(jrk);
-        
+
     }
 
     /**
@@ -499,7 +499,7 @@ public class DatenbankRepository {
         d.setDoko(doku);
         em.merge(d);
         em.getTransaction().commit();
-        
+
     }
 
     /**
@@ -509,6 +509,13 @@ public class DatenbankRepository {
      */
     public Dokumentation getDokumentationbyTermin(int id) {
         return em.find(Termin.class, id).getDoko();
+    }
+
+    public Termin getDokoById(int id) {
+        Termin doku;
+        doku = em.find(Termin.class, id);
+        System.out.println("Doku: " + doku);
+        return doku;
     }
 
     /**
@@ -528,7 +535,7 @@ public class DatenbankRepository {
                     case "EH":
                         katcount[0]++;
                         break;
-                    
+
                     case "Exkursion":
                         katcount[1]++;
                         break;
@@ -542,7 +549,7 @@ public class DatenbankRepository {
         returnlist.add(new NameValue("EH", katcount[0]));
         returnlist.add(new NameValue("Exkursion", katcount[1]));
         returnlist.add(new NameValue("Soziales", katcount[2]));
-        
+
         return returnlist;
     }
 
@@ -569,13 +576,13 @@ public class DatenbankRepository {
                     nv.setValue(nv.getValue() + (int) hours);
                 }
             }
-            
+
             if (nv.getValue() == 0) {
                 nv.setValue(0.1);
             }
             returnlist.add(nv);
         }
-        
+
         return returnlist;
     }
 
@@ -586,27 +593,27 @@ public class DatenbankRepository {
      */
     public List<NameValue> getLowerEntityHourList(JRKEntitaet jrk) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        
+
         List<NameValue> returnlist = new LinkedList<>();
         List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
         // go through all hierarchicly lower jrk entities
         for (JRKEntitaet jr : jrks) {
             //get current jrks termine
             List<Termin> list = jr.getTermine();
-            
+
             NameValue nv = new NameValue(jr.getName(), 2);
             //count the time of each termin for the jrk entity
             for (Termin termin : list) {
                 LocalDateTime.parse(termin.getS_date(), formatter);
-                
+
                 LocalDateTime.parse(termin.getE_date(), formatter);
                 long hours = ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter));
                 nv.setValue(nv.getValue() + (int) hours);
-                
+
             }
             returnlist.add(nv);
         }
-        
+
         return returnlist;
     }
 
@@ -619,11 +626,11 @@ public class DatenbankRepository {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         /* This is how to declare HashMap */
         HashMap<String, Integer> hmap = new HashMap<>();
-        
+
         List<NameValue> kat = new LinkedList<>();
-        
+
         List<Termin> list = jrk.getTermine();
-        
+
         if (list != null) {
             for (Termin termin : list) {
                 Dokumentation doku = termin.getDoko();
@@ -638,7 +645,7 @@ public class DatenbankRepository {
                     hmap.put("Vorbereitung" + start.getYear(), (hmap.get("Vorbereitung" + start.getYear()) == null ? 0 : hmap.get("Vorbereitung" + start.getYear())) + (int) doku.getVzeit());
                 }
             }
-            
+
         }
         List<NameValue> returnlist = new LinkedList<>();
         Set set = hmap.entrySet();
@@ -649,7 +656,7 @@ public class DatenbankRepository {
             System.out.println(mentry.getValue());
             returnlist.add(new NameValue(mentry.getKey().toString(), Integer.valueOf(mentry.getValue().toString())));
         }
-        
+
         return returnlist;
     }
 
@@ -685,9 +692,9 @@ public class DatenbankRepository {
         p = em.find(Person.class, p.getId());
         p.setPassword(password);
         p.setPasswordChanged(true);
-        
+
         em.persist(p);
-        
+
     }
 
     /**
@@ -756,7 +763,7 @@ public class DatenbankRepository {
     public void insertInfo(int id, Info i) {
         JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
         jrk.addInfo(i);
-        
+
         insert(jrk);
     }
 
@@ -768,7 +775,7 @@ public class DatenbankRepository {
     public void insertPlanung(int id, Planning p) {
         Termin termin = em.find(Termin.class, id);
         termin.setPlanning(p);
-        
+
         insert(p);
         insert(termin);
     }
@@ -780,12 +787,16 @@ public class DatenbankRepository {
      */
     public List<Termin> getProtokollDetails(int id) {
         List<Termin> termin = new LinkedList();
-        
+        List<Termin> terminWithDoku = new LinkedList();
         JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
         System.out.println("here");
         termin = this.termineLayerDown(jrk, termin);
-        
-        return termin;
+        for (Termin t : termin) {
+            if (t.getDoko() != null) {
+                terminWithDoku.add(t);
+            }
+        }
+        return terminWithDoku;
     }
 
     /**
@@ -797,9 +808,9 @@ public class DatenbankRepository {
     public String setFCMToken(int id, String token) {
         Person p = em.find(Person.class, id);
         p.setFcmtoken(token);
-        
+
         em.merge(p);
-        
+
         Service.firstToken = true;
         return "sucess";
     }
@@ -815,9 +826,9 @@ public class DatenbankRepository {
 
         //send Message
         t.addTeilnehmer(p.getVorname() + " " + p.getNachname());
-        
+
         em.merge(t);
-        
+
     }
 
     /**
@@ -841,7 +852,7 @@ public class DatenbankRepository {
     public String getTerminTeilnehmer(int id) {
         Termin t = em.find(Termin.class, id);
         return t.getTeilnehmer();
-        
+
     }
 
     /**
@@ -903,7 +914,7 @@ public class DatenbankRepository {
         em.getTransaction().commit();
         return "success";
     }
-    
+
     public String deleteInfo(Info i) {
         em.getTransaction().begin();
         Info toRemove = em.merge(i);
@@ -911,7 +922,7 @@ public class DatenbankRepository {
         em.getTransaction().commit();
         return "success";
     }
-    
+
     public List<Termin> sharedPlanning() {
         List<Termin> plans = em.createQuery("select t from Termin t").getResultList();
         List<Termin> pl = new ArrayList();
@@ -925,7 +936,7 @@ public class DatenbankRepository {
         }
         return pl;
     }
-    
+
     public List<Termin> getOpenPlanning(int id) {
         List<Termin> termine = this.getUsertermine(id);
         List<Termin> te = new LinkedList<>();
@@ -939,11 +950,11 @@ public class DatenbankRepository {
         }
         return te;
     }
-    
+
     public void changePlanung(Planning planning) {
         em.merge(planning);
     }
-    
+
     public String deletePlanning(Planning p) {
         Planning pp = null;
         em.getTransaction().begin();
@@ -954,14 +965,14 @@ public class DatenbankRepository {
         em.getTransaction().commit();
         return "success";
     }
-    
+
     public List<NameValue> getPersonenstunden(JRKEntitaet jrk) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         /* This is how to declare HashMap */
         HashMap<String, Integer> hmap = new HashMap<>();
-        
+
         List<NameValue> kat = new LinkedList<>();
-        
+
         List<Termin> list = jrk.getTermine();
         List<Person> personen = em.createNamedQuery("Benutzer.byjrkEntitaet").setParameter("id", jrk.getId()).getResultList();
         List<JRKEntitaet> jrks = new LinkedList<>();
@@ -975,7 +986,7 @@ public class DatenbankRepository {
             for (Termin termin : list) {
                 LocalDateTime start = LocalDateTime.parse(termin.getS_date(), formatter);
                 LocalDateTime ende = LocalDateTime.parse(termin.getE_date(), formatter);
-                
+
                 Dokumentation doku = termin.getDoko();
                 if (doku != null) {
                     for (Person person : personen) {
@@ -995,7 +1006,7 @@ public class DatenbankRepository {
                                     hmap.put(String.valueOf(person.getVorname() + " " + person.getNachname()), hilf + (int) ChronoUnit.HOURS.between(start, ende));
                                 }
                             } catch (Exception e) {
-                                
+
                             }
                         }
                     }
@@ -1010,7 +1021,7 @@ public class DatenbankRepository {
 //                    hmap.put("Vorbereitung" + start.getYear(), (hmap.get("Vorbereitung" + start.getYear()) == null ? 0 : hmap.get("Vorbereitung" + start.getYear())) + (int) doku.getVzeit());
 //                }
                 }
-                
+
             }
         }
         List<NameValue> returnlist = new LinkedList<>();
@@ -1022,8 +1033,8 @@ public class DatenbankRepository {
             System.out.println(mentry.getValue());
             returnlist.add(new NameValue(mentry.getKey().toString(), Integer.valueOf(mentry.getValue().toString())));
         }
-        
+
         return returnlist;
     }
-    
+
 }

@@ -3,6 +3,9 @@ import { RestService } from '../rest.service';
 import { EventEmitter } from '@angular/core';
 declare var $: any;
 
+/**
+ * Component to change Password
+ */
 @Component({
   selector: 'app-password',
   templateUrl: './password.component.html',
@@ -24,7 +27,11 @@ export class PasswordComponent implements OnInit {
   ngOnInit() {
   }
 
-  //Passwort ändern
+  /**
+   * change Password
+   * 
+   * if the first and the second typed password is the same, then set the new password.
+   */
   changePwd() {
     if (this.password1 == this.password2 && this.password1 != "") {
       const body = { 'id': localStorage.getItem('currentUser'), 'password': this.password1 };
