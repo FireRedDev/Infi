@@ -140,6 +140,9 @@ export class DashboardComponent implements OnInit {
     this.rest = rest;
   }
 
+  /**
+   * on init
+   */
   ngOnInit(): void {
     const body = localStorage.getItem('currentUser');
     this.rest.sendToken(body, localStorage.getItem('pushToken')).subscribe();
@@ -184,39 +187,72 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  //ändern der View
+  /**
+   * change view
+   * @param i 
+   */
   changeView(i) {
-
     this.view = i;
   }
+
+  /**
+   * show Detail
+   * @param i 
+   */
   showDetail(i) {
     this.calendarEntry = i;
     this.view = 'calendar-detail';
   }
+
+  /**
+   * change view to calendar view
+   * @param i 
+   */
   changeViewCalendar(i) {
     this.calendarEntry = i.item;
     this.view = i.view;
   }
+
+  /**
+   * change View to appointment view
+   * @param i 
+   */
   changeViewTermin(i) {
     this.actTermin = i.item;
     this.view = i.view;
   }
+
+  /**
+   * change View to Info view
+   * @param i 
+   */
   changeViewInfo(i) {
     debugger;
     this.actInformation = i.item;
     this.view = i.view;
   }
+
+  /**
+   * change View to Protocol view
+   */
   changeViewProtocol() {
     this.calendarEntry = null;
     this.view = 'protocol';
   }
+
+  /**
+   * show protocol
+   * @param i id appointment
+   */
   showProtocol(i) {
     console.log("id" + i);
     this.view = 'protocolDetail';
     this.protocol = i;
   }
 
-  //Password ändern
+  /**
+   * change password
+   */
   changePwd() {
     if (this.password1 == this.password2 && this.password1 != "") {
       const body = { 'id': localStorage.getItem('currentUser'), 'password': this.password1 };
@@ -229,10 +265,18 @@ export class DashboardComponent implements OnInit {
       this.rest.showErrorMessage("Error", "Die beiden Passwörter sind nicht ident, versuche es nochmal!");
     }
   }
+
+  /**
+   * change appointment
+   */
   addTermin() {
     this.view = 'termin';
     this.actTermin = new Termin(0, '', '', '', '', '', '');
   }
+
+  /**
+   * Information hinzufügen
+   */
   addInfo() {
     this.view = 'info';
     this.actInformation = new Info(0, '', '', [], '');

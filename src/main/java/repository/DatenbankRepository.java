@@ -20,6 +20,7 @@ import javax.ws.rs.core.*;
 import service.MySecurityContext;
 import service.Service;
 import static entities.JRKEntitaetType.*;
+import static entities.JRKEntitaet_.info;
 
 /**
  * Repository Communicate with Database
@@ -222,8 +223,9 @@ public class DatenbankRepository {
      * @param jrk
      */
     public void insert(JRKEntitaet jrk) {
-
+        em.getTransaction().begin();
         em.merge(jrk);
+        em.getTransaction().commit();
 
     }
 
@@ -686,6 +688,7 @@ public class DatenbankRepository {
      * @param p
      */
     public void changePassword(Person p) {
+        em.clear();
         String password = p.getPassword();
         p = em.find(Person.class, p.getId());
         p.setPassword(password);
@@ -906,6 +909,7 @@ public class DatenbankRepository {
      * @return
      */
     public String deleteTermin(Termin t) {
+        em.clear();
         em.getTransaction().begin();
         Termin toRemove = em.merge(t);
         em.remove(toRemove);
@@ -913,10 +917,13 @@ public class DatenbankRepository {
         return "success";
     }
 
-    public String deleteInfo(Info i) {
+    public String deleteInfo(Info i,int id) {
+        Person p=em.find(Person.class, id);
+        p.getJrkentitaet().removeInfo(i);
+        
         em.getTransaction().begin();
-        Info toRemove = em.merge(i);
-        em.remove(toRemove);
+        
+        em.persist(p);
         em.getTransaction().commit();
         return "success";
     }

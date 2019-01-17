@@ -133,14 +133,22 @@ export class RestService {
     );
   }
 
-  //Termin einfügen
+  /**
+   * insert Appointment
+   * @param jrkEntitaet 
+   * @param actTermin 
+   */
   insertTermin(jrkEntitaet, actTermin) {
     return this.http.post(
       "http://localhost:8080/api/service/insertTermin/" + jrkEntitaet.id,
       actTermin
     );
   }
-  //Termin ändern
+
+  /**
+   * change Appointment
+   * @param actTermin 
+   */
   changeTermin(actTermin) {
     return this.http.put(
       "http://localhost:8080/api/service/changeTermin",
@@ -148,14 +156,22 @@ export class RestService {
     );
   }
 
-  //Information einfügen
+  /**
+   * insert Info
+   * @param jrkEntitaet 
+   * @param actInfo 
+   */
   insertInfo(jrkEntitaet, actInfo) {
     return this.http.post(
-      "http://localhost:8080/api/service/insertInsfo/" + jrkEntitaet.id,
+      "http://localhost:8080/api/service/insertInfo/" + jrkEntitaet.id,
       actInfo
     );
   }
-  //Information ändern
+
+  /**
+   * change Info
+   * @param actInfo 
+   */
   changeInfo(actInfo) {
     return this.http.put(
       "http://localhost:8080/api/service/changeInfo",
@@ -163,7 +179,10 @@ export class RestService {
     );
   }
 
-  //offene Dokumentation erhalten
+  /**
+   * get Appointments which are not dokumentated and are in the past
+   * @param body 
+   */
   getOpenDoko(body) {
     return this.http.post(
       "http://localhost:8080/api/service/getOpenDoko",
@@ -171,7 +190,10 @@ export class RestService {
     );
   }
 
-  //Neue Dokumentation einfügen
+  /**
+   * Insert new Doku
+   * @param actTermin 
+   */
   insertDoku(actTermin) {
     return this.http.post(
       "http://localhost:8080/api/service/insertDoko",
@@ -179,7 +201,10 @@ export class RestService {
     );
   }
 
-  //Informationen zu Benutzer holen
+  /**
+   * Informations of current User
+   * @param body 
+   */
   getUserInfos(body) {
     return this.http.post(
       "http://localhost:8080/api/service/getUserInfos",
@@ -187,18 +212,26 @@ export class RestService {
     );
   }
 
-  //Name des Benutzers der gerade angemeldet ist
+  /**
+   * Name of current User
+   * @param body 
+   */
   getName(body) {
     return this.http.post("http://localhost:8080/api/service/getName", body);
   }
 
-  //True oder False je nach dem ob der angemeldete Benutzer berechtigt ist
-  //zu editieren oder nicht
+  /**
+   * true if User is Editor
+   * @param body 
+   */
   isEditor(body) {
     return this.http.post("http://localhost:8080/api/service/isEditor", body);
   }
 
-  //True oder False je nach dem ob der angemeldete Benutzer Gruppenleiter ist
+  /**
+   * true if supervisor
+   * @param body 
+   */
   isGruppenleiter(body) {
     return this.http.post(
       "http://localhost:8080/api/service/isGruppenleiter",
@@ -206,12 +239,18 @@ export class RestService {
     );
   }
 
-  //True oder False ob Admin oder nicht
+  /**
+   * true if admin
+   * @param body 
+   */
   isAdmin(body) {
     return this.http.post("http://localhost:8080/api/service/isAdmin", body);
   }
 
-  //JRKEntität des aktuell angemeldeten Benutzers
+  /**
+   * JRK-Entity of current User
+   * @param body 
+   */
   getJRKEntitaet(body) {
     return this.http.post(
       "http://localhost:8080/api/service/getJRKEntitaet",
@@ -219,7 +258,10 @@ export class RestService {
     );
   }
 
-  //Terminde für User
+  /**
+   * get Appointments from this user
+   * @param body 
+   */
   getUserTermine(body) {
     return this.http.post(
       "http://localhost:8080/api/service/getUserTermine",
@@ -227,7 +269,10 @@ export class RestService {
     );
   }
 
-  //Passwort ändern
+  /**
+   * change password
+   * @param body 
+   */
   changePassword(body) {
     return this.http.post(
       "http://localhost:8080/api/service/changePassword",
@@ -235,7 +280,10 @@ export class RestService {
     );
   }
 
-  //Ob Passwort noch geändert werden muss
+  /**
+   * need this password beeing changed
+   * @param body 
+   */
   needPwdChange(body) {
     return this.http.post(
       "http://localhost:8080/api/service/needPwdChange",
@@ -243,7 +291,11 @@ export class RestService {
     );
   }
 
-  //Bild hochladen
+  /**
+   * upload image
+   * @param body 
+   * @param filename 
+   */
   uploadImage(body, filename) {
     return this.http.post(
       "http://localhost:8080/upload?filename=" + filename,
@@ -251,7 +303,11 @@ export class RestService {
     );
   }
 
-  //Bild hochladen
+  /**
+   * insert Planning
+   * @param body 
+   * @param text 
+   */
   insertPlannungsText(body, text) {
     console.log(text);
     return this.http.post(
@@ -260,15 +316,28 @@ export class RestService {
     );
   }
 
+  /**
+   * show Protocol
+   * @param jrkEntitaet 
+   */
   showprotocol(jrkEntitaet) {
     return this.http.get("http://localhost:8080/api/service/getProtokollDetails/" + jrkEntitaet.id);
   }
-  //Dokumentationen mit ID finden
+
+  /**
+   * find Dokumention to id
+   * @param id 
+   */
   getDokuById(id) {
     console.log("Sending findByID Request to server");
     return this.http.get('http://localhost:8080/api/service/getDokuById/' + id);
   }
 
+  /**
+   * send Token for push messages
+   * @param body 
+   * @param token 
+   */
   sendToken(body, token) {
     console.log("id: " + body);
     console.log("token: " + token);
@@ -278,34 +347,63 @@ export class RestService {
     );
   }
 
+  /**
+   * show error Message
+   * @param text1 Header
+   * @param text2 Content
+   */
   showErrorMessage(text1, text2) {
     this.toastr.error(text1, text2);
   }
 
+  /**
+   * show success Message
+   * @param text1 Heaeder
+   * @param text2 Content
+   */
   showSuccessMessage(text1, text2) {
     this.toastr.success(text1, text2);
   }
 
+  /**
+   * get current appointment
+   * @param id 
+   */
   getActTermin(id) {
     return this.http.post(
       "http://localhost:8080/api/service/getNextIncomingAppointment/" + id
     );
   }
 
+  /**
+   * get children
+   * @param id 
+   */
   getChildren(id) {
     return this.http.post("http://localhost:8080/api/service/getChildren/", id)
   }
 
-
+  /**
+   * get coming persons for appointment
+   * @param id 
+   */
   getTerminTeilnehmer(id) {
     return this.http.post("http://localhost:8080/api/service/getTerminTeilnehmer/", id)
   }
 
+  /**
+   * get supervisors
+   * @param id 
+   */
   getSupervisor(id) {
     return this.http.post("http://localhost:8080/api/service/getSupervisors/", id)
   }
 
-
+  /**
+   * this user is coming
+   * @param id 
+   * @param id2 
+   */
   setComing(id, id2) {
     console.log(id);
     console.log(id2);
@@ -314,6 +412,11 @@ export class RestService {
       id2
     );
   }
+
+  /**
+   * detlete Appointment
+   * @param item 
+   */
   deleteTermin(item) {
     return this.http.post(
       "http://localhost:8080/api/service/deleteTermin/",
@@ -321,19 +424,35 @@ export class RestService {
     );
   }
 
-  deleteInfo(item) {
+  /**
+   * delete Info
+   */
+  deleteInfo(item, id) {
     return this.http.post(
-      "http://localhost:8080/api/service/deleteInfo/",
+      "http://localhost:8080/api/service/deleteInfo/" + id,
       item
     );
   }
+
+  /**
+   * mark this planning to be shared
+   * @param id 
+   */
   sharePlanning(id) {
     return this.http.post("http://localhost:8080/api/service/sharePlanning/" + id)
   }
 
+  /**
+   * get all plannings
+   */
   getAllPlanning() {
     return this.http.post("http://localhost:8080/api/service/sharedPlanning")
   }
+
+  /**
+   * get open dokumentations
+   * @param body 
+   */
   getOpenPlanning(body) {
     return this.http.post("http://localhost:8080/api/service/getOpenPlanning/" + body)
   }

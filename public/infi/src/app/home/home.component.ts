@@ -17,6 +17,7 @@ import {
 export class HomeComponent implements OnInit {
   public infos;
   public t;
+  public jrk;
   showInvite = true;
   isEditor = false;
   @Output() changeViewInfo = new EventEmitter();
@@ -26,39 +27,49 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    const body = localStorage.getItem('currentUser');
-
-    this.rest.getUserInfos(body)
+    this.jrk = localStorage.getItem('currentUser');
+    debugger;
+    this.rest.getUserInfos(this.jrk)
       .subscribe(data => {
         this.infos = data;
         this.rest.showSuccessMessage("Erfolg", "Informationen geladen!");
       });
 
 
-    this.rest.getActTermin(body).subscribe(data => {
+    this.rest.getActTermin(this.jrk).subscribe(data => {
       this.t = data;
     });
 
     //Abfragen ob dieser User Editor ist
-    this.rest.isEditor(body)
+    this.rest.isEditor(this.jrk)
       .subscribe(data => {
         this.isEditor = (data === true);
       });
   }
 
+  /**
+   * this person is comming
+   */
   setComing() {
     const body = localStorage.getItem('currentUser');
     this.rest.setComing(this.t.id, body).subscribe();
     this.showInvite = false;
   }
 
+  /**
+   * delete Info
+   * @param item 
+   */
   deleteInfo(item) {
-    this.rest.deleteInfo(item).subscribe(data => {
+    this.rest.deleteInfo(item, this.jrk).subscribe(data => {
       console.log(data);
       this.infos.splice(this.infos.indexOf(item), 1);
     });
   }
+  /**
+   * changeto Info view 
+   * @param item 
+   */
   changeInfo(item) {
     this.changeViewInfo.emit({ "view": "info", "item": item });
   }

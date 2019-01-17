@@ -1147,6 +1147,9 @@ export class GermanItl extends OwlDateTimeIntl {
   hour12PMLabel &#x3D; &#x27;PM&#x27;;
 }
 
+/**
+ * Component for writing Protocols
+ */
 @Component({
   selector: &#x27;app-protocol&#x27;,
   templateUrl: &#x27;./protocol.component.html&#x27;,
@@ -1159,9 +1162,6 @@ export class GermanItl extends OwlDateTimeIntl {
     { provide: OwlDateTimeIntl, useClass: GermanItl },
   ],
 })
-/**
- * Component for writing Protocols
- */
 export class ProtocolComponent implements OnInit {
   private childrens;
   constructor(public rest: RestService) {
@@ -1289,6 +1289,10 @@ export class ProtocolComponent implements OnInit {
     }
   }
 
+  /**
+   * add a children to the dokumentation
+   * @param event 
+   */
   addChild(event) {
     this.listArray &#x3D; this.newChild.split(&quot; &quot;);
     this.children.push({ vorname: this.listArray[0], nachname: this.listArray[1] });

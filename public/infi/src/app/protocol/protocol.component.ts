@@ -211,6 +211,10 @@ export class ProtocolComponent implements OnInit {
     }
   }
 
+  /**
+   * add a children to the dokumentation
+   * @param event 
+   */
   addChild(event) {
     this.listArray = this.newChild.split(" ");
     this.children.push({ vorname: this.listArray[0], nachname: this.listArray[1] });

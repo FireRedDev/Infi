@@ -368,6 +368,8 @@
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>change View to Termin view</p>
+</div>
 
                             <div class="io-description">
                                     <b>Parameters :</b>
@@ -438,6 +440,8 @@
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>change view to calendar detail view</p>
+</div>
 
                             <div class="io-description">
                                     <b>Parameters :</b>
@@ -521,6 +525,8 @@
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>delete a Appointment</p>
+</div>
 
                             <div class="io-description">
                                     <b>Parameters :</b>
@@ -779,7 +785,7 @@ export class CalendarDetailComponent implements OnInit {
   }
 
   /**
-   * 
+   * change view to calendar detail view
    * @param view View
    * @param item current Appointment
    */
@@ -788,7 +794,7 @@ export class CalendarDetailComponent implements OnInit {
   }
 
   /**
-   * 
+   * delete a Appointment
    * @param item current Appointment
    */
   deleteTermin(item) {
@@ -798,7 +804,7 @@ export class CalendarDetailComponent implements OnInit {
   }
 
   /**
-   * 
+   * change View to Termin view
    * @param item current Appointment
    */
   changeTermin(item) {
@@ -919,7 +925,7 @@ img {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="row">  <div *ngFor="let item of calendarEntry.events; let i = index" class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-xs-12">    <div class="card-box">      <div class="card-title">        <h2>          <div [innerHTML]=\'item.title\'></div>        </h2>      </div>      <div class="card-body">        <b>Beschreibung:</b>        <div [innerHTML]=\'item.beschreibung\'></div>        <br>        <b>Ort:</b>        <div [innerHTML]=\'item.ort\'></div>        <br>        <b>Startdatum:</b>        <div [innerHTML]=\'item.start.toLocaleString()\'></div>        <b>Enddatum:</b>        <div [innerHTML]=\'item.end.toLocaleString()\'></div>        <img src=\'{{item.imagePath}}\'>        <b *ngIf="item.termin.planning">Planung:</b>        <div *ngIf="item.termin.planning" [innerHTML]="item.termin.planning.plannung"></div>        <div *ngIf="isGruppenleiter&&item.termin.teilnehmer!=\'\'">Es kommen: {{item.termin.teilnehmer}}</div>      </div>      <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">        <button (click)="changeViewCalendarDetail(\'protocol\',item)" class="btn btn-secondary" *ngIf="isEditor">Protokoll          schreiben</button>        <button (click)="changeViewCalendarDetail(\'planning\',item)" class="btn btn-secondary" *ngIf="isEditor">Planung          schreiben</button>        <button (click)="changeTermin(item)" class="btn btn-secondary" *ngIf="isEditor">Termin bearbeiten</button>        <button (click)="deleteTermin(item)" class="btn btn-secondary" *ngIf="isEditor">Termin löschen</button>      </div>    </div>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AddUserComponent', 'selector': 'add-user'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CalendarDetailComponent', 'selector': 'app-calendar-detail'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DateTimePickerComponent', 'selector': 'mwl-demo-utils-date-time-picker'},{'name': 'DiagramsComponent', 'selector': 'app-diagrams'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InformationComponent', 'selector': 'app-information'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'ManageUserComponent', 'selector': 'manage-user'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PlanningComponent', 'selector': 'app-planning'},{'name': 'ProtocolComponent', 'selector': 'app-protocol'},{'name': 'ShowplanningComponent', 'selector': 'app-showplanning'},{'name': 'ShowprotocolComponent', 'selector': 'app-showprotocol'},{'name': 'TerminComponent', 'selector': 'app-termin'}];
+    var COMPONENTS = [{'name': 'AddUserComponent', 'selector': 'add-user'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CalendarDetailComponent', 'selector': 'app-calendar-detail'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DateTimePickerComponent', 'selector': 'mwl-demo-utils-date-time-picker'},{'name': 'DiagramsComponent', 'selector': 'app-diagrams'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InformationComponent', 'selector': 'app-information'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'ManageUserComponent', 'selector': 'manage-user'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PlanningComponent', 'selector': 'app-planning'},{'name': 'ProtocolComponent', 'selector': 'app-protocol'},{'name': 'ProtocolDetailComponent', 'selector': 'app-protocol-detail'},{'name': 'ShowplanningComponent', 'selector': 'app-showplanning'},{'name': 'ShowprotocolComponent', 'selector': 'app-showprotocol'},{'name': 'TerminComponent', 'selector': 'app-termin'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'CalendarDetailComponent'};
 </script>

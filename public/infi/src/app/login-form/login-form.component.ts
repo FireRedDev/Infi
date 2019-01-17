@@ -27,6 +27,10 @@ export class LoginFormComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Login 
+   * @param e 
+   */
   loginUser(e) {
     e.preventDefault();
     const email = e.target.elements[0].value;
