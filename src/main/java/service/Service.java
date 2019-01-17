@@ -5,7 +5,7 @@ import entities.*;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import repository.DatenbankRepository;
+import repository.Repository;
 import RestResponseClasses.PersonTokenTransferObject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,7 +20,7 @@ import javax.ws.rs.core.Context;
 @Path("service")
 public class Service {
 
-    private DatenbankRepository repo = new DatenbankRepository();
+    private Repository repo = new Repository();
     public static Boolean firstToken = false;
 
     /**
@@ -466,7 +466,10 @@ public class Service {
         System.out.println("here");
         repo.insertInfo(id, i);
     }
-
+/**
+ * Update Info
+ * @param i 
+ */
     @Path("changeInfo")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
@@ -474,7 +477,12 @@ public class Service {
     public void changeInfo(Info i) {
         repo.changeInfo(i);
     }
-
+/**
+ * Persist Planning and add relationship to its termin
+ * @param id
+ * @param p
+ * @return 
+ */
     @Path("insertPlanung/{id}")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
@@ -484,7 +492,11 @@ public class Service {
         repo.insertPlanung(id,p);
         return "\"inserted\"";
     }
-
+/**
+ * updates planning
+ * @param planning
+ * @return 
+ */
     @Path("changePlanung")
         @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
@@ -494,7 +506,11 @@ public class Service {
         repo.changePlanung(planning);
         return "changed";
     }
-
+/**
+ * gets open protocols
+ * @param id
+ * @return 
+ */
     @GET
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Path("getProtokollDetails/{id}")
@@ -503,7 +519,12 @@ public class Service {
     public List<Termin> getProtokollDetails(@PathParam("id") int id) {
         return repo.getProtokollDetails(id);
     }
-
+/**
+ * saves fcm token
+ * @param id
+ * @param token
+ * @return 
+ */
     @Path("saveFCMToken/{id}")
     @Secured({Role.KIND, Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Produces(MediaType.TEXT_PLAIN)
@@ -512,7 +533,12 @@ public class Service {
     public String saveFCMToken(@PathParam("id") int id, String token) {
         return "\"" + repo.setFCMToken(id, token) + "\"";
     }
-
+/**
+ * registers Attendee as attendee to an appointment
+ * @param terminID
+ * @param userID
+ * @param sc 
+ */
     @Path("registerAttendee/{id}")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER, Role.KIND})
     @Consumes(MediaType.TEXT_PLAIN)
@@ -520,7 +546,12 @@ public class Service {
     public void registerAttendee(@PathParam("id") int terminID, int userID, @Context MySecurityContext sc) {
         repo.registerAttendee(terminID, userID);
     }
-
+/**
+ * Removes person as attendee from an appointment
+ * @param terminID
+ * @param userID
+ * @param sc 
+ */
     @Path("removeAttendee/{id}")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER, Role.KIND})
     @Consumes(MediaType.APPLICATION_JSON)
@@ -528,7 +559,11 @@ public class Service {
     public void removeAttendee(@PathParam("id") int terminID, int userID, @Context MySecurityContext sc) {
         repo.removeAttendee(terminID, userID);
     }
-
+/**
+ * Gets the NEXT Appointment of an user(with his id)
+ * @param id
+ * @return 
+ */
     @Path("getNextIncomingAppointment/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER, Role.KIND})
@@ -541,7 +576,7 @@ public class Service {
     }
 
     /**
-     * Gives back the Supervisors
+     * Gives back the Supervisors of an user
      *
      * @param id
      * @return
@@ -556,7 +591,7 @@ public class Service {
     }
 
     /**
-     * Gives back the Children
+     * Gives back the Children of an user
      *
      * @param id
      * @return
@@ -569,7 +604,11 @@ public class Service {
     public List<Person> getChildren(int id) {
         return repo.getChildren(id);
     }
-
+/**
+ * deletes termin
+ * @param t
+ * @return 
+ */
     @Path("deleteTermin")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
@@ -578,7 +617,11 @@ public class Service {
     public String deleteTermin(Termin t) {
         return "\"" + repo.deleteTermin(t) + "\"";
     }
-
+/**
+ * delete Infos
+ * @param i
+ * @return 
+ */
     @Path("deleteInfo")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
@@ -587,7 +630,10 @@ public class Service {
     public String deleteInfo(Info i) {
         return "\"" + repo.deleteInfo(i) + "\"";
     }
-
+/**
+ * returns all shared plannings
+ * @return 
+ */
     @Path("sharedPlanning")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Produces(MediaType.APPLICATION_JSON)
@@ -596,7 +642,11 @@ public class Service {
         List<Termin> t = repo.sharedPlanning();
         return t;
     }
-
+/**
+ * deletes planning
+ * @param p
+ * @return 
+ */
     @Path("deletePlanning")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)

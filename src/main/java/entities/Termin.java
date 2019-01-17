@@ -1,21 +1,31 @@
 /**
- * Termin, has an optional Documentation class attached.
+ * Appointment, has an optional Documentation class(to document it) and/or an optional Planning(to prepare for it) attached.
+ * An Appointment has a Start and End Date, a title, a describtion, an optional thumbnail and people that are planned to be there.
+ * 
  */
 package entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
 
+
+@Entity
+@NamedQueries({
+    /**
+     * Returns all Appointments
+     */
+    @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t")
+    ,
+    /**
+     * Returns not yet made documentations
+     */
+    @NamedQuery(name = "Termin.getOpenDoko", query = "SELECT t FROM Termin t where t.doko IS NULL")})
 /**
- * Appointment consists of title, beschreibung, ort, startdate, enddate, imgpath
+ *Appointment, has an optional Documentation class(to document it) and/or an optional Planning(to prepare for it) attached.
+ * An Appointment has a Start and End Date, a title, a location, a describtion, an optional thumbnail and people that are planned to be there.
  *
  * @author Christopher G
  */
-@Entity
-@NamedQueries({
-    @NamedQuery(name = "Termin.listAll", query = "SELECT t FROM Termin t")
-    ,
-    @NamedQuery(name = "Termin.getOpenDoko", query = "SELECT t FROM Termin t where t.doko IS NULL")})
 public class Termin implements Serializable {
 
     @Id
@@ -36,13 +46,13 @@ public class Termin implements Serializable {
     private Planning planning;
 
     /**
-     *
+     * Default Constructor
      */
     public Termin() {
     }
 
     /**
-     * Konstruktor ohne Dokumentation
+     * Constructor
      *
      * @param s_date
      * @param e_date
@@ -59,7 +69,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     * Konstruktor
+     * Construktor
      * 
      * @param s_date
      * @param e_date
@@ -79,7 +89,7 @@ public class Termin implements Serializable {
 
 
     /**
-     * Konstruktor mit allen Parametern
+     * Constructor
      *
      * @param s_date
      * @param e_date
@@ -98,7 +108,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Constructor
      * @param s_date
      * @param e_date
      * @param title
@@ -118,7 +128,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public int getId() {
@@ -126,7 +136,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param id
      */
     public void setId(int id) {
@@ -134,7 +144,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getS_date() {
@@ -142,7 +152,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param s_date
      */
     public void setS_date(String s_date) {
@@ -150,7 +160,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getE_date() {
@@ -158,7 +168,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param e_date
      */
     public void setE_date(String e_date) {
@@ -166,7 +176,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getTitle() {
@@ -174,7 +184,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param title
      */
     public void setTitle(String title) {
@@ -182,7 +192,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getOrt() {
@@ -190,7 +200,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param ort
      */
     public void setOrt(String ort) {
@@ -198,7 +208,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getBeschreibung() {
@@ -206,7 +216,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param beschreibung
      */
     public void setBeschreibung(String beschreibung) {
@@ -214,7 +224,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public Dokumentation getDoko() {
@@ -222,7 +232,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param doko
      */
     public void setDoko(Dokumentation doko) {
@@ -230,7 +240,7 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getImgpath() {
@@ -238,33 +248,51 @@ public class Termin implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param imgpath
      */
     public void setImgpath(String imgpath) {
         this.imgpath = imgpath;
     }
-
+/**
+ * Getter
+ * @return 
+ */
     public String getTeilnehmer() {
         return teilnehmer;
     }
-
+/**
+ * Setter
+ * @param teilnehmer 
+ */
     public void setTeilnehmer(String teilnehmer) {
         this.teilnehmer = teilnehmer;
     }
-
+/**
+ * Add participating Person to list
+ * @param t 
+ */
     public void addTeilnehmer(String t) {
         this.teilnehmer = this.teilnehmer + t + ";";
     }
-
+/**
+ * Remove participating Person to list
+ * @param t 
+ */
     public void removeTeilnehmer(String t) {
         this.teilnehmer = this.teilnehmer.replace(t, "");
     }
-
+/**
+ * Getter
+ * @return 
+ */
     public Planning getPlanning() {
         return planning;
     }
-
+/**
+ * Setter
+ * @param planning 
+ */
     public void setPlanning(Planning planning) {
         this.planning = planning;
     }

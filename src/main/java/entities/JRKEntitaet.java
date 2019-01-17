@@ -10,16 +10,20 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 /**
  * An JRKENTITY is an organisational unit/team, like a Jugendgruppe or a
- * Bezirksstelle
- *
+ * Bezirksstelle. As it corresponds to an actual group, it has a location property.
+ * Each JRKEntitaet has a list of its (personal) appointments and news articles.
+ * Each also has a relationship to its higher and lower ranking entity
  * @author Christopher G
  */
 @Entity
 @NamedQueries({
+    //returns all JRKEntitaets
     @NamedQuery(name = "JRKEntitaet.listAll", query = "SELECT j FROM JRKEntitaet j")
     ,
+    //returns an entitys lower ranking entity
     @NamedQuery(name = "JRKEntitaet.layerDown", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet=:jrkentitaet")
     ,
+    //returns an entitys higher ranking entity
     @NamedQuery(name = "JRKEntitaet.layerUp", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet1=:jrkentitaet")
 })
 public class JRKEntitaet implements Serializable {
@@ -32,28 +36,30 @@ public class JRKEntitaet implements Serializable {
     //each JRKENTITÄT has its own list of Termine and info
     @CascadeOnDelete
     @OneToMany
+    //group appointments
     private List<Termin> termine = new LinkedList<Termin>();
     @CascadeOnDelete
-    @OneToMany
+    @OneToMany()
+    //group news
     private List<Info> info = new LinkedList<Info>();
 
     //übergeordnet
     @ManyToOne
-    private JRKEntitaet jrkentitaet;
+    private JRKEntitaet superordinateJRKEntitaet;
 
     //untergeordnet
-    @OneToMany(mappedBy = "jrkentitaet")
-    private List<JRKEntitaet> jrkentitaet1;
+    @OneToMany(mappedBy = "superordinateJRKEntitaet")
+    private List<JRKEntitaet> subordinateJRKEntitaet;
 
     /**
-     *
+     * Default Constructor
      */
     public JRKEntitaet() {
 
     }
 
     /**
-     *
+     * Constructor
      * @param id
      * @param name
      * @param typ
@@ -63,11 +69,11 @@ public class JRKEntitaet implements Serializable {
         this.id = id;
         this.name = name;
         this.typ = typ;
-        this.jrkentitaet = jrkentitaet;
+        this.superordinateJRKEntitaet = jrkentitaet;
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getName() {
@@ -75,7 +81,7 @@ public class JRKEntitaet implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param name
      */
     public void setName(String name) {
@@ -83,7 +89,7 @@ public class JRKEntitaet implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public int getId() {
@@ -91,7 +97,7 @@ public class JRKEntitaet implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public JRKEntitaetType getTyp() {
@@ -99,7 +105,7 @@ public class JRKEntitaet implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param typ
      */
     public void setTyp(JRKEntitaetType typ) {
@@ -107,7 +113,7 @@ public class JRKEntitaet implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param id
      */
     public void setId(int id) {
@@ -115,7 +121,7 @@ public class JRKEntitaet implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getOrt() {
@@ -123,7 +129,7 @@ public class JRKEntitaet implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param ort
      */
     public void setOrt(String ort) {
@@ -131,7 +137,7 @@ public class JRKEntitaet implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public List<Termin> getTermine() {
@@ -139,7 +145,7 @@ public class JRKEntitaet implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param termine
      */
     public void setTermine(List<Termin> termine) {
@@ -147,7 +153,7 @@ public class JRKEntitaet implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public List<Info> getInfo() {
@@ -155,7 +161,7 @@ public class JRKEntitaet implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param info
      */
     public void setInfo(List<Info> info) {
@@ -163,61 +169,61 @@ public class JRKEntitaet implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
-    public JRKEntitaet getJrkentitaet() {
-        return jrkentitaet;
+    public JRKEntitaet getSuperordinateJRKEntitaet() {
+        return superordinateJRKEntitaet;
     }
 
     /**
-     *
-     * @param jrkentitaet
+     * Setter
+     * @param superordinateJRKEntitaet
      */
-    public void setJrkentitaet(JRKEntitaet jrkentitaet) {
-        this.jrkentitaet = jrkentitaet;
+    public void setSuperordinateJRKEntitaet(JRKEntitaet superordinateJRKEntitaet) {
+        this.superordinateJRKEntitaet = superordinateJRKEntitaet;
     }
 
     /**
-     *
+     * Getter
      * @return
      */
-    public List<JRKEntitaet> getJrkentitaet1() {
-        return jrkentitaet1;
+    public List<JRKEntitaet> getSubordinateJRKEntitaet() {
+        return subordinateJRKEntitaet;
     }
 
     /**
-     *
-     * @param jrkentitaet1
+     * Setter
+     * @param subordinateJRKEntitaet
      */
-    public void setJrkentitaet1(List<JRKEntitaet> jrkentitaet1) {
-        this.jrkentitaet1 = jrkentitaet1;
+    public void setSubordinateJRKEntitaet(List<JRKEntitaet> subordinateJRKEntitaet) {
+        this.subordinateJRKEntitaet = subordinateJRKEntitaet;
     }
 
     /**
-     *
+     * add a subordinate entity
      * @param newJRK
      */
     public void addJRKEntitaet(JRKEntitaet newJRK) {
-        if (!this.jrkentitaet1.contains(newJRK)) {
-            this.jrkentitaet1.add(newJRK);
-            newJRK.setJrkentitaet(this);
+        if (!this.subordinateJRKEntitaet.contains(newJRK)) {
+            this.subordinateJRKEntitaet.add(newJRK);
+            newJRK.setSuperordinateJRKEntitaet(this);
         }
     }
 
     /**
-     *
+     * remove a subordinate entity
      * @param old
      */
     public void removeJRKEntitaet(JRKEntitaet old) {
-        if (this.jrkentitaet1.contains(old)) {
-            this.jrkentitaet1.remove(old);
-            old.setJrkentitaet(this);
+        if (this.subordinateJRKEntitaet.contains(old)) {
+            this.subordinateJRKEntitaet.remove(old);
+            old.setSuperordinateJRKEntitaet(this);
         }
     }
 
     /**
-     *
+     * Adds an appointment
      * @param termin
      */
     public void addTermin(Termin termin) {
@@ -225,7 +231,7 @@ public class JRKEntitaet implements Serializable {
     }
 
     /**
-     *
+     * Removes an Appointment
      * @param termin
      */
     public void removeTermin(Termin termin) {
@@ -233,10 +239,17 @@ public class JRKEntitaet implements Serializable {
     }
 
     /**
-     *
+     * Adds Blog Post
      * @param info
      */
     public void addInfo(Info info) {
         this.info.add(info);
+    }
+    /**
+     * Removes Blog Post
+     * @param info 
+     */
+    public void removeInfo(Info info) {
+        this.info.remove(info);
     }
 }

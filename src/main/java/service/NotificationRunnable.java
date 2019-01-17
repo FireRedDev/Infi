@@ -24,6 +24,7 @@ import javax.persistence.EntityManager;
 import repository.EntityManagerSingleton;
 
 /**
+ * Sends Push Notifications to Clients if they soon have an appointment
  * C.G
  */
 public class NotificationRunnable implements Runnable {

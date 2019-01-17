@@ -5,7 +5,7 @@ import java.security.Principal;
 import javax.ws.rs.core.SecurityContext;
 
 /**
- * C.G
+ * Contains information about the server-accessing client if an application server is used
  */
 public class MySecurityContext implements SecurityContext {
 

@@ -6,7 +6,7 @@
 package RestResponseClasses;
 
 /**
- * Transfers Persons --> Rest
+ * Has the Property Email and Password
  */
 public class PersonTransferObject {
 
@@ -21,7 +21,7 @@ public class PersonTransferObject {
     public String password;
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getEmail() {
@@ -29,7 +29,7 @@ public class PersonTransferObject {
     }
 
     /**
-     *
+     * Setter
      * @param email
      */
     public void setEmail(String email) {
@@ -37,7 +37,7 @@ public class PersonTransferObject {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getPassword() {
@@ -45,7 +45,7 @@ public class PersonTransferObject {
     }
 
     /**
-     *
+     * Setter
      * @param password
      */
     public void setPassword(String password) {
@@ -53,7 +53,7 @@ public class PersonTransferObject {
     }
 
     /**
-     *
+     * Constructor
      * @param email
      * @param password
      */
@@ -63,7 +63,7 @@ public class PersonTransferObject {
     }
 
     /**
-     *
+     * Default Constructor
      */
     public PersonTransferObject() {
     }

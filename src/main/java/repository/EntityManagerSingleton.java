@@ -4,7 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
 /**
- * Used to get the Entity Manager of this Project, prevents Errors
+ * Singleton used to get the Entity Manager of this Project, prevents Errors
  *
  * @author Christopher G
  */
@@ -14,7 +14,7 @@ public class EntityManagerSingleton {
     private EntityManager em;
 
     /**
-     *
+     * Constructor
      */
     protected EntityManagerSingleton() {
         em = Persistence.createEntityManagerFactory("infiPU").createEntityManager();
@@ -22,7 +22,7 @@ public class EntityManagerSingleton {
     }
 
     /**
-     *
+     * Gets the Only Instance of the EntityManager
      * @return
      */
     public static EntityManagerSingleton getInstance() {
@@ -33,15 +33,15 @@ public class EntityManagerSingleton {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public EntityManager getEm() {
         return em;
     }
 
-    /**
-     *
+    /** 
+     * Setter
      * @param em
      */
     public void setEm(EntityManager em) {

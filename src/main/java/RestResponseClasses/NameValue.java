@@ -1,7 +1,7 @@
 package RestResponseClasses;
 
 /**
- * Contains an identifier and a value; For Rest;
+ * Has the Property Name and Value, basically a NameValuePair, used for Rest
  *
  * @author Christopher G
  */
@@ -11,7 +11,7 @@ public class NameValue {
     private double value;
 
     /**
-     *
+     * Constructor
      * @param name
      * @param value
      */
@@ -21,13 +21,13 @@ public class NameValue {
     }
 
     /**
-     *
+     * Default Constructor
      */
     public NameValue() {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getName() {
@@ -35,7 +35,7 @@ public class NameValue {
     }
 
     /**
-     *
+     * Setter
      * @param name
      */
     public void setName(String name) {
@@ -43,7 +43,7 @@ public class NameValue {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public double getValue() {
@@ -51,7 +51,7 @@ public class NameValue {
     }
 
     /**
-     *
+     * Setter
      * @param value
      */
     public void setValue(double value) {

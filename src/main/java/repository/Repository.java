@@ -22,38 +22,39 @@ import service.Service;
 import static entities.JRKEntitaetType.*;
 
 /**
- * Repository Communicate with Database
+ * Repository managing Database
  *
  * @author Christopher G
  */
-public class DatenbankRepository {
-    
+public class Repository {
+
+    //DB Connection Manager
     private final EntityManager em;
 
     /**
-     *
+     * Contains information about the accessing client.
      */
     @Context
     protected SecurityContext securityContext;
 
     /**
-     * Konstruktor
+     * Construktor
      */
-    public DatenbankRepository() {
+    public Repository() {
         //get database
         em = EntityManagerSingleton.getInstance().getEm();
     }
 
     /**
-     * Add Benutzer
+     * Persist Benutzer
      *
      * @param p
      * @return
      */
-    public Person addBenutzer(Person p) {
-        
+    public Person persistBenutzer(Person p) {
+
         em.persist(p);
-        
+
         return p;
     }
 
@@ -67,9 +68,10 @@ public class DatenbankRepository {
     }
 
     /**
-     * delete a Person
+     * Delete a Person
      *
-     * only Landesleiter and Bezirksleiter have the permission to delete Persons
+     * only Landesleiter and Bezirksleiter Type Persons have the permission to
+     * delete Persons
      *
      * @param id id of a Person
      * @return Persons
@@ -77,9 +79,9 @@ public class DatenbankRepository {
     public List<Person> deletePerson(int id) {
         try {
             Person p = em.find(Person.class, id);
-            
+
             em.remove(p);
-            
+
             return listAllUsers();
         } catch (Exception e) {
             System.err.println(e);
@@ -88,8 +90,9 @@ public class DatenbankRepository {
     }
 
     /**
-     * Login
-     *
+     * Login - Authenticate new Client
+     * Logs in a User if the provided Email and Password are correct
+     * Returns its ID and its JWT Token, with which it can access protected Server methods its Role is authorized to do so.
      * @param pto
      * @return
      */
@@ -111,7 +114,7 @@ public class DatenbankRepository {
         } catch (Exception e) {
             return null;
         }
-        
+
     }
 
     /**
@@ -122,19 +125,20 @@ public class DatenbankRepository {
      */
     public String generateJWT(Person b) {
         try {
+            //Generate valid encrypted,compressed JWT Token containing unmodifiable Information about the Persons Role and ID
             String jwt = Jwts.builder().setSubject("1234567890")
                     .setId(String.valueOf(b.getId()))
                     .claim("id", b.getId()).claim("role", b.getRolle()).signWith(SignatureAlgorithm.HS256, "secretswaggy132".getBytes("UTF-8")).compact();
-            
+
             return jwt;
         } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(DatenbankRepository.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     /**
-     * Insert Person into Database
+     * Merges Person into Database
      *
      * @param id
      * @param b
@@ -143,9 +147,9 @@ public class DatenbankRepository {
     public Person insert(int id, Person b) {
         JRKEntitaet j = em.find(JRKEntitaet.class, id);
         b.setJrkentitaet(j);
-        
+
         em.merge(b);
-        
+
         return b;
     }
 
@@ -156,22 +160,26 @@ public class DatenbankRepository {
      * @return
      */
     public Person insert(Person b) {
-       em.getTransaction().begin();
+        em.getTransaction().begin();
         em.merge(b);
         em.getTransaction().commit();
         return b;
     }
-    
+/**
+ * Inserts Planning into DataBase
+ * @param p
+ * @return 
+ */
     public Planning insert(Planning p) {
         em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
-        
+
         return p;
     }
 
     /**
-     * give back all roles
+     * Returns all roles
      *
      * @return Rollen
      */
@@ -186,14 +194,14 @@ public class DatenbankRepository {
      * @return
      */
     public JWTTokenUser insert(JWTTokenUser b) {
-        
+
         em.merge(b);
-        
+
         return b;
     }
 
     /**
-     * inserts a Appointment
+     * inserts an Appointment
      *
      * @param termin
      * @return
@@ -206,25 +214,25 @@ public class DatenbankRepository {
     }
 
     /**
-     * inserts a documentation
+     * inserts an documentation
      *
      * @param doku
      */
     public void insert(Dokumentation doku) {
-        
+
         em.persist(doku);
-        
+
     }
 
     /**
-     * inserts a JRK-Entity
+     * inserts an JRK-Entity
      *
      * @param jrk
      */
     public void insert(JRKEntitaet jrk) {
-        
+
         em.merge(jrk);
-        
+
     }
 
     /**
@@ -247,7 +255,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * Get Informations for a specific User
+     * Get Informations for a specific User based on his JRKEntity(with Person id)
      *
      * @param id
      * @return
@@ -267,7 +275,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * Get Appointments in the hierachie down
+     * Get Appointments of a jrkentity + its superordinate entitys appointments recursively
      *
      * @param jrk
      * @param termine
@@ -289,7 +297,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * Get Appointments in the hierachie down
+     * Get Appointments of a jrkentity + its subordinate entitys appointments recursively
      *
      * @param jrk
      * @param termine
@@ -308,7 +316,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * Get Informations in the hierachie up
+     * Get Informations in the hierachie up recursivly including the given jrk entitys informations
      *
      * @param jrk
      * @param termine
@@ -327,7 +335,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * Get Informations in the hierachie down
+     * Get Informations in the hierachie down recursivly including the given jrk entitys informations
      *
      * @param jrk
      * @param termine
@@ -394,7 +402,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * Get Username
+     * Get Username of Person id 
      *
      * @param id
      * @return
@@ -413,7 +421,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * insert a appointment
+     * insert an appointment
      *
      * @param id
      * @param t
@@ -448,7 +456,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * Is this User a admin
+     * Is this User an admin
      *
      * @param id
      * @return
@@ -470,7 +478,7 @@ public class DatenbankRepository {
     }
 
     /**
-     *
+     * Get all Docus which have not yet been done by a user(so undocumented appointments docus)
      * @param id
      * @return
      */
@@ -489,7 +497,7 @@ public class DatenbankRepository {
     }
 
     /**
-     *
+     * Persist Doku
      * @param d
      */
     public void insertDoko(Termin d) {
@@ -497,11 +505,11 @@ public class DatenbankRepository {
         em.persist(d.getDoko());
         em.merge(d);
         em.getTransaction().commit();
-        
+
     }
 
     /**
-     *
+     * Gets a Termins Documentation
      * @param id
      * @return
      */
@@ -510,7 +518,7 @@ public class DatenbankRepository {
     }
 
     /**
-     *
+     * Returns a List with ValuePairs to Display which Termin Categories are the most frequent
      * @param jrk
      * @return
      */
@@ -526,7 +534,7 @@ public class DatenbankRepository {
                     case "EH":
                         katcount[0]++;
                         break;
-                    
+
                     case "Exkursion":
                         katcount[1]++;
                         break;
@@ -540,12 +548,12 @@ public class DatenbankRepository {
         returnlist.add(new NameValue("EH", katcount[0]));
         returnlist.add(new NameValue("Exkursion", katcount[1]));
         returnlist.add(new NameValue("Soziales", katcount[2]));
-        
+
         return returnlist;
     }
 
     /**
-     *
+     * Returns a ValuePair for the Monthly Hours of a Group
      * @param jrk
      * @return
      */
@@ -567,49 +575,49 @@ public class DatenbankRepository {
                     nv.setValue(nv.getValue() + (int) hours);
                 }
             }
-            
+
             if (nv.getValue() == 0) {
                 nv.setValue(0.1);
             }
             returnlist.add(nv);
         }
-        
+
         return returnlist;
     }
 
     /**
-     *
+     * Returns a ValuePair List for each subordinate JRK Entitys Time Spent for statistical Purposes
      * @param jrk
      * @return
      */
     public List<NameValue> getLowerEntityHourList(JRKEntitaet jrk) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        
+
         List<NameValue> returnlist = new LinkedList<>();
         List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
         // go through all hierarchicly lower jrk entities
         for (JRKEntitaet jr : jrks) {
             //get current jrks termine
             List<Termin> list = jr.getTermine();
-            
+
             NameValue nv = new NameValue(jr.getName(), 2);
             //count the time of each termin for the jrk entity
             for (Termin termin : list) {
                 LocalDateTime.parse(termin.getS_date(), formatter);
-                
+
                 LocalDateTime.parse(termin.getE_date(), formatter);
                 long hours = ChronoUnit.HOURS.between(LocalDateTime.parse(termin.getS_date(), formatter), LocalDateTime.parse(termin.getE_date(), formatter));
                 nv.setValue(nv.getValue() + (int) hours);
-                
+
             }
             returnlist.add(nv);
         }
-        
+
         return returnlist;
     }
 
     /**
-     *
+     * Returns a List Showing how the time in the year was divided up
      * @param jrk
      * @return
      */
@@ -617,11 +625,11 @@ public class DatenbankRepository {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         /* This is how to declare HashMap */
         HashMap<String, Integer> hmap = new HashMap<>();
-        
+
         List<NameValue> kat = new LinkedList<>();
-        
+
         List<Termin> list = jrk.getTermine();
-        
+
         if (list != null) {
             for (Termin termin : list) {
                 Dokumentation doku = termin.getDoko();
@@ -636,7 +644,7 @@ public class DatenbankRepository {
                     hmap.put("Vorbereitung" + start.getYear(), (hmap.get("Vorbereitung" + start.getYear()) == null ? 0 : hmap.get("Vorbereitung" + start.getYear())) + (int) doku.getVzeit());
                 }
             }
-            
+
         }
         List<NameValue> returnlist = new LinkedList<>();
         Set set = hmap.entrySet();
@@ -647,7 +655,7 @@ public class DatenbankRepository {
             System.out.println(mentry.getValue());
             returnlist.add(new NameValue(mentry.getKey().toString(), Integer.valueOf(mentry.getValue().toString())));
         }
-        
+
         return returnlist;
     }
 
@@ -674,7 +682,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * change password
+     * change persons password
      *
      * @param p
      */
@@ -683,9 +691,9 @@ public class DatenbankRepository {
         p = em.find(Person.class, p.getId());
         p.setPassword(password);
         p.setPasswordChanged(true);
-        
+
         em.persist(p);
-        
+
     }
 
     /**
@@ -701,7 +709,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * get Users Layer Down
+     * get (subordinate)Users Layer Down
      *
      * @param id
      * @return
@@ -720,7 +728,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * get the Users Layer Down
+     * get the(superordinate) Users Layer Down
      *
      * @param id
      * @return
@@ -754,40 +762,40 @@ public class DatenbankRepository {
     public void insertInfo(int id, Info i) {
         JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
         jrk.addInfo(i);
-        
+
         insert(jrk);
     }
 
     /**
-     *
+     * insert a plannung
      * @param id
      * @param text
      */
     public void insertPlanung(int id, Planning p) {
         Termin termin = em.find(Termin.class, id);
         termin.setPlanning(p);
-        
+
         insert(p);
         insert(termin);
     }
 
     /**
-     *
+     * returns jrk entitys appointments and its subordinate appointments
      * @param id
      * @return
      */
     public List<Termin> getProtokollDetails(int id) {
         List<Termin> termin = new LinkedList();
-        
+
         JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
         System.out.println("here");
         termin = this.termineLayerDown(jrk, termin);
-        
+
         return termin;
     }
 
     /**
-     *
+     * Persists FCM Token
      * @param id
      * @param token
      * @return
@@ -795,15 +803,15 @@ public class DatenbankRepository {
     public String setFCMToken(int id, String token) {
         Person p = em.find(Person.class, id);
         p.setFcmtoken(token);
-        
+
         em.merge(p);
-        
+
         Service.firstToken = true;
         return "sucess";
     }
 
     /**
-     *
+     * Adds an Attendee to an Appointment
      * @param terminID
      * @param userID
      */
@@ -813,13 +821,13 @@ public class DatenbankRepository {
 
         //send Message
         t.addTeilnehmer(p.getVorname() + " " + p.getNachname());
-        
+
         em.merge(t);
-        
+
     }
 
     /**
-     *
+     * Removes an Attendee from an Appointment
      * @param terminID
      * @param userID
      */
@@ -832,18 +840,18 @@ public class DatenbankRepository {
     }
 
     /**
-     *
+     * Get an Appointments Attendees
      * @param id
      * @return
      */
     public String getTerminTeilnehmer(int id) {
         Termin t = em.find(Termin.class, id);
         return t.getTeilnehmer();
-        
+
     }
 
     /**
-     *
+     * Get the superordinate Person
      * @param id
      * @return
      */
@@ -854,7 +862,7 @@ public class DatenbankRepository {
     }
 
     /**
-     *
+     * Gets the Children that belong to a JRK Entity and its subordinate entitys
      * @param id
      * @return
      */
@@ -870,7 +878,7 @@ public class DatenbankRepository {
     }
 
     /**
-     *
+     * merge termin in db
      * @param t
      */
     public void changeTermin(Termin t) {
@@ -880,7 +888,7 @@ public class DatenbankRepository {
     }
 
     /**
-     *
+     * merge info in db
      * @param i
      */
     public void changeInfo(Info i) {
@@ -890,7 +898,7 @@ public class DatenbankRepository {
     }
 
     /**
-     *
+     * delete termin
      * @param t
      * @return
      */
@@ -901,7 +909,11 @@ public class DatenbankRepository {
         em.getTransaction().commit();
         return "success";
     }
-    
+/**
+ * delete info
+ * @param i
+ * @return 
+ */
     public String deleteInfo(Info i) {
         em.getTransaction().begin();
         Info toRemove = em.merge(i);
@@ -909,7 +921,10 @@ public class DatenbankRepository {
         em.getTransaction().commit();
         return "success";
     }
-    
+/**
+ * Returns all Shared Plannings
+ * @return 
+ */
     public List<Termin> sharedPlanning() {
         List<Termin> plans = em.createQuery("select t from Termin t").getResultList();
         List<Termin> pl = new ArrayList();
@@ -923,7 +938,11 @@ public class DatenbankRepository {
         }
         return pl;
     }
-    
+/**
+ * Returns all not yet done plannings
+ * @param id
+ * @return 
+ */
     public List<Termin> getOpenPlanning(int id) {
         List<Termin> termine = this.getUsertermine(id);
         List<Termin> te = new LinkedList<>();
@@ -937,11 +956,18 @@ public class DatenbankRepository {
         }
         return te;
     }
-    
+/**
+ * merges planning
+ * @param planning 
+ */
     public void changePlanung(Planning planning) {
         em.merge(planning);
     }
-    
+/**
+ * deletes planning
+ * @param p
+ * @return 
+ */
     public String deletePlanning(Planning p) {
         Planning pp = null;
         em.getTransaction().begin();
@@ -952,14 +978,18 @@ public class DatenbankRepository {
         em.getTransaction().commit();
         return "success";
     }
-    
+/**
+ * Returns an individuals spent Hours for statistics
+ * @param jrk
+ * @return 
+ */
     public List<NameValue> getPersonenstunden(JRKEntitaet jrk) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         /* This is how to declare HashMap */
         HashMap<String, Integer> hmap = new HashMap<>();
-        
+
         List<NameValue> kat = new LinkedList<>();
-        
+
         List<Termin> list = jrk.getTermine();
         List<Person> personen = em.createNamedQuery("Benutzer.byjrkEntitaet").setParameter("id", jrk.getId()).getResultList();
         List<JRKEntitaet> jrks = new LinkedList<>();
@@ -973,7 +1003,7 @@ public class DatenbankRepository {
             for (Termin termin : list) {
                 LocalDateTime start = LocalDateTime.parse(termin.getS_date(), formatter);
                 LocalDateTime ende = LocalDateTime.parse(termin.getE_date(), formatter);
-                
+
                 Dokumentation doku = termin.getDoko();
                 if (doku != null) {
                     for (Person person : personen) {
@@ -993,7 +1023,7 @@ public class DatenbankRepository {
                                     hmap.put(String.valueOf(person.getVorname() + " " + person.getNachname()), hilf + (int) ChronoUnit.HOURS.between(start, ende));
                                 }
                             } catch (Exception e) {
-                                
+
                             }
                         }
                     }
@@ -1008,7 +1038,7 @@ public class DatenbankRepository {
 //                    hmap.put("Vorbereitung" + start.getYear(), (hmap.get("Vorbereitung" + start.getYear()) == null ? 0 : hmap.get("Vorbereitung" + start.getYear())) + (int) doku.getVzeit());
 //                }
                 }
-                
+
             }
         }
         List<NameValue> returnlist = new LinkedList<>();
@@ -1020,8 +1050,8 @@ public class DatenbankRepository {
             System.out.println(mentry.getValue());
             returnlist.add(new NameValue(mentry.getKey().toString(), Integer.valueOf(mentry.getValue().toString())));
         }
-        
+
         return returnlist;
     }
-    
+
 }
