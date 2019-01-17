@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * C.G Transports a Token and a User -> for REST
+ * C.G Contains a Token and a User, used for Rest
  */
 @Entity
 public class JWTTokenUser implements Serializable {
@@ -20,7 +20,7 @@ public class JWTTokenUser implements Serializable {
     private Person person;
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getToken() {
@@ -28,7 +28,7 @@ public class JWTTokenUser implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param token
      */
     public void setToken(String token) {
@@ -36,7 +36,7 @@ public class JWTTokenUser implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public Person getPerson() {
@@ -44,7 +44,7 @@ public class JWTTokenUser implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param person
      */
     public void setPerson(Person person) {
@@ -52,13 +52,13 @@ public class JWTTokenUser implements Serializable {
     }
 
     /**
-     *
+     * Default Constructor
      */
     public JWTTokenUser() {
     }
 
     /**
-     *
+     * Constructor
      * @param token
      * @param person
      */

@@ -9,25 +9,49 @@ import javax.persistence.*;
 
 /**
  * A Person(Kind,Leiter,..) that is also a User in our System, with Password and
- * Username, mail adress and a role used for checking permissions.
+ * Username, mail adress and a Role used for checking permissions.
  *
  * @author Christopher G
  */
 @Entity
 @NamedQueries({
+    /**
+     * Returns All Persons
+     */
     @NamedQuery(name = "Benutzer.listAll", query = "SELECT b FROM Person b")
     ,
+    /**
+     * Returns Person with the ID
+     */
     @NamedQuery(name = "Benutzer.list", query = "SELECT b FROM Person b where b.id=:id")
     ,
+    /**
+     * Returns email of the person with the id
+     */
     @NamedQuery(name = "Benutzer.email", query = "SELECT b.email FROM Person b where b.id=:id")
     ,
+    /**
+     * Returns Person with the email
+     */
     @NamedQuery(name = "Benutzer.login", query = "SELECT b FROM Person b where b.email=:email")
     ,
+    /**
+     * Returns Full Name of Person with the id
+     */
     @NamedQuery(name = "Benutzer.name", query = "SELECT concat(b.vorname,' ',b.nachname) FROM Person b where b.id=:id")
     ,
+    /**
+     * Returns a Persons JRKEntitaet with the Persons id
+     */
     @NamedQuery(name = "Benutzer.jrkEntitaet", query = "SELECT b.jrkentitaet FROM Person b where b.id=:id")
         ,
+    /**
+     * Returns Person whos JRKEntitaet has ID
+     */
     @NamedQuery(name = "Benutzer.byjrkEntitaet", query = "SELECT b FROM Person b where b.jrkentitaet.id=:id"),
+    /**
+     * Finds User by his Full Name
+     */
 @NamedQuery(name = "Benutzer.findbyname", query = "SELECT b from Person b where CONCAT(b.vorname,' ',b.nachname) like :var")
 })
 public class Person implements Serializable {
@@ -42,19 +66,20 @@ public class Person implements Serializable {
     private String nachname;
     private Role rolle;
     private String fcmtoken;
+    //which JRKEntity does the User/Person belong to
     @ManyToOne(fetch = FetchType.LAZY)
     private JRKEntitaet jrkentitaet;
     //has the password already been changed?
     private boolean passwordChanged;
 
     /**
-     *
+     * Default Constructor
      */
     public Person() {
     }
 
     /**
-     * Konstruktur mit allen Parametern
+     * Constructor
      *
      * @param email
      * @param password
@@ -72,7 +97,7 @@ public class Person implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getPassword() {
@@ -80,7 +105,7 @@ public class Person implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public Role getRolle() {
@@ -88,7 +113,7 @@ public class Person implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param rolle
      */
     public void setRolle(Role rolle) {
@@ -96,7 +121,7 @@ public class Person implements Serializable {
     }
 
     /**
-     *
+     * Constructor
      * @param email
      * @param password
      * @param vorname
@@ -114,7 +139,7 @@ public class Person implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param password
      */
     public void setPassword(String password) {
@@ -122,7 +147,7 @@ public class Person implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public int getId() {
@@ -130,7 +155,7 @@ public class Person implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param id
      */
     public void setId(int id) {
@@ -138,7 +163,7 @@ public class Person implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getEmail() {
@@ -146,7 +171,7 @@ public class Person implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param email
      */
     public void setEmail(String email) {
@@ -154,7 +179,7 @@ public class Person implements Serializable {
     }
     
     /**
-     *
+     * Getter
      * @return
      */
     public String getVorname() {
@@ -162,7 +187,7 @@ public class Person implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param vorname
      */
     public void setVorname(String vorname) {
@@ -170,7 +195,7 @@ public class Person implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getNachname() {
@@ -178,7 +203,7 @@ public class Person implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param nachname
      */
     public void setNachname(String nachname) {
@@ -186,7 +211,7 @@ public class Person implements Serializable {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public JRKEntitaet getJrkentitaet() {
@@ -194,7 +219,7 @@ public class Person implements Serializable {
     }
 
     /**
-     *
+     * Setter
      * @param jrkentitaet
      */
     public void setJrkentitaet(JRKEntitaet jrkentitaet) {
@@ -202,7 +227,7 @@ public class Person implements Serializable {
     }
 
     /**
-     * 
+     * Has the Password been changed already?
      * @return 
      */
     public boolean isPasswordChanged() {
@@ -210,17 +235,23 @@ public class Person implements Serializable {
     }
 
     /**
-     * 
+     * Setter
      * @param passwordChanged 
      */
     public void setPasswordChanged(boolean passwordChanged) {
         this.passwordChanged = passwordChanged;
     }
-
+/**
+ * Getter
+ * @return 
+ */
     public String getFcmtoken() {
         return fcmtoken;
 }
-
+/**
+ * Setter
+ * @param fcmtoken 
+ */
     public void setFcmtoken(String fcmtoken) {
         this.fcmtoken = fcmtoken;
     }

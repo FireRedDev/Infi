@@ -12,46 +12,40 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.*;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.*;
-import service.MySecurityContext;
 import service.Service;
-import static entities.JRKEntitaetType.*;
-import static entities.JRKEntitaet_.info;
 
 /**
- * Repository Communicate with Database
+ * Repository managing Database
  *
  * @author Christopher G
  */
-public class DatenbankRepository {
+public class Repository {
 
+    //DB Connection Manager
     private final EntityManager em;
 
     /**
-     *
+     * Contains information about the accessing client.
      */
     @Context
     protected SecurityContext securityContext;
 
     /**
-     * Konstruktor
+     * Construktor
      */
-    public DatenbankRepository() {
+    public Repository() {
         //get database
         em = EntityManagerSingleton.getInstance().getEm();
     }
 
     /**
-     * Add Benutzer
+     * Persist Benutzer
      *
      * @param p
      * @return
      */
-    public Person addBenutzer(Person p) {
+    public Person persistBenutzer(Person p) {
 
         em.persist(p);
 
@@ -68,9 +62,10 @@ public class DatenbankRepository {
     }
 
     /**
-     * delete a Person
+     * Delete a Person
      *
-     * only Landesleiter and Bezirksleiter have the permission to delete Persons
+     * only Landesleiter and Bezirksleiter Type Persons have the permission to
+     * delete Persons
      *
      * @param id id of a Person
      * @return Persons
@@ -89,7 +84,9 @@ public class DatenbankRepository {
     }
 
     /**
-     * Login
+     * Login - Authenticate new Client Logs in a User if the provided Email and
+     * Password are correct Returns its ID and its JWT Token, with which it can
+     * access protected Server methods its Role is authorized to do so.
      *
      * @param pto
      * @return
@@ -123,19 +120,20 @@ public class DatenbankRepository {
      */
     public String generateJWT(Person b) {
         try {
+            //Generate valid encrypted,compressed JWT Token containing unmodifiable Information about the Persons Role and ID
             String jwt = Jwts.builder().setSubject("1234567890")
                     .setId(String.valueOf(b.getId()))
                     .claim("id", b.getId()).claim("role", b.getRolle()).signWith(SignatureAlgorithm.HS256, "secretswaggy132".getBytes("UTF-8")).compact();
 
             return jwt;
         } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(DatenbankRepository.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     /**
-     * Insert Person into Database
+     * Merges Person into Database
      *
      * @param id
      * @param b
@@ -163,6 +161,12 @@ public class DatenbankRepository {
         return b;
     }
 
+    /**
+     * Inserts Planning into DataBase
+     *
+     * @param p
+     * @return
+     */
     public Planning insert(Planning p) {
         em.getTransaction().begin();
         em.persist(p);
@@ -172,7 +176,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * give back all roles
+     * Returns all roles
      *
      * @return Rollen
      */
@@ -194,7 +198,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * inserts a Appointment
+     * inserts an Appointment
      *
      * @param termin
      * @return
@@ -207,7 +211,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * inserts a documentation
+     * inserts an documentation
      *
      * @param doku
      */
@@ -218,7 +222,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * inserts a JRK-Entity
+     * inserts an JRK-Entity
      *
      * @param jrk
      */
@@ -249,7 +253,8 @@ public class DatenbankRepository {
     }
 
     /**
-     * Get Informations for a specific User
+     * Get Informations for a specific User based on his JRKEntity(with Person
+     * id)
      *
      * @param id
      * @return
@@ -269,7 +274,8 @@ public class DatenbankRepository {
     }
 
     /**
-     * Get Appointments in the hierachie down
+     * Get Appointments of a jrkentity + its superordinate entitys appointments
+     * recursively
      *
      * @param jrk
      * @param termine
@@ -291,7 +297,8 @@ public class DatenbankRepository {
     }
 
     /**
-     * Get Appointments in the hierachie down
+     * Get Appointments of a jrkentity + its subordinate entitys appointments
+     * recursively
      *
      * @param jrk
      * @param termine
@@ -310,7 +317,8 @@ public class DatenbankRepository {
     }
 
     /**
-     * Get Informations in the hierachie up
+     * Get Informations in the hierachie up recursivly including the given jrk
+     * entitys informations
      *
      * @param jrk
      * @param termine
@@ -329,7 +337,8 @@ public class DatenbankRepository {
     }
 
     /**
-     * Get Informations in the hierachie down
+     * Get Informations in the hierachie down recursivly including the given jrk
+     * entitys informations
      *
      * @param jrk
      * @param termine
@@ -396,7 +405,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * Get Username
+     * Get Username of Person id
      *
      * @param id
      * @return
@@ -415,7 +424,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * insert a appointment
+     * insert an appointment
      *
      * @param id
      * @param t
@@ -450,7 +459,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * Is this User a admin
+     * Is this User an admin
      *
      * @param id
      * @return
@@ -472,6 +481,8 @@ public class DatenbankRepository {
     }
 
     /**
+     * Get all Docus which have not yet been done by a user(so undocumented
+     * appointments docus)
      *
      * @param id
      * @return
@@ -491,12 +502,13 @@ public class DatenbankRepository {
     }
 
     /**
+     * Persist Doku
      *
      * @param d
      */
     public void insertDoko(Termin d) {
         em.getTransaction().begin();
-        Dokumentation doku=d.getDoko();
+        Dokumentation doku = d.getDoko();
         em.persist(doku);
         d.setDoko(doku);
         em.merge(d);
@@ -505,6 +517,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Gets a Termins Documentation
      *
      * @param id
      * @return
@@ -521,6 +534,8 @@ public class DatenbankRepository {
     }
 
     /**
+     * Returns a List with ValuePairs to Display which Termin Categories are the
+     * most frequent
      *
      * @param jrk
      * @return
@@ -556,6 +571,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Returns a ValuePair for the Monthly Hours of a Group
      *
      * @param jrk
      * @return
@@ -589,6 +605,8 @@ public class DatenbankRepository {
     }
 
     /**
+     * Returns a ValuePair List for each subordinate JRK Entitys Time Spent for
+     * statistical Purposes
      *
      * @param jrk
      * @return
@@ -620,6 +638,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Returns a List Showing how the time in the year was divided up
      *
      * @param jrk
      * @return
@@ -685,7 +704,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * change password
+     * change persons password
      *
      * @param p
      */
@@ -713,7 +732,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * get Users Layer Down
+     * get (subordinate)Users Layer Down
      *
      * @param id
      * @return
@@ -732,7 +751,7 @@ public class DatenbankRepository {
     }
 
     /**
-     * get the Users Layer Down
+     * get the(superordinate) Users Layer Down
      *
      * @param id
      * @return
@@ -771,6 +790,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * insert a plannung
      *
      * @param id
      * @param text
@@ -784,6 +804,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * returns jrk entitys appointments and its subordinate appointments
      *
      * @param id
      * @return
@@ -803,6 +824,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Persists FCM Token
      *
      * @param id
      * @param token
@@ -819,6 +841,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Adds an Attendee to an Appointment
      *
      * @param terminID
      * @param userID
@@ -835,6 +858,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Removes an Attendee from an Appointment
      *
      * @param terminID
      * @param userID
@@ -848,6 +872,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Get an Appointments Attendees
      *
      * @param id
      * @return
@@ -859,6 +884,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Get the superordinate Person
      *
      * @param id
      * @return
@@ -870,6 +896,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * Gets the Children that belong to a JRK Entity and its subordinate entitys
      *
      * @param id
      * @return
@@ -886,6 +913,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * merge termin in db
      *
      * @param t
      */
@@ -896,6 +924,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * merge info in db
      *
      * @param i
      */
@@ -906,6 +935,7 @@ public class DatenbankRepository {
     }
 
     /**
+     * delete termin
      *
      * @param t
      * @return
@@ -919,17 +949,28 @@ public class DatenbankRepository {
         return "success";
     }
 
-    public String deleteInfo(Info i,int id) {
-        Person p=em.find(Person.class, id);
+    /**
+     * delete info
+     *
+     * @param i
+     * @return
+     */
+    public String deleteInfo(Info i, int id) {
+        Person p = em.find(Person.class, id);
         p.getJrkentitaet().removeInfo(i);
-        
+
         em.getTransaction().begin();
-        
+
         em.persist(p);
         em.getTransaction().commit();
         return "success";
     }
 
+    /**
+     * Returns all Shared Plannings
+     *
+     * @return
+     */
     public List<Termin> sharedPlanning() {
         List<Termin> plans = em.createQuery("select t from Termin t").getResultList();
         List<Termin> pl = new ArrayList();
@@ -944,6 +985,12 @@ public class DatenbankRepository {
         return pl;
     }
 
+    /**
+     * Returns all not yet done plannings
+     *
+     * @param id
+     * @return
+     */
     public List<Termin> getOpenPlanning(int id) {
         List<Termin> termine = this.getUsertermine(id);
         List<Termin> te = new LinkedList<>();
@@ -958,10 +1005,21 @@ public class DatenbankRepository {
         return te;
     }
 
+    /**
+     * merges planning
+     *
+     * @param planning
+     */
     public void changePlanung(Planning planning) {
         em.merge(planning);
     }
 
+    /**
+     * deletes planning
+     *
+     * @param p
+     * @return
+     */
     public String deletePlanning(Planning p) {
         Planning pp = null;
         em.getTransaction().begin();
@@ -973,6 +1031,12 @@ public class DatenbankRepository {
         return "success";
     }
 
+    /**
+     * Returns an individuals spent Hours for statistics
+     *
+     * @param jrk
+     * @return
+     */
     public List<NameValue> getPersonenstunden(JRKEntitaet jrk) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         /* This is how to declare HashMap */

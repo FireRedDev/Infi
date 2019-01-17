@@ -1,7 +1,7 @@
 package RestResponseClasses;
 
 /**
- * For transfering a Person and a Token -> rest
+ * Has the Property userID and token, used for Rest
  */
 public class PersonTokenTransferObject {
 
@@ -16,7 +16,7 @@ public class PersonTokenTransferObject {
     public String token;
 
     /**
-     *
+     * Constructor
      * @param userID
      * @param token
      */
@@ -26,7 +26,7 @@ public class PersonTokenTransferObject {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getUserID() {
@@ -34,7 +34,7 @@ public class PersonTokenTransferObject {
     }
 
     /**
-     *
+     * Setter
      * @param userID
      */
     public void setUserID(String userID) {
@@ -42,7 +42,7 @@ public class PersonTokenTransferObject {
     }
 
     /**
-     *
+     * Getter
      * @return
      */
     public String getToken() {
@@ -50,7 +50,7 @@ public class PersonTokenTransferObject {
     }
 
     /**
-     *
+     * Setter
      * @param token
      */
     public void setToken(String token) {

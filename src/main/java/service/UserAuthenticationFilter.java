@@ -23,7 +23,7 @@ import static javax.ws.rs.core.Response.Status;
 import repository.*;
 
 /**
- * Blocks Unauthorized Access of Rest Methods extracts Roles
+ * Blocks Unauthorized Access of Rest Methods ,extracts Roles and covers authorization checks, adds cors headers
  * 
  * @author Christopher G
  */
@@ -119,7 +119,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
             requestContext.abortWith(response);
         }
     }
-
+//Extract Roles From the @Secured Annotation
     private List<Role> extractRoles(AnnotatedElement annotatedElement) {
         if (annotatedElement == null) {
             return new ArrayList<>();
@@ -150,7 +150,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
 
                 //OK, we can trust this JWT
             } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(DatenbankRepository.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Repository.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } catch (SignatureException e) {
@@ -177,7 +177,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
     }
 
     /**
-     *
+     * Add Cors Headers to cover Port Forwarding Problems
      * @param requestContext
      * @param responseContext
      * @throws IOException
