@@ -65,6 +65,11 @@ export class ShowprotocolComponent implements OnInit {
       }
     });
   };
+
+  /**
+   * show details
+   * @param id 
+   */
   showDetail(id) {
     this.showProtocol.emit(id);
   }

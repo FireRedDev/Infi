@@ -46,7 +46,7 @@ export class ShowplanningComponent implements OnInit {
   records = [];
 
   /**
-   * 
+   * choose Apointment
    * @param id Termin id
    */
   setTermin(id: any): void {
@@ -58,6 +58,10 @@ export class ShowplanningComponent implements OnInit {
     }
   }
 
+  /**
+   * show details
+   * @param id 
+   */
   showDetail(id) {
     this.showProtocol.emit(id);
   }

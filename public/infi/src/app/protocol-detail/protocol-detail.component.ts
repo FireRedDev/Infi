@@ -21,26 +21,12 @@ export class ProtocolDetailComponent implements OnInit {
     dateTimeAdapter.setLocale('de-De');
   }
 
-  /*
-  @Input() 
-  set protocolid(protocolid: number){
-   this.tid = protocolid;
-  };*/
   @Input() protocol: number;
   @Output() changeView: EventEmitter<string> = new EventEmitter();
   de: any;
-  //public term Termin[];
 
   ngOnInit() {
     console.log("Initialising protocol-detail");
-    /* this.rest.getDokuById(this.protocol)
-         .subscribe(data => {
-         this.term=data as Termin[];
-         this.s_date=this.actTermin.s_date;
-         this.e_date=this.actTermin.e_date;
-         this.children =this.children;
-         this.betreuer =this.betreuer;
-     });*/
     this.rest.getDokuById(this.protocol).subscribe(data => {
       this.actTermin = data;
       this.s_date = this.actTermin.s_date;
@@ -57,8 +43,6 @@ export class ProtocolDetailComponent implements OnInit {
   }
   actProtokol: Protokoll = new Protokoll(0, null, null, '', 'Soziales');
   actTermin: Termin = new Termin();
-
-  //Id wird von der Vorschauliste weitergegeben
 
   proto: Protokoll = new Protokoll();
   children: any;

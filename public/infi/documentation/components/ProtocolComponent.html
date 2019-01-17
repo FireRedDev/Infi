@@ -64,6 +64,13 @@
     <code>src/app/protocol/protocol.component.ts</code>
 </p>
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Component for writing Protocols</p>
+
+    </p>
 
 
     <p class="comment">
@@ -396,7 +403,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="226" class="link-to-prism">src/app/protocol/protocol.component.ts:226</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="230" class="link-to-prism">src/app/protocol/protocol.component.ts:230</a></div>
                             </td>
                         </tr>
 
@@ -461,13 +468,15 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="214" class="link-to-prism">src/app/protocol/protocol.component.ts:214</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="218" class="link-to-prism">src/app/protocol/protocol.component.ts:218</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>add a children to the dokumentation</p>
+</div>
 
                             <div class="io-description">
                                     <b>Parameters :</b>
@@ -526,7 +535,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="234" class="link-to-prism">src/app/protocol/protocol.component.ts:234</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="238" class="link-to-prism">src/app/protocol/protocol.component.ts:238</a></div>
                             </td>
                         </tr>
 
@@ -591,7 +600,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="222" class="link-to-prism">src/app/protocol/protocol.component.ts:222</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="226" class="link-to-prism">src/app/protocol/protocol.component.ts:226</a></div>
                             </td>
                         </tr>
 
@@ -656,7 +665,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="241" class="link-to-prism">src/app/protocol/protocol.component.ts:241</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="245" class="link-to-prism">src/app/protocol/protocol.component.ts:245</a></div>
                             </td>
                         </tr>
 
@@ -1659,6 +1668,9 @@ export class GermanItl extends OwlDateTimeIntl {
   hour12PMLabel &#x3D; &#x27;PM&#x27;;
 }
 
+/**
+ * Component for writing Protocols
+ */
 @Component({
   selector: &#x27;app-protocol&#x27;,
   templateUrl: &#x27;./protocol.component.html&#x27;,
@@ -1671,9 +1683,6 @@ export class GermanItl extends OwlDateTimeIntl {
     { provide: OwlDateTimeIntl, useClass: GermanItl },
   ],
 })
-/**
- * Component for writing Protocols
- */
 export class ProtocolComponent implements OnInit {
   private childrens;
   constructor(public rest: RestService) {
@@ -1801,6 +1810,10 @@ export class ProtocolComponent implements OnInit {
     }
   }
 
+  /**
+   * add a children to the dokumentation
+   * @param event 
+   */
   addChild(event) {
     this.listArray &#x3D; this.newChild.split(&quot; &quot;);
     this.children.push({ vorname: this.listArray[0], nachname: this.listArray[1] });
@@ -2053,7 +2066,7 @@ input.ng-tns-c8-5.owl-datetime-input.owl-datetime-main-input {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><h2>Protokoll</h2><form (ngSubmit)="onSubmit()" #terminForm="ngForm">  <div class="form-group">    <div class="container">      <div class="row">        <div class="col-lg">          <label for="auswahl">Termin vorauswählen</label>          <select class="form-control" #selectElem (change)="setTermin(selectElem.value)" name="termSelect">            <option *ngFor="let t of term, let i=index" [selected]="i==0" [value]="t.id">{{t.title}}, am {{t.s_date |              date:\'dd.MM.yyyy\'}}</option>          </select>          <br>          <label for="title">Titel</label>          <input type="text" class="form-control" id="title" required [(ngModel)]="actTermin.title" name="title" #title="ngModel">          <div [hidden]="title.valid || title.pristine" class="alert alert-danger">            Titel muss eingegeben werden!          </div>        </div>        <br>      </div>      <div class="row">        <div class="col-lg">          <label for="beschreibung">Beschreibung</label>          <textarea type="text" class="form-control" id="beschreibung" required [(ngModel)]="actTermin.beschreibung"            name="beschreibung" #beschreibung="ngModel"></textarea>          <div [hidden]="beschreibung.valid || beschreibung.pristine" class="alert alert-danger">            Beschreibung muss eingegeben werden!          </div>        </div>        <br>        <div class="col-lg">          <label for="ort">Ort</label>          <input type="text" class="form-control" id="ort" required [(ngModel)]="actTermin.ort" name="ort" #ort="ngModel">          <div [hidden]="ort.valid || ort.pristine" class="alert alert-danger">            Ort muss eingegeben werden!          </div>        </div>        <br>      </div>      <div class="row">        <div class="col-lg">          <label for="s_date">Startdatum</label>          <br>          <input [owlDateTimeTrigger]="dtS" [owlDateTime]="dtS" dataType="string" [max]="e_date" hideClearButton=true            max="max" dateFormat="YYYY-MM-DD HH:mm:ss" autoclose="true" class="form-control" id="s_date" required            [(ngModel)]="s_date" name="s_date" #sdate="ngModel">          <owl-date-time #dtS></owl-date-time>          <div [hidden]="sdate.valid || sdate.pristine" class="alert alert-danger">            Startdatum muss eingegeben werden!          </div>        </div>        <br>        <div class="col-lg">          <label for="e_date">Enddatum</label>          <br>          <input [owlDateTimeTrigger]="dtE" [owlDateTime]="dtE" dataType="string" [min]="s_date" hideClearButton=true            min="{{actTermin.s_date}}" dateFormat="YYYY-MM-DD HH:mm:ss" autoclose="true" class="form-control" id="e_date"            required [(ngModel)]="e_date" name="e_date" #edate="ngModel">          <owl-date-time #dtE></owl-date-time>          <div [hidden]="edate.valid || edate.pristine" class="alert alert-danger">            Enddatum muss eingegeben werden!          </div>        </div>      </div>      <div class="row">        <br>       <div class="col-lg">          <label for="betreuer">Betreuer</label>          <div>            <div>              <div class="container">                  <div class="row">                    <form (submit)="addBetreuer($event)">                      <input placeholder="Betreuer hinzufügen" type="text" class="form-control list" [(ngModel)]="newBetreuer"                       (keyup.enter)="newBetreuer=\'\'" name="newBetreuer">                    </form>                          <div class="well" style="width:100%; max-height: 150px; margin-top:10px; overflow: auto;">                              <ul class="list-group checked-list-box" *ngFor="let s of supervisor; let i=index">                                <li class="list-group-item" style="height:40px; margin-left:10px;" data-checked="true">                                  <input type="checkbox" class="check2" value="{{s.vorname}} {{s.nachname}}" [checked]="getValueChecked(s.vorname, s.nachname)">                                   {{s.vorname}} {{s.nachname}}                                </li>                              </ul>                          </div>                  </div>                </div>            </div>          </div>        </div>        <br>        <div class="col-lg">          <label for="kinderliste">Kinderliste</label>          <div>            <div>              <div class="container">                  <div class="row">                    <form (submit)="addChild($event)">                      <input placeholder="Kind hinzufügen" type="text" class="form-control list" [(ngModel)]="newChild"                       (keyup.enter)="newChild=\'\'" name="newChild">                    </form>                          <div class="well" style="width:100%; max-height: 150px; margin-top:10px; overflow: auto;">                              <ul class="list-group checked-list-box" *ngFor="let c of children; let i=index">                                <li class="list-group-item" style="height:40px; margin-left:10px;" data-checked="true">                                  <input type="checkbox" class="check" value="{{c.vorname}} {{c.nachname}}" [checked]="getValueChecked(c.vorname, c.nachname)">                                   {{c.vorname}} {{c.nachname}}                                </li>                              </ul>                          </div>                  </div>                </div>            </div>          </div>        </div>      </div>      <div class="row">        <br>      </div>      <div class="row">        <br>        <div class="col-lg">          <label for="taetigkeiten">Tätigkeiten</label>          <textarea type="text" class="form-control" id="taetigkeiten" required [(ngModel)]="actProtokol.taetigkeiten"            name="taetigkeiten" #taetigkeiten="ngModel"></textarea>          <div [hidden]="taetigkeiten.valid || taetigkeiten.pristine" class="alert alert-danger">            Tätigkeiten muss eingegeben werden!          </div>        </div>        <div class="col-lg">          <label for="vzeit">Vorbereitungszeit in Stunden</label>          <input type="number" class="form-control" id="vzeit" required [(ngModel)]="actProtokol.vzeit" name="vzeit"            #vzeit="ngModel">          <div [hidden]="vzeit.valid || vzeit.pristine" class="alert alert-danger">            Vorbereitungszeit muss als (Dezimal)zahl eingegeben werden!          </div>        </div>      </div>      <div class="row">        <br>        <div class="col-lg">          <label for="kategorie">Kategorie</label><br>          <label class="radio-inline"><input type="radio" [(ngModel)]="actProtokol.kategorie" FormControlName="kat"              name="kategorie" [value]="\'Soziales\'" [checked]="actProtokol.kategorie === \'Soziales\'">Soziales</label>          <label class="radio-inline"><input type="radio" [(ngModel)]="actProtokol.kategorie" FormControlName="kat"              name="kategorie" [value]="\'EH\'" [checked]="actProtokol.kategorie === \'EH\'">Erste Hilfe</label>          <label class="radio-inline"><input type="radio" [(ngModel)]="actProtokol.kategorie" FormControlName="kat"              name="kategorie" [value]="\'Exkursion\'" [checked]="actProtokol.kategorie === \'Exkursion\'">Exkursion</label>        </div>      </div>      <button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save()">einfügen</button>     </div>  </div></form></div>'
-    var COMPONENTS = [{'name': 'AddUserComponent', 'selector': 'add-user'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CalendarDetailComponent', 'selector': 'app-calendar-detail'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DateTimePickerComponent', 'selector': 'mwl-demo-utils-date-time-picker'},{'name': 'DiagramsComponent', 'selector': 'app-diagrams'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InformationComponent', 'selector': 'app-information'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'ManageUserComponent', 'selector': 'manage-user'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PlanningComponent', 'selector': 'app-planning'},{'name': 'ProtocolComponent', 'selector': 'app-protocol'},{'name': 'ShowplanningComponent', 'selector': 'app-showplanning'},{'name': 'ShowprotocolComponent', 'selector': 'app-showprotocol'},{'name': 'TerminComponent', 'selector': 'app-termin'}];
+    var COMPONENTS = [{'name': 'AddUserComponent', 'selector': 'add-user'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CalendarDetailComponent', 'selector': 'app-calendar-detail'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DateTimePickerComponent', 'selector': 'mwl-demo-utils-date-time-picker'},{'name': 'DiagramsComponent', 'selector': 'app-diagrams'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InformationComponent', 'selector': 'app-information'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'ManageUserComponent', 'selector': 'manage-user'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PlanningComponent', 'selector': 'app-planning'},{'name': 'ProtocolComponent', 'selector': 'app-protocol'},{'name': 'ProtocolDetailComponent', 'selector': 'app-protocol-detail'},{'name': 'ShowplanningComponent', 'selector': 'app-showplanning'},{'name': 'ShowprotocolComponent', 'selector': 'app-showprotocol'},{'name': 'TerminComponent', 'selector': 'app-termin'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ProtocolComponent'};
 </script>

@@ -29,10 +29,10 @@ public class Termin implements Serializable {
     private String imgpath;
     private String teilnehmer = "";
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     private Dokumentation doko;
     
-     @OneToOne
+    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     private Planning planning;
 
     /**

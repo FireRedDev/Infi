@@ -33,6 +33,9 @@ export class DiagramsComponent implements OnInit {
     this.rest = rest;
   }
 
+  /**
+   * on init
+   */
   ngOnInit() {
     var body = localStorage.getItem("currentUser");
     this.jrkEnitaet = JSON.parse(body);
@@ -67,6 +70,10 @@ export class DiagramsComponent implements OnInit {
   explodeSlices = false;
   doughnut = false;
 
+  /**
+   * set the dropdown selection and load the new values for the diagramm
+   * @param body 
+   */
   set(body: number): void {
     var jrk;
     for (let j of this.JRKEntitaeten) {

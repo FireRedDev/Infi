@@ -53,7 +53,7 @@ export class CalendarDetailComponent implements OnInit {
   }
 
   /**
-   * 
+   * change view to calendar detail view
    * @param view View
    * @param item current Appointment
    */
@@ -62,7 +62,7 @@ export class CalendarDetailComponent implements OnInit {
   }
 
   /**
-   * 
+   * delete a Appointment
    * @param item current Appointment
    */
   deleteTermin(item) {
@@ -72,7 +72,7 @@ export class CalendarDetailComponent implements OnInit {
   }
 
   /**
-   * 
+   * change View to Termin view
    * @param item current Appointment
    */
   changeTermin(item) {

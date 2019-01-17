@@ -303,13 +303,15 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/manage-user/manage-user.component.ts:57</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/manage-user/manage-user.component.ts:70</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>new User</p>
+</div>
 
                             <div class="io-description">
                                 <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -341,13 +343,15 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/manage-user/manage-user.component.ts:50</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/manage-user/manage-user.component.ts:60</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>delete a person</p>
+</div>
 
                             <div class="io-description">
                                     <b>Parameters :</b>
@@ -410,13 +414,15 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/manage-user/manage-user.component.ts:41</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/manage-user/manage-user.component.ts:47</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>save User</p>
+</div>
 
                             <div class="io-description">
                                     <b>Parameters :</b>
@@ -479,13 +485,15 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/manage-user/manage-user.component.ts:37</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/manage-user/manage-user.component.ts:40</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>edit User</p>
+</div>
 
                             <div class="io-description">
                                     <b>Parameters :</b>
@@ -586,13 +594,15 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/manage-user/manage-user.component.ts:60</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/app/manage-user/manage-user.component.ts:78</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>set JRKEntity</p>
+</div>
 
                             <div class="io-description">
                                     <b>Parameters :</b>
@@ -848,10 +858,16 @@ export class ManageUserComponent implements OnInit {
     });
   }
 
+  /**
+   * edit User
+   */
   edit(i: number) {
     this.persons[i].isEditable &#x3D; true;
   }
 
+  /** 
+   * save User
+   */
   done(i: number) {
     this.persons[i].isEditable &#x3D; false;
     var person &#x3D; this.persons[i]
@@ -861,6 +877,10 @@ export class ManageUserComponent implements OnInit {
     });
   }
 
+  /**
+   * delete a person
+   * @param i 
+   */
   deletePerson(i: number) {
     this.rest.deletePerson(this.persons[i].id).subscribe(() &#x3D;&gt; {
       this.rest.showSuccessMessage(&quot;Erfolg&quot;, &quot;Person erfolgreich gelöscht!&quot;);
@@ -868,9 +888,17 @@ export class ManageUserComponent implements OnInit {
     this.persons.splice(i, 1);
   }
 
+  /**
+   * new User
+   */
   addUser() {
     this.changeView.emit(&quot;add-user&quot;);
   }
+
+  /**
+   * set JRKEntity
+   * @param id 
+   */
   set(id) {
     this.rest.getUsersLayerDownJRK(id).subscribe(data &#x3D;&gt; {
       this.persons &#x3D; data;
@@ -983,7 +1011,7 @@ export class ManageUserComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="wrapper"><div id="selectJRK"><!-- Dropdown --><select class="form-control" #selectElem (change)="set(selectElem.value)" name="jrkselect" id="jrkselect">  <option *ngFor="let JRKEntitaet of JRKEntitaeten, let i=index" [selected]="i==0" [value]="JRKEntitaet.id">{{JRKEntitaet.name}}</option></select></div><div id="editSection"><div id ="detail" *ngFor="let person of persons, let i=index">     <div id="PersonName" *ngIf="!person.isEditable">   {{person.vorname}}  {{person.nachname}}  </div>  <div *ngIf="person.isEditable" id="PersonNameEdit">      <input type="text" [(ngModel)]="person.vorname" style="width: 200px">      <input type="text" [(ngModel)]="person.nachname" style="width: 200px">    </div>       <div id="Buttons">      <button *ngIf="person.isEditable" (click)="done(i)"><i class="material-icons">done</i></button>      <button *ngIf="!person.isEditable" (click)="edit(i)"><i class="material-icons">edit</i></button>      <button (click)="deletePerson(i)"><i class="material-icons">delete</i></button>    </div>    <hr></div></div></div></div>'
-    var COMPONENTS = [{'name': 'AddUserComponent', 'selector': 'add-user'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CalendarDetailComponent', 'selector': 'app-calendar-detail'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DateTimePickerComponent', 'selector': 'mwl-demo-utils-date-time-picker'},{'name': 'DiagramsComponent', 'selector': 'app-diagrams'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InformationComponent', 'selector': 'app-information'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'ManageUserComponent', 'selector': 'manage-user'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PlanningComponent', 'selector': 'app-planning'},{'name': 'ProtocolComponent', 'selector': 'app-protocol'},{'name': 'ShowplanningComponent', 'selector': 'app-showplanning'},{'name': 'ShowprotocolComponent', 'selector': 'app-showprotocol'},{'name': 'TerminComponent', 'selector': 'app-termin'}];
+    var COMPONENTS = [{'name': 'AddUserComponent', 'selector': 'add-user'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CalendarDetailComponent', 'selector': 'app-calendar-detail'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DateTimePickerComponent', 'selector': 'mwl-demo-utils-date-time-picker'},{'name': 'DiagramsComponent', 'selector': 'app-diagrams'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InformationComponent', 'selector': 'app-information'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'ManageUserComponent', 'selector': 'manage-user'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PlanningComponent', 'selector': 'app-planning'},{'name': 'ProtocolComponent', 'selector': 'app-protocol'},{'name': 'ProtocolDetailComponent', 'selector': 'app-protocol-detail'},{'name': 'ShowplanningComponent', 'selector': 'app-showplanning'},{'name': 'ShowprotocolComponent', 'selector': 'app-showprotocol'},{'name': 'TerminComponent', 'selector': 'app-termin'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ManageUserComponent'};
 </script>

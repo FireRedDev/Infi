@@ -302,13 +302,15 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/diagrams/diagrams.component.ts:36</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/diagrams/diagrams.component.ts:39</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>on init</p>
+</div>
 
                             <div class="io-description">
                                 <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -340,7 +342,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="97" class="link-to-prism">src/app/diagrams/diagrams.component.ts:97</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="104" class="link-to-prism">src/app/diagrams/diagrams.component.ts:104</a></div>
                             </td>
                         </tr>
 
@@ -405,13 +407,15 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/diagrams/diagrams.component.ts:70</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/diagrams/diagrams.component.ts:77</a></div>
                             </td>
                         </tr>
 
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>set the dropdown selection and load the new values for the diagramm</p>
+</div>
 
                             <div class="io-description">
                                     <b>Parameters :</b>
@@ -560,7 +564,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/diagrams/diagrams.component.ts:68</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/diagrams/diagrams.component.ts:71</a></div>
                             </td>
                         </tr>
 
@@ -593,7 +597,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/diagrams/diagrams.component.ts:67</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/diagrams/diagrams.component.ts:70</a></div>
                             </td>
                         </tr>
 
@@ -734,7 +738,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/diagrams/diagrams.component.ts:66</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/app/diagrams/diagrams.component.ts:69</a></div>
                             </td>
                         </tr>
 
@@ -1127,6 +1131,9 @@ export class DiagramsComponent implements OnInit {
     this.rest &#x3D; rest;
   }
 
+  /**
+   * on init
+   */
   ngOnInit() {
     var body &#x3D; localStorage.getItem(&quot;currentUser&quot;);
     this.jrkEnitaet &#x3D; JSON.parse(body);
@@ -1161,6 +1168,10 @@ export class DiagramsComponent implements OnInit {
   explodeSlices &#x3D; false;
   doughnut &#x3D; false;
 
+  /**
+   * set the dropdown selection and load the new values for the diagramm
+   * @param body 
+   */
   set(body: number): void {
     var jrk;
     for (let j of this.JRKEntitaeten) {
@@ -1311,7 +1322,7 @@ export class DiagramsComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div align="center">  <select    class="form-control"    #selectElem    (change)="set(selectElem.value)"    name="jrkselect"  >    <option      *ngFor="let JRKEntitaet of JRKEntitaeten; let i = index"      [selected]="i == 0"      [value]="JRKEntitaet.id"      >{{ JRKEntitaet.name }}</option    >  </select></div><h2>Kategorien</h2><ngx-charts-pie-chart  [view]="view"  [scheme]="colorScheme"  [results]="single"  [legend]="false"  [explodeSlices]="explodeSlices"  [labels]="showLabels"  [doughnut]="doughnut"  (select)="onSelect($event)"></ngx-charts-pie-chart><h2 class="abstand">Aufteilung auf Gruppen</h2><ngx-charts-pie-chart  [view]="view"  [scheme]="colorScheme"  [results]="single2"  [legend]="false"  [explodeSlices]="explodeSlices"  [labels]="showLabels"  [doughnut]="doughnut"  (select)="onSelect($event)"></ngx-charts-pie-chart><h2 class="abstand">Zeitleiste</h2><ngx-charts-bar-vertical  [view]="view"  [scheme]="colorScheme"  [results]="singleChartBar"  [xAxis]="true"  [yAxis]="true"  [legend]="false"  [showXAxisLabel]="true"  [showYAxisLabel]="true"  [xAxisLabel]="xAxisLabel"  [yAxisLabel]="yAxisLabel"  (select)="onSelect($event)"></ngx-charts-bar-vertical><h2 class="abstand">geleistete Stunden</h2><ngx-charts-bar-horizontal  [view]="view"  [scheme]="colorScheme"  [results]="single3"  [xAxis]="true"  [yAxis]="true"  [legend]="false"  (select)="onSelect($event)"></ngx-charts-bar-horizontal><h2 class="abstand">Personenstunden</h2><ngx-charts-bar-horizontal  [view]="view"  [scheme]="colorScheme"  [results]="single4"  [xAxis]="true"  [yAxis]="true"  [legend]="false"  (select)="onSelect($event)"></ngx-charts-bar-horizontal></div>'
-    var COMPONENTS = [{'name': 'AddUserComponent', 'selector': 'add-user'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CalendarDetailComponent', 'selector': 'app-calendar-detail'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DateTimePickerComponent', 'selector': 'mwl-demo-utils-date-time-picker'},{'name': 'DiagramsComponent', 'selector': 'app-diagrams'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InformationComponent', 'selector': 'app-information'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'ManageUserComponent', 'selector': 'manage-user'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PlanningComponent', 'selector': 'app-planning'},{'name': 'ProtocolComponent', 'selector': 'app-protocol'},{'name': 'ShowplanningComponent', 'selector': 'app-showplanning'},{'name': 'ShowprotocolComponent', 'selector': 'app-showprotocol'},{'name': 'TerminComponent', 'selector': 'app-termin'}];
+    var COMPONENTS = [{'name': 'AddUserComponent', 'selector': 'add-user'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CalendarDetailComponent', 'selector': 'app-calendar-detail'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DateTimePickerComponent', 'selector': 'mwl-demo-utils-date-time-picker'},{'name': 'DiagramsComponent', 'selector': 'app-diagrams'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InformationComponent', 'selector': 'app-information'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'ManageUserComponent', 'selector': 'manage-user'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PlanningComponent', 'selector': 'app-planning'},{'name': 'ProtocolComponent', 'selector': 'app-protocol'},{'name': 'ProtocolDetailComponent', 'selector': 'app-protocol-detail'},{'name': 'ShowplanningComponent', 'selector': 'app-showplanning'},{'name': 'ShowprotocolComponent', 'selector': 'app-showprotocol'},{'name': 'TerminComponent', 'selector': 'app-termin'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'DiagramsComponent'};
 </script>
