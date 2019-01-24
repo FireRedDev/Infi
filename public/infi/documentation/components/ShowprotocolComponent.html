@@ -68,7 +68,7 @@
         <h3>Description</h3>
     </p>
     <p class="comment">
-        <p>Overview over all Protocols</p>
+        <p>Overview over all Protocols which this User is allowed to see</p>
 
     </p>
 
@@ -764,7 +764,7 @@ import { Pipe } from &#x27;@angular/core&#x27;;
 import { Component, OnInit, Input, Output, EventEmitter } from &#x27;@angular/core&#x27;;
 
 /**
- * Overview over all Protocols
+ * Overview over all Protocols which this User is allowed to see
  */
 @Component({
   selector: &#x27;app-showprotocol&#x27;,
@@ -908,7 +908,7 @@ td {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="col-md-12">  <form [ngFormOptions]="{ updateOn: \'change\' }">    <div class="form-group">      <div class="input-group">        <div class="input-group-addon"><i class="fa fa-search"></i></div>        <input type="text" class="form-control" placeholder="Search for Event" name="searchText" [(ngModel)]="searchText">      </div>    </div>  </form>  <table class="table table-responsive table-hover">    <tr>      <th class="pointer" (click)="sort(\'Titel\')">Titel</th>      <th class="pointer" (click)="sort(\'Datum\')">Datum</th>      <th class="pointer" (click)="sort(\'Beschreibung\')">Beschreibung</th>    </tr>    <tr *ngFor="let item of records | orderBy: {property: column, direction: direction} | filter: \'Titel\' :searchText; let i = index">      <td>{{item.Titel}}</td>      <td>{{item.Datum}}</td>      <td>{{item.Beschreibung}}</td>      <td><button style="color:white" type="button" (click)="showDetail(item.id)" class="btn btn-dark btn-sm">Weiter          lesen..</button></td>    </tr>  </table></div></div>'
-    var COMPONENTS = [{'name': 'AddUserComponent', 'selector': 'add-user'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CalendarDetailComponent', 'selector': 'app-calendar-detail'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DateTimePickerComponent', 'selector': 'mwl-demo-utils-date-time-picker'},{'name': 'DiagramsComponent', 'selector': 'app-diagrams'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InformationComponent', 'selector': 'app-information'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'ManageUserComponent', 'selector': 'manage-user'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PlanningComponent', 'selector': 'app-planning'},{'name': 'ProtocolComponent', 'selector': 'app-protocol'},{'name': 'ProtocolDetailComponent', 'selector': 'app-protocol-detail'},{'name': 'ShowplanningComponent', 'selector': 'app-showplanning'},{'name': 'ShowprotocolComponent', 'selector': 'app-showprotocol'},{'name': 'TerminComponent', 'selector': 'app-termin'}];
+    var COMPONENTS = [{'name': 'AddUserComponent', 'selector': 'add-user'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CalendarDetailComponent', 'selector': 'app-calendar-detail'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DateTimePickerComponent', 'selector': 'mwl-demo-utils-date-time-picker'},{'name': 'DiagramsComponent', 'selector': 'app-diagrams'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InformationComponent', 'selector': 'app-information'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'ManageUserComponent', 'selector': 'manage-user'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PlanningComponent', 'selector': 'app-planning'},{'name': 'ProtocolComponent', 'selector': 'app-protocol'},{'name': 'ProtocolDetailComponent', 'selector': 'app-protocol-detail'},{'name': 'ShowplanningComponent', 'selector': 'app-showplanning'},{'name': 'ShowprotocolComponent', 'selector': 'app-showprotocol'},{'name': 'TerminComponent', 'selector': 'app-termin'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ShowprotocolComponent'};
 </script>

@@ -104,7 +104,7 @@
       </div>
       <div *ngIf="view =='calendar-detail'">
         <app-calendar-detail [calendarEntry]="calendarEntry" (changeViewCalendar)="changeViewCalendar($event)"
-          (changeViewTermin)="changeViewTermin($event)"></app-calendar-detail>
+          (changeView)="changeView($event)" (changeViewTermin)="changeViewTermin($event)"></app-calendar-detail>
       </div>
       <div *ngIf="view =='showprotocol'">
         <app-showprotocol [jrkEntitaet]="jrkEntitaet" (showProtocol)="showProtocol($event)"></app-showprotocol>

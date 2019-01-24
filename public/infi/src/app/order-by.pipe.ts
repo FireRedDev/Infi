@@ -3,6 +3,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
   name: 'orderBy'
 })
+/**
+ * Pipe for ordering Lists
+ */
 export class OrderByPipe implements PipeTransform {
 
   transform(records: Array<any>, args?: any): any {

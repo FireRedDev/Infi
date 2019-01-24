@@ -12,7 +12,10 @@ import { ProtocolComponent } from '../protocol/protocol.component';
   templateUrl: './protocol-detail.component.html',
   styleUrls: ['./protocol-detail.component.css']
 })
-
+/**
+ * Show a detailed Protocol
+ * Componend is opend from the Component showProtocol
+ */
 export class ProtocolDetailComponent implements OnInit {
   constructor(public rest: RestService, dateTimeAdapter: DateTimeAdapter<any>) {
     this.children = [];

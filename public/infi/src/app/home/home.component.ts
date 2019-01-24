@@ -7,7 +7,9 @@ import {
 } from '@angular/core';
 
 /**
- * Component which shows all Information Articles
+ * Component which shows the next Appointment, all Information Articles
+ * 
+ * The Password Pop-Up is shown in this component.
  */
 @Component({
   selector: 'app-home',
@@ -28,7 +30,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.jrk = localStorage.getItem('currentUser');
-    debugger;
     this.rest.getUserInfos(this.jrk)
       .subscribe(data => {
         this.infos = data;
@@ -61,7 +62,8 @@ export class HomeComponent implements OnInit {
    * @param item 
    */
   deleteInfo(item) {
-    this.rest.deleteInfo(item, this.jrk).subscribe(data => {
+    debugger;
+    this.rest.deleteInfo(item).subscribe(data => {
       console.log(data);
       this.infos.splice(this.infos.indexOf(item), 1);
     });

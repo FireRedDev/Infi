@@ -1,9 +1,12 @@
 package entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * Contains information for a Post on the Newsfeed.
@@ -22,7 +25,6 @@ public class Info {
     //array of urls to images used in info blog posts
     private String[] mediapath;
     private String datum;
-
     /**
      * Default Constructor
      */

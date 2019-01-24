@@ -4,7 +4,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Termin } from '../protocol/termin';
 
 /**
- * show all Plannings
+ * show all Plannings which can be used from other Users
  */
 @Component({
   selector: 'app-showplanning',

@@ -427,9 +427,9 @@ export class RestService {
   /**
    * delete Info
    */
-  deleteInfo(item, id) {
+  deleteInfo(item) {
     return this.http.post(
-      "http://localhost:8080/api/service/deleteInfo/" + id,
+      "http://localhost:8080/api/service/deleteInfo",
       item
     );
   }

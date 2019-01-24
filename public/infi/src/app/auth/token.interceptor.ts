@@ -8,6 +8,10 @@ import {
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 
+/**
+ * Intercept every Request and add the JWT-Token in the header
+ * https://medium.com/@ryanchenkie_40935/angular-authentication-using-the-http-client-and-http-interceptors-2f9d1540eb8
+ */
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
