@@ -22,7 +22,7 @@ import service.Service;
 import static entities.JRKEntitaetType.*;
 
 /**
- * Repository managing Database
+ * Repository managing Database, Statistics, Token Generation
  *
  * @author Christopher G
  */
@@ -769,7 +769,7 @@ public class Repository {
     /**
      * insert a plannung
      * @param id
-     * @param text
+     * @param p
      */
     public void insertPlanung(int id, Planning p) {
         Termin termin = em.find(Termin.class, id);

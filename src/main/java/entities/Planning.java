@@ -32,12 +32,15 @@ public class Planning implements Serializable {
     }
 /**
  * Constructor which leaves shared on false
+     * @param plannung
  */
     public Planning(String plannung) {
         this.plannung = plannung;
     }
 /**
  * Constructor
+     * @param plannung
+     * @param share
  */
     public Planning(String plannung, boolean share) {
         this.plannung = plannung;

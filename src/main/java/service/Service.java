@@ -13,14 +13,18 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Context;
 
 /**
- * REST-Request Service
+ * REST-Request Service offering Authentication Methods, DB Object Managment and statistical Information
  *
- * @author INFI-Projektgruppe http://localhost:8080/api/service/message
+ * @author INFI-Projektgruppe, Test-Url: http://localhost:8080/api/service/message
  */
 @Path("service")
 public class Service {
 
     private Repository repo = new Repository();
+
+    /**
+     *
+     */
     public static Boolean firstToken = false;
 
     /**
@@ -187,7 +191,6 @@ public class Service {
     /**
      * Inserts a Termin/Appointment and assigns it to a JRKEntitaet
      *
-     * @param id
      * @param t
      */
     @Path("changeTermin")
@@ -211,6 +214,11 @@ public class Service {
         repo.insertDoko(d);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Path("getTerminTeilnehmer")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
@@ -337,7 +345,12 @@ public class Service {
         return repo.getChartValues(jrk);
     }
 
-      @POST
+    /**
+     *
+     * @param jrk
+     * @return
+     */
+    @POST
     @Path("getPersonenstunden")
     @Secured({Role.BEZIRKSLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Produces(MediaType.APPLICATION_JSON)

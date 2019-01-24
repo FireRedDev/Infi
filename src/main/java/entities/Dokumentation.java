@@ -50,7 +50,7 @@ public class Dokumentation implements Serializable {
 
     /**
      * Setter
-     * @param id
+     * @param id The Documentations ID
      */
     public void setId(int id) {
         this.id = id;
@@ -58,7 +58,7 @@ public class Dokumentation implements Serializable {
 
     /**
      * Getter
-     * @return
+     * @return KinderListe(Name Vorname;Name Vorname;..)
      */
     public String[] getKinderliste() {
         return kinderliste;

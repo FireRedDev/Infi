@@ -56,6 +56,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
         //TODO: get user/pass from token instead of database
         //print header and method
         MultivaluedMap<String, String> headers = requestContext.getHeaders();
+        //Pretty Print
         System.out.println(" ================ Header start ================");
         headers.keySet().forEach((key) -> {
             System.out.println(key + " " + headers.getFirst(key));
@@ -70,6 +71,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
             authorization = authorization.replace("\"", "");
             Jws<Claims> credentials;
             try {
+                //check JWT, extract information
                 credentials = decodeJWT(authorization);
             } catch (IllegalArgumentException e) {
                 credentials = null;
@@ -135,7 +137,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
     }
 
     /**
-     * Decode JWT Token with JWTS Libary
+     * Decode JWT Token with JWTS Libary, check validity
      *
      * @param jwt
      * @return
