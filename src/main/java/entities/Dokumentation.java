@@ -7,9 +7,10 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- * Documentation of a Termin(Appointment)
- * Contains a List of Childen and a List of Adults to show who participated in the group activity the documentation documents
- * Also contains time spent on preparing for the activity(appointment) and its category
+ * Documentation of a Termin(Appointment) Contains a List of Childen and a List
+ * of Adults to show who participated in the group activity the documentation
+ * documents Also contains time spent on preparing for the activity(appointment)
+ * and its category
  */
 @Entity
 public class Dokumentation implements Serializable {
@@ -38,6 +39,7 @@ public class Dokumentation implements Serializable {
 
     /**
      * Constructor
+     *
      * @param kinderliste
      * @param betreuer
      * @param taetigkeiten
@@ -66,7 +68,8 @@ public class Dokumentation implements Serializable {
 
     /**
      * Setter
-     * @param id
+     *
+     * @param id The Documentations ID
      */
     public void setId(int id) {
         this.id = id;
@@ -74,7 +77,8 @@ public class Dokumentation implements Serializable {
 
     /**
      * Getter
-     * @return
+     *
+     * @return KinderListe(Name Vorname;Name Vorname;..)
      */
     public String[] getKinderliste() {
         return kinderliste;
@@ -82,6 +86,7 @@ public class Dokumentation implements Serializable {
 
     /**
      * Setter, Contains a List of Childrens
+     *
      * @param kinderliste
      */
     public void setKinderliste(String[] kinderliste) {
@@ -90,6 +95,7 @@ public class Dokumentation implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public String getTaetigkeiten() {
@@ -98,6 +104,7 @@ public class Dokumentation implements Serializable {
 
     /**
      * Setter
+     *
      * @param taetigkeiten
      */
     public void setTaetigkeiten(String taetigkeiten) {
@@ -106,6 +113,7 @@ public class Dokumentation implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public double getVzeit() {
@@ -114,6 +122,7 @@ public class Dokumentation implements Serializable {
 
     /**
      * Setter
+     *
      * @param vzeit
      */
     public void setVzeit(double vzeit) {
@@ -122,6 +131,7 @@ public class Dokumentation implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public String getKategorie() {
@@ -130,14 +140,16 @@ public class Dokumentation implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public String[] getBetreuer() {
         return betreuer;
     }
 
-    /** 
+    /**
      * Setter
+     *
      * @param betreuer
      */
     public void setBetreuer(String[] betreuer) {
@@ -146,6 +158,7 @@ public class Dokumentation implements Serializable {
 
     /**
      * Setter
+     *
      * @param kategorie
      */
     public void setKategorie(String kategorie) {

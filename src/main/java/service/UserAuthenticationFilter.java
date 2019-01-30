@@ -23,8 +23,9 @@ import static javax.ws.rs.core.Response.Status;
 import repository.*;
 
 /**
- * Blocks Unauthorized Access of Rest Methods ,extracts Roles and covers authorization checks, adds cors headers
- * 
+ * Blocks Unauthorized Access of Rest Methods ,extracts Roles and covers
+ * authorization checks, adds cors headers
+ *
  * @author Christopher G
  */
 @Secured
@@ -56,6 +57,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
         //TODO: get user/pass from token instead of database
         //print header and method
         MultivaluedMap<String, String> headers = requestContext.getHeaders();
+        //Pretty Print
         System.out.println(" ================ Header start ================");
         headers.keySet().forEach((key) -> {
             System.out.println(key + " " + headers.getFirst(key));
@@ -70,6 +72,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
             authorization = authorization.replace("\"", "");
             Jws<Claims> credentials;
             try {
+                //check JWT, extract information
                 credentials = decodeJWT(authorization);
             } catch (IllegalArgumentException e) {
                 credentials = null;
@@ -120,6 +123,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
         }
     }
 //Extract Roles From the @Secured Annotation
+
     private List<Role> extractRoles(AnnotatedElement annotatedElement) {
         if (annotatedElement == null) {
             return new ArrayList<>();
@@ -135,7 +139,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
     }
 
     /**
-     * Decode JWT Token with JWTS Libary
+     * Decode JWT Token with JWTS Libary, check validity
      *
      * @param jwt
      * @return
@@ -178,6 +182,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
 
     /**
      * Add Cors Headers to cover Port Forwarding Problems
+     *
      * @param requestContext
      * @param responseContext
      * @throws IOException

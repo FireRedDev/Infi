@@ -1,3 +1,4 @@
+
 package repository;
 
 import RestResponseClasses.*;
@@ -16,7 +17,7 @@ import javax.ws.rs.core.*;
 import service.Service;
 
 /**
- * Repository managing Database
+ * Repository managing Database, Statistics, Token Generation
  *
  * @author Christopher G
  */
@@ -240,6 +241,7 @@ public class Repository {
      * @return
      */
     public List<Termin> getUsertermine(int id) {
+        em.clear();
         List<Termin> termine = new LinkedList();
         Person currentPerson = em.find(Person.class, id);
         //Check for Duplicates, prepare Termin list
@@ -259,6 +261,7 @@ public class Repository {
      * @return
      */
     public List<Info> getUserInfos(int id) {
+        em.clear();
         List<Info> info = new LinkedList();
         //find Person with primary key
         Person currentPerson = em.find(Person.class, id);
@@ -707,12 +710,14 @@ public class Repository {
      * @param p
      */
     public void changePassword(Person p) {
+        em.clear();
         String password = p.getPassword();
         p = em.find(Person.class, p.getId());
         p.setPassword(password);
         p.setPasswordChanged(true);
 
         em.persist(p);
+
     }
 
     /**
@@ -789,7 +794,7 @@ public class Repository {
      * insert a plannung
      *
      * @param id
-     * @param text
+     * @param p
      */
     public void insertPlanung(int id, Planning p) {
         Termin termin = em.find(Termin.class, id);
@@ -809,6 +814,7 @@ public class Repository {
         List<Termin> termin = new LinkedList();
         List<Termin> terminWithDoku = new LinkedList();
         JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
+        System.out.println("here");
         termin = this.termineLayerDown(jrk, termin);
         for (Termin t : termin) {
             if (t.getDoko() != null) {
@@ -935,7 +941,7 @@ public class Repository {
      * @param t
      * @return
      */
-    public String deleteTermin(Termin t) {
+     public String deleteTermin(Termin t) {
 
         Termin termin = em.find(Termin.class, t.getId());
         em.getTransaction().begin();
@@ -1087,16 +1093,6 @@ public class Repository {
                             }
                         }
                     }
-//                if (doku != null) {
-//                    LocalDateTime start = LocalDateTime.parse(termin.getS_date(), formatter);
-//                    LocalDateTime ende = LocalDateTime.parse(termin.getE_date(), formatter);
-//                    // get the betreues time
-//                    hmap.put("Betreuer" + start.getYear(), ((hmap.get("Betreuer" + start.getYear()) == null ? 0 : hmap.get("Betreuer" + start.getYear())) + (int) ChronoUnit.HOURS.between(start, ende)) * doku.getBetreuer().length);
-//                    //get the kinders time
-//                    hmap.put("Kinder" + start.getYear(), ((hmap.get("Kinder" + start.getYear()) == null ? 0 : hmap.get("Kinder" + start.getYear())) + (int) ChronoUnit.HOURS.between(start, ende)) * doku.getKinderliste().length);
-//                    //get the Preparationtime
-//                    hmap.put("Vorbereitung" + start.getYear(), (hmap.get("Vorbereitung" + start.getYear()) == null ? 0 : hmap.get("Vorbereitung" + start.getYear())) + (int) doku.getVzeit());
-//                }
                 }
 
             }

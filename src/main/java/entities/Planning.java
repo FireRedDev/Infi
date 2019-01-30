@@ -12,7 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * Preparation for a Group Activity, contains WYIWYG Text Field String to prepare.
+ * Preparation for a Group Activity, contains WYIWYG Text Field String to
+ * prepare.
+ *
  * @author isi
  */
 @Entity
@@ -25,63 +27,83 @@ public class Planning implements Serializable {
     private String plannung;
     //is the planning shared with others or private?
     private boolean share = false;
-/**
- * Default Constructor
- */
+
+    /**
+     * Default Constructor
+     */
     public Planning() {
     }
-/**
- * Constructor which leaves shared on false
- */
+
+    /**
+     * Constructor which leaves shared on false
+     *
+     * @param plannung
+     */
     public Planning(String plannung) {
         this.plannung = plannung;
     }
-/**
- * Constructor
- */
+
+    /**
+     * Constructor
+     *
+     * @param plannung
+     * @param share
+     */
     public Planning(String plannung, boolean share) {
         this.plannung = plannung;
         this.share = share;
     }
-/**
- * Getter
- * @return 
- */
+
+    /**
+     * Getter
+     *
+     * @return
+     */
     public int getId() {
         return id;
     }
-/**
- * Setter
- * @param id 
- */
+
+    /**
+     * Setter
+     *
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
-/**
- * Getter
- * @return 
- */
+
+    /**
+     * Getter
+     *
+     * @return
+     */
     public String getPlannung() {
         return plannung;
     }
-/**
- * Setter
- * @param plannung 
- */
+
+    /**
+     * Setter
+     *
+     * @param plannung
+     */
     public void setPlannung(String plannung) {
         this.plannung = plannung;
     }
-/**
- * is shared?
- * @return 
- */
+
+    /**
+     * is shared?
+     *
+     * @return
+     */
     public boolean isShare() {
         return share;
     }
-/**
- * setter
- * @param share 
- */
+
+    /**
+     * setter
+     *
+     * @param share
+     */
     public void setShare(boolean share) {
         this.share = share;
     }
