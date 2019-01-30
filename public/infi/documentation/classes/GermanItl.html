@@ -1217,6 +1217,7 @@ export class ProtocolComponent implements OnInit {
     this.actProtokol.kinderliste &#x3D; this.getListe(&quot;check&quot;);
     this.actProtokol.betreuer &#x3D; this.getListe(&quot;check2&quot;);
     actTermin.doko &#x3D; this.actProtokol;
+    console.log(this.actProtokol)
     this.rest.insertDoku(actTermin)
       .subscribe(data &#x3D;&gt; {
         this.changeView.emit(&#x27;month&#x27;);
@@ -1224,7 +1225,7 @@ export class ProtocolComponent implements OnInit {
 
   }
 
-  actProtokol: Protokoll &#x3D; new Protokoll(0, null, null, &#x27;&#x27;, &#x27;Soziales&#x27;);
+  actProtokol: Protokoll &#x3D; new Protokoll(0, null, null, &#x27;&#x27;, &#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;Soziales&#x27;);
   actTermin: Termin &#x3D; new Termin();
   submitted &#x3D; false;
 

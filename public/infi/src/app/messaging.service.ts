@@ -4,6 +4,10 @@ import { BehaviorSubject } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { RestService } from './rest.service';
+
+/**
+ * Service for push-Messages
+ */
 @Injectable()
 export class MessagingService {
 

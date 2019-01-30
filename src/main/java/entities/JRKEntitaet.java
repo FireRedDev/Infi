@@ -10,9 +10,10 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 /**
  * An JRKENTITY is an organisational unit/team, like a Jugendgruppe or a
- * Bezirksstelle. As it corresponds to an actual group, it has a location property.
- * Each JRKEntitaet has a list of its (personal) appointments and news articles.
- * Each also has a relationship to its higher and lower ranking entity
+ * Bezirksstelle. As it corresponds to an actual group, it has a location
+ * property. Each JRKEntitaet has a list of its (personal) appointments and news
+ * articles. Each also has a relationship to its higher and lower ranking entity
+ *
  * @author Christopher G
  */
 @Entity
@@ -21,10 +22,10 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
     @NamedQuery(name = "JRKEntitaet.listAll", query = "SELECT j FROM JRKEntitaet j")
     ,
     //returns an entitys lower ranking entity
-    @NamedQuery(name = "JRKEntitaet.layerDown", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet=:jrkentitaet")
+    @NamedQuery(name = "JRKEntitaet.layerDown", query = "SELECT j FROM JRKEntitaet j where j.subordinateJRKEntitaet=:jrkentitaet")
     ,
     //returns an entitys higher ranking entity
-    @NamedQuery(name = "JRKEntitaet.layerUp", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet1=:jrkentitaet")
+    @NamedQuery(name = "JRKEntitaet.layerUp", query = "SELECT j FROM JRKEntitaet j where j.superordinateJRKEntitaet=:jrkentitaet")
 })
 public class JRKEntitaet implements Serializable {
 
@@ -34,12 +35,12 @@ public class JRKEntitaet implements Serializable {
     private String ort;
     private JRKEntitaetType typ;
     //each JRKENTITÄT has its own list of Termine and info
-    @CascadeOnDelete
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    //@CascadeOnDelete
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
     //group appointments
     private List<Termin> termine = new LinkedList<Termin>();
-    @CascadeOnDelete
-    @OneToMany()
+    //@CascadeOnDelete
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
     //group news
     private List<Info> info = new LinkedList<Info>();
 
@@ -60,6 +61,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Constructor
+     *
      * @param id
      * @param name
      * @param typ
@@ -74,6 +76,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public String getName() {
@@ -82,6 +85,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Setter
+     *
      * @param name
      */
     public void setName(String name) {
@@ -90,6 +94,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public int getId() {
@@ -98,6 +103,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public JRKEntitaetType getTyp() {
@@ -106,6 +112,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Setter
+     *
      * @param typ
      */
     public void setTyp(JRKEntitaetType typ) {
@@ -114,6 +121,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Setter
+     *
      * @param id
      */
     public void setId(int id) {
@@ -122,6 +130,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public String getOrt() {
@@ -130,6 +139,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Setter
+     *
      * @param ort
      */
     public void setOrt(String ort) {
@@ -138,6 +148,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public List<Termin> getTermine() {
@@ -146,6 +157,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Setter
+     *
      * @param termine
      */
     public void setTermine(List<Termin> termine) {
@@ -154,6 +166,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public List<Info> getInfo() {
@@ -162,6 +175,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Setter
+     *
      * @param info
      */
     public void setInfo(List<Info> info) {
@@ -170,6 +184,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public JRKEntitaet getSuperordinateJRKEntitaet() {
@@ -178,6 +193,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Setter
+     *
      * @param superordinateJRKEntitaet
      */
     public void setSuperordinateJRKEntitaet(JRKEntitaet superordinateJRKEntitaet) {
@@ -186,6 +202,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public List<JRKEntitaet> getSubordinateJRKEntitaet() {
@@ -194,6 +211,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Setter
+     *
      * @param subordinateJRKEntitaet
      */
     public void setSubordinateJRKEntitaet(List<JRKEntitaet> subordinateJRKEntitaet) {
@@ -202,6 +220,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * add a subordinate entity
+     *
      * @param newJRK
      */
     public void addJRKEntitaet(JRKEntitaet newJRK) {
@@ -213,6 +232,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * remove a subordinate entity
+     *
      * @param old
      */
     public void removeJRKEntitaet(JRKEntitaet old) {
@@ -224,6 +244,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Adds an appointment
+     *
      * @param termin
      */
     public void addTermin(Termin termin) {
@@ -232,6 +253,7 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Removes an Appointment
+     *
      * @param termin
      */
     public void removeTermin(Termin termin) {
@@ -240,14 +262,17 @@ public class JRKEntitaet implements Serializable {
 
     /**
      * Adds Blog Post
+     *
      * @param info
      */
     public void addInfo(Info info) {
         this.info.add(info);
     }
+
     /**
      * Removes Blog Post
-     * @param info 
+     *
+     * @param info
      */
     public void removeInfo(Info info) {
         this.info.remove(info);

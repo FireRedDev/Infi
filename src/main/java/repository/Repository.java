@@ -240,7 +240,6 @@ public class Repository {
      * @return
      */
     public List<Termin> getUsertermine(int id) {
-        em.clear();
         List<Termin> termine = new LinkedList();
         Person currentPerson = em.find(Person.class, id);
         //Check for Duplicates, prepare Termin list
@@ -260,7 +259,6 @@ public class Repository {
      * @return
      */
     public List<Info> getUserInfos(int id) {
-        em.clear();
         List<Info> info = new LinkedList();
         //find Person with primary key
         Person currentPerson = em.find(Person.class, id);
@@ -709,14 +707,12 @@ public class Repository {
      * @param p
      */
     public void changePassword(Person p) {
-        em.clear();
         String password = p.getPassword();
         p = em.find(Person.class, p.getId());
         p.setPassword(password);
         p.setPasswordChanged(true);
 
         em.persist(p);
-
     }
 
     /**
@@ -813,7 +809,6 @@ public class Repository {
         List<Termin> termin = new LinkedList();
         List<Termin> terminWithDoku = new LinkedList();
         JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
-        System.out.println("here");
         termin = this.termineLayerDown(jrk, termin);
         for (Termin t : termin) {
             if (t.getDoko() != null) {
@@ -941,10 +936,17 @@ public class Repository {
      * @return
      */
     public String deleteTermin(Termin t) {
-        em.clear();
+
+        Termin termin = em.find(Termin.class, t.getId());
         em.getTransaction().begin();
-        Termin toRemove = em.merge(t);
-        em.remove(toRemove);
+
+        List<JRKEntitaet> jrk = em.createQuery("SELECT j FROM JRKEntitaet j WHERE :id MEMBER OF j.termine").setParameter("id", termin).getResultList();
+        for (JRKEntitaet j : jrk) {
+            j.removeTermin(termin);
+            em.merge(j);
+        }
+
+        em.remove(termin);
         em.getTransaction().commit();
         return "success";
     }
@@ -955,13 +957,17 @@ public class Repository {
      * @param i
      * @return
      */
-    public String deleteInfo(Info i, int id) {
-        Person p = em.find(Person.class, id);
-        p.getJrkentitaet().removeInfo(i);
-
+    public String deleteInfo(Info i) {
+        Info info = em.find(Info.class, i.getId());
         em.getTransaction().begin();
 
-        em.persist(p);
+        List<JRKEntitaet> jrk = em.createQuery("SELECT j FROM JRKEntitaet j WHERE :id MEMBER OF j.info").setParameter("id", info).getResultList();
+        for (JRKEntitaet j : jrk) {
+            j.removeInfo(info);
+            em.merge(j);
+        }
+
+        em.remove(info);
         em.getTransaction().commit();
         return "success";
     }

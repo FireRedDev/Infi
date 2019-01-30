@@ -649,13 +649,13 @@ public class Service {
      * @param i
      * @return
      */
-    @Path("deleteInfo/{id}")
+    @Path("deleteInfo")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @POST
-    public String deleteInfo(Info i, @PathParam("id") int id) {
-        return "\"" + repo.deleteInfo(i, id) + "\"";
+    public String deleteInfo(Info i) {
+        return "\"" + repo.deleteInfo(i) + "\"";
     }
 
     /**
