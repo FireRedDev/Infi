@@ -13,9 +13,11 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Context;
 
 /**
- * REST-Request Service offering Authentication Methods, DB Object Managment and statistical Information
+ * REST-Request Service offering Authentication Methods, DB Object Managment and
+ * statistical Information
  *
- * @author INFI-Projektgruppe, Test-Url: http://localhost:8080/api/service/message
+ * @author INFI-Projektgruppe, Test-Url:
+ * http://localhost:8080/api/service/message
  */
 @Path("service")
 public class Service {
@@ -46,7 +48,7 @@ public class Service {
      *
      * only Landesleiter and Bezirksleiter have the permission to delete Persons
      *
-     * @param id id of a Person
+     * @param id ID of the Deleted Person
      * @return Persons
      */
     @POST
@@ -59,8 +61,8 @@ public class Service {
     /**
      * Login to a Server with Username/Password and get a Token
      *
-     * @param pto
-     * @return Token
+     * @param pto JSON Containing an Email and a Password String
+     * @return JSON Containing USERID and JWT Token
      */
     @POST
     @Produces("application/json")
@@ -71,10 +73,10 @@ public class Service {
     }
 
     /**
-     * Lists all Persons/Users hierachie down
+     * Lists all Persons/Users hierachy down
      *
      * @param id id of a person
-     * @return list
+     * @return List of all subordinate users
      */
     @POST
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
@@ -89,7 +91,7 @@ public class Service {
      * Lists all Persons/Users hierachie down
      *
      * @param id id of a JRKEntity
-     * @return list
+     * @return List of all subordinate users
      */
     @POST
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
@@ -103,7 +105,7 @@ public class Service {
     /**
      * Lists all JRKENTITYIES
      *
-     * @return JRK-Entity List
+     * @return returns all JRK-Entities
      */
     @GET
     @Path("listAllJRKEntitaeten")
@@ -117,7 +119,7 @@ public class Service {
      * Gets Users Termine/Appointments with his PersonalNR
      *
      * @param id Person id
-     * @return
+     * @return an users appointments
      */
     @POST
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.KIND, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
@@ -132,7 +134,8 @@ public class Service {
      * Gets Users Infos
      *
      * @param id
-     * @return
+     * @return List of All Infos that belong to a user/that he is permitted to
+     * see
      */
     @POST
     @Path("getUserInfos")
@@ -147,7 +150,7 @@ public class Service {
      * Gets Username
      *
      * @param id Person id
-     * @return Username
+     * @return Username of user
      */
     @POST
 
@@ -178,7 +181,7 @@ public class Service {
      * Inserts a Termin/Appointment and assigns it to a JRKEntitaet
      *
      * @param id
-     * @param t
+     * @param t Appointment
      */
     @Path("insertTermin/{id}")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
@@ -189,7 +192,7 @@ public class Service {
     }
 
     /**
-     * Inserts a Termin/Appointment and assigns it to a JRKEntitaet
+     * Updates a Termin/Appointment and assigns it to a JRKEntitaet
      *
      * @param t
      */
@@ -202,7 +205,7 @@ public class Service {
     }
 
     /**
-     * insert Dokumentation and create Relationship with its Termin
+     * Insert Dokumentation and create Relationship with its Termin
      *
      * @param d Termin
      */
@@ -215,9 +218,10 @@ public class Service {
     }
 
     /**
+     * Get the Attendees of an Appointment
      *
      * @param id
-     * @return
+     * @return String List of Attendees(Hans Müller; Fred Fauler;...)
      */
     @Path("getTerminTeilnehmer")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
@@ -225,13 +229,13 @@ public class Service {
     @Produces(MediaType.TEXT_PLAIN)
     @POST
     public String getTerminTeilnehmer(int id) {
-        return "\""+repo.getTerminTeilnehmer(id)+"\"";
+        return "\"" + repo.getTerminTeilnehmer(id) + "\"";
     }
 
     /**
      * give back all roles
      *
-     * @return Rollen
+     * @return Roles
      */
     @GET
     @Path("getAllRoles")
@@ -242,7 +246,7 @@ public class Service {
     }
 
     /**
-     * insert Dokumentation and create Relationship with its Termin
+     * insert Person and create Relationship with its JRKEntitaet
      *
      * @param id
      * @param b
@@ -256,10 +260,10 @@ public class Service {
     }
 
     /**
-     * is this user a editor?
+     * Is this user a editor?
      *
      * @param id
-     * @return
+     * @return Yes/No Boolean
      */
     @Path("isEditor")
     @Secured({Role.BEZIRKSLEITER, Role.KIND, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
@@ -271,10 +275,10 @@ public class Service {
     }
 
     /**
-     * is this user a admin?
+     * is this user an admin?
      *
      * @param id
-     * @return
+     * @return Yes/No Boolean
      */
     @Path("isAdmin")
     @Secured({Role.BEZIRKSLEITER, Role.KIND, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
@@ -286,10 +290,10 @@ public class Service {
     }
 
     /**
-     * is this user a admin?
+     * is this user a Gruppenleiter?
      *
      * @param id
-     * @return
+     * @return Yes/No Boolean
      */
     @Path("isGruppenleiter")
     @Secured({Role.BEZIRKSLEITER, Role.KIND, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
@@ -301,10 +305,10 @@ public class Service {
     }
 
     /**
-     * give back none documented appointments
+     * Returns undocumented appointments
      *
      * @param id
-     * @return
+     * @return List of undocumented Appointments
      */
     @Path("getOpenDoko")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
@@ -316,10 +320,10 @@ public class Service {
     }
 
     /**
-     * give back none planed appointments
+     * Returns unplaned appointments
      *
      * @param id
-     * @return
+     * @return List of unplaned appointments
      */
     @Path("getOpenPlanning/{id}")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
@@ -331,10 +335,11 @@ public class Service {
     }
 
     /**
-     * Häufigkeit von Kategorie in einer JRKEntity
+     * Returns the Frequency of a category(how often is it used as an
+     * appointment category?)
      *
      * @param jrk
-     * @return
+     * @return JSON that looks like: "Exkursion", "57"
      */
     @POST
     @Path("getChartValues")
@@ -346,9 +351,11 @@ public class Service {
     }
 
     /**
+     * Returns an individuals spent Hours for statistics
      *
      * @param jrk
-     * @return
+     * @return returns List that contains a Name "Franz Müller" and his overall
+     * Hours "23"
      */
     @POST
     @Path("getPersonenstunden")
@@ -358,11 +365,13 @@ public class Service {
     public List<NameValue> getPersonenstunden(JRKEntitaet jrk) {
         return repo.getPersonenstunden(jrk);
     }
+
     /**
-     * Anzahl von den Stunden pro Monat im letzten Jahr
+     * Returns a ValuePair List for each subordinate JRK Entitys Time Spent for
+     * statistical Purposes
      *
      * @param jrk
-     * @return
+     * @return JRKEntity Hours List (Jrkentityname and hours)
      */
     @POST
     @Path("getLowerEntityHourList")
@@ -373,10 +382,10 @@ public class Service {
     }
 
     /**
-     * Give back the values for the timeline
+     * Returns a ValuePair for the Monthly Hours of a Group
      *
      * @param jrk
-     * @return
+     * @return List with contents Month, Hours
      */
     @POST
     @Path("getTimelineValues")
@@ -388,10 +397,10 @@ public class Service {
     }
 
     /**
-     * get Anzahl der Stunden pro Persongruppe
+     * Returns a List Showing how the time in the year was divided up
      *
      * @param jrk
-     * @return
+     * @return List of Betruers, Childrens and Preparation Time spent
      */
     @POST
     @Path("getYearlyHoursPerPeople")
@@ -406,7 +415,7 @@ public class Service {
      * Gives back the JRK-Entities in the Layers down
      *
      * @param id
-     * @return
+     * @return Jrkentities
      */
     @POST
     @Path("getJRKEntitaetdown")
@@ -418,10 +427,10 @@ public class Service {
     }
 
     /**
-     * change Password
+     * Change Password
      *
      * @param p
-     * @return
+     * @return Passwort geändert String if successfull
      */
     @POST
     @Path("changePassword")
@@ -438,7 +447,7 @@ public class Service {
      * Does this User need to change his password?
      *
      * @param id
-     * @return
+     * @return Yes/No Boolean
      */
     @POST
     @Path("needPwdChange")
@@ -450,10 +459,10 @@ public class Service {
     }
 
     /**
-     * save Person
+     * Save Person in DB
      *
      * @param p
-     * @return
+     * @return Person geändert String if succesfull
      */
     @POST
     @Path("savePerson")
@@ -476,13 +485,14 @@ public class Service {
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
     public void insertInfo(@PathParam("id") int id, Info i) {
-        System.out.println("here");
         repo.insertInfo(id, i);
     }
-/**
- * Update Info
- * @param i 
- */
+
+    /**
+     * Update Info
+     *
+     * @param i
+     */
     @Path("changeInfo")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
@@ -490,28 +500,32 @@ public class Service {
     public void changeInfo(Info i) {
         repo.changeInfo(i);
     }
-/**
- * Persist Planning and add relationship to its termin
- * @param id
- * @param p
- * @return 
- */
+
+    /**
+     * Persist Planning and add relationship to its termin
+     *
+     * @param id
+     * @param p
+     * @return
+     */
     @Path("insertPlanung/{id}")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @POST
     public String insertPlanung(@PathParam("id") int id, Planning p) {
-        repo.insertPlanung(id,p);
+        repo.insertPlanung(id, p);
         return "\"inserted\"";
     }
-/**
- * updates planning
- * @param planning
- * @return 
- */
+
+    /**
+     * updates planning
+     *
+     * @param planning
+     * @return
+     */
     @Path("changePlanung")
-        @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
+    @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @POST
@@ -519,11 +533,13 @@ public class Service {
         repo.changePlanung(planning);
         return "changed";
     }
-/**
- * gets open protocols
- * @param id
- * @return 
- */
+
+    /**
+     * returns jrk entitys appointments and its subordinate appointments
+     *
+     * @param id
+     * @return appointments
+     */
     @GET
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Path("getProtokollDetails/{id}")
@@ -532,12 +548,14 @@ public class Service {
     public List<Termin> getProtokollDetails(@PathParam("id") int id) {
         return repo.getProtokollDetails(id);
     }
-/**
- * saves fcm token
- * @param id
- * @param token
- * @return 
- */
+
+    /**
+     * saves fcm token
+     *
+     * @param id
+     * @param token
+     * @return
+     */
     @Path("saveFCMToken/{id}")
     @Secured({Role.KIND, Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Produces(MediaType.TEXT_PLAIN)
@@ -546,37 +564,41 @@ public class Service {
     public String saveFCMToken(@PathParam("id") int id, String token) {
         return "\"" + repo.setFCMToken(id, token) + "\"";
     }
-/**
- * registers Attendee as attendee to an appointment
- * @param terminID
- * @param userID
- * @param sc 
- */
+
+    /**
+     * registers Attendee as attendee to an appointment
+     *
+     * @param terminID
+     * @param userID
+     */
     @Path("registerAttendee/{id}")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER, Role.KIND})
     @Consumes(MediaType.TEXT_PLAIN)
     @POST
-    public void registerAttendee(@PathParam("id") int terminID, int userID, @Context MySecurityContext sc) {
+    public void registerAttendee(@PathParam("id") int terminID, int userID) {
         repo.registerAttendee(terminID, userID);
     }
-/**
- * Removes person as attendee from an appointment
- * @param terminID
- * @param userID
- * @param sc 
- */
+
+    /**
+     * Removes person as attendee from an appointment
+     *
+     * @param terminID
+     * @param userID
+     */
     @Path("removeAttendee/{id}")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER, Role.KIND})
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
-    public void removeAttendee(@PathParam("id") int terminID, int userID, @Context MySecurityContext sc) {
+    public void removeAttendee(@PathParam("id") int terminID, int userID) {
         repo.removeAttendee(terminID, userID);
     }
-/**
- * Gets the NEXT Appointment of an user(with his id)
- * @param id
- * @return 
- */
+
+    /**
+     * Gets the NEXT Appointment of an user(with his id)
+     *
+     * @param id
+     * @return NEXT Appointment of an user
+     */
     @Path("getNextIncomingAppointment/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER, Role.KIND})
@@ -592,7 +614,7 @@ public class Service {
      * Gives back the Supervisors of an user
      *
      * @param id
-     * @return
+     * @return supervisor Persons
      */
     @POST
     @Path("getSupervisors")
@@ -607,7 +629,7 @@ public class Service {
      * Gives back the Children of an user
      *
      * @param id
-     * @return
+     * @return Users(Gruppenleiters) Children
      */
     @POST
     @Path("getChildren")
@@ -617,11 +639,13 @@ public class Service {
     public List<Person> getChildren(int id) {
         return repo.getChildren(id);
     }
-/**
- * deletes termin
- * @param t
- * @return 
- */
+
+    /**
+     * deletes termin
+     *
+     * @param t
+     * @return
+     */
     @Path("deleteTermin")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
@@ -630,11 +654,13 @@ public class Service {
     public String deleteTermin(Termin t) {
         return "\"" + repo.deleteTermin(t) + "\"";
     }
-/**
- * delete Infos
- * @param i
- * @return 
- */
+
+    /**
+     * delete Infos
+     *
+     * @param i
+     * @return
+     */
     @Path("deleteInfo")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)
@@ -643,10 +669,12 @@ public class Service {
     public String deleteInfo(Info i) {
         return "\"" + repo.deleteInfo(i) + "\"";
     }
-/**
- * returns all shared plannings
- * @return 
- */
+
+    /**
+     * returns all appointments with shared plannings
+     *
+     * @return appointments where shared is set to true
+     */
     @Path("sharedPlanning")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Produces(MediaType.APPLICATION_JSON)
@@ -655,11 +683,13 @@ public class Service {
         List<Termin> t = repo.sharedPlanning();
         return t;
     }
-/**
- * deletes planning
- * @param p
- * @return 
- */
+
+    /**
+     * deletes planning
+     *
+     * @param p
+     * @return
+     */
     @Path("deletePlanning")
     @Secured({Role.BEZIRKSLEITER, Role.GRUPPENLEITER, Role.LANDESLEITER, Role.ORTSTELLENLEITER})
     @Consumes(MediaType.APPLICATION_JSON)

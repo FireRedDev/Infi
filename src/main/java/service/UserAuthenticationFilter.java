@@ -23,8 +23,9 @@ import static javax.ws.rs.core.Response.Status;
 import repository.*;
 
 /**
- * Blocks Unauthorized Access of Rest Methods ,extracts Roles and covers authorization checks, adds cors headers
- * 
+ * Blocks Unauthorized Access of Rest Methods ,extracts Roles and covers
+ * authorization checks, adds cors headers
+ *
  * @author Christopher G
  */
 @Secured
@@ -122,6 +123,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
         }
     }
 //Extract Roles From the @Secured Annotation
+
     private List<Role> extractRoles(AnnotatedElement annotatedElement) {
         if (annotatedElement == null) {
             return new ArrayList<>();
@@ -180,6 +182,7 @@ public class UserAuthenticationFilter implements ContainerRequestFilter,
 
     /**
      * Add Cors Headers to cover Port Forwarding Problems
+     *
      * @param requestContext
      * @param responseContext
      * @throws IOException

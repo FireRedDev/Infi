@@ -90,9 +90,10 @@ public class Repository {
     }
 
     /**
-     * Login - Authenticate new Client
-     * Logs in a User if the provided Email and Password are correct
-     * Returns its ID and its JWT Token, with which it can access protected Server methods its Role is authorized to do so.
+     * Login - Authenticate new Client Logs in a User if the provided Email and
+     * Password are correct Returns its ID and its JWT Token, with which it can
+     * access protected Server methods its Role is authorized to do so.
+     *
      * @param pto
      * @return
      */
@@ -165,11 +166,13 @@ public class Repository {
         em.getTransaction().commit();
         return b;
     }
-/**
- * Inserts Planning into DataBase
- * @param p
- * @return 
- */
+
+    /**
+     * Inserts Planning into DataBase
+     *
+     * @param p
+     * @return
+     */
     public Planning insert(Planning p) {
         em.getTransaction().begin();
         em.persist(p);
@@ -255,7 +258,8 @@ public class Repository {
     }
 
     /**
-     * Get Informations for a specific User based on his JRKEntity(with Person id)
+     * Get Informations for a specific User based on his JRKEntity(with Person
+     * id)
      *
      * @param id
      * @return
@@ -275,7 +279,8 @@ public class Repository {
     }
 
     /**
-     * Get Appointments of a jrkentity + its superordinate entitys appointments recursively
+     * Get Appointments of a jrkentity + its superordinate entitys appointments
+     * recursively
      *
      * @param jrk
      * @param termine
@@ -297,7 +302,8 @@ public class Repository {
     }
 
     /**
-     * Get Appointments of a jrkentity + its subordinate entitys appointments recursively
+     * Get Appointments of a jrkentity + its subordinate entitys appointments
+     * recursively
      *
      * @param jrk
      * @param termine
@@ -316,7 +322,8 @@ public class Repository {
     }
 
     /**
-     * Get Informations in the hierachie up recursivly including the given jrk entitys informations
+     * Get Informations in the hierachie up recursivly including the given jrk
+     * entitys informations
      *
      * @param jrk
      * @param termine
@@ -335,7 +342,8 @@ public class Repository {
     }
 
     /**
-     * Get Informations in the hierachie down recursivly including the given jrk entitys informations
+     * Get Informations in the hierachie down recursivly including the given jrk
+     * entitys informations
      *
      * @param jrk
      * @param termine
@@ -402,7 +410,7 @@ public class Repository {
     }
 
     /**
-     * Get Username of Person id 
+     * Get Username of Person id
      *
      * @param id
      * @return
@@ -478,7 +486,9 @@ public class Repository {
     }
 
     /**
-     * Get all Docus which have not yet been done by a user(so undocumented appointments docus)
+     * Get all Docus which have not yet been done by a user(so undocumented
+     * appointments docus)
+     *
      * @param id
      * @return
      */
@@ -498,6 +508,7 @@ public class Repository {
 
     /**
      * Persist Doku
+     *
      * @param d
      */
     public void insertDoko(Termin d) {
@@ -510,6 +521,7 @@ public class Repository {
 
     /**
      * Gets a Termins Documentation
+     *
      * @param id
      * @return
      */
@@ -518,7 +530,9 @@ public class Repository {
     }
 
     /**
-     * Returns a List with ValuePairs to Display which Termin Categories are the most frequent
+     * Returns a List with ValuePairs to Display which Termin Categories are the
+     * most frequent
+     *
      * @param jrk
      * @return
      */
@@ -554,6 +568,7 @@ public class Repository {
 
     /**
      * Returns a ValuePair for the Monthly Hours of a Group
+     *
      * @param jrk
      * @return
      */
@@ -586,7 +601,9 @@ public class Repository {
     }
 
     /**
-     * Returns a ValuePair List for each subordinate JRK Entitys Time Spent for statistical Purposes
+     * Returns a ValuePair List for each subordinate JRK Entitys Time Spent for
+     * statistical Purposes
+     *
      * @param jrk
      * @return
      */
@@ -618,6 +635,7 @@ public class Repository {
 
     /**
      * Returns a List Showing how the time in the year was divided up
+     *
      * @param jrk
      * @return
      */
@@ -768,6 +786,7 @@ public class Repository {
 
     /**
      * insert a plannung
+     *
      * @param id
      * @param p
      */
@@ -781,6 +800,7 @@ public class Repository {
 
     /**
      * returns jrk entitys appointments and its subordinate appointments
+     *
      * @param id
      * @return
      */
@@ -796,6 +816,7 @@ public class Repository {
 
     /**
      * Persists FCM Token
+     *
      * @param id
      * @param token
      * @return
@@ -812,6 +833,7 @@ public class Repository {
 
     /**
      * Adds an Attendee to an Appointment
+     *
      * @param terminID
      * @param userID
      */
@@ -828,6 +850,7 @@ public class Repository {
 
     /**
      * Removes an Attendee from an Appointment
+     *
      * @param terminID
      * @param userID
      */
@@ -841,6 +864,7 @@ public class Repository {
 
     /**
      * Get an Appointments Attendees
+     *
      * @param id
      * @return
      */
@@ -852,6 +876,7 @@ public class Repository {
 
     /**
      * Get the superordinate Person
+     *
      * @param id
      * @return
      */
@@ -863,6 +888,7 @@ public class Repository {
 
     /**
      * Gets the Children that belong to a JRK Entity and its subordinate entitys
+     *
      * @param id
      * @return
      */
@@ -879,6 +905,7 @@ public class Repository {
 
     /**
      * merge termin in db
+     *
      * @param t
      */
     public void changeTermin(Termin t) {
@@ -889,6 +916,7 @@ public class Repository {
 
     /**
      * merge info in db
+     *
      * @param i
      */
     public void changeInfo(Info i) {
@@ -899,6 +927,7 @@ public class Repository {
 
     /**
      * delete termin
+     *
      * @param t
      * @return
      */
@@ -909,11 +938,13 @@ public class Repository {
         em.getTransaction().commit();
         return "success";
     }
-/**
- * delete info
- * @param i
- * @return 
- */
+
+    /**
+     * delete info
+     *
+     * @param i
+     * @return
+     */
     public String deleteInfo(Info i) {
         em.getTransaction().begin();
         Info toRemove = em.merge(i);
@@ -921,10 +952,12 @@ public class Repository {
         em.getTransaction().commit();
         return "success";
     }
-/**
- * Returns all Shared Plannings
- * @return 
- */
+
+    /**
+     * Returns all Shared Plannings
+     *
+     * @return
+     */
     public List<Termin> sharedPlanning() {
         List<Termin> plans = em.createQuery("select t from Termin t").getResultList();
         List<Termin> pl = new ArrayList();
@@ -938,11 +971,13 @@ public class Repository {
         }
         return pl;
     }
-/**
- * Returns all not yet done plannings
- * @param id
- * @return 
- */
+
+    /**
+     * Returns all not yet done plannings
+     *
+     * @param id
+     * @return
+     */
     public List<Termin> getOpenPlanning(int id) {
         List<Termin> termine = this.getUsertermine(id);
         List<Termin> te = new LinkedList<>();
@@ -956,18 +991,22 @@ public class Repository {
         }
         return te;
     }
-/**
- * merges planning
- * @param planning 
- */
+
+    /**
+     * merges planning
+     *
+     * @param planning
+     */
     public void changePlanung(Planning planning) {
         em.merge(planning);
     }
-/**
- * deletes planning
- * @param p
- * @return 
- */
+
+    /**
+     * deletes planning
+     *
+     * @param p
+     * @return
+     */
     public String deletePlanning(Planning p) {
         Planning pp = null;
         em.getTransaction().begin();
@@ -978,11 +1017,13 @@ public class Repository {
         em.getTransaction().commit();
         return "success";
     }
-/**
- * Returns an individuals spent Hours for statistics
- * @param jrk
- * @return 
- */
+
+    /**
+     * Returns an individuals spent Hours for statistics
+     *
+     * @param jrk
+     * @return
+     */
     public List<NameValue> getPersonenstunden(JRKEntitaet jrk) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         /* This is how to declare HashMap */

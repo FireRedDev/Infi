@@ -23,6 +23,7 @@ public class EntityManagerSingleton {
 
     /**
      * Gets the Only Instance of the EntityManager
+     *
      * @return
      */
     public static EntityManagerSingleton getInstance() {
@@ -34,14 +35,16 @@ public class EntityManagerSingleton {
 
     /**
      * Getter
+     *
      * @return
      */
     public EntityManager getEm() {
         return em;
     }
 
-    /** 
+    /**
      * Setter
+     *
      * @param em
      */
     public void setEm(EntityManager em) {

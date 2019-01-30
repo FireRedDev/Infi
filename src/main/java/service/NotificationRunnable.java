@@ -24,8 +24,7 @@ import javax.persistence.EntityManager;
 import repository.EntityManagerSingleton;
 
 /**
- * Sends Push Notifications to Clients if they soon have an appointment
- * C.G
+ * Sends Push Notifications to Clients if they soon have an appointment C.G
  */
 public class NotificationRunnable implements Runnable {
 
@@ -55,6 +54,7 @@ public class NotificationRunnable implements Runnable {
         while (!Service.firstToken) {
         }
         try {
+            //testMSG
             sendCommonMessagePersonal(em.find(Person.class, 1).getFcmtoken());
         } catch (IOException ex) {
             Logger.getLogger(NotificationRunnable.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,6 +83,7 @@ public class NotificationRunnable implements Runnable {
                                 this.BODY = termin.getTitle() + " startet am " + termin.getS_date();
                                 String token = currentPerson.getFcmtoken();
                                 if (token != "") {
+                                    //Send Message with FCM Libary to User if he has an incoming appointment
                                     sendCommonMessagePersonal(token);
                                 }
                             } catch (IOException ex) {
