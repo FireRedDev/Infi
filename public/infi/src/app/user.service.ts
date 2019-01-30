@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
+/**
+ * User Service
+ */
 export class UserService {
 
   private isUserLoggedIn = false;

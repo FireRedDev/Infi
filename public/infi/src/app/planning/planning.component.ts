@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RestService } from '../rest.service';
 
 /**
- * Component for writing Planning
+ * Component for writing Plannings
  */
 @Component({
   selector: 'app-planning',

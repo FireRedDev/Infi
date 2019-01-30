@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 /**
  * Footer
+ * 
+ * Shows ©infi
  */
 @Component({
     selector: 'app-footer',

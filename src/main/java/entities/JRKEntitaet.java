@@ -22,10 +22,10 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
     @NamedQuery(name = "JRKEntitaet.listAll", query = "SELECT j FROM JRKEntitaet j")
     ,
     //returns an entitys lower ranking entity
-    @NamedQuery(name = "JRKEntitaet.layerDown", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet=:jrkentitaet")
+    @NamedQuery(name = "JRKEntitaet.layerDown", query = "SELECT j FROM JRKEntitaet j where j.subordinateJRKEntitaet=:jrkentitaet")
     ,
     //returns an entitys higher ranking entity
-    @NamedQuery(name = "JRKEntitaet.layerUp", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet1=:jrkentitaet")
+    @NamedQuery(name = "JRKEntitaet.layerUp", query = "SELECT j FROM JRKEntitaet j where j.superordinateJRKEntitaet=:jrkentitaet")
 })
 public class JRKEntitaet implements Serializable {
 
@@ -35,12 +35,12 @@ public class JRKEntitaet implements Serializable {
     private String ort;
     private JRKEntitaetType typ;
     //each JRKENTITÄT has its own list of Termine and info
-    @CascadeOnDelete
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    //@CascadeOnDelete
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
     //group appointments
     private List<Termin> termine = new LinkedList<Termin>();
-    @CascadeOnDelete
-    @OneToMany()
+    //@CascadeOnDelete
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
     //group news
     private List<Info> info = new LinkedList<Info>();
 

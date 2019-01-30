@@ -60,6 +60,14 @@
             <code>src/app/auth/token.interceptor.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Intercept every Request and add the JWT-Token in the header
+<a href="https://medium.com/@ryanchenkie_40935/angular-authentication-using-the-http-client-and-http-interceptors-2f9d1540eb8">https://medium.com/@ryanchenkie_40935/angular-authentication-using-the-http-client-and-http-interceptors-2f9d1540eb8</a></p>
+
+            </p>
 
 
             <section>
@@ -116,7 +124,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/auth/token.interceptor.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/auth/token.interceptor.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -181,7 +189,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/auth/token.interceptor.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/auth/token.interceptor.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -275,7 +283,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/auth/token.interceptor.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/auth/token.interceptor.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -298,6 +306,10 @@ import {
 import { AuthService } from &#x27;./auth.service&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 
+/**
+ * Intercept every Request and add the JWT-Token in the header
+ * https://medium.com/@ryanchenkie_40935/angular-authentication-using-the-http-client-and-http-interceptors-2f9d1540eb8
+ */
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 

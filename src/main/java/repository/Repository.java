@@ -1,3 +1,4 @@
+
 package repository;
 
 import RestResponseClasses.*;
@@ -940,11 +941,18 @@ public class Repository {
      * @param t
      * @return
      */
-    public String deleteTermin(Termin t) {
-        em.clear();
+     public String deleteTermin(Termin t) {
+
+        Termin termin = em.find(Termin.class, t.getId());
         em.getTransaction().begin();
-        Termin toRemove = em.merge(t);
-        em.remove(toRemove);
+
+        List<JRKEntitaet> jrk = em.createQuery("SELECT j FROM JRKEntitaet j WHERE :id MEMBER OF j.termine").setParameter("id", termin).getResultList();
+        for (JRKEntitaet j : jrk) {
+            j.removeTermin(termin);
+            em.merge(j);
+        }
+
+        em.remove(termin);
         em.getTransaction().commit();
         return "success";
     }
@@ -956,9 +964,16 @@ public class Repository {
      * @return
      */
     public String deleteInfo(Info i) {
+        Info info = em.find(Info.class, i.getId());
         em.getTransaction().begin();
 
-        em.persist(p);
+        List<JRKEntitaet> jrk = em.createQuery("SELECT j FROM JRKEntitaet j WHERE :id MEMBER OF j.info").setParameter("id", info).getResultList();
+        for (JRKEntitaet j : jrk) {
+            j.removeInfo(info);
+            em.merge(j);
+        }
+
+        em.remove(info);
         em.getTransaction().commit();
         return "success";
     }
@@ -1078,16 +1093,6 @@ public class Repository {
                             }
                         }
                     }
-//                if (doku != null) {
-//                    LocalDateTime start = LocalDateTime.parse(termin.getS_date(), formatter);
-//                    LocalDateTime ende = LocalDateTime.parse(termin.getE_date(), formatter);
-//                    // get the betreues time
-//                    hmap.put("Betreuer" + start.getYear(), ((hmap.get("Betreuer" + start.getYear()) == null ? 0 : hmap.get("Betreuer" + start.getYear())) + (int) ChronoUnit.HOURS.between(start, ende)) * doku.getBetreuer().length);
-//                    //get the kinders time
-//                    hmap.put("Kinder" + start.getYear(), ((hmap.get("Kinder" + start.getYear()) == null ? 0 : hmap.get("Kinder" + start.getYear())) + (int) ChronoUnit.HOURS.between(start, ende)) * doku.getKinderliste().length);
-//                    //get the Preparationtime
-//                    hmap.put("Vorbereitung" + start.getYear(), (hmap.get("Vorbereitung" + start.getYear()) == null ? 0 : hmap.get("Vorbereitung" + start.getYear())) + (int) doku.getVzeit());
-//                }
                 }
 
             }

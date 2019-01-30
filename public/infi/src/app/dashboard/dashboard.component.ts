@@ -16,8 +16,8 @@ import { Info } from '../models/info';
 /**
  * Dashboard Component
  * 
- * Navbar is in this Component
- * The change of the component is done in the dashboard
+ * Navbar is in this Component.
+ * The change of the components is done in the dashboard with inputs and outputs.
  */
 @Component({
   selector: 'app-dashboard',
@@ -227,7 +227,6 @@ export class DashboardComponent implements OnInit {
    * @param i 
    */
   changeViewInfo(i) {
-    debugger;
     this.actInformation = i.item;
     this.view = i.view;
   }

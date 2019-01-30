@@ -9,6 +9,8 @@ import {
 
 /**
  * Show Appointments of one specific day
+ * 
+ * The Appointments are shown in a list.
  */
 @Component({
   selector: 'app-calendar-detail',
@@ -21,6 +23,7 @@ export class CalendarDetailComponent implements OnInit {
 
   @Output() changeViewCalendar = new EventEmitter();
   @Output() changeViewTermin = new EventEmitter();
+  @Output() changeView = new EventEmitter();
   /** is this Person Editor */
   isEditor;
   /** is this Person Gruppenleiter */
@@ -68,6 +71,7 @@ export class CalendarDetailComponent implements OnInit {
   deleteTermin(item) {
     this.rest.deleteTermin(item.termin).subscribe(data => {
       console.log(data);
+      this.changeView.emit('month');
     });
   }
 
