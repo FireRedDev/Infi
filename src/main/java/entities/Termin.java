@@ -42,13 +42,8 @@ public class Termin implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     private Dokumentation doko;
-<<<<<<< src/main/java/entities/Termin.java
-
-    @OneToOne
-=======
     
     @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
->>>>>>> src/main/java/entities/Termin.java
     private Planning planning;
 
     /**
