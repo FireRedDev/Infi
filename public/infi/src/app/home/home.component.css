@@ -1,7 +1,7 @@
 .container {
   text-align: left;
   width: 385px;
-  height: 350px;
+  height: 400px;
 }
 
 #imageSize {
@@ -26,4 +26,76 @@
 .card-deck {
   padding-left: 10px;
   padding-right: 10px;
+}
+
+/* From Right */
+
+.from-right:before, 
+.from-right:after {
+	top: 0;
+	width: 0;
+	height: 100%;
+}
+
+.from-right:before {
+	left: 0;
+	border: 1px solid var(--inv);
+	border-left: 0;
+	border-right: 0;	
+}
+
+.from-right:after {
+	right: 0;
+}
+
+.from-right:hover:before,
+.from-right:hover:after {
+	width: 100%;
+}
+
+/* ~~~~~~~ INIT. BTN ~~~~~~~ */
+
+.specialbtn {		
+	position: relative;	
+	padding: 1.4rem 4.2rem;
+	padding-right: 3.1rem;
+	font-size: 1.4rem;
+	color: var(--inv);
+	text-transform: uppercase;
+	transition: all 600ms cubic-bezier(0.77, 0, 0.175, 1);	
+	cursor: pointer;
+	user-select: none;
+}
+
+.specialbtn {
+  width:50%;
+}
+.specialbtn:before, .specialbtn:after {
+	content: '';
+	position: absolute;	
+	transition: inherit;
+	z-index: -1;
+}
+
+.specialbtn:hover {
+	color: var(--def);
+	transition-delay: .6s;
+}
+
+.specialbtn:hover:before {
+	transition-delay: 0s;
+}
+
+.specialbtn:hover:after {
+	background: var(--inv);
+	transition-delay: .4s;
+}
+
+.specialbtn {
+	--def: #ffffff; 	
+	--inv: #A9A9A9;
+}
+
+.floatLeft{
+  display: flex;
 }

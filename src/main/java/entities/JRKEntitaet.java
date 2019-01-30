@@ -21,10 +21,10 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
     @NamedQuery(name = "JRKEntitaet.listAll", query = "SELECT j FROM JRKEntitaet j")
     ,
     //returns an entitys lower ranking entity
-    @NamedQuery(name = "JRKEntitaet.layerDown", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet=:jrkentitaet")
+    @NamedQuery(name = "JRKEntitaet.layerDown", query = "SELECT j FROM JRKEntitaet j where j.subordinateJRKEntitaet=:jrkentitaet")
     ,
     //returns an entitys higher ranking entity
-    @NamedQuery(name = "JRKEntitaet.layerUp", query = "SELECT j FROM JRKEntitaet j where j.jrkentitaet1=:jrkentitaet")
+    @NamedQuery(name = "JRKEntitaet.layerUp", query = "SELECT j FROM JRKEntitaet j where j.superordinateJRKEntitaet=:jrkentitaet")
 })
 public class JRKEntitaet implements Serializable {
 
