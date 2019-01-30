@@ -36,7 +36,7 @@ public class JRKEntitaet implements Serializable {
     private JRKEntitaetType typ;
     //each JRKENTITÄT has its own list of Termine and info
     @CascadeOnDelete
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     //group appointments
     private List<Termin> termine = new LinkedList<Termin>();
     @CascadeOnDelete

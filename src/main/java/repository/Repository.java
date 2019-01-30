@@ -12,14 +12,8 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.*;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.*;
-import service.MySecurityContext;
 import service.Service;
-import static entities.JRKEntitaetType.*;
 
 /**
  * Repository managing Database, Statistics, Token Generation
@@ -233,8 +227,9 @@ public class Repository {
      * @param jrk
      */
     public void insert(JRKEntitaet jrk) {
-
+        em.getTransaction().begin();
         em.merge(jrk);
+        em.getTransaction().commit();
 
     }
 
@@ -513,7 +508,9 @@ public class Repository {
      */
     public void insertDoko(Termin d) {
         em.getTransaction().begin();
-        em.persist(d.getDoko());
+        Dokumentation doku = d.getDoko();
+        em.persist(doku);
+        d.setDoko(doku);
         em.merge(d);
         em.getTransaction().commit();
 
@@ -527,6 +524,13 @@ public class Repository {
      */
     public Dokumentation getDokumentationbyTermin(int id) {
         return em.find(Termin.class, id).getDoko();
+    }
+
+    public Termin getDokoById(int id) {
+        Termin doku;
+        doku = em.find(Termin.class, id);
+        System.out.println("Doku: " + doku);
+        return doku;
     }
 
     /**
@@ -705,6 +709,7 @@ public class Repository {
      * @param p
      */
     public void changePassword(Person p) {
+        em.clear();
         String password = p.getPassword();
         p = em.find(Person.class, p.getId());
         p.setPassword(password);
@@ -806,12 +811,16 @@ public class Repository {
      */
     public List<Termin> getProtokollDetails(int id) {
         List<Termin> termin = new LinkedList();
-
+        List<Termin> terminWithDoku = new LinkedList();
         JRKEntitaet jrk = em.find(JRKEntitaet.class, id);
         System.out.println("here");
         termin = this.termineLayerDown(jrk, termin);
-
-        return termin;
+        for (Termin t : termin) {
+            if (t.getDoko() != null) {
+                terminWithDoku.add(t);
+            }
+        }
+        return terminWithDoku;
     }
 
     /**
@@ -932,6 +941,7 @@ public class Repository {
      * @return
      */
     public String deleteTermin(Termin t) {
+        em.clear();
         em.getTransaction().begin();
         Termin toRemove = em.merge(t);
         em.remove(toRemove);
@@ -947,8 +957,8 @@ public class Repository {
      */
     public String deleteInfo(Info i) {
         em.getTransaction().begin();
-        Info toRemove = em.merge(i);
-        em.remove(toRemove);
+
+        em.persist(p);
         em.getTransaction().commit();
         return "success";
     }

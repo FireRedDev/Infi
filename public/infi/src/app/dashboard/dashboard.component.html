@@ -107,7 +107,7 @@
           (changeViewTermin)="changeViewTermin($event)"></app-calendar-detail>
       </div>
       <div *ngIf="view =='showprotocol'">
-        <app-showprotocol [jrkEntitaet]="jrkEntitaet"></app-showprotocol>
+        <app-showprotocol [jrkEntitaet]="jrkEntitaet" (showProtocol)="showProtocol($event)"></app-showprotocol>
       </div>
       <div *ngIf="view =='planning'">
         <app-planning [calendarEntry]="calendarEntry" (changeView)="changeView($event)"></app-planning>
@@ -115,6 +115,10 @@
       <div *ngIf="view =='showplanning'">
         <app-showplanning [jrkEntitaet]="jrkEntitaet" (changeView)="changeView($event)"></app-showplanning>
       </div>
+      <div *ngIf="view=='protocolDetail'">
+        <app-protocol-detail [protocol]="protocol"></app-protocol-detail>
+      </div>
+
     </section>
   </div>
 </ng-sidebar-container>

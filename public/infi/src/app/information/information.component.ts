@@ -4,6 +4,9 @@ import { RestService } from '../rest.service';
 import { jrkEntitaet } from '../models/jrkEntitaet.model';
 import { EventEmitter } from '@angular/core';
 
+/**
+ * Component to edit and insert Information-Articles
+ */
 @Component({
   selector: 'app-information',
   templateUrl: './information.component.html',
@@ -29,6 +32,9 @@ export class InformationComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * save a new information
+   */
   save() {
     var imageType = /image.*/;
     if (this.file) {
@@ -60,6 +66,10 @@ export class InformationComponent implements OnInit {
 
   onSubmit() { this.submitted = true; }
 
+  /**
+   * Upload a file to an information
+   * @param e 
+   */
   fileUpload(e) {
     this.fileInput = document.getElementById('fileInput');
     this.file = this.fileInput.files

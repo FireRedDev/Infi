@@ -6,6 +6,9 @@ import { Benutzer } from './benutzer.model';
 import { Observable } from 'rxjs';
 import { RestService } from '../rest.service';
 
+/**
+ * Login Component
+ */
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -24,6 +27,10 @@ export class LoginFormComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Login 
+   * @param e 
+   */
   loginUser(e) {
     e.preventDefault();
     const email = e.target.elements[0].value;
@@ -56,7 +63,6 @@ export class LoginFormComponent implements OnInit {
           }
         },
         complete() {
-          //console.log('Completed');
         }
       });
   }

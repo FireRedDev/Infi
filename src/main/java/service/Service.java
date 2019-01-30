@@ -5,12 +5,10 @@ import entities.*;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import repository.Repository;
 import RestResponseClasses.PersonTokenTransferObject;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import javax.inject.Inject;
 import javax.ws.rs.core.Context;
+import repository.Repository;
 
 /**
  * REST-Request Service offering Authentication Methods, DB Object Managment and
@@ -41,6 +39,14 @@ public class Service {
     public String message() {
         System.out.println("messagefunction");
         return "INFI Jugendrotkreuz Server up and running..";
+    }
+
+    @Path("getDokuById/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public Termin getDokoById(@PathParam("id") int id) {
+        System.out.println("Looking for id: " + id);
+        return repo.getDokoById(id);
     }
 
     /**
@@ -666,8 +672,8 @@ public class Service {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @POST
-    public String deleteInfo(Info i) {
-        return "\"" + repo.deleteInfo(i) + "\"";
+    public String deleteInfo(Info i, @PathParam("id") int id) {
+        return "\"" + repo.deleteInfo(i, id) + "\"";
     }
 
     /**

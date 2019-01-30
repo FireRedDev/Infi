@@ -39,6 +39,46 @@
       </div>
       <div class="row">
         <div class="col-lg">
+          <label for="materialien">Materialien</label>
+          <input type="text" class="form-control" id="materialien" required [(ngModel)]="actProtokol.materialien"
+            name="materialien" #materialien="ngModel">
+          <div [hidden]="materialien.valid || materialien.pristine" class="alert alert-danger">
+            Materialien müssen eingegeben werden!
+          </div>
+
+        </div>
+        <br>
+        <div class="col-lg">
+          <label for="spiele">Spiele</label>
+          <input type="text" class="form-control" id="spiele" required [(ngModel)]="actProtokol.spiele"
+            name="spiele" #spiele="ngModel">
+          <div [hidden]="spiele.valid || spiele.pristine" class="alert alert-danger">
+            Spiele müssen eingegeben werden!
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg">
+          <label for="erkenntnisse">Erkenntnisse</label>
+          <input type="text" class="form-control" id="erkenntnisse" required [(ngModel)]="actProtokol.erkenntnisse"
+            name="erkenntnisse" #erkenntnisse="ngModel">
+          <div [hidden]="erkenntnisse.valid || erkenntnisse.pristine" class="alert alert-danger">
+            Erkenntnisse müssen eingegeben werden!
+          </div>
+
+        </div>
+        <br>
+        <div class="col-lg">
+          <label for="inhalt">Inhalt</label>
+          <input type="text" class="form-control" id="inhalt" required [(ngModel)]="actProtokol.inhalt"
+            name="inhalt" #inhalt="ngModel">
+          <div [hidden]="inhalt.valid || inhalt.pristine" class="alert alert-danger">
+            Inhalt muss eingegeben werden!
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg">
           <label for="s_date">Startdatum</label>
           <br>
           <input [owlDateTimeTrigger]="dtS" [owlDateTime]="dtS" dataType="string" [max]="e_date" hideClearButton=true

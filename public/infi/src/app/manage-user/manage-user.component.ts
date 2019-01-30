@@ -34,10 +34,16 @@ export class ManageUserComponent implements OnInit {
     });
   }
 
+  /**
+   * edit User
+   */
   edit(i: number) {
     this.persons[i].isEditable = true;
   }
 
+  /** 
+   * save User
+   */
   done(i: number) {
     this.persons[i].isEditable = false;
     var person = this.persons[i]
@@ -47,6 +53,10 @@ export class ManageUserComponent implements OnInit {
     });
   }
 
+  /**
+   * delete a person
+   * @param i 
+   */
   deletePerson(i: number) {
     this.rest.deletePerson(this.persons[i].id).subscribe(() => {
       this.rest.showSuccessMessage("Erfolg", "Person erfolgreich gelöscht!");
@@ -54,9 +64,17 @@ export class ManageUserComponent implements OnInit {
     this.persons.splice(i, 1);
   }
 
+  /**
+   * new User
+   */
   addUser() {
     this.changeView.emit("add-user");
   }
+
+  /**
+   * set JRKEntity
+   * @param id 
+   */
   set(id) {
     this.rest.getUsersLayerDownJRK(id).subscribe(data => {
       this.persons = data;

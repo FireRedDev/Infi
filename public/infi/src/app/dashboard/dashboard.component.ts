@@ -5,11 +5,20 @@ import {
 import { UserService } from '../user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestService } from '../rest.service';
+import { ProtocolDetailComponent } from '../protocol-detail/protocol-detail.component';
+/** JQuery */
 declare var jquery: any;
+/** is needed to use JQuery */
 declare var $: any;
 import { Termin } from '../models/termin';
 import { Info } from '../models/info';
 
+/**
+ * Dashboard Component
+ * 
+ * Navbar is in this Component
+ * The change of the component is done in the dashboard
+ */
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -28,8 +37,11 @@ export class DashboardComponent implements OnInit {
   calendarEntry = {};
   actTermin: Termin = new Termin(0, '', '', '', '', '', '');
   actInformation: Info = new Info(0, '', '', [], '');
+  protocol;
 
-  //einige Varbiablen zum konfifurieren der Sidebar
+  /**
+   * Variables for the Sidebar
+   */
   public _opened = false;
   public _modeNum = 0;
   public _positionNum = 0;
@@ -49,7 +61,9 @@ export class DashboardComponent implements OnInit {
   public _MODES: Array<string> = ['over', 'push', 'slide'];
   public _POSITIONS: Array<string> = ['left', 'right', 'top', 'bottom'];
 
-  //einige Funktionen für die Funktionalität der Sidebar
+  /**
+   * some Functions for the Sidebar
+   */
   public _toggleOpened(): void {
     this._opened = !this._opened;
   }
@@ -126,6 +140,9 @@ export class DashboardComponent implements OnInit {
     this.rest = rest;
   }
 
+  /**
+   * on init
+   */
   ngOnInit(): void {
     const body = localStorage.getItem('currentUser');
     this.rest.sendToken(body, localStorage.getItem('pushToken')).subscribe();
@@ -170,34 +187,72 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  //ändern der View
+  /**
+   * change view
+   * @param i 
+   */
   changeView(i) {
-
     this.view = i;
   }
+
+  /**
+   * show Detail
+   * @param i 
+   */
   showDetail(i) {
     this.calendarEntry = i;
     this.view = 'calendar-detail';
   }
+
+  /**
+   * change view to calendar view
+   * @param i 
+   */
   changeViewCalendar(i) {
     this.calendarEntry = i.item;
     this.view = i.view;
   }
+
+  /**
+   * change View to appointment view
+   * @param i 
+   */
   changeViewTermin(i) {
     this.actTermin = i.item;
     this.view = i.view;
   }
+
+  /**
+   * change View to Info view
+   * @param i 
+   */
   changeViewInfo(i) {
     debugger;
     this.actInformation = i.item;
     this.view = i.view;
   }
+
+  /**
+   * change View to Protocol view
+   */
   changeViewProtocol() {
     this.calendarEntry = null;
     this.view = 'protocol';
   }
 
-  //Password ändern
+  /**
+   * show protocol
+   * @param i id appointment
+   */
+  showProtocol(i) {
+    console.log("id" + i);
+    this.view = 'protocolDetail';
+    this.protocol = i;
+  }
+
+  /**
+   * change password
+   */
   changePwd() {
     if (this.password1 == this.password2 && this.password1 != "") {
       const body = { 'id': localStorage.getItem('currentUser'), 'password': this.password1 };
@@ -210,10 +265,18 @@ export class DashboardComponent implements OnInit {
       this.rest.showErrorMessage("Error", "Die beiden Passwörter sind nicht ident, versuche es nochmal!");
     }
   }
+
+  /**
+   * change appointment
+   */
   addTermin() {
     this.view = 'termin';
     this.actTermin = new Termin(0, '', '', '', '', '', '');
   }
+
+  /**
+   * Information hinzufügen
+   */
   addInfo() {
     this.view = 'info';
     this.actInformation = new Info(0, '', '', [], '');

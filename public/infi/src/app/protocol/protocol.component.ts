@@ -7,7 +7,6 @@ import { DateTimeAdapter, OWL_DATE_TIME_LOCALE, OwlDateTimeIntl } from 'ng-pick-
 import { NativeDateTimeAdapter } from 'ng-pick-datetime/date-time/adapter/native-date-time-adapter.class';
 import { Platform } from '@angular/cdk/platform';
 
-// here is the default text string
 export class GermanItl extends OwlDateTimeIntl {
   /** A label for the up second button (used by screen readers).  */
   upSecondLabel = 'Sekunde mehr';
@@ -70,6 +69,9 @@ export class GermanItl extends OwlDateTimeIntl {
   hour12PMLabel = 'PM';
 }
 
+/**
+ * Component for writing Protocols
+ */
 @Component({
   selector: 'app-protocol',
   templateUrl: './protocol.component.html',
@@ -100,6 +102,11 @@ export class ProtocolComponent implements OnInit {
   @Input() calendarEntry;
   dateTime: Date;
 
+  /**
+   * get the Appointments where no Documentation is writen
+   * get all Children of this JRKEntiy
+   * get all Supervisors of this JRKEnity
+   */
   ngOnInit() {
     const body = localStorage.getItem('currentUser');
     this.rest.getOpenDoko(body)
@@ -122,14 +129,17 @@ export class ProtocolComponent implements OnInit {
       });
   }
 
+  /**
+   * save the Documentation
+   */
   save() {
-    console.log("ja")
     var actTermin = this.actTermin
     actTermin.s_date = new Date(this.s_date).toISOString().substr(0, 19).replace('T', ' ');
     actTermin.e_date = new Date(this.e_date).toISOString().substr(0, 19).replace('T', ' ');
     this.actProtokol.kinderliste = this.getListe("check");
     this.actProtokol.betreuer = this.getListe("check2");
     actTermin.doko = this.actProtokol;
+    console.log(this.actProtokol)
     this.rest.insertDoku(actTermin)
       .subscribe(data => {
         this.changeView.emit('month');
@@ -137,12 +147,15 @@ export class ProtocolComponent implements OnInit {
 
   }
 
-  actProtokol: Protokoll = new Protokoll(0, null, null, '', 'Soziales');
+  actProtokol: Protokoll = new Protokoll(0, null, null, '', '','','','','Soziales');
   actTermin: Termin = new Termin();
   submitted = false;
 
   onSubmit() { this.submitted = true; }
 
+  /**
+   * Choose Appointment
+   */
   setTermin(id: any): void {
     var index;
     for (index = 0; index < this.term.length; ++index) {
@@ -168,9 +181,12 @@ export class ProtocolComponent implements OnInit {
   s_date;
   e_date;
 
+  /**
+   * Method to rewrite the html-lists for the saving
+   * @param name 
+   */
   getListe(name) {
     var list = [];
-    console.log("here")
     let htmlOption = (document.getElementsByClassName(name) as HTMLCollection);
 
     for (var i = 0; i < htmlOption.length; i++) {
@@ -182,6 +198,12 @@ export class ProtocolComponent implements OnInit {
     }
     return list;
   }
+
+  /**
+   * Is the Checkbox checked?
+   * @param vorname Firstname
+   * @param nachname Lastname
+   */
   getValueChecked(vorname, nachname) {
     for (var i = 0; i < this.array.length; i++) {
       if ((vorname + " " + nachname) == this.array[i]) {
@@ -190,6 +212,10 @@ export class ProtocolComponent implements OnInit {
     }
   }
 
+  /**
+   * add a children to the dokumentation
+   * @param event 
+   */
   addChild(event) {
     this.listArray = this.newChild.split(" ");
     this.children.push({ vorname: this.listArray[0], nachname: this.listArray[1] });
@@ -214,6 +240,9 @@ export class ProtocolComponent implements OnInit {
     this.betreuer.splice(index, 1);
   }
 
+  /**
+   * 
+   */
   getFirstDate(): Termin {
     if (this.calendarEntry != null && this.calendarEntry != {}) {
       return this.calendarEntry.termin;

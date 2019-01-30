@@ -1,0 +1,995 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>infi-pwa documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">infi-pwa documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>CalendarDetailComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/calendar-detail/calendar-detail.component.ts</code>
+</p>
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Show Appointments of one specific day</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-calendar-detail</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./calendar-detail.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./calendar-detail.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#isEditor">isEditor</a>
+                            </li>
+                            <li>
+                                <a href="#isGruppenleiter">isGruppenleiter</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#rest">rest</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#changeTermin">changeTermin</a>
+                            </li>
+                            <li>
+                                <a href="#changeViewCalendarDetail">changeViewCalendarDetail</a>
+                            </li>
+                            <li>
+                                <a href="#deleteTermin">deleteTermin</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#calendarEntry">calendarEntry</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#changeViewCalendar">changeViewCalendar</a>
+                            </li>
+                            <li>
+                                <a href="#changeViewTermin">changeViewTermin</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(rest: <a href="../injectables/RestService.html">RestService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:27</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>rest</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/RestService.html" target="_self" >RestService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <code><p>RestService</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="calendarEntry"></a>
+                        <code>calendarEntry</code>
+                    </td>
+                    <td class="col-md-10">
+                        <div><p>Input are the shown calendar entries </p>
+</div>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:20</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="changeViewCalendar"></a>
+                        <code>changeViewCalendar</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code><a href="https://angular.io/api/core/EventEmitter" target="_blank" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:22</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="changeViewTermin"></a>
+                        <code>changeViewTermin</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code><a href="https://angular.io/api/core/EventEmitter" target="_blank" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:23</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="changeTermin"></a>
+                        <span class="name">
+                            <b>
+                            changeTermin
+                            </b>
+                            <a href="#changeTermin"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>changeTermin(item)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:78</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>change View to Termin view</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>item</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>current Appointment</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="changeViewCalendarDetail"></a>
+                        <span class="name">
+                            <b>
+                            changeViewCalendarDetail
+                            </b>
+                            <a href="#changeViewCalendarDetail"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>changeViewCalendarDetail(view, item)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:60</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>change view to calendar detail view</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>view</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>View</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>item</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>current Appointment</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="deleteTermin"></a>
+                        <span class="name">
+                            <b>
+                            deleteTermin
+                            </b>
+                            <a href="#deleteTermin"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>deleteTermin(item)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:68</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>delete a Appointment</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>item</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>current Appointment</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnInit"></a>
+                        <span class="name">
+                            <b>
+                            ngOnInit
+                            </b>
+                            <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnInit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:41</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>is this User Editor?
+is this User group leader?</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isEditor"></a>
+                        <span class="name">
+                            <b>
+                            isEditor
+                            </b>
+                            <a href="#isEditor"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>isEditor:     <code></code>
+</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:25</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>is this Person Editor </p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isGruppenleiter"></a>
+                        <span class="name">
+                            <b>
+                            isGruppenleiter
+                            </b>
+                            <a href="#isGruppenleiter"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>isGruppenleiter:     <code></code>
+</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:27</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>is this Person Gruppenleiter </p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rest"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            rest
+                            </b>
+                            <a href="#rest"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>rest:     <code><a href="../injectables/RestService.html" target="_self" >RestService</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../injectables/RestService.html" target="_self" >RestService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:33</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description">RestService</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { RestService } from &#x27;../rest.service&#x27;;
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter
+} from &#x27;@angular/core&#x27;;
+
+/**
+ * Show Appointments of one specific day
+ */
+@Component({
+  selector: &#x27;app-calendar-detail&#x27;,
+  templateUrl: &#x27;./calendar-detail.component.html&#x27;,
+  styleUrls: [&#x27;./calendar-detail.component.css&#x27;]
+})
+export class CalendarDetailComponent implements OnInit {
+  /** Input are the shown calendar entries */
+  @Input() calendarEntry;
+
+  @Output() changeViewCalendar &#x3D; new EventEmitter();
+  @Output() changeViewTermin &#x3D; new EventEmitter();
+  /** is this Person Editor */
+  isEditor;
+  /** is this Person Gruppenleiter */
+  isGruppenleiter
+
+  /**
+   * Constructor
+   * @param rest RestService
+   */
+  constructor(public rest: RestService) {
+    this.rest &#x3D; rest;
+  }
+
+  /**
+   * is this User Editor?
+   * is this User group leader?
+   */
+  ngOnInit() {
+    const body &#x3D; localStorage.getItem(&#x27;currentUser&#x27;);
+
+    this.rest.isEditor(body)
+      .subscribe(data &#x3D;&gt; {
+        this.isEditor &#x3D; (data &#x3D;&#x3D;&#x3D; true);
+      });
+
+    this.rest.isGruppenleiter(body)
+      .subscribe(data &#x3D;&gt; {
+        this.isGruppenleiter &#x3D; (data &#x3D;&#x3D;&#x3D; true);
+      });
+  }
+
+  /**
+   * change view to calendar detail view
+   * @param view View
+   * @param item current Appointment
+   */
+  changeViewCalendarDetail(view, item) {
+    this.changeViewCalendar.emit({ &quot;view&quot;: view, &quot;item&quot;: item });
+  }
+
+  /**
+   * delete a Appointment
+   * @param item current Appointment
+   */
+  deleteTermin(item) {
+    this.rest.deleteTermin(item.termin).subscribe(data &#x3D;&gt; {
+      console.log(data);
+    });
+  }
+
+  /**
+   * change View to Termin view
+   * @param item current Appointment
+   */
+  changeTermin(item) {
+    this.changeViewTermin.emit({ &quot;view&quot;: &quot;termin&quot;, &quot;item&quot;: item.termin });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;row&quot;&gt;
+  &lt;div *ngFor&#x3D;&quot;let item of calendarEntry.events; let i &#x3D; index&quot; class&#x3D;&quot;col-xl-6 col-lg-12 col-md-12 col-sm-12 col-xs-12&quot;&gt;
+    &lt;div class&#x3D;&quot;card-box&quot;&gt;
+      &lt;div class&#x3D;&quot;card-title&quot;&gt;
+        &lt;h2&gt;
+          &lt;div [innerHTML]&#x3D;&#x27;item.title&#x27;&gt;&lt;/div&gt;
+        &lt;/h2&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;card-body&quot;&gt;
+        &lt;b&gt;Beschreibung:&lt;/b&gt;
+        &lt;div [innerHTML]&#x3D;&#x27;item.beschreibung&#x27;&gt;&lt;/div&gt;
+        &lt;br&gt;
+        &lt;b&gt;Ort:&lt;/b&gt;
+        &lt;div [innerHTML]&#x3D;&#x27;item.ort&#x27;&gt;&lt;/div&gt;
+        &lt;br&gt;
+        &lt;b&gt;Startdatum:&lt;/b&gt;
+        &lt;div [innerHTML]&#x3D;&#x27;item.start.toLocaleString()&#x27;&gt;&lt;/div&gt;
+        &lt;b&gt;Enddatum:&lt;/b&gt;
+        &lt;div [innerHTML]&#x3D;&#x27;item.end.toLocaleString()&#x27;&gt;&lt;/div&gt;
+        &lt;img src&#x3D;&#x27;{{item.imagePath}}&#x27;&gt;
+        &lt;b *ngIf&#x3D;&quot;item.termin.planning&quot;&gt;Planung:&lt;/b&gt;
+        &lt;div *ngIf&#x3D;&quot;item.termin.planning&quot; [innerHTML]&#x3D;&quot;item.termin.planning.plannung&quot;&gt;&lt;/div&gt;
+        &lt;div *ngIf&#x3D;&quot;isGruppenleiter&amp;&amp;item.termin.teilnehmer!&#x3D;&#x27;&#x27;&quot;&gt;Es kommen: {{item.termin.teilnehmer}}&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;btn-group btn-group-sm&quot; role&#x3D;&quot;group&quot; aria-label&#x3D;&quot;Basic example&quot;&gt;
+        &lt;button (click)&#x3D;&quot;changeViewCalendarDetail(&#x27;protocol&#x27;,item)&quot; class&#x3D;&quot;btn btn-secondary&quot; *ngIf&#x3D;&quot;isEditor&quot;&gt;Protokoll
+          schreiben&lt;/button&gt;
+        &lt;button (click)&#x3D;&quot;changeViewCalendarDetail(&#x27;planning&#x27;,item)&quot; class&#x3D;&quot;btn btn-secondary&quot; *ngIf&#x3D;&quot;isEditor&quot;&gt;Planung
+          schreiben&lt;/button&gt;
+        &lt;button (click)&#x3D;&quot;changeTermin(item)&quot; class&#x3D;&quot;btn btn-secondary&quot; *ngIf&#x3D;&quot;isEditor&quot;&gt;Termin bearbeiten&lt;/button&gt;
+        &lt;button (click)&#x3D;&quot;deleteTermin(item)&quot; class&#x3D;&quot;btn btn-secondary&quot; *ngIf&#x3D;&quot;isEditor&quot;&gt;Termin löschen&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./calendar-detail.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.container {
+  text-align: left;
+  width: 100%;
+  height: 300px;
+}
+
+#imageSize {
+  max-width: 400px;
+  max-height: 280px;
+}
+
+.card-box {
+  background-color: white;
+  color: black;
+  z-index: 1000;
+  padding: 1%;
+  margin: 2%;
+}
+
+.card-box {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  margin-top: 7%;
+  padding: 10px;
+}
+
+.card-deck {
+  padding: 10px;
+}
+
+.card-title {
+  margin: 10px;
+}
+
+img {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="row">  <div *ngFor="let item of calendarEntry.events; let i = index" class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-xs-12">    <div class="card-box">      <div class="card-title">        <h2>          <div [innerHTML]=\'item.title\'></div>        </h2>      </div>      <div class="card-body">        <b>Beschreibung:</b>        <div [innerHTML]=\'item.beschreibung\'></div>        <br>        <b>Ort:</b>        <div [innerHTML]=\'item.ort\'></div>        <br>        <b>Startdatum:</b>        <div [innerHTML]=\'item.start.toLocaleString()\'></div>        <b>Enddatum:</b>        <div [innerHTML]=\'item.end.toLocaleString()\'></div>        <img src=\'{{item.imagePath}}\'>        <b *ngIf="item.termin.planning">Planung:</b>        <div *ngIf="item.termin.planning" [innerHTML]="item.termin.planning.plannung"></div>        <div *ngIf="isGruppenleiter&&item.termin.teilnehmer!=\'\'">Es kommen: {{item.termin.teilnehmer}}</div>      </div>      <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">        <button (click)="changeViewCalendarDetail(\'protocol\',item)" class="btn btn-secondary" *ngIf="isEditor">Protokoll          schreiben</button>        <button (click)="changeViewCalendarDetail(\'planning\',item)" class="btn btn-secondary" *ngIf="isEditor">Planung          schreiben</button>        <button (click)="changeTermin(item)" class="btn btn-secondary" *ngIf="isEditor">Termin bearbeiten</button>        <button (click)="deleteTermin(item)" class="btn btn-secondary" *ngIf="isEditor">Termin löschen</button>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AddUserComponent', 'selector': 'add-user'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CalendarDetailComponent', 'selector': 'app-calendar-detail'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DateTimePickerComponent', 'selector': 'mwl-demo-utils-date-time-picker'},{'name': 'DiagramsComponent', 'selector': 'app-diagrams'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InformationComponent', 'selector': 'app-information'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'ManageUserComponent', 'selector': 'manage-user'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PlanningComponent', 'selector': 'app-planning'},{'name': 'ProtocolComponent', 'selector': 'app-protocol'},{'name': 'ProtocolDetailComponent', 'selector': 'app-protocol-detail'},{'name': 'ShowplanningComponent', 'selector': 'app-showplanning'},{'name': 'ShowprotocolComponent', 'selector': 'app-showprotocol'},{'name': 'TerminComponent', 'selector': 'app-termin'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'CalendarDetailComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CalendarDetailComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

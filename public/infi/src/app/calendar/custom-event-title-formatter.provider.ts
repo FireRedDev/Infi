@@ -1,6 +1,8 @@
-//Termin Beschreibung formtieren
 import { CalendarEventTitleFormatter, CalendarEvent } from 'angular-calendar';
 
+/**
+ * format the description
+ */
 export class CustomEventTitleFormatter extends CalendarEventTitleFormatter {
   constructor() {
     super();

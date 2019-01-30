@@ -1,10 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest } from '@angular/common/http';
+/**
+ * Auth Service
+ */
 @Injectable()
 export class AuthService {
+  /**
+   * get the Token
+   */
   public getToken(): string {
     return localStorage.getItem('token');
   }
+  /**
+   * is this User Authenticated
+   */
   public isAuthenticated(): boolean {
     // get the token
     const token = this.getToken();

@@ -1,0 +1,1255 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>infi-pwa documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">infi-pwa documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>TerminComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/termin/termin.component.ts</code>
+</p>
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Component for insert and edit Appointments</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code>{ provide: OWL_DATE_TIME_LOCALE, useValue:  }</code>
+                            <code>{ provide: DateTimeAdapter, useClass: NativeDateTimeAdapter, deps: [OWL_DATE_TIME_LOCALE, Platform] }</code>
+                            <code><a href="../classes/GermanItl.html" target="_self" >{ provide: OwlDateTimeIntl, useClass: GermanItl }</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-termin</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./termin.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./termin.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#e_date">e_date</a>
+                            </li>
+                            <li>
+                                <a href="#file">file</a>
+                            </li>
+                            <li>
+                                <a href="#fileDisplayArea">fileDisplayArea</a>
+                            </li>
+                            <li>
+                                <a href="#fileerror">fileerror</a>
+                            </li>
+                            <li>
+                                <a href="#fileInput">fileInput</a>
+                            </li>
+                            <li>
+                                <a href="#imgpath">imgpath</a>
+                            </li>
+                            <li>
+                                <a href="#s_date">s_date</a>
+                            </li>
+                            <li>
+                                <a href="#submitted">submitted</a>
+                            </li>
+                            <li>
+                                <a href="#success">success</a>
+                            </li>
+                            <li>
+                                <a href="#uploaded">uploaded</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#fileUpload">fileUpload</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit">onSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#save">save</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#actTermin">actTermin</a>
+                            </li>
+                            <li>
+                                <a href="#jrkEntitaet">jrkEntitaet</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#changeView">changeView</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(rest: <a href="../injectables/RestService.html">RestService</a>, dateTimeAdapter: DateTimeAdapter<any>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">src/app/termin/termin.component.ts:101</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>rest</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/RestService.html" target="_self" >RestService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dateTimeAdapter</td>
+                                                  
+                                                        <td>
+                                                                    <code>DateTimeAdapter&lt;any&gt;</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="actTermin"></a>
+                        <code>actTermin</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="../interfaces/Termin.html" target="_self" >Termin</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/app/termin/termin.component.ts:91</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="jrkEntitaet"></a>
+                        <code>jrkEntitaet</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="../classes/jrkEntitaet.html" target="_self" >jrkEntitaet</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">src/app/termin/termin.component.ts:89</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="changeView"></a>
+                        <code>changeView</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;string&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/app/termin/termin.component.ts:90</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="fileUpload"></a>
+                        <span class="name">
+                            <b>
+                            fileUpload
+                            </b>
+                            <a href="#fileUpload"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>fileUpload(e)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="154" class="link-to-prism">src/app/termin/termin.component.ts:154</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Upload the file</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>e</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>event</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnInit"></a>
+                        <span class="name">
+                            <b>
+                            ngOnInit
+                            </b>
+                            <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnInit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="108" class="link-to-prism">src/app/termin/termin.component.ts:108</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onSubmit"></a>
+                        <span class="name">
+                            <b>
+                            onSubmit
+                            </b>
+                            <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>onSubmit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="148" class="link-to-prism">src/app/termin/termin.component.ts:148</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="save"></a>
+                        <span class="name">
+                            <b>
+                            save
+                            </b>
+                            <a href="#save"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>save()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="118" class="link-to-prism">src/app/termin/termin.component.ts:118</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Save a Appointment
+the dates have to be changed to a other format
+difference between update and insert</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="e_date"></a>
+                        <span class="name">
+                            <b>
+                            e_date
+                            </b>
+                            <a href="#e_date"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>e_date:     <code></code>
+</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="100" class="link-to-prism">src/app/termin/termin.component.ts:100</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="file"></a>
+                        <span class="name">
+                            <b>
+                            file
+                            </b>
+                            <a href="#file"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>file:     <code></code>
+</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">src/app/termin/termin.component.ts:98</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="fileDisplayArea"></a>
+                        <span class="name">
+                            <b>
+                            fileDisplayArea
+                            </b>
+                            <a href="#fileDisplayArea"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>fileDisplayArea:     <code></code>
+</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">src/app/termin/termin.component.ts:95</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="fileerror"></a>
+                        <span class="name">
+                            <b>
+                            fileerror
+                            </b>
+                            <a href="#fileerror"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>fileerror:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">src/app/termin/termin.component.ts:96</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="fileInput"></a>
+                        <span class="name">
+                            <b>
+                            fileInput
+                            </b>
+                            <a href="#fileInput"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>fileInput:     <code></code>
+</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">src/app/termin/termin.component.ts:94</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="imgpath"></a>
+                        <span class="name">
+                            <b>
+                            imgpath
+                            </b>
+                            <a href="#imgpath"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>imgpath:     <code></code>
+</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="97" class="link-to-prism">src/app/termin/termin.component.ts:97</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="s_date"></a>
+                        <span class="name">
+                            <b>
+                            s_date
+                            </b>
+                            <a href="#s_date"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>s_date:     <code></code>
+</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">src/app/termin/termin.component.ts:101</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="submitted"></a>
+                        <span class="name">
+                            <b>
+                            submitted
+                            </b>
+                            <a href="#submitted"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>submitted:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="146" class="link-to-prism">src/app/termin/termin.component.ts:146</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="success"></a>
+                        <span class="name">
+                            <b>
+                            success
+                            </b>
+                            <a href="#success"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>success:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">src/app/termin/termin.component.ts:93</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="uploaded"></a>
+                        <span class="name">
+                            <b>
+                            uploaded
+                            </b>
+                            <a href="#uploaded"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>uploaded:     <code></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="99" class="link-to-prism">src/app/termin/termin.component.ts:99</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Input, Output, ChangeDetectionStrategy } from &#x27;@angular/core&#x27;;
+import { Termin } from &#x27;../models/termin&#x27;;
+import { RestService } from &#x27;../rest.service&#x27;;
+import { jrkEntitaet } from &#x27;../models/jrkEntitaet.model&#x27;;
+import { EventEmitter } from &#x27;@angular/core&#x27;;
+import { DateTimeAdapter, OWL_DATE_TIME_LOCALE, OwlDateTimeIntl } from &#x27;ng-pick-datetime&#x27;;
+import { NativeDateTimeAdapter } from &#x27;ng-pick-datetime/date-time/adapter/native-date-time-adapter.class&#x27;;
+import { Platform } from &#x27;@angular/cdk/platform&#x27;;
+
+export class GermanItl extends OwlDateTimeIntl {
+  /** A label for the up second button (used by screen readers).  */
+  upSecondLabel &#x3D; &#x27;Sekunde mehr&#x27;;
+
+  /** A label for the down second button (used by screen readers).  */
+  downSecondLabel &#x3D; &#x27;Sekunde weniger&#x27;;
+
+  /** A label for the up minute button (used by screen readers).  */
+  upMinuteLabel &#x3D; &#x27;Minute mehr&#x27;;
+
+  /** A label for the down minute button (used by screen readers).  */
+  downMinuteLabel &#x3D; &#x27;Minute weniger&#x27;;
+
+  /** A label for the up hour button (used by screen readers).  */
+  upHourLabel &#x3D; &#x27;Stunde mehr&#x27;;
+
+  /** A label for the down hour button (used by screen readers).  */
+  downHourLabel &#x3D; &#x27;Stunde weniger&#x27;;
+
+  /** A label for the previous month button (used by screen readers). */
+  prevMonthLabel &#x3D; &#x27;Monat davor&#x27;;
+
+  /** A label for the next month button (used by screen readers). */
+  nextMonthLabel &#x3D; &#x27;Monat danach&#x27;;
+
+  /** A label for the previous year button (used by screen readers). */
+  prevYearLabel &#x3D; &#x27;Jahr davor&#x27;;
+
+  /** A label for the next year button (used by screen readers). */
+  nextYearLabel &#x3D; &#x27;nächstes Jahr&#x27;;
+
+  /** A label for the previous multi-year button (used by screen readers). */
+  prevMultiYearLabel &#x3D; &#x27;21 Jahre davor&#x27;;
+
+  /** A label for the next multi-year button (used by screen readers). */
+  nextMultiYearLabel &#x3D; &#x27;21 Jahre danach&#x27;;
+
+  /** A label for the &#x27;switch to month view&#x27; button (used by screen readers). */
+  switchToMonthViewLabel &#x3D; &#x27;Zu Monatsansicht wechseln&#x27;;
+
+  /** A label for the &#x27;switch to year view&#x27; button (used by screen readers). */
+  switchToMultiYearViewLabel &#x3D; &#x27;Monat und Jahr auswählen&#x27;;
+
+  /** A label for the cancel button */
+  cancelBtnLabel &#x3D; &#x27;Schließen&#x27;;
+
+  /** A label for the set button */
+  setBtnLabel &#x3D; &#x27;Setzten&#x27;;
+
+  /** A label for the range &#x27;from&#x27; in picker info */
+  rangeFromLabel &#x3D; &#x27;von&#x27;;
+
+  /** A label for the range &#x27;to&#x27; in picker info */
+  rangeToLabel &#x3D; &#x27;bis&#x27;;
+
+  /** A label for the hour12 button (AM) */
+  hour12AMLabel &#x3D; &#x27;AM&#x27;;
+
+  /** A label for the hour12 button (PM) */
+  hour12PMLabel &#x3D; &#x27;PM&#x27;;
+}
+
+/**
+ * Component for insert and edit Appointments
+ */
+@Component({
+  selector: &#x27;app-termin&#x27;,
+  templateUrl: &#x27;./termin.component.html&#x27;,
+  styleUrls: [&#x27;./termin.component.css&#x27;],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    // The locale would typically be provided on the root module of your application. We do it at
+    // the component level here, due to limitations of our example generation script.
+    { provide: OWL_DATE_TIME_LOCALE, useValue: &#x27;de&#x27; },
+    { provide: DateTimeAdapter, useClass: NativeDateTimeAdapter, deps: [OWL_DATE_TIME_LOCALE, Platform] },
+    { provide: OwlDateTimeIntl, useClass: GermanItl },
+  ],
+})
+export class TerminComponent implements OnInit {
+  @Input() jrkEntitaet: jrkEntitaet;
+  @Output() changeView: EventEmitter&lt;string&gt; &#x3D; new EventEmitter();
+  @Input() actTermin: Termin;
+
+  success &#x3D; false;
+  fileInput;
+  fileDisplayArea;
+  fileerror &#x3D; false;
+  imgpath;
+  file;
+  uploaded &#x3D; false
+  e_date;
+  s_date;
+
+  constructor(private rest: RestService, dateTimeAdapter: DateTimeAdapter&lt;any&gt;) {
+    this.rest &#x3D; rest;
+    dateTimeAdapter.setLocale(&#x27;de-De&#x27;);
+  }
+
+  ngOnInit() {
+    this.s_date &#x3D; new Date(this.actTermin.s_date)
+    this.e_date &#x3D; new Date(this.actTermin.e_date)
+  }
+
+  /**
+   * Save a Appointment
+   * the dates have to be changed to a other format
+   * difference between update and insert
+   */
+  save() {
+    var actTermin &#x3D; this.actTermin
+    actTermin.s_date &#x3D; new Date(this.s_date).toISOString().substr(0, 19).replace(&#x27;T&#x27;, &#x27; &#x27;);
+    actTermin.e_date &#x3D; new Date(this.e_date).toISOString().substr(0, 19).replace(&#x27;T&#x27;, &#x27; &#x27;);
+    if (this.file !&#x3D;&#x3D; undefined) {
+      actTermin.imgpath &#x3D; &quot;http://localhost:8080/upload_image/&quot; + this.file[0].name;
+    }
+    if (!this.fileerror) {
+      if (actTermin.id !&#x3D; 0) {
+        this.rest.changeTermin(this.actTermin)
+          .subscribe(data &#x3D;&gt; {
+            this.rest.showSuccessMessage(&quot;Erfolg&quot;, &quot;Termin eingefügt&quot;);
+            this.changeView.emit(&quot;month&quot;);
+          });
+        this.success &#x3D; true;
+      }
+      else {
+        this.rest.insertTermin(this.jrkEntitaet, this.actTermin)
+          .subscribe(data &#x3D;&gt; {
+            this.rest.showSuccessMessage(&quot;Erfolg&quot;, &quot;Termin eingefügt&quot;);
+            this.changeView.emit(&quot;month&quot;);
+          });
+        this.success &#x3D; true;
+      }
+    }
+  }
+
+
+  submitted &#x3D; false;
+
+  onSubmit() { this.submitted &#x3D; true; }
+
+  /**
+   * Upload the file
+   * @param e event
+   */
+  fileUpload(e) {
+    this.fileerror &#x3D; false;
+    this.fileInput &#x3D; document.getElementById(&#x27;fileInput&#x27;);
+    this.file &#x3D; this.fileInput.files
+    var file &#x3D; this.fileInput.files[0]
+    var rest &#x3D; this.rest;
+    var imageType &#x3D; /image.*/;
+    if (file.type.match(imageType) &amp;&amp; this.file[0].size &lt; 1097152) {
+      var reader &#x3D; new FileReader();
+
+      reader.onload &#x3D; function (e) {
+        var dataURI &#x3D; reader.result;
+        //https://stackoverflow.com/questions/12168909/blob-from-dataurl
+        // convert base64 to raw binary data held in a string
+        // doesn&#x27;t handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+        var byteString &#x3D; atob(dataURI.split(&#x27;,&#x27;)[1]);
+
+        // separate out the mime component
+        var mimeString &#x3D; dataURI.split(&#x27;,&#x27;)[0].split(&#x27;:&#x27;)[1].split(&#x27;;&#x27;)[0]
+
+        // write the bytes of the string to an ArrayBuffer
+        var ab &#x3D; new ArrayBuffer(byteString.length);
+
+        // create a view into the buffer
+        var ia &#x3D; new Uint8Array(ab);
+
+        // set the bytes of the buffer to the correct values
+        for (var i &#x3D; 0; i &lt; byteString.length; i++) {
+          ia[i] &#x3D; byteString.charCodeAt(i);
+        }
+
+        // write the ArrayBuffer to a blob, and you&#x27;re done
+        var blob &#x3D; new Blob([ab], { type: mimeString });
+
+        rest.uploadImage(blob, file.name)
+          .subscribe(data &#x3D;&gt; {
+            console.log(&quot;insertImage&quot;)
+            rest.showSuccessMessage(&quot;Erfolg&quot;, &quot;Bild hochgeladen&quot;)
+          });
+
+      }
+
+      reader.readAsDataURL(file);
+    } else {
+      this.fileDisplayArea &#x3D; &quot;File not supported!&quot;;
+      this.fileerror &#x3D; true;
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;form (ngSubmit)&#x3D;&quot;onSubmit()&quot; #terminForm&#x3D;&quot;ngForm&quot;&gt;
+  &lt;div class&#x3D;&quot;form-group&quot;&gt;
+    &lt;label for&#x3D;&quot;title&quot;&gt;Titel&lt;/label&gt;
+    &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; id&#x3D;&quot;title&quot; required [(ngModel)]&#x3D;&quot;actTermin.title&quot; name&#x3D;&quot;title&quot; #title&#x3D;&quot;ngModel&quot;&gt;
+    &lt;div [hidden]&#x3D;&quot;title.valid || title.pristine&quot; class&#x3D;&quot;alert alert-danger&quot;&gt;
+      Titel muss eingegeben werden!
+    &lt;/div&gt;
+    &lt;br&gt;
+    &lt;label for&#x3D;&quot;beschreibung&quot;&gt;Beschreibung&lt;/label&gt;
+    &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; id&#x3D;&quot;beschreibung&quot; required [(ngModel)]&#x3D;&quot;actTermin.beschreibung&quot; name&#x3D;&quot;beschreibung&quot;
+      #beschreibung&#x3D;&quot;ngModel&quot;&gt;
+    &lt;div [hidden]&#x3D;&quot;beschreibung.valid || beschreibung.pristine&quot; class&#x3D;&quot;alert alert-danger&quot;&gt;
+      Beschreibung muss eingegeben werden!
+    &lt;/div&gt;
+    &lt;br&gt;
+    &lt;label for&#x3D;&quot;ort&quot;&gt;Ort&lt;/label&gt;
+    &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;form-control&quot; id&#x3D;&quot;ort&quot; required [(ngModel)]&#x3D;&quot;actTermin.ort&quot; name&#x3D;&quot;ort&quot; #ort&#x3D;&quot;ngModel&quot;&gt;
+    &lt;div [hidden]&#x3D;&quot;ort.valid || ort.pristine&quot; class&#x3D;&quot;alert alert-danger&quot;&gt;
+      Ort muss eingegeben werden!
+    &lt;/div&gt;
+    &lt;br&gt;
+    &lt;label for&#x3D;&quot;s_date&quot;&gt;Startdatum&lt;/label&gt;
+    &lt;br&gt;
+    &lt;input [owlDateTimeTrigger]&#x3D;&quot;dtS&quot; [owlDateTime]&#x3D;&quot;dtS&quot; dataType&#x3D;&quot;string&quot; hideClearButton&#x3D;true [max]&#x3D;&quot;e_date&quot;
+      dateFormat&#x3D;&quot;YYYY-MM-DD HH:mm:ss&quot; autoclose&#x3D;&quot;true&quot; class&#x3D;&quot;form-control&quot; id&#x3D;&quot;s_date&quot; required [(ngModel)]&#x3D;&quot;s_date&quot;
+      name&#x3D;&quot;s_date&quot; #sdate&#x3D;&quot;ngModel&quot;&gt;
+    &lt;owl-date-time #dtS&gt;&lt;/owl-date-time&gt;
+    &lt;div [hidden]&#x3D;&quot;sdate.valid || sdate.pristine&quot; class&#x3D;&quot;alert alert-danger&quot;&gt;
+      Startdatum muss eingegeben werden!
+    &lt;/div&gt;
+    &lt;br&gt;
+    &lt;label for&#x3D;&quot;e_date&quot;&gt;Enddatum&lt;/label&gt;
+    &lt;br&gt;
+    &lt;input [owlDateTimeTrigger]&#x3D;&quot;dtE&quot; [owlDateTime]&#x3D;&quot;dtE&quot; dataType&#x3D;&quot;string&quot; hideClearButton&#x3D;true [min]&#x3D;&quot;s_date&quot;
+      dateFormat&#x3D;&quot;YYYY-MM-DD HH:mm:ss&quot; autoclose&#x3D;&quot;true&quot; class&#x3D;&quot;form-control&quot; id&#x3D;&quot;e_date&quot; required [(ngModel)]&#x3D;&quot;e_date&quot;
+      name&#x3D;&quot;e_date&quot; #edate&#x3D;&quot;ngModel&quot;&gt;
+    &lt;owl-date-time #dtE&gt;&lt;/owl-date-time&gt;
+    &lt;div [hidden]&#x3D;&quot;edate.valid || edate.pristine&quot; class&#x3D;&quot;alert alert-danger&quot;&gt;
+      Enddatum muss eingegeben werden!
+    &lt;/div&gt;
+    &lt;input type&#x3D;&quot;file&quot; class&#x3D;&quot;form-control&quot; id&#x3D;&quot;fileInput&quot; name&#x3D;&quot;fileUpload&quot; (change)&#x3D;&quot;fileUpload($event)&quot;&gt;
+    &lt;div [hidden]&#x3D;&quot;!fileerror&quot; class&#x3D;&quot;alert alert-danger&quot;&gt;
+      Bild muss unter 1MB liegen!
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-success&quot; [disabled]&#x3D;&quot;!terminForm.form.valid&quot; (click)&#x3D;&quot;save()&quot;&gt;einfügen&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./termin.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #00FF48; /* green */
+}
+
+.ng-invalid:not(form)  {
+    border-left: 5px solid red; /* red */
+}
+input.ng-tns-c8-5.owl-datetime-input.owl-datetime-main-input {
+    border: none;
+}
+
+.alert {
+    padding: 0.2em !important;
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><form (ngSubmit)="onSubmit()" #terminForm="ngForm">  <div class="form-group">    <label for="title">Titel</label>    <input type="text" class="form-control" id="title" required [(ngModel)]="actTermin.title" name="title" #title="ngModel">    <div [hidden]="title.valid || title.pristine" class="alert alert-danger">      Titel muss eingegeben werden!    </div>    <br>    <label for="beschreibung">Beschreibung</label>    <input type="text" class="form-control" id="beschreibung" required [(ngModel)]="actTermin.beschreibung" name="beschreibung"      #beschreibung="ngModel">    <div [hidden]="beschreibung.valid || beschreibung.pristine" class="alert alert-danger">      Beschreibung muss eingegeben werden!    </div>    <br>    <label for="ort">Ort</label>    <input type="text" class="form-control" id="ort" required [(ngModel)]="actTermin.ort" name="ort" #ort="ngModel">    <div [hidden]="ort.valid || ort.pristine" class="alert alert-danger">      Ort muss eingegeben werden!    </div>    <br>    <label for="s_date">Startdatum</label>    <br>    <input [owlDateTimeTrigger]="dtS" [owlDateTime]="dtS" dataType="string" hideClearButton=true [max]="e_date"      dateFormat="YYYY-MM-DD HH:mm:ss" autoclose="true" class="form-control" id="s_date" required [(ngModel)]="s_date"      name="s_date" #sdate="ngModel">    <owl-date-time #dtS></owl-date-time>    <div [hidden]="sdate.valid || sdate.pristine" class="alert alert-danger">      Startdatum muss eingegeben werden!    </div>    <br>    <label for="e_date">Enddatum</label>    <br>    <input [owlDateTimeTrigger]="dtE" [owlDateTime]="dtE" dataType="string" hideClearButton=true [min]="s_date"      dateFormat="YYYY-MM-DD HH:mm:ss" autoclose="true" class="form-control" id="e_date" required [(ngModel)]="e_date"      name="e_date" #edate="ngModel">    <owl-date-time #dtE></owl-date-time>    <div [hidden]="edate.valid || edate.pristine" class="alert alert-danger">      Enddatum muss eingegeben werden!    </div>    <input type="file" class="form-control" id="fileInput" name="fileUpload" (change)="fileUpload($event)">    <div [hidden]="!fileerror" class="alert alert-danger">      Bild muss unter 1MB liegen!    </div>  </div>  <button type="submit" class="btn btn-success" [disabled]="!terminForm.form.valid" (click)="save()">einfügen</button></form></div>'
+    var COMPONENTS = [{'name': 'AddUserComponent', 'selector': 'add-user'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CalendarDetailComponent', 'selector': 'app-calendar-detail'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DateTimePickerComponent', 'selector': 'mwl-demo-utils-date-time-picker'},{'name': 'DiagramsComponent', 'selector': 'app-diagrams'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InformationComponent', 'selector': 'app-information'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'ManageUserComponent', 'selector': 'manage-user'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PlanningComponent', 'selector': 'app-planning'},{'name': 'ProtocolComponent', 'selector': 'app-protocol'},{'name': 'ProtocolDetailComponent', 'selector': 'app-protocol-detail'},{'name': 'ShowplanningComponent', 'selector': 'app-showplanning'},{'name': 'ShowprotocolComponent', 'selector': 'app-showprotocol'},{'name': 'TerminComponent', 'selector': 'app-termin'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'TerminComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TerminComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

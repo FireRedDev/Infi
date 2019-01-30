@@ -1,0 +1,1069 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>infi-pwa documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">infi-pwa documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>ShowplanningComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/showplanning/showplanning.component.ts</code>
+</p>
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>show all Plannings</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-showplanning</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./showplanning.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./showplanning.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#actTermin">actTermin</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isEdit">isEdit</a>
+                            </li>
+                            <li>
+                                <a href="#records">records</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#rest">rest</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#termins">termins</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#terminsOpenPlaning">terminsOpenPlaning</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#savePlaning">savePlaning</a>
+                            </li>
+                            <li>
+                                <a href="#setTermin">setTermin</a>
+                            </li>
+                            <li>
+                                <a href="#showDetail">showDetail</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#jrkEntitaet">jrkEntitaet</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#changeView">changeView</a>
+                            </li>
+                            <li>
+                                <a href="#showProtocol">showProtocol</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(rest: <a href="../injectables/RestService.html">RestService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/showplanning/showplanning.component.ts:19</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>rest</td>
+                                                  
+                                                        <td>
+                                                                    <code><a href="../injectables/RestService.html" target="_self" >RestService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="jrkEntitaet"></a>
+                        <code>jrkEntitaet</code>
+                    </td>
+                    <td class="col-md-10">
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/showplanning/showplanning.component.ts:15</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="changeView"></a>
+                        <code>changeView</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;string&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/showplanning/showplanning.component.ts:16</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="showProtocol"></a>
+                        <code>showProtocol</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;any&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/showplanning/showplanning.component.ts:17</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngOnInit"></a>
+                        <span class="name">
+                            <b>
+                            ngOnInit
+                            </b>
+                            <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngOnInit()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/showplanning/showplanning.component.ts:28</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>get All Plannings</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="savePlaning"></a>
+                        <span class="name">
+                            <b>
+                            savePlaning
+                            </b>
+                            <a href="#savePlaning"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>savePlaning(plan)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/showplanning/showplanning.component.ts:73</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Save the Planing</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>plan</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="setTermin"></a>
+                        <span class="name">
+                            <b>
+                            setTermin
+                            </b>
+                            <a href="#setTermin"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>setTermin(id: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/showplanning/showplanning.component.ts:52</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>choose Apointment</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>id</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                        <td>
+                                                                <code><p>Termin id</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showDetail"></a>
+                        <span class="name">
+                            <b>
+                            showDetail
+                            </b>
+                            <a href="#showDetail"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>showDetail(id)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/showplanning/showplanning.component.ts:65</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>show details</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>id</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="actTermin"></a>
+                        <span class="name">
+                            <b>
+                            actTermin
+                            </b>
+                            <a href="#actTermin"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>actTermin:     <code><a href="../interfaces/Termin.html" target="_self" >Termin</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../interfaces/Termin.html" target="_self" >Termin</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Termin()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/showplanning/showplanning.component.ts:19</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isEdit"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            isEdit
+                            </b>
+                            <a href="#isEdit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>isEdit:     <code>[]</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/showplanning/showplanning.component.ts:43</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="records"></a>
+                        <span class="name">
+                            <b>
+                            records
+                            </b>
+                            <a href="#records"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <code>records:     <code>[]</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/showplanning/showplanning.component.ts:46</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rest"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            rest
+                            </b>
+                            <a href="#rest"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>rest:     <code><a href="../injectables/RestService.html" target="_self" >RestService</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../injectables/RestService.html" target="_self" >RestService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/showplanning/showplanning.component.ts:22</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="termins"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            termins
+                            </b>
+                            <a href="#termins"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>termins:     <code>[]</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/showplanning/showplanning.component.ts:44</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="terminsOpenPlaning"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            terminsOpenPlaning
+                            </b>
+                            <a href="#terminsOpenPlaning"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>terminsOpenPlaning:     <code>[]</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/showplanning/showplanning.component.ts:45</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { RestService } from &#x27;../rest.service&#x27;;
+import { Planning } from &#x27;src/app/planning/Planning&#x27;;
+import { Component, OnInit, Input, Output, EventEmitter } from &#x27;@angular/core&#x27;;
+import { Termin } from &#x27;../protocol/termin&#x27;;
+
+/**
+ * show all Plannings
+ */
+@Component({
+  selector: &#x27;app-showplanning&#x27;,
+  templateUrl: &#x27;./showplanning.component.html&#x27;,
+  styleUrls: [&#x27;./showplanning.component.css&#x27;]
+})
+export class ShowplanningComponent implements OnInit {
+  @Input() jrkEntitaet;
+  @Output() changeView: EventEmitter&lt;string&gt; &#x3D; new EventEmitter();
+  @Output() showProtocol: EventEmitter&lt;any&gt; &#x3D; new EventEmitter();
+
+  actTermin: Termin &#x3D; new Termin();
+
+  constructor(
+    public rest: RestService
+  ) { }
+
+  /**
+   * get All Plannings
+   */
+  ngOnInit() {
+    this.rest.getAllPlanning().subscribe(data &#x3D;&gt; {
+      this.termins &#x3D; data;
+      for (var i &#x3D; 0; i &lt; this.termins.length; i++) {
+        var plan &#x3D; this.termins[i].planning;
+        this.isEdit[i] &#x3D; false;
+        const myObj &#x3D; { plannung: plan.plannung };
+        this.records.push(myObj);
+      }
+    });
+    const body &#x3D; localStorage.getItem(&#x27;currentUser&#x27;);
+    this.rest.getOpenPlanning(body).subscribe(data &#x3D;&gt; {
+      this.terminsOpenPlaning &#x3D; data;
+    });
+  }
+  private isEdit &#x3D; [];
+  private termins &#x3D; [];
+  private terminsOpenPlaning &#x3D; [];
+  records &#x3D; [];
+
+  /**
+   * choose Apointment
+   * @param id Termin id
+   */
+  setTermin(id: any): void {
+    var index;
+    for (index &#x3D; 0; index &lt; this.terminsOpenPlaning.length; ++index) {
+      if (this.terminsOpenPlaning[index].id &#x3D;&#x3D; id) {
+        this.actTermin &#x3D; this.terminsOpenPlaning[index];
+      }
+    }
+  }
+
+  /**
+   * show details
+   * @param id 
+   */
+  showDetail(id) {
+    this.showProtocol.emit(id);
+  }
+
+  /**
+   * Save the Planing
+   * @param plan 
+   */
+  savePlaning(plan) {
+    const body &#x3D; this.actTermin.id;
+    this.rest.insertPlannungsText(body, plan).subscribe();
+    this.changeView.emit(&quot;month&quot;);
+    this.rest.showSuccessMessage(&quot;Erfolg&quot;, &quot;Plannung eingefügt!&quot;);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- Include stylesheet --&gt;
+&lt;link href&#x3D;&quot;https://cdn.quilljs.com/1.3.6/quill.snow.css&quot; rel&#x3D;&quot;stylesheet&quot;&gt;
+
+&lt;!-- Include the Quill library --&gt;
+&lt;script src&#x3D;&quot;https://cdn.quilljs.com/1.3.6/quill.js&quot;&gt;&lt;/script&gt;
+
+&lt;div class&#x3D;&quot;col-md-12&quot;&gt;
+  &lt;div *ngFor&#x3D;&quot;let pl of records, let i&#x3D;index&quot;&gt;
+    Planung:
+    &lt;div *ngIf&#x3D;&quot;!isEdit[i]&quot;&gt;
+      &lt;div [innerHTML]&#x3D;&quot;pl.plannung&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div *ngIf&#x3D;&quot;isEdit[i]&quot;&gt;
+      &lt;quill-editor name&#x3D;&quot;text&quot; [(ngModel)]&#x3D;&quot;pl.plannung&quot;&gt;&lt;/quill-editor&gt;
+    &lt;/div&gt;
+
+    &lt;select class&#x3D;&quot;form-control&quot; #selectElem (change)&#x3D;&quot;setTermin(selectElem.value)&quot; name&#x3D;&quot;termSelect&quot;&gt;
+      &lt;option *ngFor&#x3D;&quot;let t of terminsOpenPlaning&quot; [selected]&#x3D;&quot;i&#x3D;&#x3D;0&quot; [value]&#x3D;&quot;t.id&quot;&gt;{{t.title}}&lt;/option&gt;
+    &lt;/select&gt;
+
+    &lt;div class&#x3D;&quot;btn-group btn-group&quot; role&#x3D;&quot;group&quot; aria-label&#x3D;&quot;Basic example&quot;&gt;
+      &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-secondary&quot; (click)&#x3D;&quot;isEdit[i]&#x3D;true&quot;&gt;Planung verändern&lt;/button&gt;
+      &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-secondary&quot; (click)&#x3D;&quot;savePlaning(pl)&quot;&gt;Planung speichern&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div *ngIf&#x3D;&quot;pl&#x3D;&#x3D;[]&quot;&gt;
+  Es sind keine geteilten Planungen vorhanden.
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./showplanning.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.daCard {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+  margin-bottom: 2%;
+  width: 80%;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 6px;
+  border-color: rgba(133, 133, 133, 0.8);
+  box-shadow: 10px 10px 5px 0px rgba(54, 54, 54, 0.4);
+  background-color: rgb(245, 245, 245);
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- Include stylesheet --><link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"><!-- Include the Quill library --><script src="https://cdn.quilljs.com/1.3.6/quill.js"></script><div class="col-md-12">  <div *ngFor="let pl of records, let i=index">    Planung:    <div *ngIf="!isEdit[i]">      <div [innerHTML]="pl.plannung"></div>    </div>    <div *ngIf="isEdit[i]">      <quill-editor name="text" [(ngModel)]="pl.plannung"></quill-editor>    </div>    <select class="form-control" #selectElem (change)="setTermin(selectElem.value)" name="termSelect">      <option *ngFor="let t of terminsOpenPlaning" [selected]="i==0" [value]="t.id">{{t.title}}</option>    </select>    <div class="btn-group btn-group" role="group" aria-label="Basic example">      <button type="submit" class="btn btn-secondary" (click)="isEdit[i]=true">Planung verändern</button>      <button type="submit" class="btn btn-secondary" (click)="savePlaning(pl)">Planung speichern</button>    </div>  </div></div><div *ngIf="pl==[]">  Es sind keine geteilten Planungen vorhanden.</div></div>'
+    var COMPONENTS = [{'name': 'AddUserComponent', 'selector': 'add-user'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CalendarDetailComponent', 'selector': 'app-calendar-detail'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DateTimePickerComponent', 'selector': 'mwl-demo-utils-date-time-picker'},{'name': 'DiagramsComponent', 'selector': 'app-diagrams'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InformationComponent', 'selector': 'app-information'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'ManageUserComponent', 'selector': 'manage-user'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PlanningComponent', 'selector': 'app-planning'},{'name': 'ProtocolComponent', 'selector': 'app-protocol'},{'name': 'ProtocolDetailComponent', 'selector': 'app-protocol-detail'},{'name': 'ShowplanningComponent', 'selector': 'app-showplanning'},{'name': 'ShowprotocolComponent', 'selector': 'app-showprotocol'},{'name': 'TerminComponent', 'selector': 'app-termin'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ShowplanningComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ShowplanningComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,3 +1,6 @@
+/**
+ * JRKEntitaet-Model
+ */
 export class jrkEntitaet {
     public id: number;
     public name: String;
