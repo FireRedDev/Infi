@@ -29,14 +29,23 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    // get user form localStorage
     this.jrk = localStorage.getItem('currentUser');
+<<<<<<< public/infi/src/app/home/home.component.ts
+    debugger;
+    // get infos
+=======
+>>>>>>> public/infi/src/app/home/home.component.ts
     this.rest.getUserInfos(this.jrk)
       .subscribe(data => {
+        //save to infos
         this.infos = data;
+        // Succcess Message
         this.rest.showSuccessMessage("Erfolg", "Informationen geladen!");
       });
 
 
+    //get termin
     this.rest.getActTermin(this.jrk).subscribe(data => {
       this.t = data;
     });

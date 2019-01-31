@@ -153,7 +153,9 @@ export class TerminComponent implements OnInit {
    */
   fileUpload(e) {
     this.fileerror = false;
+    //get fileInput by id 
     this.fileInput = document.getElementById('fileInput');
+    //set file
     this.file = this.fileInput.files
     var file = this.fileInput.files[0]
     var rest = this.rest;

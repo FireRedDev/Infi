@@ -33,14 +33,18 @@ export class PasswordComponent implements OnInit {
    * if the first and the second typed password is the same, then set the new password.
    */
   changePwd() {
+    // changes the password
     if (this.password1 == this.password2 && this.password1 != "") {
+      // get the right user
       const body = { 'id': localStorage.getItem('currentUser'), 'password': this.password1 };
       this.rest.changePassword(body).subscribe(data => {
+        //success message and view
         this.rest.showSuccessMessage("Erfolg", "Passwort wurde geändert.");
         this.changeView.emit("month");
       });
     }
     else {
+      //error message
       this.rest.showErrorMessage("Error", "Die beiden Passwörter sind nicht ident, versuche es nochmal!");
     }
   }
