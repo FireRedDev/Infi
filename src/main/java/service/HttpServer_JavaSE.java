@@ -15,7 +15,7 @@ import repository.EntityManagerSingleton;
 import upload.UploadService;
 
 /**
- * MAIN SERVER, INIT METHOD
+ * Grizzly Server Main Class, Initializes Project
  *
  * @author Christopher G
  */

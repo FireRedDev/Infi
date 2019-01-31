@@ -66,6 +66,8 @@ interface Termin {
 
 /**
  * Calendar Componet to show the Calendar
+ * 
+ * Click on single Calendar-Field opens a calendar-Detail
  */
 @Component({
   selector: 'app-calendar',

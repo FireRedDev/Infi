@@ -1,13 +1,16 @@
 package entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
- * Contains information for a Post on the Newsfeed.
- * A Post has a heading, content, a publishing date and a thumbnail/a gallery
+ * Contains information for a Post on the Newsfeed. A Post has a heading,
+ * content, a publishing date and a thumbnail/a gallery
  *
  * @author isi
  */
@@ -22,7 +25,6 @@ public class Info {
     //array of urls to images used in info blog posts
     private String[] mediapath;
     private String datum;
-
     /**
      * Default Constructor
      */
@@ -31,12 +33,12 @@ public class Info {
 
     /**
      * Constructor
+     *
      * @param ueberschrift
      * @param beschreibung
      * @param mediapath
      * @param datum
      */
-
     public Info(String ueberschrift, String beschreibung, String[] mediapath, String datum) {
         this.ueberschrift = ueberschrift;
         this.beschreibung = beschreibung;
@@ -44,9 +46,10 @@ public class Info {
         this.datum = datum;
     }
 
-    /** 
+    /**
      * Getter
-     * @return  
+     *
+     * @return
      */
     public String getDatum() {
         return datum;
@@ -54,7 +57,8 @@ public class Info {
 
     /**
      * Setter
-     * @param datum 
+     *
+     * @param datum
      */
     public void setDatum(String datum) {
         this.datum = datum;
@@ -62,6 +66,7 @@ public class Info {
 
     /**
      * Getter
+     *
      * @return
      */
     public int getId() {
@@ -70,6 +75,7 @@ public class Info {
 
     /**
      * Setter
+     *
      * @param id
      */
     public void setId(int id) {
@@ -78,6 +84,7 @@ public class Info {
 
     /**
      * Getter
+     *
      * @return
      */
     public String getUeberschrift() {
@@ -86,6 +93,7 @@ public class Info {
 
     /**
      * Setter
+     *
      * @param ueberschrift
      */
     public void setUeberschrift(String ueberschrift) {
@@ -94,6 +102,7 @@ public class Info {
 
     /**
      * Getter
+     *
      * @return
      */
     public String getBeschreibung() {
@@ -102,6 +111,7 @@ public class Info {
 
     /**
      * Setter
+     *
      * @param beschreibung
      */
     public void setBeschreibung(String beschreibung) {
@@ -110,7 +120,8 @@ public class Info {
 
     /**
      * Getter
-     * @return 
+     *
+     * @return
      */
     public String[] getMediapath() {
         return mediapath;
@@ -118,7 +129,8 @@ public class Info {
 
     /**
      * Setter
-     * @param mediapath 
+     *
+     * @param mediapath
      */
     public void setMediapath(String[] mediapath) {
         this.mediapath = mediapath;

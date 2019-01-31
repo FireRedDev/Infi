@@ -3,7 +3,7 @@ import { Pipe } from '@angular/core';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 /**
- * Overview over all Protocols
+ * Overview over all Protocols which this User is allowed to see
  */
 @Component({
   selector: 'app-showprotocol',

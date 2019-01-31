@@ -5,7 +5,11 @@ import { Role } from '../models/role.enum';
 import { jrkEntitaet } from '../models/jrkEntitaet.model';
 
 /**
- * Page which gives the oportunity to add Users
+ * Page which gives the opportunity to add Users
+ * 
+ * You can choose the role and JRKEntity of the User which is to add.
+ * A User has a firstname, a lastname, a email and a password.
+ * 
  */
 @Component({
   selector: 'add-user',

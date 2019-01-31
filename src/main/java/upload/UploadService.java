@@ -10,17 +10,17 @@ import org.glassfish.grizzly.http.util.HttpStatus;
  * @author isi
  */
 public class UploadService extends HttpHandler {
-
+    //Basepath
     File root;
 
     /**
-     *
+     * Default Constructor
      */
     public UploadService() {
     }
 
     /**
-     *
+     * Constructor with Basepath File
      * @param root
      */
     public UploadService(File root) {
@@ -35,7 +35,9 @@ public class UploadService extends HttpHandler {
      */
     @Override
     public void service(Request request, Response response) throws Exception {
+        //Get InputStreams
         InputStream is = request.getInputStream();
+        //get filename param
         String filename = request.getParameter("filename");
 
         //Save image on server

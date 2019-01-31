@@ -8,6 +8,8 @@ import { RestService } from '../rest.service';
 
 /**
  * Login Component
+ * 
+ * User has to type username and password
  */
 @Component({
   selector: 'app-login-form',

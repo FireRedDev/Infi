@@ -44,11 +44,12 @@ import javax.persistence.*;
      * Returns a Persons JRKEntitaet with the Persons id
      */
     @NamedQuery(name = "Benutzer.jrkEntitaet", query = "SELECT b.jrkentitaet FROM Person b where b.id=:id")
-        ,
+    ,
     /**
      * Returns Person whos JRKEntitaet has ID
      */
-    @NamedQuery(name = "Benutzer.byjrkEntitaet", query = "SELECT b FROM Person b where b.jrkentitaet.id=:id"),
+    @NamedQuery(name = "Benutzer.byjrkEntitaet", query = "SELECT b FROM Person b where b.jrkentitaet.id=:id")
+    ,
     /**
      * Finds User by his Full Name
      */
@@ -98,6 +99,7 @@ public class Person implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public String getPassword() {
@@ -106,6 +108,7 @@ public class Person implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public Role getRolle() {
@@ -114,6 +117,7 @@ public class Person implements Serializable {
 
     /**
      * Setter
+     *
      * @param rolle
      */
     public void setRolle(Role rolle) {
@@ -122,6 +126,7 @@ public class Person implements Serializable {
 
     /**
      * Constructor
+     *
      * @param email
      * @param password
      * @param vorname
@@ -140,6 +145,7 @@ public class Person implements Serializable {
 
     /**
      * Setter
+     *
      * @param password
      */
     public void setPassword(String password) {
@@ -148,6 +154,7 @@ public class Person implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public int getId() {
@@ -156,6 +163,7 @@ public class Person implements Serializable {
 
     /**
      * Setter
+     *
      * @param id
      */
     public void setId(int id) {
@@ -164,6 +172,7 @@ public class Person implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public String getEmail() {
@@ -172,14 +181,16 @@ public class Person implements Serializable {
 
     /**
      * Setter
+     *
      * @param email
      */
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     /**
      * Getter
+     *
      * @return
      */
     public String getVorname() {
@@ -188,6 +199,7 @@ public class Person implements Serializable {
 
     /**
      * Setter
+     *
      * @param vorname
      */
     public void setVorname(String vorname) {
@@ -196,6 +208,7 @@ public class Person implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public String getNachname() {
@@ -204,6 +217,7 @@ public class Person implements Serializable {
 
     /**
      * Setter
+     *
      * @param nachname
      */
     public void setNachname(String nachname) {
@@ -212,6 +226,7 @@ public class Person implements Serializable {
 
     /**
      * Getter
+     *
      * @return
      */
     public JRKEntitaet getJrkentitaet() {
@@ -220,6 +235,7 @@ public class Person implements Serializable {
 
     /**
      * Setter
+     *
      * @param jrkentitaet
      */
     public void setJrkentitaet(JRKEntitaet jrkentitaet) {
@@ -228,7 +244,8 @@ public class Person implements Serializable {
 
     /**
      * Has the Password been changed already?
-     * @return 
+     *
+     * @return
      */
     public boolean isPasswordChanged() {
         return passwordChanged;
@@ -236,22 +253,27 @@ public class Person implements Serializable {
 
     /**
      * Setter
-     * @param passwordChanged 
+     *
+     * @param passwordChanged
      */
     public void setPasswordChanged(boolean passwordChanged) {
         this.passwordChanged = passwordChanged;
     }
-/**
- * Getter
- * @return 
- */
+
+    /**
+     * Getter
+     *
+     * @return
+     */
     public String getFcmtoken() {
         return fcmtoken;
-}
-/**
- * Setter
- * @param fcmtoken 
- */
+    }
+
+    /**
+     * Setter
+     *
+     * @param fcmtoken
+     */
     public void setFcmtoken(String fcmtoken) {
         this.fcmtoken = fcmtoken;
     }
@@ -305,6 +327,4 @@ public class Person implements Serializable {
         return true;
     }
 
-
-    
 }

@@ -4,7 +4,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Termin } from '../protocol/termin';
 
 /**
- * show all Plannings
+ * show all Plannings which can be used from other Users
  */
 @Component({
   selector: 'app-showplanning',
@@ -17,6 +17,10 @@ export class ShowplanningComponent implements OnInit {
   @Output() showProtocol: EventEmitter<any> = new EventEmitter();
 
   actTermin: Termin = new Termin();
+  private isEdit = [];
+  private terminsOpenPlaning = [];
+  private records = [];
+  private isThereAPlanning = false;
 
   constructor(
     public rest: RestService
@@ -36,6 +40,7 @@ export class ShowplanningComponent implements OnInit {
         const myObj = { plannung: plan.plannung };
         // push it to the records
         this.records.push(myObj);
+        this.isThereAPlanning=true;
       }
     });
     //get current user

@@ -3,6 +3,8 @@ import { RestService } from "../rest.service";
 
 /**
  * Component to show Diagrams
+ * 
+ * The diagrams are shown for a choosen JRKEntity.
  */
 @Component({
   selector: "app-diagrams",

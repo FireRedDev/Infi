@@ -1,3 +1,4 @@
+
 package repository;
 
 import RestResponseClasses.*;
@@ -16,7 +17,7 @@ import javax.ws.rs.core.*;
 import service.Service;
 
 /**
- * Repository managing Database
+ * Repository managing Database, Statistics, Token Generation
  *
  * @author Christopher G
  */
@@ -793,7 +794,7 @@ public class Repository {
      * insert a plannung
      *
      * @param id
-     * @param text
+     * @param p
      */
     public void insertPlanung(int id, Planning p) {
         Termin termin = em.find(Termin.class, id);
@@ -940,11 +941,18 @@ public class Repository {
      * @param t
      * @return
      */
-    public String deleteTermin(Termin t) {
-        em.clear();
+     public String deleteTermin(Termin t) {
+
+        Termin termin = em.find(Termin.class, t.getId());
         em.getTransaction().begin();
-        Termin toRemove = em.merge(t);
-        em.remove(toRemove);
+
+        List<JRKEntitaet> jrk = em.createQuery("SELECT j FROM JRKEntitaet j WHERE :id MEMBER OF j.termine").setParameter("id", termin).getResultList();
+        for (JRKEntitaet j : jrk) {
+            j.removeTermin(termin);
+            em.merge(j);
+        }
+
+        em.remove(termin);
         em.getTransaction().commit();
         return "success";
     }
@@ -955,13 +963,17 @@ public class Repository {
      * @param i
      * @return
      */
-    public String deleteInfo(Info i, int id) {
-        Person p = em.find(Person.class, id);
-        p.getJrkentitaet().removeInfo(i);
-
+    public String deleteInfo(Info i) {
+        Info info = em.find(Info.class, i.getId());
         em.getTransaction().begin();
 
-        em.persist(p);
+        List<JRKEntitaet> jrk = em.createQuery("SELECT j FROM JRKEntitaet j WHERE :id MEMBER OF j.info").setParameter("id", info).getResultList();
+        for (JRKEntitaet j : jrk) {
+            j.removeInfo(info);
+            em.merge(j);
+        }
+
+        em.remove(info);
         em.getTransaction().commit();
         return "success";
     }
@@ -1081,16 +1093,6 @@ public class Repository {
                             }
                         }
                     }
-//                if (doku != null) {
-//                    LocalDateTime start = LocalDateTime.parse(termin.getS_date(), formatter);
-//                    LocalDateTime ende = LocalDateTime.parse(termin.getE_date(), formatter);
-//                    // get the betreues time
-//                    hmap.put("Betreuer" + start.getYear(), ((hmap.get("Betreuer" + start.getYear()) == null ? 0 : hmap.get("Betreuer" + start.getYear())) + (int) ChronoUnit.HOURS.between(start, ende)) * doku.getBetreuer().length);
-//                    //get the kinders time
-//                    hmap.put("Kinder" + start.getYear(), ((hmap.get("Kinder" + start.getYear()) == null ? 0 : hmap.get("Kinder" + start.getYear())) + (int) ChronoUnit.HOURS.between(start, ende)) * doku.getKinderliste().length);
-//                    //get the Preparationtime
-//                    hmap.put("Vorbereitung" + start.getYear(), (hmap.get("Vorbereitung" + start.getYear()) == null ? 0 : hmap.get("Vorbereitung" + start.getYear())) + (int) doku.getVzeit());
-//                }
                 }
 
             }

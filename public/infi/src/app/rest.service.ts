@@ -7,9 +7,11 @@ import { ToastrService } from "ngx-toastr";
  */
 @Injectable()
 export class RestService {
+
+  private url = "http://localhost:8080/api/service/";
   getPersonenstunden(body): any {
     return this.http.post(
-      "http://localhost:8080/api/service/getPersonenstunden",
+      this.url + "getPersonenstunden",
       body
     );
   }
@@ -28,7 +30,7 @@ export class RestService {
    * get all Roles from the Server
    */
   getAllRoles() {
-    return this.http.get("http://localhost:8080/api/service/getAllRoles");
+    return this.http.get(this.url + "getAllRoles");
   }
 
   /**
@@ -39,7 +41,7 @@ export class RestService {
   insertPerson(person, jrk) {
     //insert Person machen
     return this.http.post(
-      "http://localhost:8080/api/service/insertPerson/" + jrk,
+      this.url + "insertPerson/" + jrk,
       person
     );
   }
@@ -50,7 +52,7 @@ export class RestService {
    */
   savePerson(person) {
     return this.http.post(
-      "http://localhost:8080/api/service/savePerson",
+      this.url + "savePerson",
       person
     );
   }
@@ -60,7 +62,7 @@ export class RestService {
    * @param id id of the User
    */
   deletePerson(id) {
-    return this.http.post("http://localhost:8080/api/service/deletePerson", id);
+    return this.http.post(this.url + "deletePerson", id);
   }
 
   /**
@@ -69,7 +71,7 @@ export class RestService {
    */
   getUsersLayerDown(id) {
     return this.http.post(
-      "http://localhost:8080/api/service/getUsersLayerDown",
+      this.url + "getUsersLayerDown",
       id
     );
   }
@@ -80,7 +82,7 @@ export class RestService {
    */
   getUsersLayerDownJRK(id) {
     return this.http.post(
-      "http://localhost:8080/api/service/getUsersLayerDownJRK",
+      this.url + "getUsersLayerDownJRK",
       id
     );
   }
@@ -90,13 +92,13 @@ export class RestService {
    * @param body Username and Password
    */
   login(body) {
-    return this.http.post("http://localhost:8080/api/service/login", body);
+    return this.http.post(this.url + "login", body);
   }
 
   //Die untergeordneten User mit PersonenID erhalten
   getJRKEntitaetdown(body) {
     return this.http.post(
-      "http://localhost:8080/api/service/getJRKEntitaetdown",
+      this.url + "getJRKEntitaetdown",
       body
     );
   }
@@ -104,7 +106,7 @@ export class RestService {
   //Untergeordneten Stundenliste erhalten
   getLowerEntityHourList(body) {
     return this.http.post(
-      "http://localhost:8080/api/service/getLowerEntityHourList",
+      this.url + "getLowerEntityHourList",
       body
     );
   }
@@ -112,7 +114,7 @@ export class RestService {
   //Jährliche Stundenanzahl pro Person
   getYearlyHoursPerPeople(body) {
     return this.http.post(
-      "http://localhost:8080/api/service/getYearlyHoursPerPeople",
+      this.url + "getYearlyHoursPerPeople",
       body
     );
   }
@@ -120,7 +122,7 @@ export class RestService {
   //Die Werte für das Zeitleistendiagramm
   getTimelineValues(body) {
     return this.http.post(
-      "http://localhost:8080/api/service/getTimelineValues",
+      this.url + "getTimelineValues",
       body
     );
   }
@@ -128,7 +130,7 @@ export class RestService {
   //Werte für Diagramm
   getChartValues(body) {
     return this.http.post(
-      "http://localhost:8080/api/service/getChartValues",
+      this.url + "getChartValues",
       body
     );
   }
@@ -140,7 +142,7 @@ export class RestService {
    */
   insertTermin(jrkEntitaet, actTermin) {
     return this.http.post(
-      "http://localhost:8080/api/service/insertTermin/" + jrkEntitaet.id,
+      this.url + "insertTermin/" + jrkEntitaet.id,
       actTermin
     );
   }
@@ -151,7 +153,7 @@ export class RestService {
    */
   changeTermin(actTermin) {
     return this.http.put(
-      "http://localhost:8080/api/service/changeTermin",
+      this.url + "changeTermin",
       actTermin
     );
   }
@@ -163,7 +165,7 @@ export class RestService {
    */
   insertInfo(jrkEntitaet, actInfo) {
     return this.http.post(
-      "http://localhost:8080/api/service/insertInfo/" + jrkEntitaet.id,
+      this.url + "insertInfo/" + jrkEntitaet.id,
       actInfo
     );
   }
@@ -174,7 +176,7 @@ export class RestService {
    */
   changeInfo(actInfo) {
     return this.http.put(
-      "http://localhost:8080/api/service/changeInfo",
+      this.url + "changeInfo",
       actInfo
     );
   }
@@ -185,7 +187,7 @@ export class RestService {
    */
   getOpenDoko(body) {
     return this.http.post(
-      "http://localhost:8080/api/service/getOpenDoko",
+      this.url + "getOpenDoko",
       body
     );
   }
@@ -196,7 +198,7 @@ export class RestService {
    */
   insertDoku(actTermin) {
     return this.http.post(
-      "http://localhost:8080/api/service/insertDoko",
+      this.url + "insertDoko",
       actTermin
     );
   }
@@ -207,7 +209,7 @@ export class RestService {
    */
   getUserInfos(body) {
     return this.http.post(
-      "http://localhost:8080/api/service/getUserInfos",
+      this.url + "getUserInfos",
       body
     );
   }
@@ -217,7 +219,7 @@ export class RestService {
    * @param body 
    */
   getName(body) {
-    return this.http.post("http://localhost:8080/api/service/getName", body);
+    return this.http.post(this.url + "getName", body);
   }
 
   /**
@@ -225,7 +227,7 @@ export class RestService {
    * @param body 
    */
   isEditor(body) {
-    return this.http.post("http://localhost:8080/api/service/isEditor", body);
+    return this.http.post(this.url + "isEditor", body);
   }
 
   /**
@@ -234,7 +236,7 @@ export class RestService {
    */
   isGruppenleiter(body) {
     return this.http.post(
-      "http://localhost:8080/api/service/isGruppenleiter",
+      this.url + "isGruppenleiter",
       body
     );
   }
@@ -244,7 +246,7 @@ export class RestService {
    * @param body 
    */
   isAdmin(body) {
-    return this.http.post("http://localhost:8080/api/service/isAdmin", body);
+    return this.http.post(this.url + "isAdmin", body);
   }
 
   /**
@@ -253,7 +255,7 @@ export class RestService {
    */
   getJRKEntitaet(body) {
     return this.http.post(
-      "http://localhost:8080/api/service/getJRKEntitaet",
+      this.url + "getJRKEntitaet",
       body
     );
   }
@@ -264,7 +266,7 @@ export class RestService {
    */
   getUserTermine(body) {
     return this.http.post(
-      "http://localhost:8080/api/service/getUserTermine",
+      this.url + "getUserTermine",
       body
     );
   }
@@ -275,7 +277,7 @@ export class RestService {
    */
   changePassword(body) {
     return this.http.post(
-      "http://localhost:8080/api/service/changePassword",
+      this.url + "changePassword",
       body
     );
   }
@@ -286,7 +288,7 @@ export class RestService {
    */
   needPwdChange(body) {
     return this.http.post(
-      "http://localhost:8080/api/service/needPwdChange",
+      this.url + "needPwdChange",
       body
     );
   }
@@ -311,7 +313,7 @@ export class RestService {
   insertPlannungsText(body, text) {
     console.log(text);
     return this.http.post(
-      "http://localhost:8080/api/service/insertPlanung/" + body,
+      this.url + "insertPlanung/" + body,
       text
     );
   }
@@ -321,7 +323,7 @@ export class RestService {
    * @param jrkEntitaet 
    */
   showprotocol(jrkEntitaet) {
-    return this.http.get("http://localhost:8080/api/service/getProtokollDetails/" + jrkEntitaet.id);
+    return this.http.get(this.url + "getProtokollDetails/" + jrkEntitaet.id);
   }
 
   /**
@@ -342,7 +344,7 @@ export class RestService {
     console.log("id: " + body);
     console.log("token: " + token);
     return this.http.post(
-      "http://localhost:8080/api/service/saveFCMToken/" + body,
+      this.url + "saveFCMToken/" + body,
       token
     );
   }
@@ -371,7 +373,7 @@ export class RestService {
    */
   getActTermin(id) {
     return this.http.post(
-      "http://localhost:8080/api/service/getNextIncomingAppointment/" + id
+      this.url + "getNextIncomingAppointment/" + id
     );
   }
 
@@ -380,7 +382,7 @@ export class RestService {
    * @param id 
    */
   getChildren(id) {
-    return this.http.post("http://localhost:8080/api/service/getChildren/", id)
+    return this.http.post(this.url + "getChildren/", id)
   }
 
   /**
@@ -388,7 +390,7 @@ export class RestService {
    * @param id 
    */
   getTerminTeilnehmer(id) {
-    return this.http.post("http://localhost:8080/api/service/getTerminTeilnehmer/", id)
+    return this.http.post(this.url + "getTerminTeilnehmer/", id)
   }
 
   /**
@@ -396,7 +398,7 @@ export class RestService {
    * @param id 
    */
   getSupervisor(id) {
-    return this.http.post("http://localhost:8080/api/service/getSupervisors/", id)
+    return this.http.post(this.url + "getSupervisors/", id)
   }
 
   /**
@@ -408,7 +410,7 @@ export class RestService {
     console.log(id);
     console.log(id2);
     return this.http.post(
-      "http://localhost:8080/api/service/registerAttendee/" + id,
+      this.url + "registerAttendee/" + id,
       id2
     );
   }
@@ -419,7 +421,7 @@ export class RestService {
    */
   deleteTermin(item) {
     return this.http.post(
-      "http://localhost:8080/api/service/deleteTermin/",
+      this.url + "deleteTermin/",
       item
     );
   }
@@ -427,9 +429,9 @@ export class RestService {
   /**
    * delete Info
    */
-  deleteInfo(item, id) {
+  deleteInfo(item) {
     return this.http.post(
-      "http://localhost:8080/api/service/deleteInfo/" + id,
+      this.url + "deleteInfo",
       item
     );
   }
@@ -439,14 +441,14 @@ export class RestService {
    * @param id 
    */
   sharePlanning(id) {
-    return this.http.post("http://localhost:8080/api/service/sharePlanning/" + id)
+    return this.http.post(this.url + "sharePlanning/" + id)
   }
 
   /**
    * get all plannings
    */
   getAllPlanning() {
-    return this.http.post("http://localhost:8080/api/service/sharedPlanning")
+    return this.http.post(this.url + "sharedPlanning")
   }
 
   /**
@@ -454,6 +456,6 @@ export class RestService {
    * @param body 
    */
   getOpenPlanning(body) {
-    return this.http.post("http://localhost:8080/api/service/getOpenPlanning/" + body)
+    return this.http.post(this.url + "getOpenPlanning/" + body)
   }
 }

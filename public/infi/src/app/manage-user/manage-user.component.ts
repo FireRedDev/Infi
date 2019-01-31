@@ -7,6 +7,10 @@ import { EventEmitter } from '@angular/core';
   templateUrl: './manage-user.component.html',
   styleUrls: ['./manage-user.component.css']
 })
+
+/**
+ * Edit and delete Users
+ */
 export class ManageUserComponent implements OnInit {
 
   private jrkEnitaet = 2;
