@@ -18,8 +18,6 @@ import { ProtocolComponent } from '../protocol/protocol.component';
  */
 export class ProtocolDetailComponent implements OnInit {
   constructor(public rest: RestService, dateTimeAdapter: DateTimeAdapter<any>) {
-    this.children = [];
-    this.betreuer = [];
     this.rest = rest;
     dateTimeAdapter.setLocale('de-De');
   }
@@ -48,8 +46,6 @@ export class ProtocolDetailComponent implements OnInit {
   actTermin: Termin = new Termin();
 
   proto: Protokoll = new Protokoll();
-  children: any;
-  betreuer: any;
   s_date;
   e_date;
 }

@@ -20,7 +20,7 @@ export class ShowplanningComponent implements OnInit {
   private isEdit = [];
   private terminsOpenPlaning = [];
   private records = [];
-  private isThereAPlanning = false;
+  public isThereAPlanning = false;
 
   constructor(
     public rest: RestService
