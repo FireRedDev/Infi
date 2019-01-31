@@ -76,6 +76,7 @@ export class AddUserComponent implements OnInit {
     this.actPerson.rolle = this.actRole
     this.rest.insertPerson(this.actPerson, this.jrk)
       .subscribe(data => {
+        debugger;
         this.changeView.emit('manage-user');
       });
 

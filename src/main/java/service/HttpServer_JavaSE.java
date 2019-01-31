@@ -81,7 +81,7 @@ public class HttpServer_JavaSE {
         JRKEntitaet marchtrenk1 = new JRKEntitaet(6, "Gruppe1", gruppe, marchtrenk);
 
         //Termine erstellen
-        Termin sattledttermin = new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
+        Termin sattledttermin = new Termin("2019-02-04 15:30:00", "2019-02-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
         String[] betreuer = {"Gusi Tester", "Isabella Tester"};
         String[] kinder = {"Melanie Tester", "Antonia Tester", "Isabella Tester"};
         String[] betreuer1 = {"Doris Tester", "Jakob Tester"};
@@ -90,85 +90,85 @@ public class HttpServer_JavaSE {
         sattledttermin.setImgpath("assets/Logo.png");
         sattledt1.addTermin(sattledttermin);
 
-        Termin welstermin = new Termin("2018-03-04 15:30:00", "2018-03-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Wels");
+        Termin welstermin = new Termin("2019-02-15 15:30:00", "2019 -02-15 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Wels");
         welstermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "EH"));
         welstermin.setImgpath("assets/Logo.png");
         wels.addTermin(welstermin);
 
-        Termin welstermin4 = new Termin("2018-10-25 15:30:00", "2018-10-25 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Wels", "Antonia Tester; Melanie Tester;");
+        Termin welstermin4 = new Termin("2019-02-10 15:30:00", "2019-02-10 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Wels", "Antonia Tester; Melanie Tester;");
         welstermin4.setImgpath("assets/Logo.png");
         wels.addTermin(welstermin4);
 
-        Termin sattermin = new Termin("2018-03-05 15:30:00", "2018-03-05 17:30:00", "Generalversammlung", "Ortsstellenversammlung", "Dienststelle Sattledt", "Antonia Tester; Melanie Tester;");
+        Termin sattermin = new Termin("2019-03-05 15:30:00", "2019-03-05 17:30:00", "Generalversammlung", "Ortsstellenversammlung", "Dienststelle Sattledt", "Antonia Tester; Melanie Tester;");
         sattermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "Exkursion"));
         sattledt.addTermin(sattermin);
 
-        Termin sattledttermin1 = new Termin("2018-02-04 15:30:00", "2018-02-04 17:30:00", "Generalversammlung", "Ortsstellenversammlung", "Dienststelle Sattledt");
+        Termin sattledttermin1 = new Termin("2019-02-07 15:30:00", "2019-02-07 17:30:00", "Generalversammlung", "Ortsstellenversammlung", "Dienststelle Sattledt");
         sattledttermin1.setDoko(new Dokumentation(kinder1, betreuer1, "basteln", 2.0, "Exkursion"));
         sattledt1.addTermin(sattledttermin1);
 
-        Termin welstermin1 = new Termin("2018-04-04 15:30:00", "2018-04-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
+        Termin welstermin1 = new Termin("2019-04-04 15:30:00", "2019-04-04 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
         welstermin1.setDoko(new Dokumentation(kinder, betreuer1, "basteln", 2.0, "Soziales"));
         wels.addTermin(welstermin1);
 
-        Termin welstermin2 = new Termin("2018-06-15 14:00:00", "2018-06-15 21:00:00", "Klettern", "Bitte feste Schuhe anziehen", "Klettergarten");
+        Termin welstermin2 = new Termin("2019-05-29 14:00:00", "2019-05-29 21:00:00", "Klettern", "Bitte feste Schuhe anziehen", "Klettergarten");
         welstermin2.setDoko(new Dokumentation(kinder, betreuer1, "basteln", 7.0, "Soziales"));
         wels.addTermin(welstermin2);
 
-        Termin welstermin3 = new Termin("2017-06-15 14:00:00", "2017-06-15 21:00:00", "Klettern", "Bitte feste Schuhe anziehen", "Klettergarten");
+        Termin welstermin3 = new Termin("2019-04-15 14:00:00", "2019-04-15 21:00:00", "Klettern", "Bitte feste Schuhe anziehen", "Klettergarten");
         welstermin3.setDoko(new Dokumentation(kinder, betreuer1, "klettern", 7.0, "Soziales"));
         wels.addTermin(welstermin3);
 
-        Termin sattermin1 = new Termin("2018-04-05 15:30:00", "2018-04-05 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
+        Termin sattermin1 = new Termin("2019-02-29 15:30:00", "2019-02-29 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Sattledt");
         sattermin1.setDoko(new Dokumentation(kinder1, betreuer, "basteln", 2.0, "Soziales"));
         sattermin1.setImgpath("assets/Logo.png");
         sattledt.addTermin(sattermin1);
 
-        Termin marchtrenktermin = new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk");
+        Termin marchtrenktermin = new Termin("2019-06-24 18:00:00", "2019-06-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk");
         marchtrenktermin.setDoko(new Dokumentation(kinder1, betreuer1, "grillen", 3.0, "Soziales"));
         marchtrenk.addTermin(marchtrenktermin);
 
-        Termin marchtrenktermin1 = new Termin("2018-04-04 15:30:00", "2018-04-04 17:30:00", "Film schauen", "Bitte Decken und Polster mit nehmen", "Dienststelle Marchtrenk");
+        Termin marchtrenktermin1 = new Termin("2019-01-04 15:30:00", "2019-01-04 17:30:00", "Film schauen", "Bitte Decken und Polster mit nehmen", "Dienststelle Marchtrenk");
         marchtrenktermin1.setDoko(new Dokumentation(kinder1, betreuer1, "schauen", 2.0, "Soziales"));
         marchtrenktermin1.setImgpath("assets/Logo.png");
         marchtrenk1.addTermin(marchtrenktermin1);
 
-        marchtrenk1.addTermin(new Termin("2018-01-04 15:30:00", "2018-01-04 17:30:00", "Eislaufen", "Bitte Eislaufschuhe, Winterkleidung und 3€ Eintritt mitnehmen", "Eislaufplatz Marchtrenk"));
-        wels.addTermin(new Termin("2018-01-24 18:00:00", "2018-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk"));
-        ooe.addTermin(new Termin("2018-02-02 18:00:00", "2018-02-02 21:00:00", "Faschingsumzug", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz"));
-        wels.addTermin(new Termin("2018-02-15 14:00:00", "2018-02-15 21:00:00", "Basteln", "Bitte Schere und Kleber mitnehmen", "Dienststelle Marchtrenk"));
+        marchtrenk1.addTermin(new Termin("2019-01-05 15:30:00", "2019-01-05 17:30:00", "Eislaufen", "Bitte Eislaufschuhe, Winterkleidung und 3€ Eintritt mitnehmen", "Eislaufplatz Marchtrenk"));
+        wels.addTermin(new Termin("2019-01-24 18:00:00", "2019-01-24 21:00:00", "Grillerei", "Grillerei für alle Dienststellen des Bezirkes", "Dienststelle Marchtrenk"));
+        ooe.addTermin(new Termin("2019-02-02 18:00:00", "2019-02-02 21:00:00", "Faschingsumzug", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz"));
+        wels.addTermin(new Termin("2019-02-15 14:00:00", "2019-02-15 21:00:00", "Basteln", "Bitte Schere und Kleber mitnehmen", "Dienststelle Marchtrenk"));
 
-        marchtrenk1.addTermin(new Termin("2018-03-04 15:30:00", "2018-03-04 17:30:00", "Film schauen", "Bitte Decken und Polster mit nehmen", "Dienststelle Marchtrenk"));
-        wels.addTermin(new Termin("2018-04-24 18:00:00", "2018-04-24 21:00:00", "Basteln", "Bitte Schere und Kleber mitnehmen", "Dienststelle Marchtrenk"));
-        ooe.addTermin(new Termin("2018-05-02 18:00:00", "2018-05-02 21:00:00", "Grillerei", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz"));
-        wels.addTermin(new Termin("2018-06-15 14:00:00", "2018-06-15 21:00:00", "Klettern", "Bitte feste Schuhe anziehen", "Klettergarten"));
+        marchtrenk1.addTermin(new Termin("2019-03-04 15:30:00", "2019-03-04 17:30:00", "Film schauen", "Bitte Decken und Polster mit nehmen", "Dienststelle Marchtrenk"));
+        wels.addTermin(new Termin("2019-04-24 18:00:00", "2019-04-24 21:00:00", "Basteln", "Bitte Schere und Kleber mitnehmen", "Dienststelle Marchtrenk"));
+        ooe.addTermin(new Termin("2019-05-02 18:00:00", "2019-05-02 21:00:00", "Grillerei", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz"));
+        wels.addTermin(new Termin("2019-06-15 14:00:00", "2019-06-15 21:00:00", "Klettern", "Bitte feste Schuhe anziehen", "Klettergarten"));
 
-        marchtrenk.addTermin(new Termin("2018-04-04 15:30:00", "2018-04-04 17:30:00", "Film schauen auf der Dienststelle", "Bitte Decken und Polster mit nehmen", "Dienststelle Marchtrenk"));
-        wels.addTermin(new Termin("2018-04-24 17:00:00", "2018-04-24 21:00:00", "Basteln", "Bitte Schere und Kleber mitnehmen", "Dienststelle Marchtrenk"));
-        ooe.addTermin(new Termin("2018-05-02 13:00:00", "2018-05-02 21:00:00", "Grillerei", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz"));
-        wels.addTermin(new Termin("2018-06-15 10:00:00", "2018-06-15 21:00:00", "Klettern", "Bitte feste Schuhe anziehen", "Klettergarten"));
+        marchtrenk.addTermin(new Termin("2019-04-04 15:30:00", "2019-04-04 17:30:00", "Film schauen auf der Dienststelle", "Bitte Decken und Polster mit nehmen", "Dienststelle Marchtrenk"));
+        wels.addTermin(new Termin("2019-04-24 17:00:00", "2019-04-24 21:00:00", "Basteln", "Bitte Schere und Kleber mitnehmen", "Dienststelle Marchtrenk"));
+        ooe.addTermin(new Termin("2019-05-02 13:00:00", "2019-05-02 21:00:00", "Grillerei", "viele JRK-Gruppen sind dabei.", "Linz Hauptplatz"));
+        wels.addTermin(new Termin("2019-06-15 10:00:00", "2019-06-15 21:00:00", "Klettern", "Bitte feste Schuhe anziehen", "Klettergarten"));
 
-        marchtrenk.addTermin(new Termin("2018-01-15 15:30:00", "2018-01-17 17:30:00", "Wandern", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
-        wels.addTermin(new Termin("2018-05-30 09:00:00", "2018-05-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
-        ooe.addTermin(new Termin("2018-12-19 13:00:00", "2018-12-19 21:00:00", "Adventmarkt", "warm anziehen", "Adventmarkt Wels","Doris Tester; Isabella Tester;"));
-        wels.addTermin(new Termin("2018-08-15 09:00:00", "2018-08-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
+        marchtrenk.addTermin(new Termin("2019-01-15 15:30:00", "2019-01-17 17:30:00", "Wandern", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
+        wels.addTermin(new Termin("2019-05-30 09:00:00", "2019-05-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
+        ooe.addTermin(new Termin("2019-12-19 13:00:00", "2019-12-19 21:00:00", "Adventmarkt", "warm anziehen", "Adventmarkt Wels","Doris Tester; Isabella Tester;"));
+        wels.addTermin(new Termin("2019-08-15 09:00:00", "2019-08-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
 
-        marchtrenk.addTermin(new Termin("2018-10-01 11:30:00", "2018-10-01 17:30:00", "Wandern auf der Reiteralm", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
+        marchtrenk.addTermin(new Termin("2019-10-01 11:30:00", "2019-10-01 17:30:00", "Wandern auf der Reiteralm", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
         wels.addTermin(new Termin("2018-12-30 09:00:00", "2018-12-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
-        ooe.addTermin(new Termin("2018-04-19 13:00:00", "2018-04-19 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
-        wels.addTermin(new Termin("2018-07-15 09:00:00", "2018-07-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
+        ooe.addTermin(new Termin("2019-04-19 13:00:00", "2019-04-19 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
+        wels.addTermin(new Termin("2019-07-15 09:00:00", "2019-07-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
 
         marchtrenk1.addTermin(new Termin("2019-01-15 15:30:00", "2019-01-17 17:30:00", "Wandern", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
         wels.addTermin(new Termin("2019-05-30 09:00:00", "2019-05-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
-        ooe.addTermin(new Termin("2017-12-19 13:00:00", "2017-12-19 21:00:00", "Adventmarkt", "warm anziehen", "Adventmarkt Wels", "Antonia Tester; Melanie Tester;"));
+        ooe.addTermin(new Termin("2018-12-19 13:00:00", "2018-12-19 21:00:00", "Adventmarkt", "warm anziehen", "Adventmarkt Wels", "Antonia Tester; Melanie Tester;"));
         wels.addTermin(new Termin("2019-08-15 09:00:00", "2019-08-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
 
-        marchtrenk1.addTermin(new Termin("2017-10-01 11:30:00", "2017-10-17 17:30:00", "Wandern", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
-        wels.addTermin(new Termin("2017-12-30 09:00:00", "2017-12-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
+        marchtrenk1.addTermin(new Termin("2018-10-01 11:30:00", "2018-10-17 17:30:00", "Wandern", "Festes Schuhwerk", "Dienststelle Marchtrenk"));
+        wels.addTermin(new Termin("2018-12-30 09:00:00", "2018-12-30 21:00:00", "Ausflug nach Salzburg", "Geld für Jause mitnehmen", "Linz Hauptbahnhof"));
         ooe.addTermin(new Termin("2019-04-19 13:00:00", "2019-04-19 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
-        wels.addTermin(new Termin("2017-07-15 09:00:00", "2017-07-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
+        wels.addTermin(new Termin("2019-07-15 09:00:00", "2019-07-15 17:00:00", "Freibad", "Badesachen nicht vergessen", "Freibad Wels"));
 
-        ooe.addTermin(new Termin("2018-05-29 13:00:00", "2018-05-29 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
+        ooe.addTermin(new Termin("2019-05-29 13:00:00", "2019-05-29 21:00:00", "Film schauen", "Popkorn mitnehmen", "Dienststelle Marchtrenk"));
 
         String[] a = {"http://localhost:8080/upload_image/teambuilding.jpg"};
         String[] b = {"http://localhost:8080/upload_image/bezirkslager2.jpg", "http://localhost:8080/upload_image/bezirkslager3.jpg", "http://localhost:8080/upload_image/bezirkslager1.jpg"};
@@ -177,8 +177,8 @@ public class HttpServer_JavaSE {
 
         sattledt1.addInfo(new Info("Terminfindung für Fotoshooting", "Bitte Abstimmen Doodle-Link", a, "2018-02-15 09:00:00"));
         ooe.addInfo(new Info("Fotos", "fotos sind online oö", d, "2017-07-15 09:00:00"));
-        wels.addInfo(new Info("Bezirkslager", "Bilder sind endlich auf Dropbox Link:", b, "2017-08-15 09:00:00"));
-        wels.addInfo(new Info("Halloween", "Ergebnisse von der Halloweenstunde", c, "2018-01-15 09:00:00"));
+        wels.addInfo(new Info("Bezirkslager", "Bilder sind endlich auf Dropbox Link:", b, "2019-08-15 09:00:00"));
+        wels.addInfo(new Info("Halloween", "Ergebnisse von der Halloweenstunde", c, "2019-01-15 09:00:00"));
 
         //Personen erstellen
         Person tom = new Person("00001", "passme", "Tom", "Tester", ooe, Role.LANDESLEITER);

@@ -31,11 +31,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     // get user form localStorage
     this.jrk = localStorage.getItem('currentUser');
-<<<<<<< public/infi/src/app/home/home.component.ts
-    debugger;
-    // get infos
-=======
->>>>>>> public/infi/src/app/home/home.component.ts
     this.rest.getUserInfos(this.jrk)
       .subscribe(data => {
         //save to infos

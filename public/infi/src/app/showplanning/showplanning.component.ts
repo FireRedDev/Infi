@@ -31,16 +31,16 @@ export class ShowplanningComponent implements OnInit {
    */
   ngOnInit() {
     this.rest.getAllPlanning().subscribe(data => {
-      this.termins = data;
+      var termins = data;
       //go through the array of termins
-      for (var i = 0; i < this.termins.length; i++) {
+      for (var i = 0; i < termins.length; i++) {
         // get the planning
-        var plan = this.termins[i].planning;
+        var plan = termins[i].planning;
         this.isEdit[i] = false;
         const myObj = { plannung: plan.plannung };
         // push it to the records
         this.records.push(myObj);
-        this.isThereAPlanning=true;
+        this.isThereAPlanning = true;
       }
     });
     //get current user
@@ -50,11 +50,6 @@ export class ShowplanningComponent implements OnInit {
       this.terminsOpenPlaning = data;
     });
   }
-  private isEdit = [];
-  private termins = [];
-  private terminsOpenPlaning = [];
-  records = [];
-
   /**
    * choose Apointment
    * @param id Termin id
