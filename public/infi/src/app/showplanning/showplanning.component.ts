@@ -28,14 +28,19 @@ export class ShowplanningComponent implements OnInit {
   ngOnInit() {
     this.rest.getAllPlanning().subscribe(data => {
       this.termins = data;
+      //go through the array of termins
       for (var i = 0; i < this.termins.length; i++) {
+        // get the planning
         var plan = this.termins[i].planning;
         this.isEdit[i] = false;
         const myObj = { plannung: plan.plannung };
+        // push it to the records
         this.records.push(myObj);
       }
     });
+    //get current user
     const body = localStorage.getItem('currentUser');
+    //get termine where no planning exsits
     this.rest.getOpenPlanning(body).subscribe(data => {
       this.terminsOpenPlaning = data;
     });
@@ -52,7 +57,9 @@ export class ShowplanningComponent implements OnInit {
   setTermin(id: any): void {
     var index;
     for (index = 0; index < this.terminsOpenPlaning.length; ++index) {
+      //check if termin has plaaning?
       if (this.terminsOpenPlaning[index].id == id) {
+        // set the termin
         this.actTermin = this.terminsOpenPlaning[index];
       }
     }
@@ -72,8 +79,11 @@ export class ShowplanningComponent implements OnInit {
    */
   savePlaning(plan) {
     const body = this.actTermin.id;
+    //insert planning
     this.rest.insertPlannungsText(body, plan).subscribe();
+    //change view
     this.changeView.emit("month");
+    //success message
     this.rest.showSuccessMessage("Erfolg", "Plannung eingefügt!");
   }
 }

@@ -33,9 +33,9 @@ export class LoginFormComponent implements OnInit {
    */
   loginUser(e) {
     e.preventDefault();
+    //data login-form
     const email = e.target.elements[0].value;
     const password = e.target.elements[1].value;
-
     const body = { 'email': email, 'password': password };
 
     //workaround
@@ -48,16 +48,20 @@ export class LoginFormComponent implements OnInit {
         next(data) {
           if (data != null) {
             u.setUserLoggedIn();
+            //set act user in localStorage
             localStorage.setItem('currentUser', JSON.parse(data.userID));
             localStorage.setItem('token', JSON.stringify(data.token));
+            //navigate to dashboard
             rt.navigate(['dashboard']);
           }
           else {
+            //success message
             rest.showErrorMessage("Error", "Falsche Email oder falsches Passwort eingegeben!");
           }
         },
         error(error) {
           if (error.status < 400 || error.status === 500) {
+            //error message
             rest.showErrorMessage("Error", "Falsche Email oder falsches Passwort eingegeben!");
             return Observable.throw(new Error(error.status));
           }

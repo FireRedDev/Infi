@@ -37,25 +37,35 @@ export class InformationComponent implements OnInit {
    */
   save() {
     var imageType = /image.*/;
+    //proof if file exsits
     if (this.file) {
+      //go through the file array
       for (var i = 0; i < this.file.length; i++) {
         var file = this.fileInput.files[i]
+        //check the file Type and check the image Size
         if (file.type.match(imageType) && this.file[i].size < 1097152) {
+          //add to an infomartion a mediapath
           this.actInformation.mediapath.push("http://localhost:8080/upload_image/" + this.file[i].name);
         }
       }
     }
+    //change info
     if (this.actInformation.id != 0) {
       this.rest.changeInfo(this.actInformation)
         .subscribe(data => {
+          //success message
           this.rest.showSuccessMessage("Erfolg", "Informationsbeitrag eingefügt!");
+          //change view
           this.changeView.emit("home");
         });
     }
     else {
+      // insert info
       this.rest.insertInfo(this.jrkEntitaet, this.actInformation)
         .subscribe(data => {
+          //success message
           this.rest.showSuccessMessage("Erfolg", "Informationsbeitrag eingefügt!");
+          //change view
           this.changeView.emit("home");
         });
     }
@@ -71,6 +81,7 @@ export class InformationComponent implements OnInit {
    * @param e 
    */
   fileUpload(e) {
+    //get file imput from html id="fileInput"
     this.fileInput = document.getElementById('fileInput');
     this.file = this.fileInput.files
     for (var i = 0; i < this.fileInput.files.length; i++) {

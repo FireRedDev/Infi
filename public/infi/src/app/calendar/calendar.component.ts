@@ -120,22 +120,26 @@ export class CalendarComponent implements OnInit {
    * get Current User and get Appointments of this User
    */
   fetchEvents(): void {
+    //Constant for the Calenderview - Begin
     const getStart: any = {
       month: startOfMonth,
       week: startOfWeek,
       day: startOfDay
     }[this.view];
 
+    //Constant for the Calenderview - End
     const getEnd: any = {
       month: endOfMonth,
       week: endOfWeek,
       day: endOfDay
     }[this.view];
 
+    //gets the act User
     const body = localStorage.getItem('currentUser');
 
     this.events$ = this.rest.getUserTermine(body)
       .map(json => {
+        // gets Termine
         return this.convertEvents(json as Termin[]);
       });
   }
@@ -145,9 +149,12 @@ export class CalendarComponent implements OnInit {
    * @param events 
    */
   convertEvents(events: Array<Termin>): Array<any> {
+    //Setting
     const calendarEvents = [];
     events.forEach(function (event) {
       var text = 'Titel: ' + event.title;
+
+      //settings for the calender
       calendarEvents.push({
         id: event.id,
         termin: event,
@@ -176,13 +183,17 @@ export class CalendarComponent implements OnInit {
       date: Date;
       events: Array<CalendarEvent<{ termin: Termin }>>;
     }): void {
+    // check if it is the same month
     if (isSameMonth(date, this.viewDate)) {
+      // check if it is the same day
       if (
         (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
         events.length === 0
       ) {
+        //set if active is open
         this.activeDayIsOpen = false;
       } else {
+        //set if active is open
         this.activeDayIsOpen = true;
         this.viewDate = date;
       }
@@ -196,6 +207,7 @@ export class CalendarComponent implements OnInit {
    * @param event 
    */
   openDetail(event) {
+    // navigate to detail-component
     this.showDetail.emit(event);
   }
 }

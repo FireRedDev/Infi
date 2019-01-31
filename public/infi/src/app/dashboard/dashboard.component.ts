@@ -254,8 +254,11 @@ export class DashboardComponent implements OnInit {
    * change password
    */
   changePwd() {
+    // Set password
     if (this.password1 == this.password2 && this.password1 != "") {
+      //get User and set new password
       const body = { 'id': localStorage.getItem('currentUser'), 'password': this.password1 };
+      //change password
       this.rest.changePassword(body).subscribe(data => {
         //console.log("message: " + data);
         $('#pwdModal').modal('hide');

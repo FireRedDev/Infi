@@ -10,7 +10,9 @@ import { RestService } from '../rest.service';
   styleUrls: ['./planning.component.css']
 })
 export class PlanningComponent implements OnInit {
+  //data from parent
   @Input() calendarEntry;
+  //send to parent
   @Output() changeView: EventEmitter<string> = new EventEmitter();
   text;
   share = false;
@@ -24,8 +26,11 @@ export class PlanningComponent implements OnInit {
    */
   save() {
     const body = this.calendarEntry.id;
+    //save the planning
     this.rest.insertPlannungsText(body, { "plannung": this.text, "share": this.share }).subscribe();
+    //change view
     this.changeView.emit("month");
+    //success message
     this.rest.showSuccessMessage("Erfolg", "Plannung eingefügt!");
   }
 }

@@ -33,9 +33,10 @@ export class ShowprotocolComponent implements OnInit {
   ngOnInit(): void {
     this.rest.showprotocol(this.jrkEntitaet).subscribe(data => {
       this.protocol = data;
-
+      // get object with protocol attributes
       for (var i = 0; i < this.protocol.length; i++) {
         const myObj = { Titel: this.protocol[i].title, Datum: this.protocol[i].s_date.slice(0, 16), Beschreibung: this.protocol[i].beschreibung, id: this.protocol[i].id };
+        //push to records
         this.records.push(myObj);
       }
       this.rest.showSuccessMessage("Erfolg", "Protokolle geladen!");
@@ -53,14 +54,18 @@ export class ShowprotocolComponent implements OnInit {
     this.column = property;
     let direction = this.isDesc ? 1 : -1;
 
+    //sort records
     this.records.sort(function (a, b) {
       if (a[property] < b[property]) {
+        //change direction
         return -1 * direction;
       }
       else if (a[property] > b[property]) {
+        //change direction
         return 1 * direction;
       }
       else {
+        //do nothing
         return 0;
       }
     });

@@ -27,17 +27,24 @@ export class ProtocolDetailComponent implements OnInit {
 
   ngOnInit() {
     console.log("Initialising protocol-detail");
+    //get documentation
     this.rest.getDokuById(this.protocol).subscribe(data => {
       this.actTermin = data;
+      //set startdate and enddate
       this.s_date = this.actTermin.s_date;
       this.e_date = this.actTermin.e_date;
+      //set doko
       this.proto = this.actTermin.doko;
     })
     this.de = {
       firstDayOfWeek: 0,
+      // day - form of the calander
       dayNames: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
+      // day -short form of the calander
       dayNamesShort: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+      // month - from of the calander
       monthNames: ["Jänner", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
+      // month -short form of the calander
       monthNamesShort: ["Jän", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"]
     };
   }
