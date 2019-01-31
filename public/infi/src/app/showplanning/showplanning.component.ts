@@ -17,6 +17,10 @@ export class ShowplanningComponent implements OnInit {
   @Output() showProtocol: EventEmitter<any> = new EventEmitter();
 
   actTermin: Termin = new Termin();
+  private isEdit = [];
+  private terminsOpenPlaning = [];
+  private records = [];
+  private isThereAPlanning = false;
 
   constructor(
     public rest: RestService
@@ -27,9 +31,11 @@ export class ShowplanningComponent implements OnInit {
    */
   ngOnInit() {
     this.rest.getAllPlanning().subscribe(data => {
-      this.termins = data;
-      for (var i = 0; i < this.termins.length; i++) {
-        var plan = this.termins[i].planning;
+      this.records = [];
+      var termins = data;
+      for (var i = 0; i < termins.length; i++) {
+        this.isThereAPlanning = true;
+        var plan = termins[i].planning;
         this.isEdit[i] = false;
         const myObj = { plannung: plan.plannung };
         this.records.push(myObj);
@@ -40,10 +46,6 @@ export class ShowplanningComponent implements OnInit {
       this.terminsOpenPlaning = data;
     });
   }
-  private isEdit = [];
-  private termins = [];
-  private terminsOpenPlaning = [];
-  records = [];
 
   /**
    * choose Apointment

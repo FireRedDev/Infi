@@ -199,6 +199,9 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#changeView">changeView</a>
+                            </li>
+                            <li>
                                 <a href="#changeViewCalendar">changeViewCalendar</a>
                             </li>
                             <li>
@@ -225,7 +228,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:30</a></div>
                             </td>
                         </tr>
 
@@ -298,6 +301,25 @@
             <tbody>
                 <tr>
                     <td class="col-md-2">
+                        <a name="changeView"></a>
+                        <code>changeView</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code><a href="https://angular.io/api/core/EventEmitter" target="_blank" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:26</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
                         <a name="changeViewCalendar"></a>
                         <code>changeViewCalendar</code>
                     </td>
@@ -362,7 +384,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:80</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:82</a></div>
                             </td>
                         </tr>
 
@@ -434,7 +456,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:62</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:63</a></div>
                             </td>
                         </tr>
 
@@ -519,7 +541,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:70</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:71</a></div>
                             </td>
                         </tr>
 
@@ -591,7 +613,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:43</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:44</a></div>
                             </td>
                         </tr>
 
@@ -638,7 +660,7 @@ is this User group leader?</p>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:27</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:28</a></div>
                             </td>
                         </tr>
 
@@ -672,7 +694,7 @@ is this User group leader?</p>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:29</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:30</a></div>
                             </td>
                         </tr>
 
@@ -713,7 +735,7 @@ is this User group leader?</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:35</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/calendar-detail/calendar-detail.component.ts:36</a></div>
                             </td>
                         </tr>
 
@@ -756,6 +778,7 @@ export class CalendarDetailComponent implements OnInit {
 
   @Output() changeViewCalendar &#x3D; new EventEmitter();
   @Output() changeViewTermin &#x3D; new EventEmitter();
+  @Output() changeView &#x3D; new EventEmitter();
   /** is this Person Editor */
   isEditor;
   /** is this Person Gruppenleiter */
@@ -803,6 +826,7 @@ export class CalendarDetailComponent implements OnInit {
   deleteTermin(item) {
     this.rest.deleteTermin(item.termin).subscribe(data &#x3D;&gt; {
       console.log(data);
+      this.changeView.emit(&#x27;month&#x27;);
     });
   }
 

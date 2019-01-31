@@ -306,7 +306,7 @@
 
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/home/home.component.ts:75</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/home/home.component.ts:74</a></div>
                             </td>
                         </tr>
 
@@ -726,8 +726,7 @@ export class HomeComponent implements OnInit {
    * @param item 
    */
   deleteInfo(item) {
-    debugger;
-    this.rest.deleteInfo(item, this.jrk).subscribe(data &#x3D;&gt; {
+    this.rest.deleteInfo(item).subscribe(data &#x3D;&gt; {
       console.log(data);
       this.infos.splice(this.infos.indexOf(item), 1);
     });
@@ -804,9 +803,10 @@ export class HomeComponent implements OnInit {
               &lt;/div&gt;
             &lt;/div&gt;
           &lt;/div&gt;
-          &lt;div class&#x3D;&quot;btn-group&quot; role&#x3D;&quot;group&quot; aria-label&#x3D;&quot;Basic example&quot;&gt;
-            &lt;button (click)&#x3D;&quot;changeInfo(i)&quot; class&#x3D;&quot;btn btn-secondary&quot; *ngIf&#x3D;&quot;isEditor&quot;&gt;Information bearbeiten&lt;/button&gt;
-            &lt;button (click)&#x3D;&quot;deleteInfo(i)&quot; class&#x3D;&quot;btn btn-secondary&quot; *ngIf&#x3D;&quot;isEditor&quot;&gt;Information löschen&lt;/button&gt;
+          &lt;br&gt;
+          &lt;div class&#x3D;&quot;floatLeft&quot;&gt;
+            &lt;div class&#x3D;&quot;specialbtn from-right&quot; (click)&#x3D;&quot;changeInfo(i)&quot; *ngIf&#x3D;&quot;isEditor&quot;&gt;Information bearbeiten&lt;/div&gt;
+            &lt;div class&#x3D;&quot;specialbtn from-right&quot; (click)&#x3D;&quot;deleteInfo(i)&quot; *ngIf&#x3D;&quot;isEditor&quot;&gt;Information löschen&lt;/div&gt;
           &lt;/div&gt;
         &lt;/div&gt;
       &lt;/div&gt;
@@ -823,7 +823,7 @@ export class HomeComponent implements OnInit {
                 <pre class="line-numbers"><code class="language-scss">.container {
   text-align: left;
   width: 385px;
-  height: 350px;
+  height: 400px;
 }
 
 #imageSize {
@@ -849,7 +849,78 @@ export class HomeComponent implements OnInit {
   padding-left: 10px;
   padding-right: 10px;
 }
-</code></pre>
+
+/* From Right */
+
+.from-right:before, 
+.from-right:after {
+	top: 0;
+	width: 0;
+	height: 100%;
+}
+
+.from-right:before {
+	left: 0;
+	border: 1px solid var(--inv);
+	border-left: 0;
+	border-right: 0;	
+}
+
+.from-right:after {
+	right: 0;
+}
+
+.from-right:hover:before,
+.from-right:hover:after {
+	width: 100%;
+}
+
+/* ~~~~~~~ INIT. BTN ~~~~~~~ */
+
+.specialbtn {		
+	position: relative;	
+	padding: 1.4rem 4.2rem;
+	padding-right: 3.1rem;
+	font-size: 1.4rem;
+	color: var(--inv);
+	text-transform: uppercase;
+	transition: all 600ms cubic-bezier(0.77, 0, 0.175, 1);	
+	cursor: pointer;
+	user-select: none;
+}
+
+.specialbtn {
+  width:50%;
+}
+.specialbtn:before, .specialbtn:after {
+	content: &#x27;&#x27;;
+	position: absolute;	
+	transition: inherit;
+	z-index: -1;
+}
+
+.specialbtn:hover {
+	color: var(--def);
+	transition-delay: .6s;
+}
+
+.specialbtn:hover:before {
+	transition-delay: 0s;
+}
+
+.specialbtn:hover:after {
+	background: var(--inv);
+	transition-delay: .4s;
+}
+
+.specialbtn {
+	--def: #ffffff; 	
+	--inv: #A9A9A9;
+}
+
+.floatLeft{
+  display: flex;
+}</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-tree">
@@ -877,7 +948,7 @@ export class HomeComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"><div class="card-deck">  <div class="naechstertermin" *ngIf="showInvite">    <div class="card-deck">      <div class="card">        <div class="card-block">          <h4 class="card-title">Nächster Termin:</h4>          <div class="container">            <b>Titel: </b>{{t?.title}}<br>            <b>Beschreibung: </b>{{t?.beschreibung}}<br>            <b>Ort: </b>{{t?.ort}}<br>            <b>Von: </b>{{t?.s_date}}<br>            <b>Bis: </b>{{t?.e_date}}<br><br>            <div class="btn-group" role="group" aria-label="Basic example">              <button class="btn btn-success" (click)="setComing()">Ja, ich komme</button>              <button class="btn btn-danger" (click)="showInvite=false">Nein, ich komme nicht</button>            </div>          </div>        </div>      </div>    </div>  </div>  <div *ngFor="let i of infos, let zahl=index">    <div class="card">      <div class="card-block">        <h4 class="card-title">{{i.ueberschrift}}</h4>        <div class="container">          <p class="card-text">{{i.beschreibung}}</p>          <div *ngIf="i.mediapath?.length">            <div id="myCarousel{{zahl}}" class="carousel slide" data-ride="carousel">              <!-- Indicators -->              <!-- Wrapper for slides -->              <div class="carousel-inner">                <div class="item active">                  <img id="imageSize" [src]="i.mediapath[0]" alt="Bild">                  <div class="carousel-caption">                  </div>                </div>                <div class="item" *ngFor="let path of i.mediapath.slice(1), let izahl = index">                  <img id="imageSize" [src]="path" alt="Bild">                </div>              </div>              <div *ngIf="i.mediapath?.length > 1">                <!-- Left and right controls -->                <a class="left carousel-control" href="#myCarousel{{zahl}}" data-slide="prev">                  <span class="glyphicon glyphicon-chevron-left"></span>                  <span class="sr-only">Previous</span>                </a>                <a class="right carousel-control" href="#myCarousel{{zahl}}" data-slide="next">                  <span class="glyphicon glyphicon-chevron-right"></span>                  <span class="sr-only">Next</span>                </a>              </div>            </div>          </div>          <div class="btn-group" role="group" aria-label="Basic example">            <button (click)="changeInfo(i)" class="btn btn-secondary" *ngIf="isEditor">Information bearbeiten</button>            <button (click)="deleteInfo(i)" class="btn btn-secondary" *ngIf="isEditor">Information löschen</button>          </div>        </div>      </div>    </div>  </div></div></div>'
+        var COMPONENT_TEMPLATE = '<div><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"><div class="card-deck">  <div class="naechstertermin" *ngIf="showInvite">    <div class="card-deck">      <div class="card">        <div class="card-block">          <h4 class="card-title">Nächster Termin:</h4>          <div class="container">            <b>Titel: </b>{{t?.title}}<br>            <b>Beschreibung: </b>{{t?.beschreibung}}<br>            <b>Ort: </b>{{t?.ort}}<br>            <b>Von: </b>{{t?.s_date}}<br>            <b>Bis: </b>{{t?.e_date}}<br><br>            <div class="btn-group" role="group" aria-label="Basic example">              <button class="btn btn-success" (click)="setComing()">Ja, ich komme</button>              <button class="btn btn-danger" (click)="showInvite=false">Nein, ich komme nicht</button>            </div>          </div>        </div>      </div>    </div>  </div>  <div *ngFor="let i of infos, let zahl=index">    <div class="card">      <div class="card-block">        <h4 class="card-title">{{i.ueberschrift}}</h4>        <div class="container">          <p class="card-text">{{i.beschreibung}}</p>          <div *ngIf="i.mediapath?.length">            <div id="myCarousel{{zahl}}" class="carousel slide" data-ride="carousel">              <!-- Indicators -->              <!-- Wrapper for slides -->              <div class="carousel-inner">                <div class="item active">                  <img id="imageSize" [src]="i.mediapath[0]" alt="Bild">                  <div class="carousel-caption">                  </div>                </div>                <div class="item" *ngFor="let path of i.mediapath.slice(1), let izahl = index">                  <img id="imageSize" [src]="path" alt="Bild">                </div>              </div>              <div *ngIf="i.mediapath?.length > 1">                <!-- Left and right controls -->                <a class="left carousel-control" href="#myCarousel{{zahl}}" data-slide="prev">                  <span class="glyphicon glyphicon-chevron-left"></span>                  <span class="sr-only">Previous</span>                </a>                <a class="right carousel-control" href="#myCarousel{{zahl}}" data-slide="next">                  <span class="glyphicon glyphicon-chevron-right"></span>                  <span class="sr-only">Next</span>                </a>              </div>            </div>          </div>          <br>          <div class="floatLeft">            <div class="specialbtn from-right" (click)="changeInfo(i)" *ngIf="isEditor">Information bearbeiten</div>            <div class="specialbtn from-right" (click)="deleteInfo(i)" *ngIf="isEditor">Information löschen</div>          </div>        </div>      </div>    </div>  </div></div></div>'
     var COMPONENTS = [{'name': 'AddUserComponent', 'selector': 'add-user'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CalendarDetailComponent', 'selector': 'app-calendar-detail'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DateTimePickerComponent', 'selector': 'mwl-demo-utils-date-time-picker'},{'name': 'DiagramsComponent', 'selector': 'app-diagrams'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InformationComponent', 'selector': 'app-information'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'ManageUserComponent', 'selector': 'manage-user'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PlanningComponent', 'selector': 'app-planning'},{'name': 'ProtocolComponent', 'selector': 'app-protocol'},{'name': 'ProtocolDetailComponent', 'selector': 'app-protocol-detail'},{'name': 'ShowplanningComponent', 'selector': 'app-showplanning'},{'name': 'ShowprotocolComponent', 'selector': 'app-showprotocol'},{'name': 'TerminComponent', 'selector': 'app-termin'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'HomeComponent'};

@@ -4,7 +4,7 @@
 <!-- Include the Quill library -->
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
-<div class="col-md-12">
+<div class="col-md-12" *ngIf="isThereAPlanning === true">
   <div *ngFor="let pl of records, let i=index">
     Planung:
     <div *ngIf="!isEdit[i]">
@@ -24,6 +24,6 @@
     </div>
   </div>
 </div>
-<div *ngIf="pl==[]">
+<div *ngIf="isThereAPlanning === false">
   Es sind keine geteilten Planungen vorhanden.
 </div>

@@ -62,7 +62,6 @@ export class HomeComponent implements OnInit {
    * @param item 
    */
   deleteInfo(item) {
-    debugger;
     this.rest.deleteInfo(item).subscribe(data => {
       console.log(data);
       this.infos.splice(this.infos.indexOf(item), 1);

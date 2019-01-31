@@ -256,7 +256,6 @@ export class DashboardComponent implements OnInit {
     if (this.password1 == this.password2 && this.password1 != "") {
       const body = { 'id': localStorage.getItem('currentUser'), 'password': this.password1 };
       this.rest.changePassword(body).subscribe(data => {
-        //console.log("message: " + data);
         $('#pwdModal').modal('hide');
       });
     }
