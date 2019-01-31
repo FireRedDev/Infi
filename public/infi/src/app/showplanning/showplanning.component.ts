@@ -20,7 +20,7 @@ export class ShowplanningComponent implements OnInit {
   private isEdit = [];
   private terminsOpenPlaning = [];
   private records = [];
-  public isThereAPlanning = false;
+  private isThereAPlanning = false;
 
   constructor(
     public rest: RestService
@@ -31,22 +31,25 @@ export class ShowplanningComponent implements OnInit {
    */
   ngOnInit() {
     this.rest.getAllPlanning().subscribe(data => {
-      this.records = [];
       var termins = data;
+      //go through the array of termins
       for (var i = 0; i < termins.length; i++) {
-        this.isThereAPlanning = true;
+        // get the planning
         var plan = termins[i].planning;
         this.isEdit[i] = false;
         const myObj = { plannung: plan.plannung };
+        // push it to the records
         this.records.push(myObj);
+        this.isThereAPlanning = true;
       }
     });
+    //get current user
     const body = localStorage.getItem('currentUser');
+    //get termine where no planning exsits
     this.rest.getOpenPlanning(body).subscribe(data => {
       this.terminsOpenPlaning = data;
     });
   }
-
   /**
    * choose Apointment
    * @param id Termin id
@@ -54,7 +57,9 @@ export class ShowplanningComponent implements OnInit {
   setTermin(id: any): void {
     var index;
     for (index = 0; index < this.terminsOpenPlaning.length; ++index) {
+      //check if termin has plaaning?
       if (this.terminsOpenPlaning[index].id == id) {
+        // set the termin
         this.actTermin = this.terminsOpenPlaning[index];
       }
     }
@@ -74,8 +79,11 @@ export class ShowplanningComponent implements OnInit {
    */
   savePlaning(plan) {
     const body = this.actTermin.id;
+    //insert planning
     this.rest.insertPlannungsText(body, plan).subscribe();
+    //change view
     this.changeView.emit("month");
+    //success message
     this.rest.showSuccessMessage("Erfolg", "Plannung eingefügt!");
   }
 }

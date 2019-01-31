@@ -44,11 +44,13 @@ export class CalendarDetailComponent implements OnInit {
   ngOnInit() {
     const body = localStorage.getItem('currentUser');
 
+    //set the editor
     this.rest.isEditor(body)
       .subscribe(data => {
         this.isEditor = (data === true);
       });
 
+    //set the coach
     this.rest.isGruppenleiter(body)
       .subscribe(data => {
         this.isGruppenleiter = (data === true);

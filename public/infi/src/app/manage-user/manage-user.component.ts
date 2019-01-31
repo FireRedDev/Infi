@@ -18,6 +18,7 @@ export class ManageUserComponent implements OnInit {
   data: any;
   isEditable: boolean = false;
   persons;
+  //data from parent
   @Output() changeView: EventEmitter<string> = new EventEmitter()
 
   constructor(private rest: RestService) {
@@ -25,9 +26,11 @@ export class ManageUserComponent implements OnInit {
   }
 
   ngOnInit() {
+    //get useer
     var body = localStorage.getItem('currentUser');
     this.jrkEnitaet = JSON.parse(body);
 
+    //set jrkEntitaeten
     this.rest.getJRKEntitaetdown(body)
       .subscribe(data => {
         this.JRKEntitaeten = data;
@@ -52,7 +55,9 @@ export class ManageUserComponent implements OnInit {
     this.persons[i].isEditable = false;
     var person = this.persons[i]
     delete person.isEditable
+    //save person
     this.rest.savePerson(person).subscribe(data => {
+      //success messsage
       this.rest.showSuccessMessage("Erfolg", "Benutzer upgedated!");
     });
   }
@@ -65,6 +70,7 @@ export class ManageUserComponent implements OnInit {
     this.rest.deletePerson(this.persons[i].id).subscribe(() => {
       this.rest.showSuccessMessage("Erfolg", "Person erfolgreich gelöscht!");
     });
+    //delete person from array
     this.persons.splice(i, 1);
   }
 

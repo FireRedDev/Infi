@@ -134,12 +134,19 @@ export class ProtocolComponent implements OnInit {
    */
   save() {
     var actTermin = this.actTermin
+    //set startdate and enddate of termin
     actTermin.s_date = new Date(this.s_date).toISOString().substr(0, 19).replace('T', ' ');
     actTermin.e_date = new Date(this.e_date).toISOString().substr(0, 19).replace('T', ' ');
+
+    //set child list and supervisor lsit
     this.actProtokol.kinderliste = this.getListe("check");
     this.actProtokol.betreuer = this.getListe("check2");
+    
+    //set doco
     actTermin.doko = this.actProtokol;
     console.log(this.actProtokol)
+
+    //insert and change view
     this.rest.insertDoku(actTermin)
       .subscribe(data => {
         this.changeView.emit('month');
@@ -159,11 +166,15 @@ export class ProtocolComponent implements OnInit {
   setTermin(id: any): void {
     var index;
     for (index = 0; index < this.term.length; ++index) {
+      //check if term id is the equals the passed id
       if (this.term[index].id == id) {
+        //set actTermin
         this.actTermin = this.term[index];
+        //set the startdate and the enddate
         this.s_date = new Date(this.actTermin.s_date);
         this.e_date = new Date(this.actTermin.e_date);
 
+        //get Members() and save in array by spliting the string
         this.rest.getTerminTeilnehmer(this.actTermin.id)
           .subscribe(data => {
             this.array = data.split(";");
@@ -187,15 +198,21 @@ export class ProtocolComponent implements OnInit {
    */
   getListe(name) {
     var list = [];
+    //gets an HTMLCollection, uses the class name to reference
     let htmlOption = (document.getElementsByClassName(name) as HTMLCollection);
 
+    //go through the HTMLCollecton
     for (var i = 0; i < htmlOption.length; i++) {
+      // save the elments of a collection
       let variable = (htmlOption[i] as HTMLInputElement);
 
+      // look if the variable is checked
       if (variable.checked) {
+        //if - add it to the list
         list.push(variable.value);
       }
     }
+
     return list;
   }
 
@@ -205,8 +222,11 @@ export class ProtocolComponent implements OnInit {
    * @param nachname Lastname
    */
   getValueChecked(vorname, nachname) {
+    //look if the user is in the list of comfirmed users
     for (var i = 0; i < this.array.length; i++) {
+      // check if the names are equals
       if ((vorname + " " + nachname) == this.array[i]) {
+        // set the checked input
         return "checked";
       }
     }
@@ -217,31 +237,49 @@ export class ProtocolComponent implements OnInit {
    * @param event 
    */
   addChild(event) {
+    //split and save in array
     this.listArray = this.newChild.split(" ");
+    //add to children array
     this.children.push({ vorname: this.listArray[0], nachname: this.listArray[1] });
+    //add to array - to check
     this.array.push(this.listArray[0] + " " + this.listArray[1]);
     this.newChild = '';
     event.preventDefault();
   }
 
+  /**
+   * delete a children
+   */
   deleteChild(index) {
     this.children.splice(index, 1);
   }
 
+  /**
+   * add supervisor
+   * 
+   * @param event 
+   */
   addBetreuer(event) {
+    //split and save in array
     this.listArray = this.newBetreuer.split(" ");
+    //add to supervisor array
     this.supervisor.push({ vorname: this.listArray[0], nachname: this.listArray[1] });
+    //add to array - to check
     this.array.push(this.listArray[0] + " " + this.listArray[1]);
     this.newBetreuer = '';
     event.preventDefault();
   }
 
+  /**
+   * delete supervisor
+   * @param index 
+   */
   deleteBetreuer(index) {
     this.betreuer.splice(index, 1);
   }
 
   /**
-   * 
+   * get the first Termin
    */
   getFirstDate(): Termin {
     if (this.calendarEntry != null && this.calendarEntry != {}) {
