@@ -101,7 +101,7 @@ export class DiagramsComponent implements OnInit {
       this.single2 = value;
     });
 
-     //timeline diagram
+    //timeline diagram
     this.rest.getYearlyHoursPerPeople(jrk).subscribe(value => {
       this.single3 = value;
     });

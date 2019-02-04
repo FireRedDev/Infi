@@ -22,10 +22,10 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
     @NamedQuery(name = "JRKEntitaet.listAll", query = "SELECT j FROM JRKEntitaet j")
     ,
     //returns an entitys lower ranking entity
-    @NamedQuery(name = "JRKEntitaet.layerDown", query = "SELECT j FROM JRKEntitaet j where j.subordinateJRKEntitaet=:jrkentitaet")
+    @NamedQuery(name = "JRKEntitaet.layerDown", query = "SELECT j FROM JRKEntitaet j where j.superordinateJRKEntitaet=:jrkentitaet")
     ,
     //returns an entitys higher ranking entity
-    @NamedQuery(name = "JRKEntitaet.layerUp", query = "SELECT j FROM JRKEntitaet j where j.superordinateJRKEntitaet=:jrkentitaet")
+    @NamedQuery(name = "JRKEntitaet.layerUp", query = "SELECT j.superordinateJRKEntitaet FROM JRKEntitaet j where j=:jrkentitaet")
 })
 public class JRKEntitaet implements Serializable {
 
@@ -47,10 +47,6 @@ public class JRKEntitaet implements Serializable {
     //übergeordnet
     @ManyToOne
     private JRKEntitaet superordinateJRKEntitaet;
-
-    //untergeordnet
-    @OneToMany(mappedBy = "superordinateJRKEntitaet")
-    private List<JRKEntitaet> subordinateJRKEntitaet;
 
     /**
      * Default Constructor
@@ -198,48 +194,6 @@ public class JRKEntitaet implements Serializable {
      */
     public void setSuperordinateJRKEntitaet(JRKEntitaet superordinateJRKEntitaet) {
         this.superordinateJRKEntitaet = superordinateJRKEntitaet;
-    }
-
-    /**
-     * Getter
-     *
-     * @return
-     */
-    public List<JRKEntitaet> getSubordinateJRKEntitaet() {
-        return subordinateJRKEntitaet;
-    }
-
-    /**
-     * Setter
-     *
-     * @param subordinateJRKEntitaet
-     */
-    public void setSubordinateJRKEntitaet(List<JRKEntitaet> subordinateJRKEntitaet) {
-        this.subordinateJRKEntitaet = subordinateJRKEntitaet;
-    }
-
-    /**
-     * add a subordinate entity
-     *
-     * @param newJRK
-     */
-    public void addJRKEntitaet(JRKEntitaet newJRK) {
-        if (!this.subordinateJRKEntitaet.contains(newJRK)) {
-            this.subordinateJRKEntitaet.add(newJRK);
-            newJRK.setSuperordinateJRKEntitaet(this);
-        }
-    }
-
-    /**
-     * remove a subordinate entity
-     *
-     * @param old
-     */
-    public void removeJRKEntitaet(JRKEntitaet old) {
-        if (this.subordinateJRKEntitaet.contains(old)) {
-            this.subordinateJRKEntitaet.remove(old);
-            old.setSuperordinateJRKEntitaet(this);
-        }
     }
 
     /**

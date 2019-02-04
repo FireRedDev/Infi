@@ -285,7 +285,7 @@ public class Repository {
     private List<Termin> termineLayerUp(JRKEntitaet jrk, List<Termin> termine) {
         List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerUp", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
         //Does List exist and is it filled
-        if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
+        if (jrkentitaet != null && !jrkentitaet.isEmpty()&&jrkentitaet.get(0)!=null) {
             //Go through all entitys
             for (JRKEntitaet entity : jrkentitaet) {
                 //Prepare Termin List, check for duplicates
@@ -327,7 +327,7 @@ public class Repository {
      */
     private List<Info> infoLayerUp(JRKEntitaet jrk, List<Info> info) {
         List<JRKEntitaet> jrkentitaet = em.createNamedQuery("JRKEntitaet.layerUp", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
-        if (jrkentitaet != null && !jrkentitaet.isEmpty()) {
+        if (jrkentitaet != null && !jrkentitaet.isEmpty() &&jrkentitaet.get(0)!=null) {
             for (JRKEntitaet entity : jrkentitaet) {
                 addListInfo(info, entity.getInfo());
                 List<Info> term = infoLayerUp(entity, info);
@@ -713,9 +713,10 @@ public class Repository {
         em.clear();
         String password = p.getPassword();
         p = em.find(Person.class, p.getId());
+        em.getTransaction().begin();
         p.setPassword(password);
         p.setPasswordChanged(true);
-
+        em.getTransaction().commit();
         em.persist(p);
 
     }
@@ -762,7 +763,7 @@ public class Repository {
         List<JRKEntitaet> jrks = em.createNamedQuery("JRKEntitaet.layerDown", JRKEntitaet.class).setParameter("jrkentitaet", jrk).getResultList();
         List<Person> pers = new LinkedList<>();
         for (JRKEntitaet j : jrks) {
-            List<Person> p = em.createNamedQuery("Benutzer.byjrkEntitaet", Person.class).setParameter("id", j).getResultList();
+            List<Person> p = em.createNamedQuery("Benutzer.byjrkEntitaet", Person.class).setParameter("id", j.getId()).getResultList();
             this.addListPerson(pers, p);
         }
         return pers;

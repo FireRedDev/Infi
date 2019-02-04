@@ -90,7 +90,7 @@ public class HttpServer_JavaSE {
         sattledttermin.setImgpath("assets/Logo.png");
         sattledt1.addTermin(sattledttermin);
 
-        Termin welstermin = new Termin("2019-02-15 15:30:00", "2019 -02-15 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Wels");
+        Termin welstermin = new Termin("2019-02-15 15:30:00", "2019-02-15 17:30:00", "Gruppenstunde", "Gruppenstunde mit Schwerpunkt Erste-Hilfe", "Dienststelle Wels");
         welstermin.setDoko(new Dokumentation(kinder, betreuer, "basteln", 2.0, "EH"));
         welstermin.setImgpath("assets/Logo.png");
         wels.addTermin(welstermin);
