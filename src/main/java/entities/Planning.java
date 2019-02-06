@@ -15,7 +15,7 @@ import javax.persistence.Id;
  * Preparation for a Group Activity, contains WYIWYG Text Field String to
  * prepare.
  *
- * @author isi
+ *
  */
 @Entity
 public class Planning implements Serializable {

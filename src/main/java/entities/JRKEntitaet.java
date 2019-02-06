@@ -14,7 +14,7 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
  * property. Each JRKEntitaet has a list of its (personal) appointments and news
  * articles. Each also has a relationship to its higher and lower ranking entity
  *
- * @author Christopher G
+ * 
  */
 @Entity
 @NamedQueries({
@@ -35,11 +35,9 @@ public class JRKEntitaet implements Serializable {
     private String ort;
     private JRKEntitaetType typ;
     //each JRKENTITÄT has its own list of Termine and info
-    //@CascadeOnDelete
     @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
     //group appointments
     private List<Termin> termine = new LinkedList<Termin>();
-    //@CascadeOnDelete
     @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
     //group news
     private List<Info> info = new LinkedList<Info>();

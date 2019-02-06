@@ -54,6 +54,19 @@ public class Dokumentation implements Serializable {
         this.kategorie = kategorie;
     }
 
+    /**
+     * Constructor
+     *
+     * @param kinderliste
+     * @param betreuer
+     * @param taetigkeiten
+     * @param vzeit
+     * @param kategorie
+     * @param erkenntnisse
+     * @param spiele
+     * @param materialien
+     * @param inhalt
+     */
     public Dokumentation(String[] kinderliste, String[] betreuer, String taetigkeiten, double vzeit, String kategorie, String erkenntnisse, String spiele, String materialien, String inhalt) {
         this.kinderliste = kinderliste;
         this.betreuer = betreuer;
@@ -165,34 +178,74 @@ public class Dokumentation implements Serializable {
         this.kategorie = kategorie;
     }
 
+    /**
+     * Getter
+     *
+     * @return
+     */
     public String getErkenntnisse() {
         return erkenntnisse;
     }
 
+    /**
+     * Setter
+     *
+     * @param erkenntnisse
+     */
     public void setErkenntnisse(String erkenntnisse) {
         this.erkenntnisse = erkenntnisse;
     }
 
+    /**
+     * Getter
+     *
+     * @return
+     */
     public String getSpiele() {
         return spiele;
     }
 
+    /**
+     * Setter
+     *
+     * @param spiele
+     */
     public void setSpiele(String spiele) {
         this.spiele = spiele;
     }
 
+    /**
+     * Getter
+     *
+     * @return
+     */
     public String getMaterialien() {
         return materialien;
     }
 
+    /**
+     * Setter
+     *
+     * @param materialien
+     */
     public void setMaterialien(String materialien) {
         this.materialien = materialien;
     }
 
+    /**
+     * Getter
+     *
+     * @return
+     */
     public String getInhalt() {
         return inhalt;
     }
 
+    /**
+     * Setter
+     *
+     * @param inhalt
+     */
     public void setInhalt(String inhalt) {
         this.inhalt = inhalt;
     }

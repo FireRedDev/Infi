@@ -11,7 +11,7 @@ import javax.persistence.*;
  * A Person(Kind,Leiter,..) that is also a User in our System, with Password and
  * Username, mail adress and a Role used for checking permissions.
  *
- * @author Christopher G
+ *
  */
 @Entity
 @NamedQueries({
@@ -278,6 +278,7 @@ public class Person implements Serializable {
         this.fcmtoken = fcmtoken;
     }
 
+    //hashCode
     @Override
     public int hashCode() {
         int hash = 5;
@@ -291,6 +292,7 @@ public class Person implements Serializable {
         return hash;
     }
 
+    //equals
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

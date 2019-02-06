@@ -26,7 +26,7 @@ import repository.*;
  * Blocks Unauthorized Access of Rest Methods ,extracts Roles and covers
  * authorization checks, adds cors headers
  *
- * @author Christopher G
+ * 
  */
 @Secured
 @Provider
