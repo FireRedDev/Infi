@@ -13,4 +13,6 @@ npm install
 
 ng serve --open
 
+ng build --prod&&firebase deploy
+
 CORS Plugin einschalten https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi

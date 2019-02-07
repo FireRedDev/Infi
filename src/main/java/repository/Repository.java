@@ -801,8 +801,10 @@ public class Repository {
         Termin termin = em.find(Termin.class, id);
         termin.setPlanning(p);
 
-        insert(p);
-        insert(termin);
+        em.getTransaction().begin();
+        em.persist(p);
+        em.merge(termin);
+        em.getTransaction().commit();
     }
 
     /**
