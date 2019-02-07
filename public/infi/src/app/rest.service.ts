@@ -9,6 +9,7 @@ import { ToastrService } from "ngx-toastr";
 export class RestService {
 
   private url = "http://localhost:8080/api/service/";
+  //private url = "http://vm70.htl-leonding.ac.at:8080/api/service/"
   getPersonenstunden(body): any {
     return this.http.post(
       this.url + "getPersonenstunden",
