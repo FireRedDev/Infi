@@ -4,7 +4,7 @@ package entities;
  * Each User in the JRotKreuz has a Role like KIND, GRUPPENLEITER, .. Is used
  * for checking Permissions
  *
- * @author Christopher G
+ * 
  */
 public enum Role {
 

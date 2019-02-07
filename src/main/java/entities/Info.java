@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
  * Contains information for a Post on the Newsfeed. A Post has a heading,
  * content, a publishing date and a thumbnail/a gallery
  *
- * @author isi
+ * 
  */
 @Entity
 public class Info {
@@ -25,6 +25,7 @@ public class Info {
     //array of urls to images used in info blog posts
     private String[] mediapath;
     private String datum;
+    
     /**
      * Default Constructor
      */

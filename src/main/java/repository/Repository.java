@@ -19,7 +19,7 @@ import service.Service;
 /**
  * Repository managing Database, Statistics, Token Generation
  *
- * @author Christopher G
+ *
  */
 public class Repository {
 

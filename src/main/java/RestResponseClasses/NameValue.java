@@ -3,7 +3,7 @@ package RestResponseClasses;
 /**
  * Has the Property Name and Value, basically a NameValuePair, used for Rest
  *
- * @author Christopher G
+ * 
  */
 public class NameValue {
 

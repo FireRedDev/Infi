@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 /**
  * Singleton used to get the Entity Manager of this Project, prevents Errors
  *
- * @author Christopher G
+ *
  */
 public class EntityManagerSingleton {
 

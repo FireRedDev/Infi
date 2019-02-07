@@ -3,7 +3,7 @@ package entities;
 /**
  * Type of the Organisation, like a Gruppe and/or its organisational level
  *
- * @author Christopher G
+ *
  */
 public enum JRKEntitaetType {
 

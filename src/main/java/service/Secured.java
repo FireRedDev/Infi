@@ -12,7 +12,7 @@ import javax.ws.rs.NameBinding;
  * Security Annotation that makes AuthFilter block a Rest Method or check if the
  * Persons Role permitts access
  *
- * @author Christopher G
+ *
  */
 @NameBinding
 @Retention(RUNTIME)

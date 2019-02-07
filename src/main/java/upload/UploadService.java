@@ -7,7 +7,7 @@ import org.glassfish.grizzly.http.util.HttpStatus;
 /**
  * Service for the Image-Upload
  *
- * @author isi
+ * 
  */
 public class UploadService extends HttpHandler {
     //Basepath

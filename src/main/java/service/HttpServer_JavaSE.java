@@ -17,7 +17,7 @@ import upload.UploadService;
 /**
  * Grizzly Server Main Class, Initializes Project
  *
- * @author Christopher G
+ *
  */
 public class HttpServer_JavaSE {
 
